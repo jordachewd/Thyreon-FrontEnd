@@ -1,6 +1,9 @@
 # WPGuard
-WordPress Maintenance Made Easy
+_WordPress Maintenance Made Easy_
  
+>Keep your WordPress site secure and up-to-date with automated maintenance amoring.
+
+:point_right: [See it in action](https://wpguard.vercel.app/)
 
 <hr />
 
