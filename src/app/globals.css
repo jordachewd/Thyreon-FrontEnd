@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* WPGuard App Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  body {
+    @apply scroll-smooth antialiased bg-vanilla-400 dark:bg-midnight-800;
+    @apply pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
+  }
+}
+
+/*  all media elements set to block and full width */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  @apply block max-w-full;
+}
+
+/* reset heading style */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  @apply transition-all ease-in text-[color:--mui-palette-text-secondary]
+  hover:text-midnight-400 dark:hover:text-vanilla-400;
+}

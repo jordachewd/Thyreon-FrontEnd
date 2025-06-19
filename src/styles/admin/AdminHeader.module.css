@@ -1,0 +1,19 @@
+.section {
+  @apply flex w-full sticky top-0 left-0 right-0 p-4 z-20;
+  @apply transition-all duration-500 ease-in-out border-b;
+  @apply dark:border-midnight-600 border-vanilla-300;
+  @apply dark:bg-midnight-700 bg-vanilla-200;
+}
+
+.content {
+  @apply flex justify-between items-center w-full gap-4 mx-auto;
+}
+
+.left,
+.right {
+  @apply flex items-center gap-4;
+}
+
+.right {
+  @apply ml-auto;
+}

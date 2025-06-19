@@ -1,0 +1,46 @@
+.wrapper {
+  @apply fixed top-0 left-0 z-20 h-dvh w-[220px] flex flex-col overflow-hidden;
+  @apply transition-all duration-500 ease-in-out border-r lg:static lg:translate-x-0;
+  @apply dark:border-midnight-600 dark:bg-midnight-800;
+  @apply border-vanilla-300 bg-vanilla-100;
+}
+
+.navOpen {
+  @apply translate-x-0 lg:w-[58px];
+}
+
+.logo {
+  @apply flex p-4 mb-4 items-center border-b w-full;
+  @apply dark:bg-midnight-700 bg-vanilla-200;
+  @apply border-vanilla-300 dark:border-midnight-600;
+  @apply transition-all duration-500 ease-in-out relative;
+}
+
+.logoSymbol {
+  @apply flex w-6 h-7 items-center justify-center;
+}
+
+.logoText{
+  @apply fixed ml-10;
+}
+
+.linkItem {
+  @apply flex items-center relative;
+}
+
+.linkIcon{
+  @apply flex text-lg w-6 h-6 items-center justify-center;
+}
+
+.linkLabel {
+  @apply font-medium fixed ml-10;
+  @apply transition-all duration-500 ease-in-out;
+}
+
+.navigation {
+  @apply flex flex-col p-4 gap-4;
+}
+
+.navItemOff {
+  @apply opacity-0 pointer-events-none;
+}

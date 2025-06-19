@@ -1,0 +1,3 @@
+.wrapper {
+  @apply flex h-dvh w-full flex-row overflow-hidden;
+}

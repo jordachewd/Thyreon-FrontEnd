@@ -1,0 +1,22 @@
+export const dummyUser = {
+  _id: "60f7a3b91c1f4a1a9c8e1234",
+  clerkId: "user_abc123xyz",
+  username: "fixguru",
+  email: "fixguru@example.com",
+  role: "admin",
+  registerAt: new Date("2024-11-03T10:15:00Z"),
+  firstName: "Jordan",
+  lastName: "Smith",
+  updatedAt: new Date("2025-05-20T14:45:00Z"),
+  userimg: "https://cdn.example.com/avatars/jordan-smith.png",
+  plan: {
+    id: "plan_premium_001",
+    name: "Premium",
+    amount: 2999,
+    billing: "Monthly",
+    startedOn: new Date("2025-05-01T00:00:00Z"),
+    expiresOn: new Date("2025-06-01T00:00:00Z"),
+    stripeId: "sub_1NX123XYZ456",
+  },
+  __v: 0,
+};
