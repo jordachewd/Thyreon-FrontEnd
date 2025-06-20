@@ -28,8 +28,7 @@ export default function Header() {
     <section className={`${css.section} ${scrolled && css.scrolled}`}>
       <div className={css.content}>
         <div className={css.left}>
-          <Logo symbol width={24} height={24} />
-          <Logo />
+          <Logo fullLogo />
         </div>
         <div className={css.right}>
           <SignedIn>

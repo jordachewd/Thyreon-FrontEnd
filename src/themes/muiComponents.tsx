@@ -75,21 +75,25 @@ export const muiComponents: ThemeOptions = {
             display: "none",
           },
         },
+        input: {
+          fontSize: ".875rem",
+          padding: "0.25rem 0.35rem!important",
+        },
       },
     },
-    MuiInput: {
+
+    MuiInputLabel: {
       styleOverrides: {
-        input: {
+        root: {
+          fontSize: ".875rem",
           lineHeight: 1,
-          fontSize: ".75rem",
-          color: "var(--mui-palette-text-primary)",
-          "&::placeholder": {
-            fontSize: ".75rem",
-            color: "var(--mui-palette-text-secondary)",
+          "&.Mui-focused": {
+            color: "var(--mui-palette-action-active)",
           },
         },
       },
     },
+
     MuiAvatar: {
       styleOverrides: {
         root: {

@@ -10,10 +10,16 @@
 }
 
 .left,
+.center,
 .right {
   @apply flex items-center gap-4;
 }
 
-.right {
-  @apply ml-auto;
+.center {
+  @apply lg:hidden;
+}
+
+.search,
+.theme {
+  @apply hidden lg:flex;
 }

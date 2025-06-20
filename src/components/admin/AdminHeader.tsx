@@ -5,6 +5,8 @@ import ToggleTheme from "@/components/shared/ToggleTheme";
 import AvatarMenu from "@/components/shared/AvatarMenu";
 import SidebarToggle from "../shared/SidebarToggle";
 import { useAdminContext } from "@/context/AdminContext";
+import TextField from "@mui/material/TextField";
+import Logo from "../shared/Logo";
 
 export default function AdminHeader() {
   const { sidebarCtx } = useAdminContext();
@@ -19,10 +21,18 @@ export default function AdminHeader() {
             title={`${isNavOpen ? "Show menu" : "Hide menu"}`}
             toggleSidebar={updateSb}
           />
-          <div>Search ...</div>
+          <div className={css.search}>
+            <TextField id="standard-basic" label="Search ..." size="small" />
+          </div>
         </div>
+        <div className={css.center}>
+          <Logo href="/dashboard" fullLogo />
+        </div>
+
         <div className={css.right}>
-          <ToggleTheme />
+          <div className={css.theme}>
+            <ToggleTheme />
+          </div>
           <AvatarMenu />
         </div>
       </div>

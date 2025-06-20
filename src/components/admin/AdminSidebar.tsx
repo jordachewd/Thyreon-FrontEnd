@@ -5,10 +5,14 @@ import Logo from "../shared/Logo";
 import css from "@/styles/admin/AdminSidebar.module.css";
 import { useAdminContext } from "@/context/AdminContext";
 import sidebarNavItems from "@/constants/sidebar-nav.const";
+import SidebarToggle from "../shared/SidebarToggle";
+import ToggleTheme from "../shared/ToggleTheme";
+import TextField from "@mui/material/TextField";
+import { TooltipArrow } from "../shared/TooltipArrow";
 
 export default function AdminSidebar() {
   const { sidebarCtx } = useAdminContext();
-  const isNavOpen = sidebarCtx.isNavOpen;
+  const { isNavOpen, updateSb } = sidebarCtx;
 
   return (
     <aside
@@ -17,20 +21,43 @@ export default function AdminSidebar() {
     >
       <div className={css.logo}>
         <div className={css.logoSymbol}>
-          <Logo href="/dashboard" symbol width={24} height={24} />
+          <Logo href="/dashboard" symbol />
         </div>
-        <div className={`${css.logoText} ${isNavOpen && css.navTextOff}`}>
-          <Logo href="/dashboard" />
+        <div className={`${css.logoText}`}>
+          <Logo
+            href="/dashboard"
+            className={`${isNavOpen && css.navItemOff}`}
+          />
         </div>
+
+        <div className={css.toggleButton}>
+          <SidebarToggle
+            icon="bi-x-lg"
+            title={`${isNavOpen ? "Show menu" : "Hide menu"}`}
+            toggleSidebar={updateSb}
+          />
+        </div>
+      </div>
+
+      <div className={css.search}>
+        <TextField
+          id="standard-basic"
+          label="Search ..."
+          size="small"
+          sx={{
+            width: "100%",
+          }}
+        />
       </div>
 
       <nav className={css.navigation}>
         {sidebarNavItems.map((item) => (
           <Link key={item.id} href={item.href} className={css.linkItem}>
-
-            <span className={css.linkIcon}>
-              <i className={`bi ${item.icon}`}></i>
-            </span>
+            <TooltipArrow title={item.label} placement="right">
+              <span className={css.linkIcon}>
+                <i className={`bi ${item.icon}`}></i>
+              </span>
+            </TooltipArrow>
 
             <span className={`${css.linkLabel} ${isNavOpen && css.navItemOff}`}>
               {item.label}
@@ -38,6 +65,9 @@ export default function AdminSidebar() {
           </Link>
         ))}
       </nav>
+      <div className={css.footer}>
+        <ToggleTheme />
+      </div>
     </aside>
   );
 }
