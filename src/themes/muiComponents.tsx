@@ -23,26 +23,27 @@ export const muiComponents: ThemeOptions = {
         text: {
           lineHeight: 1,
           padding: "5px 15px",
-          color: "var(--mui-palette-secondary-main)",
+          color: "var(--mui-palette-action-active)",
           "&:hover": {
-            color: "var(--mui-palette-secondary-dark)!important",
+            color: "var(--mui-palette-action-hover)!important",
           },
         },
         outlined: {
-          borderColor: "var(--mui-palette-secondary-main)",
-          color: "var(--mui-palette-secondary-main)",
+          borderColor: "var(--mui-palette-action-active)",
+          color: "var(--mui-palette-action-active)",
           "&:hover": {
-            borderColor: "var(--mui-palette-secondary-dark)",
-            color: "var(--mui-palette-secondary-dark)!important",
+            borderColor: "var(--mui-palette-action-hover)",
+            color: "var(--mui-palette-action-hover)!important",
           },
         },
         contained: {
-          color: "var(--mui-palette-primary-main)",
-          backgroundColor: "var(--mui-palette-secondary-main)",
+          color: "var(--mui-palette-common-white)",
+          backgroundColor: "var(--mui-palette-action-active)",
           boxShadow:
             "0px 1px 4px 0px rgba(var(--mui-palette-secondary-mainChannel) / 0.3)",
           "&:hover": {
-            color: "var(--mui-palette-primary-dark)!important",
+            color: "var(--mui-palette-common-white)!important",
+            backgroundColor: "var(--mui-palette-action-hover)",
           },
         },
         sizeSmall: {
@@ -160,7 +161,7 @@ export const muiComponents: ThemeOptions = {
     },
     MuiMenuItem: {
       styleOverrides: {
-        root: ({ theme }) => ({
+        root: ({}) => ({
           fontSize: ".875rem",
           padding: ".5rem 1.25rem",
           transition: "all 0.35s ease-in-out",

@@ -1,28 +1,28 @@
-.hero {
-  @apply flex w-full justify-between items-center pt-14 px-8;
-  @apply bg-vanilla-400 dark:bg-midnight-500 shadow-sm;
+.section {
+  @apply flex w-full justify-between items-center pt-14 px-4;
+  @apply bg-vanilla-200 dark:bg-midnight-700 shadow-sm;
 }
 
-.heroContent {
+.content {
   @apply flex flex-col lg:flex-row justify-between mt-12;
   @apply lg:gap-40 lg:mt-0 mx-auto max-w-screen-2xl items-center;
 }
 
-.heroLeft,
-.heroRight {
+.left,
+.right {
   @apply flex w-full lg:w-1/2 relative;
 }
 
-.heroLeft {
+.left {
   @apply flex-col gap-12 items-center lg:items-start text-center lg:text-left;
 }
 
-.heroRight {
-  @apply relative overflow-hidden self-end flex justify-center;
+.right {
+  @apply relative self-end flex justify-center;
   @apply sm:min-h-[500px] xl:min-h-[600px] xxl:min-h-[700px];
 }
 
-.heroShadow {
+.shadow {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   @apply w-[50%] h-[50%] z-0 rounded-full;
   @apply bg-vanilla-600 dark:bg-midnight-300 blur-3xl;

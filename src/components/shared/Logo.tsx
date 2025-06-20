@@ -15,7 +15,9 @@ export default function Logo({
   href = "/",
   className: styles = "",
   symbol = false,
-  color = "var(--mui-palette-text-primary)",
+  color = symbol
+    ? "var(--mui-palette-action-active)"
+    : "var(--mui-palette-text-primary)",
 }: LogoProps) {
   return (
     <Link href={href} className={styles}>

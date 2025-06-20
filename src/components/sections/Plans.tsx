@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { Plan } from "@/types/PlanData.d";
 import { UserData } from "@/types/UserData.d";
-import PageHead from "../front/PageHead";
+import PageHead from "../shared/PageHead";
 import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "../shared/LoadingBubbles";
 
@@ -42,48 +42,50 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
 
   return (
     <div className={css.section}>
-      <PageHead
-        title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}
-        subtitle="Select the plan that suits your needs!"
-      >
-        <div className={css.switch}>
-          <p className={cssMonthly}>Monthly</p>
-          <Switch
-            checked={yearly}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-          />
-          <p className={cssYearly}>Yearly</p>
-          <span className={css.bubble}>Save {save * 100}%</span>
-        </div>
-      </PageHead>
-
-      <div className={css.plans}>
-        {plans.map((plan: Plan) => {
-          return (
-            <PlanCard
-              key={plan.id}
-              plan={plan}
-              yearly={yearly}
-              userData={userData}
-              save={save}
+      <div className={css.content}>
+        <PageHead
+          title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}
+          subtitle="Select the plan that suits your needs."
+        >
+          <div className={css.switch}>
+            <p className={cssMonthly}>Monthly</p>
+            <Switch
+              checked={yearly}
+              onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
             />
-          );
-        })}
-      </div>
+            <p className={cssYearly}>Yearly</p>
+            <span className={css.bubble}>Save {save * 100}%</span>
+          </div>
+        </PageHead>
 
-      {!isSignedIn && (
-        <div className={css.planActions}>
-          <Button
-            size="large"
-            variant="outlined"
-            href="/sign-up"
-            sx={{ minWidth: 280, marginTop: "1rem" }}
-          >
-            Subscribe Now
-          </Button>
+        <div className={css.plans}>
+          {plans.map((plan: Plan) => {
+            return (
+              <PlanCard
+                key={plan.id}
+                plan={plan}
+                yearly={yearly}
+                userData={userData}
+                save={save}
+              />
+            );
+          })}
         </div>
-      )}
+
+        {!isSignedIn && (
+          <div className={css.planActions}>
+            <Button
+              size="large"
+              variant="contained"
+              href="/sign-up"
+              sx={{ minWidth: 280, marginTop: "1rem" }}
+            >
+              Subscribe Now
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

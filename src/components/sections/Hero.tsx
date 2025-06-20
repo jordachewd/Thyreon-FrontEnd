@@ -4,9 +4,9 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className={css.hero}>
-      <div className={css.heroContent}>
-        <div className={css.heroLeft}>
+    <div className={css.section}>
+      <div className={css.content}>
+        <div className={css.left}>
           <Typography variant="h2">WordPress Maintenance Made Easy</Typography>
 
           <Typography variant="h6">
@@ -16,7 +16,7 @@ export default function Hero() {
 
           <Button
             size="large"
-            variant="outlined"
+            variant="contained"
             href="/sign-up"
             sx={{ minWidth: 300 }}
           >
@@ -24,7 +24,7 @@ export default function Hero() {
           </Button>
         </div>
 
-        <div className={css.heroRight}>
+        <div className={css.right}>
           <Image
             src="/images/wpguard-lp-hero.png"
             alt="hero"
@@ -34,7 +34,7 @@ export default function Hero() {
             className="z-10"
           />
 
-          <div className={css.heroShadow}>&nbsp;</div>
+          <div className={css.shadow}>&nbsp;</div>
         </div>
       </div>
     </div>

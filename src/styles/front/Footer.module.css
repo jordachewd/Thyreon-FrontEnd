@@ -1,6 +1,6 @@
 .section {
-  @apply flex w-full justify-between items-center px-4 z-20;
-  @apply border-t bg-vanilla-200 dark:bg-midnight-900 border-vanilla-300 dark:border-midnight-700;
+  @apply flex w-full justify-between items-center px-4 z-20 border-t;
+  @apply bg-vanilla-300  border-vanilla-400 dark:bg-midnight-900 dark:border-midnight-700;
 }
 
 .content {

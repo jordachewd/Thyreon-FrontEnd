@@ -1,6 +1,6 @@
 import css from "@/styles/sections/ProfileHero.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import PageHead from "@/components/front/PageHead";
+import PageHead from "@/components/shared/PageHead";
 import { Typography, Avatar } from "@mui/material";
 import { UserData } from "@/types/UserData.d";
 import getFullName, { getNameLetters } from "@/lib/utils/getFullName";

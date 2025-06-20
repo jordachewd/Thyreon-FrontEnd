@@ -9,8 +9,9 @@ export const muiPaletteDark: ThemeOptions = {
       main: "#F0E7D5", // Vanilla Cream
     },
     action: {
-      active: "#F0E7D5", // Vanilla Cream (same as secondary)
-      hover: "#bdb6a6", // Slightly darker cream (for subtle hover contrast)
+      active: "#37b02b", // Leaf Green 400
+      hover: "#24871f", // Leaf Green 600
+      disabled: "#b9eab7", // Leaf Green 200
     },
     background: {
       default: "#060a15", // Midnight Indigo 900

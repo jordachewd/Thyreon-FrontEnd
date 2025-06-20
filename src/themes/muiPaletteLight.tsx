@@ -9,9 +9,9 @@ export const muiPaletteLight: ThemeOptions = {
       main: "#212842", // Midnight Indigo
     },
     action: {
-      active: "#212842", // Midnight Indigo
-      hover: "#3a456f", // Lighter indigo tone for hover
-      disabled: "#c9c4ba", // Muted cream-gray for disabled UI
+      active: "#37b02b", // Leaf Green 400
+      hover: "#24871f", // Leaf Green 600
+      disabled: "#b9eab7", // Leaf Green 200
     },
     background: {
       default: "#fffdf9", // Vanilla Cream 100

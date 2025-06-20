@@ -1,0 +1,24 @@
+.section {
+  @apply flex flex-col w-full p-4;
+}
+
+.content {
+  @apply flex flex-col items-center justify-between;
+  @apply w-full max-w-6xl mx-auto my-14 gap-12;
+}
+
+.head {
+  @apply flex flex-col justify-center items-center;
+}
+
+.features {
+  @apply flex flex-col w-full justify-between gap-8 lg:gap-16 md:flex-row;
+}
+
+.feature {
+  @apply flex flex-1 flex-col items-center gap-6;
+}
+
+.icon {
+  @apply text-7xl text-leafGreen-400;
+}

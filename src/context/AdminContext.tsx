@@ -25,7 +25,6 @@ interface AdminCtxProviderProps {
 
 export function AdminContextProvider({ children }: AdminCtxProviderProps) {
   const [openNav, setOpenNav] = useState<boolean>(false);
-  const [scrolled, setScrolled] = useState<boolean>(false);
 
   const context: AdminContextType = {
     sidebarCtx: {

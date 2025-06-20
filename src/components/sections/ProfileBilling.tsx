@@ -4,6 +4,7 @@ import { Typography } from "@mui/material";
 import { Transaction } from "@/types/TransactionData.d";
 import { TooltipArrow } from "../shared/TooltipArrow";
 import { generateString } from "@/lib/utils/generateString";
+import PageHead from "../shared/PageHead";
 
 interface BillingProps {
   stripeId: string | null;
@@ -14,7 +15,10 @@ export default function ProfileBilling({ stripeId, userTxns }: BillingProps) {
   return (
     <section className={css.section}>
       <div className={css.head}>
-        <Typography variant="h4">Billing History</Typography>
+        <PageHead
+          title="Billing History"
+          subtitle="View your billing history and manage your subscriptions."
+        />
       </div>
 
       {userTxns && userTxns.length > 0 ? (

@@ -1,5 +1,11 @@
 .section {
-  @apply flex flex-col w-full max-w-6xl mx-auto p-4 gap-6;
+  @apply flex flex-col w-full mx-auto p-4 gap-6;
+  @apply bg-vanilla-200 dark:bg-midnight-700;
+}
+
+.content {
+  @apply flex flex-col items-center justify-between;
+  @apply w-full max-w-6xl mx-auto my-10;
 }
 
 .switch {
