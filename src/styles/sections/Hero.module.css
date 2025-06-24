@@ -15,10 +15,11 @@
 
 .left {
   @apply flex-col gap-12 items-center lg:items-start text-center lg:text-left;
+  @apply order-2 lg:order-1;
 }
 
 .right {
-  @apply relative self-end flex justify-center;
+  @apply relative self-end flex justify-center order-1 lg:order-2;
   @apply sm:min-h-[500px] xl:min-h-[600px] xxl:min-h-[700px];
 }
 
