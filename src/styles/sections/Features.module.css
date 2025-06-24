@@ -12,11 +12,11 @@
 }
 
 .features {
-  @apply flex flex-col w-full justify-between gap-8 lg:gap-16 md:flex-row;
+  @apply flex flex-wrap w-full justify-between gap-16 lg:flex-row;
 }
 
 .feature {
-  @apply flex flex-1 flex-col items-center gap-6;
+  @apply flex md:w-2/5 lg:w-full lg:flex-1 flex-col items-center gap-6;
 }
 
 .icon {
