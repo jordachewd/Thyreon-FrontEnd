@@ -1,11 +1,11 @@
 "use client";
 import css from "@/styles/sections/Plans.module.css";
-import { plans } from "@/constants/plans";
+import { plans } from "@/constants/plans.const";
 import { Switch, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
-import { Plan } from "@/types/PlanData.d";
-import { UserData } from "@/types/UserData.d";
+import { Plan } from "@/types/plan-data.d";
+import { UserData } from "@/types/user-data.d";
 import PageHead from "../shared/PageHead";
 import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "../shared/LoadingBubbles";

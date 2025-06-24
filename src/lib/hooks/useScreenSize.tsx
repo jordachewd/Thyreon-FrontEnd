@@ -1,58 +1,80 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from "react";
 
 export type ScreenSize = {
   width: number;
   height: number;
+  breakpoint: string | null;
 };
 
-export type Breakpoints = {
-  sm: number;
-  md: number;
-  lg: number;
-  xl: number;
-};
-
-const breakpoints: Breakpoints = {
+const breakpoints = {
   sm: 640,
   md: 768,
   lg: 1024,
   xl: 1280,
 };
 
-const useScreenSize = () => {
-  const [screenSize, setScreenSize] = useState<ScreenSize>({ width: 0, height: 0 });
-  const [currentBreakpoint, setCurrentBreakpoint] = useState<string | null>(null);
+const getBreakpointName = (width: number): string | null => {
+  if (width <= breakpoints.sm) return "sm";
+  if (width <= breakpoints.md) return "md";
+  if (width <= breakpoints.lg) return "lg";
+  if (width <= breakpoints.xl) return "xl";
+  return "xxl";
+};
 
-  const getBreakpointName = useCallback((width: number): string | null => {
-    if (width <= breakpoints.sm) return "sm";
-    if (breakpoints.sm < width && width <= breakpoints.md) return "md";
-    if (breakpoints.md < width && width <= breakpoints.lg) return "lg";
-    if (breakpoints.lg < width && width <= breakpoints.xl) return "xl";
-    if (width > breakpoints.xl) return "xxl";
-    return null;
-  }, []);
+const useScreenSize = () => {
+  const [screen, setScreen] = useState<ScreenSize>({
+    width: 0,
+    height: 0,
+    breakpoint: null,
+  });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const updateScreenSize = () => {
-        const width = window.innerWidth;
-        setScreenSize({ width, height: window.innerHeight });
+    if (typeof window === "undefined") return;
 
-        const breakpoint = getBreakpointName(width);
-        setCurrentBreakpoint(breakpoint);
-      };
+    let frameId: number;
 
-      updateScreenSize();
+    const updateSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const breakpoint = getBreakpointName(width);
 
-      window.addEventListener("resize", updateScreenSize);
+      // Prevent unnecessary re-renders
+      setScreen((prev) => {
+        if (
+          prev.width === width &&
+          prev.height === height &&
+          prev.breakpoint === breakpoint
+        ) {
+          return prev;
+        }
+        return { width, height, breakpoint };
+      });
+    };
 
-      return () => {
-        window.removeEventListener("resize", updateScreenSize);
-      };
-    }
-  }, [getBreakpointName]);
+    const onResize = () => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(updateSize);
+    };
 
-  return { screenSize, currentBreakpoint };
+    updateSize();
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  return screen;
 };
 
 export default useScreenSize;
+
+/** USAGE **
+ *
+ * const { width, height, breakpoint } = useScreenSize();
+ *  if (breakpoint === 'md') {
+ *    // Do something
+ * }
+ *
+ */

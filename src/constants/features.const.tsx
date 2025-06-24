@@ -1,4 +1,4 @@
-import AppFeatureItem from "@/types/feature-item.interface";
+import AppFeatureItem from "@/types/feature-item.d";
 
 const appFeatures: AppFeatureItem[] = [
   {

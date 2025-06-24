@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import css from "@/styles/sections/Faqs.module.css";
-import { faqs } from "@/constants/faqs";
+import { faqs } from "@/constants/faqs.const";
 import PageHead from "../shared/PageHead";
 
 export default function Faqs() {

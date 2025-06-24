@@ -1,10 +1,9 @@
 import ProfileBilling from "@/components/sections/ProfileBilling";
 import ProfileHero from "@/components/sections/ProfileHero";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { dummyUser } from "@/constants/dummy-user";
-
-import { Transaction } from "@/types/TransactionData.d";
-import { UserData } from "@/types/UserData.d";
+import { dummyUser } from "@/constants/dummy-user.const";
+import { Transaction } from "@/types/transaction-data.d";
+import { UserData } from "@/types/user-data.d";
 import { auth } from "@clerk/nextjs/server";
 
 export default async function ProfilePage() {

@@ -1,4 +1,4 @@
-import SidebarNavItem from "@/types/sidebar-nav.interface";
+import SidebarNavItem from "@/types/sidebar-nav.d";
 
 const sidebarNavItems: SidebarNavItem[] = [
   {

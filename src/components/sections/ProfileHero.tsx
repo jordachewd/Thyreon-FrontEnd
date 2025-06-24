@@ -2,8 +2,9 @@ import css from "@/styles/sections/ProfileHero.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import PageHead from "@/components/shared/PageHead";
 import { Typography, Avatar } from "@mui/material";
-import { UserData } from "@/types/UserData.d";
-import getFullName, { getNameLetters } from "@/lib/utils/getFullName";
+import { UserData } from "@/types/user-data.d";
+import getFullName from "@/lib/utils/getFullName";
+import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 
 interface HeroProps {
   userData: UserData;
@@ -29,7 +30,7 @@ export default function ProfileHero({ userData }: HeroProps) {
             alt={fullName}
             src={userData.userimg}
             sx={{ width: 80, height: 80 }}
-            {...getNameLetters(fullName)}
+            {...getAvatarInitials(fullName)}
           />
           <div className={css.heroImgContent}>
             <Typography variant="h4">{fullName}</Typography>

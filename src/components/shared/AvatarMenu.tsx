@@ -1,10 +1,11 @@
 "use client";
 import { IconButton, Avatar, Menu, MenuItem, Divider } from "@mui/material";
-import getFullName, { getNameLetters } from "@/lib/utils/getFullName";
+import getFullName from "@/lib/utils/getFullName";
 import { useState, MouseEvent } from "react";
 import { TooltipArrow } from "./TooltipArrow";
 import { useClerk, useUser } from "@clerk/clerk-react";
 import Link from "next/link";
+import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 
 export default function AvatarMenu() {
   const { user } = useUser();
@@ -12,7 +13,7 @@ export default function AvatarMenu() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElUser);
 
-  if (!user) return null;
+  if (!user) return;
 
   const { username, firstName, lastName, imageUrl } = user;
   const fullName = getFullName({
@@ -43,7 +44,7 @@ export default function AvatarMenu() {
             alt={fullName}
             src={imageUrl}
             sx={{ width: 28, height: 28 }}
-            {...getNameLetters(fullName)}
+            {...getAvatarInitials(fullName)}
           />
         </IconButton>
       </TooltipArrow>

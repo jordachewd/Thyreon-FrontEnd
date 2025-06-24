@@ -1,9 +1,9 @@
 import css from "@/styles/sections/ProfileBilling.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { Typography } from "@mui/material";
-import { Transaction } from "@/types/TransactionData.d";
+import { Transaction } from "@/types/transaction-data.d";
 import { TooltipArrow } from "../shared/TooltipArrow";
-import { generateString } from "@/lib/utils/generateString";
+import { getRandomString } from "@/lib/utils/getRandomString";
 import PageHead from "../shared/PageHead";
 
 interface BillingProps {
@@ -40,7 +40,7 @@ export default function ProfileBilling({ stripeId, userTxns }: BillingProps) {
             const txnColor =
               txn.stripeId === stripeId ? css.active : css.inactive;
             return (
-              <div key={txn.id + generateString(32)} className={css.tableRow}>
+              <div key={txn.id + getRandomString(32)} className={css.tableRow}>
                 ProfileBilling
                 <p className="flex-1 font-medium">{txn.plan}</p>
                 <p className="flex-1 font-medium text-center">

@@ -1,9 +1,9 @@
 import css from "@/styles/shared/PlanCard.module.css";
-import { getPlanStatus } from "@/lib/utils/getPlanStatus";
-import { Plan, PlanData, PlanStatus } from "@/types/PlanData.d";
+import { Plan, PlanData, PlanStatus } from "@/types/plan-data.d";
 import { Typography } from "@mui/material";
-import { UserData } from "@/types/UserData.d";
+import { UserData } from "@/types/user-data.d";
 import Checkout from "@/components/shared/Checkout";
+import { usePlanStatus } from "@/lib/hooks/usePlanStatus";
 
 interface PlanCardProps {
   plan: Plan;
@@ -29,7 +29,7 @@ export default function PlanCard({
       ? Math.round(plan.price * 12 * (1 - save))
       : plan.price;
 
-  const planStatus = getPlanStatus({
+  const planStatus = usePlanStatus({
     plan,
     planFee,
     yearly,

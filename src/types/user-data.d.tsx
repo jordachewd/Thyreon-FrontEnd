@@ -1,5 +1,5 @@
 // ====== USER Data Types
-import { PlanData } from "./PlanData.d";
+import { PlanData } from "./plan-data.d";
 
 export type UserRoles = "client" | "admin";
 

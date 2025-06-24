@@ -1,9 +1,8 @@
 import Faqs from "@/components/sections/Faqs";
 import Plans from "@/components/sections/Plans";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { dummyUser } from "@/constants/dummy-user";
-
-import { UserData } from "@/types/UserData.d";
+import { dummyUser } from "@/constants/dummy-user.const";
+import { UserData } from "@/types/user-data.d";
 import { auth } from "@clerk/nextjs/server";
 
 export default async function PlansPage() {
