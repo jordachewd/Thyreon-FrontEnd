@@ -7,23 +7,15 @@ import { auth } from "@clerk/nextjs/server";
 
 export default async function PlansPage() {
   const { userId } = await auth();
-  let userData: UserData | null = null;
-
-  if (userId) {
-    userData = dummyUser as UserData; 
-  }
 
   return (
     <>
-      {userData ? (
+      {!userId && <LoadingBubbles wrapped />}
+      {userId && (
         <>
-          <Plans userData={userData} hasLoader />
+          <Plans userData={dummyUser as UserData} hasLoader />
           <Faqs />
         </>
-      ) : (
-        <div className="flex justify-center items-center h-dvh">
-          <LoadingBubbles />
-        </div>
       )}
     </>
   );

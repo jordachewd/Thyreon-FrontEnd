@@ -20,15 +20,12 @@ export default async function ProfilePage() {
 
   return (
     <>
-      {userData ? (
+      {!userId && <LoadingBubbles wrapped />}
+      {userId && (
         <>
-          <ProfileHero userData={userData} />
+          <ProfileHero />
           <ProfileBilling stripeId={stripeId} userTxns={userTxns} />
         </>
-      ) : (
-        <div className="flex justify-center items-center h-dvh">
-          <LoadingBubbles />
-        </div>
       )}
     </>
   );

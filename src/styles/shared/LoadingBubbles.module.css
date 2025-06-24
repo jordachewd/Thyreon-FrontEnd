@@ -8,17 +8,17 @@
 }
 
 .bubble1 {
-  @apply dark:bg-midnight-400/60 bg-vanilla-600;
+  @apply bg-leafGreen-400;
 }
 
 .bubble2 {
-  @apply dark:bg-midnight-400/50 bg-vanilla-600 animate-delay-100;
+  @apply bg-leafGreen-400 animate-delay-100;
 }
 
 .bubble3 {
-  @apply dark:bg-midnight-400/40 bg-vanilla-600 animate-delay-200;
+  @apply bg-leafGreen-400 animate-delay-200;
 }
 
 .isWrapped {
-  @apply flex justify-center items-center h-dvh;
+  @apply flex justify-center items-center h-20 w-full;
 }

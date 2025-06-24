@@ -10,9 +10,9 @@ export default function LandingPage() {
     <section className={css.wrapper}>
       <Hero />
       <Features />
-      <HowItWorks />      
-      <Faqs />
+      <HowItWorks />
       <Plans />
+      <Faqs />
     </section>
   );
 }

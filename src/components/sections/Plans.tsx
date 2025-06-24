@@ -33,12 +33,7 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
   const cssMonthly = !yearly ? css.switched : "";
   const cssYearly = yearly ? css.switched : "";
 
-  if (hasLoader && !userData)
-    return (
-      <div className={css.loader}>
-        <LoadingBubbles />
-      </div>
-    );
+  if (hasLoader && !userData) return <LoadingBubbles wrapped />;
 
   return (
     <div className={css.section}>

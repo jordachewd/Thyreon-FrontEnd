@@ -1,15 +1,14 @@
 .section {
   @apply flex flex-col w-full mx-auto p-4 gap-6;
-  @apply bg-vanilla-100 dark:bg-midnight-900;
 }
 
 .content {
   @apply flex flex-col items-center justify-between;
-  @apply w-full max-w-6xl mx-auto my-10;
+  @apply w-full max-w-6xl mx-auto my-10 gap-3;
 }
 
 .switch {
-  @apply flex gap-2 items-center font-semibold text-xs;
+  @apply flex gap-2 items-center font-semibold text-xs justify-center;
 }
 
 .switch p {
