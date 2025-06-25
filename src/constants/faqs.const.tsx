@@ -1,48 +1,71 @@
 export const faqs = [
   {
     id: 0,
-    question: "How does WPGuard ensure the security of my personal information?",
+    question: "What is WP Guard and how does it work?",
     answer:
-      "WPGuard prioritizes the protection of your personal information. " +
-      "We implement advanced security protocols to safeguard your data. " +
-      "For comprehensive details, please review our Privacy Policy.",
+      "WP Guard is a WordPress maintenance platform that monitors your site 24/7, performs automated backups and updates," +
+      "and keeps it secure and optimized—without any manual work on your part.",
   },
   {
     id: 1,
-    question: "Who should I reach out to for assistance or inquiries?",
+    question: "What happens if my website goes down?",
     answer:
-      "For any questions or support needs, please contact our customer support team at [email address to be added soon].",
+      "If uptime monitoring detects downtime, you'll immediately get an email alert. " +
+      "With a Pro or Premium plan, we also log the event and provide context in your dashboard to help diagnose the cause.",
   },
   {
     id: 2,
-    question: "What is the process to cancel my subscription?",
+    question: "How do automatic updates work?",
     answer:
-      "You can cancel your subscription anytime through your account settings. " +
-      "For further information, please refer to WPGuard's Refund Policy.",
+      "Our agent plugin safely updates your WordPress core, plugins, and themes. " +
+      " It takes a snapshot before updating, and can alert you or roll back if something breaks.",
   },
   {
     id: 3,
-    question: "What subscription plans does WPGuard offer?",
+    question: "Is the Lite plan really free?",
     answer:
-      "WPGuard provides various subscription plans to meet your requirements. " +
-      "You can opt for either monthly or yearly plans based on your preference.",
+      "Yes. The Lite plan is free for one site, forever. " +
+      "It includes uptime monitoring and automatic updates so you can test WP Guard with no commitment.",
   },
   {
     id: 4,
-    question: "Is it possible to use WPGuard on multiple devices at the same time?",
-    answer: "Yes, WPGuard can be accessed on multiple devices simultaneously.",
+    question: "Where are backups stored and how secure are they?",
+    answer:
+      "Backups are encrypted and stored in a secure cloud location (AWS S3 or similar)." +
+      " You'll be able to download or restore them directly from your dashboard.",
   },
   {
     id: 5,
-    question: "How do I update my account information?",
+    question: "What does the AI Agent actually do in the Premium plan?",
     answer:
-      "To update your account information, navigate to the account settings section and make the necessary changes.",
+      "The AI Agent analyzes performance, security, and plugin behavior. " +
+      "It flags issues, offers actionable insights, and can even suggest or auto-apply certain fixes with your approval.",
   },
   {
     id: 6,
-    question: "Does WPGuard offer a free trial?",
+    question: "Can I use WP Guard on client websites?",
     answer:
-      "Yes, WPGuard offers a free trial period for new users. " +
-      "You can sign up and explore the features before committing to a subscription plan.",
+      "Yes. Our Pro and Premium plans support multiple sites, making them ideal " +
+      "for freelancers and agencies managing client WordPress installs.",
+  },
+  {
+    id: 7,
+    question: "What if I deactivate the WP Guard plugin?",
+    answer:
+      "If you uninstall or deactivate the plugin, your site will no longer receive updates, " +
+      "monitoring, or backups. You'll see it marked as “Inactive” in the dashboard.",
+  },
+  {
+    id: 8,
+    question: "Can I upgrade or downgrade my plan anytime?",
+    answer:
+      "Absolutely. You can change plans at any time from your account settings. Changes are prorated instantly.",
+  },
+  {
+    id: 9,
+    question: "Do you offer support for custom WordPress setups?",
+    answer:
+      "We support most standard WordPress environments. For complex or enterprise setups, " +
+      "our Premium plan includes direct support and custom recommendations.",
   },
 ];

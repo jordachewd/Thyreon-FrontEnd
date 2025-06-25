@@ -1,3 +1,5 @@
+"use client";
+
 import css from "@/styles/auth/AuthPage.module.css";
 import { SignUp } from "@clerk/nextjs";
 

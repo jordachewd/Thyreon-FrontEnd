@@ -5,39 +5,46 @@ export const plans = [
     id: 0,
     price: 0,
     name: "Lite" as PlanName,
-    desc: "Free trial for 3 days",
-    icon: "bi bi-clock-history",
+    desc: "Perfect for trying WP Care on one site. Includes basic automation to keep your site online and updated.",
     inclusions: [
       {
-        label: "Full AI model",
+        label: "1 website",
         isIncluded: true,
       },
       {
-        label: "Messaging and file uploads (limited)",
+        label: "Uptime Monitoring",
         isIncluded: true,
       },
       {
-        label: "Web browsing and data analysis (limited)",
+        label: "Automatic Updates",
         isIncluded: true,
       },
       {
-        label: "3 image and/or audio generation (limited)",
-        isIncluded: true,
-      },
-      {
-        label: "3 text to speach and/or voice inputs (limited)",
-        isIncluded: true,
-      },
-      {
-        label: "Secure and private",
-        isIncluded: true,
-      },
-      {
-        label: "Email support",
+        label: "Automatic Backups",
         isIncluded: false,
       },
       {
-        label: "Opportunities to test new features",
+        label: "Security Scanning",
+        isIncluded: false,
+      },
+      {
+        label: "Standard Email support",
+        isIncluded: false,
+      },
+      {
+        label: "Custom Maintenance Rules",
+        isIncluded: false,
+      },
+      {
+        label: "AI Agent: Site Health Analysis",
+        isIncluded: false,
+      },
+      {
+        label: "Pagespeed Optimization",
+        isIncluded: false,
+      },
+      {
+        label: "Smart Fix Suggestions",
         isIncluded: false,
       },
     ],
@@ -46,39 +53,46 @@ export const plans = [
     id: 1,
     price: 29,
     name: "Pro" as PlanName,
-    desc: "Best for personal projects",
-    icon: "bi bi-stars",
+    desc: "A complete maintenance suite for small teams or freelancers. Includes backups, scans, and standard support.",
     inclusions: [
       {
-        label: "Full AI model",
+        label: "Up to 5 websites",
         isIncluded: true,
       },
       {
-        label: "Messaging and file uploads (unlimited)",
+        label: "Uptime Monitoring",
         isIncluded: true,
       },
       {
-        label: "Web browsing and data analysis (unlimited)",
+        label: "Automatic Updates",
         isIncluded: true,
       },
       {
-        label: "20/Mo image and/or audio generation",
+        label: "Automatic Backups",
         isIncluded: true,
       },
       {
-        label: "20/Mo text to speach and/or voice inputs",
+        label: "Security Scanning",
         isIncluded: true,
       },
       {
-        label: "Secure and private",
+        label: "Standard Email support",
         isIncluded: true,
       },
       {
-        label: "Email support",
+        label: "Custom Maintenance Rules",
         isIncluded: true,
       },
       {
-        label: "Opportunities to test new features",
+        label: "AI Agent: Site Health Analysis",
+        isIncluded: false,
+      },
+      {
+        label: "Pagespeed Optimization",
+        isIncluded: false,
+      },
+      {
+        label: "Smart Fix Suggestions",
         isIncluded: false,
       },
     ],
@@ -87,39 +101,47 @@ export const plans = [
     id: 2,
     price: 69,
     name: "Premium" as PlanName,
-    desc: "Best for businesses",
-    icon: "bi bi-gem",
+    desc: "For serious site owners and agencies. Includes everything in Pro plus performance tuning, AI monitoring, and premium support.",
     inclusions: [
       {
-        label: "Multiple AI model selection",
+        label: "Unlimited websites",
         isIncluded: true,
       },
       {
-        label: "Messaging and file uploads (unlimited)",
+        label: "Uptime Monitoring",
         isIncluded: true,
       },
       {
-        label: "Web browsing and data analysis (unlimited)",
+        label: "Automatic Updates",
         isIncluded: true,
       },
       {
-        label: "Image and audio generation (unlimited)",
+        label: "Automatic Backups",
         isIncluded: true,
       },
       {
-        label: "Text to speach and voice inputs (unlimited)",
+        label: "Security Scanning",
         isIncluded: true,
       },
       {
-        label: "Secure and private",
+        label: "Priority Email support",
         isIncluded: true,
       },
       {
-        label: "Priority email support",
+        label: "Custom Maintenance Rules",
+        isIncluded: true,
+      },
+
+      {
+        label: "AI Agent: Site Health Analysis",
         isIncluded: true,
       },
       {
-        label: "Opportunities to test new features",
+        label: "Pagespeed Optimization",
+        isIncluded: true,
+      },
+      {
+        label: "Smart Fix Suggestions",
         isIncluded: true,
       },
     ],

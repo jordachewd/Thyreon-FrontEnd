@@ -12,7 +12,6 @@ export interface Plan {
   id: number;
   name: PlanName;
   desc: string;
-  icon: string;
   price: number;
   inclusions: Inclusion[];
 }

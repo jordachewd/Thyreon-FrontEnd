@@ -25,7 +25,7 @@ const appFeatures: AppFeatureItem[] = [
   {
     id: 3,
     icon: "bi bi-shield-check",
-    title: "Security Scaming",
+    title: "Security Scanning",
     description:
       "Regular security scans to detect vulnerabilities and protect your website from threats.",
   },

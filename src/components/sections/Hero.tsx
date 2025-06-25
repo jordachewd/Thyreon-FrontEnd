@@ -20,7 +20,7 @@ export default function Hero() {
             href="/sign-up"
             sx={{ minWidth: 300 }}
           >
-            Try it for free
+            Get Started
           </Button>
         </div>
 

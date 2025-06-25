@@ -1,7 +1,8 @@
 "use client";
 import css from "@/styles/sections/Plans.module.css";
 import { plans } from "@/constants/plans.const";
-import { Switch, Button } from "@mui/material";
+import Button from "@mui/material/Button";
+import Switch from "@mui/material/Switch";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { Plan } from "@/types/plan-data.d";
@@ -45,6 +46,7 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
           <div className={css.switch}>
             <p className={cssMonthly}>Monthly</p>
             <Switch
+              size="small"
               checked={yearly}
               onChange={handleChange}
               inputProps={{ "aria-label": "controlled" }}
@@ -76,7 +78,7 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
               href="/sign-up"
               sx={{ minWidth: 280, marginTop: "1rem" }}
             >
-              Subscribe Now
+              Get Started
             </Button>
           </div>
         )}

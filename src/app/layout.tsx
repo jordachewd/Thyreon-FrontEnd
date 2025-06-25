@@ -29,7 +29,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#111627", // midnight-700
+        },
+        elements: {
+          formButtonPrimary: "bg-midnight-700 hover:bg-midnight-900",
+          footerActionLink: "text-leafGreen-500 hover:text-leafGreen-800",
+        },
+      }}
+    >
       <html lang="en" suppressHydrationWarning>
         <body>
           <AppRouterCacheProvider>
