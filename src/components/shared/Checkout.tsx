@@ -11,7 +11,7 @@ interface CheckoutProps {
 }
 
 const Checkout = ({ plan, planStatus }: CheckoutProps) => {
-  const { isIncluded, isCurrent, isPopular } = planStatus as PlanStatus;
+  const { isIncluded, isCurrent } = planStatus as PlanStatus;
 
   console.log("Plan: ", plan.name);
   console.log("Plan Status: ", planStatus);
