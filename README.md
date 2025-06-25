@@ -1,3 +1,5 @@
+`Front-End`
+
 # WPGuard
 _WordPress Maintenance Made Easy_
  
@@ -16,7 +18,6 @@ Software as a service (SaaS)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Material UI](https://mui.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [OpenAI](https://openai.com/)
-- [Stripe](https://stripe.com)
 - [Clerk](https://clerk.com/)
-- [Vercel](https://vercel.com/)
+- [Stripe](https://stripe.com)
+- [OpenAI](https://openai.com/)
