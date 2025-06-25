@@ -21,7 +21,7 @@ export interface CheckoutTransactionParams {
 
 export interface Transaction {
   id: string;
-  plan: string;
+  plan: PlanName;
   amount: number;
   createdAt: Date;
   expiresOn: Date;

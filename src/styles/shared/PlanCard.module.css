@@ -1,7 +1,7 @@
 .wrapper {
-  @apply flex flex-col w-full rounded-lg shadow-xl;
+  @apply flex flex-col w-full rounded-lg shadow-xl ease-in-out;
   @apply relative overflow-hidden px-4 lg:px-8 py-10 gap-4;
-  background-color: rgb(var(--mui-palette-primary-mainChannel) / 0.5);
+  @apply bg-vanilla-200 dark:bg-midnight-700 transition-all duration-300;
 }
 
 .popular,
@@ -10,13 +10,24 @@
 }
 
 .current {
-  color: var(--mui-palette-primary-contrastText);
-  background-color: var(--mui-palette-tertiary-main);
+  @apply bg-vanilla-400 dark:bg-midnight-400;
 }
 
 .popular {
-  color: var(--mui-palette-secondary-contrastText);
-  background-color: var(--mui-palette-secondary-main);
+  @apply text-vanilla-100 dark:text-midnight-800;
+  @apply bg-midnight-400 dark:bg-vanilla-400;
+}
+
+.popular .title {
+  @apply text-vanilla-100 dark:text-midnight-800;
+}
+
+.popular .subtitle {
+  @apply text-vanilla-100 dark:text-midnight-800;
+}
+
+.popular .price {
+  @apply text-vanilla-100 dark:text-midnight-800;
 }
 
 .head {
@@ -28,11 +39,15 @@
 }
 
 .subtitle {
-  @apply flex w-full opacity-70 !text-xs pl-0.5 min-h-12;
+  @apply flex w-full !text-xs pl-0.5 min-h-12 opacity-80;
+}
+
+.priceBox {
+  @apply flex w-full gap-6 items-end my-4;
 }
 
 .price {
-  @apply flex w-full gap-6 items-end my-4;
+  @apply flex !leading-none;
 }
 
 .planBadge {
@@ -41,7 +56,7 @@
 }
 
 .current .planBadge {
-  @apply dark:bg-green-700 bg-blue-600;
+  @apply bg-leafGreen-400;
 }
 
 .features {
@@ -53,5 +68,5 @@
 }
 
 .actions {
-  @apply flex justify-center items-center;
+  @apply flex justify-center items-center mt-6;
 }

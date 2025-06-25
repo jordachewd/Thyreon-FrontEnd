@@ -14,12 +14,10 @@ interface BillingProps {
 export default function ProfileBilling({ stripeId, userTxns }: BillingProps) {
   return (
     <section className={css.section}>
-      <div className={css.head}>
-        <PageHead
-          title="Billing History"
-          subtitle="View your billing history and manage your subscriptions."
-        />
-      </div>
+      <PageHead
+        title="Billing History"
+        subtitle="View your billing history and manage your subscriptions."
+      />
 
       {userTxns && userTxns.length > 0 ? (
         <div className={css.table}>
@@ -29,9 +27,7 @@ export default function ProfileBilling({ stripeId, userTxns }: BillingProps) {
             <p className="hidden md:flex flex-1 text-center">Purchased</p>
             <p className="hidden md:flex flex-1 text-center">Expires</p>
             <p className="min-w-14 text-center">Status</p>
-            <TooltipArrow title="Invoice" placement="top">
-              <i className="bi bi-cloud-download ml-4 text-base"></i>
-            </TooltipArrow>
+            <i className="bi bi-cloud-download ml-4 text-base"></i>
           </div>
 
           {userTxns.map((txn) => {
@@ -41,10 +37,9 @@ export default function ProfileBilling({ stripeId, userTxns }: BillingProps) {
               txn.stripeId === stripeId ? css.active : css.inactive;
             return (
               <div key={txn.id + getRandomString(32)} className={css.tableRow}>
-                ProfileBilling
                 <p className="flex-1 font-medium">{txn.plan}</p>
                 <p className="flex-1 font-medium text-center">
-                  ${txn.amount}
+                  €{txn.amount}
                   <span className="text-xxs font-normal"> / {payCycle}</span>
                 </p>
                 <p className="hidden md:flex flex-1 text-xxs text-center">
@@ -56,7 +51,10 @@ export default function ProfileBilling({ stripeId, userTxns }: BillingProps) {
                 <p className="min-w-14 text-xxs text-center">
                   <span className={txnColor}>{txnStatus}</span>
                 </p>
-                <i className="bi bi-file-earmark-arrow-down ml-4 text-base cursor-pointer"></i>
+
+                <TooltipArrow title="Download Invoice" placement="top">
+                  <i className="bi bi-file-earmark-arrow-down ml-4 text-base cursor-pointer"></i>
+                </TooltipArrow>
               </div>
             );
           })}

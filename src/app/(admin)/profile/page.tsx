@@ -1,6 +1,7 @@
 import ProfileBilling from "@/components/sections/ProfileBilling";
 import ProfileHero from "@/components/sections/ProfileHero";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import { dummyTransactions } from "@/constants/dummy-transactions.const";
 import { dummyUser } from "@/constants/dummy-user.const";
 import { Transaction } from "@/types/transaction-data.d";
 import { UserData } from "@/types/user-data.d";
@@ -13,10 +14,10 @@ export default async function ProfilePage() {
 
   if (userId) {
     userData = dummyUser as UserData;
-    userTxns = [];
+    userTxns = dummyTransactions as Transaction[];
   }
 
-  const stripeId = userData?.plan?.stripeId || null;
+  const stripeId = "stripe_123456789989870"; // Example Stripe ID, replace with actual logic to fetch user's Stripe ID
 
   return (
     <>

@@ -10,38 +10,22 @@ interface CheckoutProps {
   planStatus: PlanStatus;
 }
 
-const Checkout = ({ planStatus }: CheckoutProps) => {
+const Checkout = ({ plan, planStatus }: CheckoutProps) => {
   const { isIncluded, isCurrent, isPopular } = planStatus as PlanStatus;
+
+  console.log("Plan: ", plan.name);
+  console.log("Plan Status: ", planStatus);
 
   return (
     <form>
       <Button
-        role="link"
         type="submit"
-        disabled={isIncluded}
+        disabled={isIncluded || isCurrent}
         sx={{
-          minWidth: 220,
-          ...(isPopular
-            ? {
-                color: "var(--mui-palette-common-white)",
-                borderColor: "var(--mui-palette-common-white)",
-                "&:hover": {
-                  color:
-                    "rgba(var(--mui-palette-error-contrastTextChannel) / 0.75)!important",
-                  borderColor:
-                    "rgba(var(--mui-palette-error-contrastTextChannel) / 0.75)",
-                },
-              }
-            : {}),
-          "&.Mui-disabled": {
-            color: isCurrent
-              ? "rgba(var(--mui-palette-tertiary-contrastTextChannel) / 0.5)"
-              : "rgba(var(--mui-palette-tertiary-mainChannel) / 0.5)",
-          },
+          paddingLeft: "3rem",
+          paddingRight: "3rem",
         }}
-        variant={
-          (isPopular && "outlined") || (isIncluded && "text") || "outlined"
-        }
+        variant="outlined"
       >
         {(isCurrent && "Current") || (isIncluded && "Included") || "Subscribe"}
       </Button>

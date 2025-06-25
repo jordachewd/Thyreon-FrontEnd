@@ -39,14 +39,6 @@ export default function PlanCard({
   const { isCurrent, isPopular } = planStatus as PlanStatus;
 
   const planType = isCurrent ? css.current : isPopular && css.popular;
-
-  const customTextColor =
-    isPopular || isCurrent
-      ? isPopular
-        ? "var(--mui-palette-primary-main)"
-        : "var(--mui-palette-primary-contrastText)"
-      : "var(--mui-palette-text-primary)";
-
   const planBadge = isCurrent ? "Current" : "Popular";
 
   return (
@@ -56,35 +48,16 @@ export default function PlanCard({
       )}
 
       <div className={css.head}>
-        <Typography
-          variant="h5"
-          className={css.title}
-          sx={{
-            color: customTextColor,
-          }}
-        >
+        <Typography variant="h5" className={css.title}>
           {plan.name}
         </Typography>
 
-        <Typography
-          variant="body1"
-          sx={{
-            color: customTextColor,
-          }}
-          className={css.subtitle}
-        >
+        <Typography variant="body1" className={css.subtitle}>
           {plan.desc}
         </Typography>
 
-        <div className={css.price}>
-          <Typography
-            variant="h3"
-            sx={{
-              display: "flex",
-              lineHeight: "1", 
-              color: customTextColor,
-            }}
-          >
+        <div className={css.priceBox}>
+          <Typography variant="h3" className={css.price}>
             <span className="flex">
               {plan.price !== 0 ? "€" + planFee : "Free"}
             </span>
@@ -103,17 +76,7 @@ export default function PlanCard({
         </div>
       </div>
       <div className={css.features}>
-        <Typography
-          variant="body2"
-          sx={{
-            color: customTextColor,
-            marginBottom: "0.5rem",
-            fontSize: "0.875rem",
-            fontWeight: 600,
-          }}
-        >
-          What is included:
-        </Typography>
+        <p className="flex font-bold mb-2">What is included:</p>
         {plan.inclusions.map((incl) => (
           <div key={plan.name + incl.label} className={css.feature}>
             <i

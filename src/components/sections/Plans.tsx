@@ -17,7 +17,7 @@ interface PlansProps {
 }
 
 export default function Plans({ userData, hasLoader = false }: PlansProps) {
-  const save = 0.4; // Save 40% on Yearly plans
+  const save = 0.3; // Save 30% on Yearly plans
   const { isSignedIn } = useUser();
   const [yearly, setYearly] = useState<boolean>(false);
   const billing = userData?.plan?.billing;
@@ -49,7 +49,11 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
               size="small"
               checked={yearly}
               onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
+              slotProps={{
+                input: {
+                  "aria-label": "controlled",
+                },
+              }}
             />
             <p className={cssYearly}>Yearly</p>
             <span className={css.bubble}>Save {save * 100}%</span>

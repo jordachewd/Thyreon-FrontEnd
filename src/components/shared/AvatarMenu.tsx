@@ -13,12 +13,17 @@ export default function AvatarMenu() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElUser);
 
-  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
+  const handleOpenMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    setAnchorElUser(null);
+    signOut({ redirectUrl: "/" });
   };
 
   return (
@@ -28,7 +33,7 @@ export default function AvatarMenu() {
         <>
           <TooltipArrow title="Account" placement="bottom">
             <IconButton
-              onClick={handleOpenUserMenu}
+              onClick={handleOpenMenu}
               sx={{ p: 0, backgroundColor: "transparent!important" }}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
@@ -55,26 +60,30 @@ export default function AvatarMenu() {
               horizontal: "left",
             }}
             open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
+            onClose={handleCloseMenu}
           >
-            <MenuItem component={Link} href="/">
+            <MenuItem component={Link} href="/" onClick={handleCloseMenu}>
               <i className="bi bi-house mr-4"></i>
               <span>Home</span>
             </MenuItem>
 
-            <MenuItem component={Link} href="/plans">
+            <MenuItem component={Link} href="/plans" onClick={handleCloseMenu}>
               <i className="bi bi-graph-up mr-4"></i>
               <span>Plans</span>
             </MenuItem>
 
-            <MenuItem component={Link} href="/profile">
+            <MenuItem
+              component={Link}
+              href="/profile"
+              onClick={handleCloseMenu}
+            >
               <i className="bi bi-person mr-4"></i>
               <span>Profile</span>
             </MenuItem>
 
             <Divider />
 
-            <MenuItem onClick={() => signOut({ redirectUrl: "/" })}>
+            <MenuItem onClick={handleLogout}>
               <i className="bi bi-box-arrow-right mr-4"></i>
               <span>Logout</span>
             </MenuItem>

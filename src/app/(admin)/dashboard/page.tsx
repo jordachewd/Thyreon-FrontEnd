@@ -3,7 +3,7 @@ import PageHead from "@/components/shared/PageHead";
 export default async function AdminDashboard() {
   return (
     <div className="flex flex-col w-full gap-6">
-      <PageHead title="Dashboard" subtitle="Admin dashboard section" />
+      <PageHead title="Dashboard" alignTitle="left" />
 
       <p>
         Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut

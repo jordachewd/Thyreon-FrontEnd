@@ -10,9 +10,9 @@ export const dummyUser = {
   updatedAt: new Date("2025-05-20T14:45:00Z"),
   userimg: "https://cdn.example.com/avatars/jordan-smith.png",
   plan: {
-    id: "plan_premium_001",
-    name: "Premium",
-    amount: 2999,
+    id: "1",
+    name: "Pro",
+    amount: 0,
     billing: "Monthly",
     startedOn: new Date("2025-05-01T00:00:00Z"),
     expiresOn: new Date("2025-06-01T00:00:00Z"),

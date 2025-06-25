@@ -11,7 +11,6 @@ export const muiPaletteLight: ThemeOptions = {
     action: {
       active: "#37b02b", // Leaf Green 400
       hover: "#24871f", // Leaf Green 600
-      disabled: "#b9eab7", // Leaf Green 200
     },
     background: {
       default: "#fffdf9", // Vanilla Cream 100
