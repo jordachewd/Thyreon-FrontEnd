@@ -1,8 +1,9 @@
 {
-  "name": "wp-guard",
-  "version": "1.0.0",
+  "name": "wpguard-frontent",
+  "version": "0.0.1",
   "private": true,
   "author": "JWD",
+  "description": "Frontend for WP Guard", 
   "scripts": {
     "dev": "next dev",
     "build": "next build",
