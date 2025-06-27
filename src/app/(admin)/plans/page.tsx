@@ -2,7 +2,6 @@ import Faqs from "@/components/sections/Faqs";
 import Plans from "@/components/sections/Plans";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { dummyUser } from "@/constants/dummy-user.const";
-import { UserData } from "@/types/user-data.d";
 import { auth } from "@clerk/nextjs/server";
 
 export default async function PlansPage() {
@@ -13,7 +12,7 @@ export default async function PlansPage() {
       {!userId && <LoadingBubbles wrapped />}
       {userId && (
         <>
-          <Plans userData={dummyUser as UserData} hasLoader />
+          <Plans userData={dummyUser} hasLoader />
           <Faqs />
         </>
       )}

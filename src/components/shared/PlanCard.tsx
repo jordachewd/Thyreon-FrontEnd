@@ -1,14 +1,14 @@
 import css from "@/styles/shared/PlanCard.module.css";
 import { Plan, PlanData, PlanStatus } from "@/types/plan-data.d";
 import { Typography } from "@mui/material";
-import { UserData } from "@/types/user-data.d";
 import Checkout from "@/components/shared/Checkout";
 import { usePlanStatus } from "@/lib/hooks/usePlanStatus";
+import { GetUserData } from "@/types/get-user-data.d";
 
 interface PlanCardProps {
   plan: Plan;
   yearly: boolean;
-  userData?: UserData | null;
+  userData?: GetUserData | null;
   save?: number;
 }
 
@@ -20,7 +20,7 @@ export default function PlanCard({
 }: PlanCardProps) {
   const hasUserData = userData && Object.keys(userData).length > 0;
 
-  const { _id, clerkId, username, firstName, lastName, email } = userData || {};
+  //const { id, clerkId, username, firstName, lastName, email } = userData || {};
 
   const planFee =
     plan.price === 0
@@ -33,7 +33,12 @@ export default function PlanCard({
     plan,
     planFee,
     yearly,
-    userPlan: userData?.plan as PlanData,
+    userPlan: {
+      id: "1",
+      name: "Lite",
+      amount: 29,
+      billing: "Monthly",
+    } as PlanData /* dummy array for testing purpose */,
   });
 
   const { isCurrent, isPopular } = planStatus as PlanStatus;
@@ -103,14 +108,14 @@ export default function PlanCard({
               price: planFee,
             }}
             planStatus={planStatus}
-            clerkUser={{
-              userId: _id || "",
+            /*             clerkUser={{
+              userId: id || "",
               clerkId: clerkId || "",
               username: username || "",
               firstName: firstName,
               lastName: lastName,
               email: email,
-            }}
+            }} */
           />
         </div>
       )}

@@ -2,11 +2,11 @@
 
 import { Button } from "@mui/material";
 import { CheckoutPlanParams, PlanStatus } from "@/types/plan-data.d";
-import { ClerkUserData } from "@/types/user-data.d";
+//import { ClerkUserData } from "@/types/create-user-data.d";
 
 interface CheckoutProps {
   plan: CheckoutPlanParams;
-  clerkUser: ClerkUserData;
+ // clerkUser: ClerkUserData;
   planStatus: PlanStatus;
 }
 

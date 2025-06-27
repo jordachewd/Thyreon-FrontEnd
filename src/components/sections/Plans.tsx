@@ -6,13 +6,13 @@ import Switch from "@mui/material/Switch";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { Plan } from "@/types/plan-data.d";
-import { UserData } from "@/types/user-data.d";
 import PageHead from "../shared/PageHead";
 import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "../shared/LoadingBubbles";
+import { GetUserData } from "@/types/get-user-data.d";
 
 interface PlansProps {
-  userData?: UserData | null;
+  userData?: GetUserData | null;
   hasLoader?: boolean;
 }
 
@@ -20,14 +20,14 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
   const save = 0.3; // Save 30% on Yearly plans
   const { isSignedIn } = useUser();
   const [yearly, setYearly] = useState<boolean>(false);
-  const billing = userData?.plan?.billing;
+  const billing = userData?.billing;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setYearly(event.target.checked);
   };
 
   useEffect(() => {
-    const setBilling = billing === "Yearly" ? true : false;
+    const setBilling = billing === "yearly" ? true : false;
     setYearly(setBilling);
   }, [billing]);
 

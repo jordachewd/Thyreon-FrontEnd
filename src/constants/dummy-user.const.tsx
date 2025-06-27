@@ -1,22 +1,16 @@
-export const dummyUser = {
-  _id: "60f7a3b91c1f4a1a9c8e1234",
+import { GetUserData } from "@/types/get-user-data.d";
+
+export const dummyUser: GetUserData = {
+  id: 1,
   clerkId: "user_abc123xyz",
   username: "fixguru",
   email: "fixguru@example.com",
-  role: "admin",
-  registerAt: new Date("2024-11-03T10:15:00Z"),
+  role: "lite",
+  billing: "yearly",
   firstName: "Jordan",
   lastName: "Smith",
+  createdAt: new Date("2024-11-03T10:15:00Z"),
   updatedAt: new Date("2025-05-20T14:45:00Z"),
-  userimg: "https://cdn.example.com/avatars/jordan-smith.png",
-  plan: {
-    id: "1",
-    name: "Pro",
-    amount: 0,
-    billing: "Monthly",
-    startedOn: new Date("2025-05-01T00:00:00Z"),
-    expiresOn: new Date("2025-06-01T00:00:00Z"),
-    stripeId: "sub_1NX123XYZ456",
-  },
-  __v: 0,
+  userImg: "https://cdn.example.com/avatars/jordan-smith.png",
+  sites: [],
 };

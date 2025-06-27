@@ -21,8 +21,8 @@ export interface PlanData {
   name: PlanName;
   amount: number;
   billing: BillingCycle;
-  expiresOn: Date;
-  startedOn: Date;
+  expiresOn?: Date;
+  startedOn?: Date;
   stripeId?: string;
 }
 

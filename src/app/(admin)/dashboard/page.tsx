@@ -1,6 +1,11 @@
 import PageHead from "@/components/shared/PageHead";
+import getUsers from "@/lib/actions/users/get-users";
+import { GetUserData } from "@/types/get-user-data.d";
 
 export default async function AdminDashboard() {
+  const users = (await getUsers()) as GetUserData[];
+  console.log("Fetched users:", users);
+
   return (
     <div className="flex flex-col w-full gap-6">
       <PageHead title="Dashboard" alignTitle="left" />
