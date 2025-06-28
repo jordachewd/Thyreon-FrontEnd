@@ -6,6 +6,8 @@ import { CreateUserData } from "@/types/create-user-data.d";
 export default async function createUser(formData: CreateUserData) {
   const response = await post("users", formData);
 
+  console.log("Response from createUser:", response);
+
   if (response.status === "error") {
     return response;
   }

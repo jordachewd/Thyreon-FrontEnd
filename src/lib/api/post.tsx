@@ -1,15 +1,13 @@
 import { API_URL } from "@/constants/public-api-url";
-import { getHeaders } from "./get-headers";
+import { getClerkAuthHeaders } from "./get-clerk-auth-headers";
 
 export const post = async (path: string, data: FormData | object) => {
-  const headers = await getHeaders();
+  const headers = await getClerkAuthHeaders();
   const isFormData = data instanceof FormData;
 
   const resp = await fetch(`${API_URL}/${path}`, {
     method: "POST",
-    headers: isFormData
-      ? headers
-      : { "Content-Type": "application/json", ...headers },
+    headers: headers,
     body: isFormData ? data : JSON.stringify(data),
   });
 

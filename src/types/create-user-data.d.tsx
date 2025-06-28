@@ -3,9 +3,10 @@ import { UserBilling } from "./user-billing.d";
 import { UserRole } from "./user-role.d";
 
 export interface CreateUserData {
-  id: number;
+  id?: number;
   clerkId: string;
   username: string;
+  password: string;
   email: string;
 
   role?: UserRole;

@@ -1,15 +1,12 @@
 import { API_URL } from "@/constants/public-api-url";
-import { getHeaders } from "./get-headers";
+import { getClerkAuthHeaders } from "./get-clerk-auth-headers";
 
 export const del = async (path: string, body?: Record<string, unknown>) => {
-  const headers = await getHeaders();
+  const headers = await getClerkAuthHeaders();
 
   const response = await fetch(`${API_URL}/${path}`, {
     method: "DELETE",
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(body),
   });
 

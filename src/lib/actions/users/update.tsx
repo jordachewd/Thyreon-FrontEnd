@@ -24,6 +24,7 @@ export default async function updateUser(formData: UpdateUserData) {
   }
 
   const response = await patch(`users/update/${username}`, userData);
+  console.log("Response from updateUser:", response);
 
   if (response.status === "error") {
     return response;

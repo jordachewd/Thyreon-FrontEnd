@@ -1,17 +1,17 @@
 import { API_URL } from "@/constants/public-api-url";
-import { getHeaders } from "./get-headers";
+import { getClerkAuthHeaders } from "./get-clerk-auth-headers";
 
 export const get = async <T>(
   path: string,
   tags?: string[],
   params?: URLSearchParams
 ) => {
-  const headers = await getHeaders();
+  const headers = await getClerkAuthHeaders();
   const searchParams = params ? `?${params.toString()}` : "";
 
   const resp = await fetch(`${API_URL}/${path}${searchParams}`, {
     method: "GET",
-    headers: { ...headers },
+    headers: headers,
     next: { tags },
   });
 
