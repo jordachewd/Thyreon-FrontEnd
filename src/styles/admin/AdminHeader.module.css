@@ -19,7 +19,10 @@
   @apply lg:hidden;
 }
 
-.search,
-.theme {
+.search {
   @apply hidden lg:flex;
+}
+
+.utils {
+  @apply flex items-center gap-4;
 }

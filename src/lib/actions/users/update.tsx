@@ -5,8 +5,8 @@ import { UpdateUserData } from "@/types/update-user-data.d";
 import { revalidateTag } from "next/cache";
 
 export default async function updateUser(formData: UpdateUserData) {
-  const { username, userImg, ...rest } = formData;
-  if (!username) return;
+  const { clerkId, ...rest } = formData;
+  if (!clerkId) return;
 
   const userData = new FormData();
 
@@ -16,14 +16,7 @@ export default async function updateUser(formData: UpdateUserData) {
     }
   }
 
-  if (userImg instanceof File) {
-    userData.append(
-      "image",
-      new File([userImg], `avatar-${userImg.name}`, { type: userImg.type })
-    );
-  }
-
-  const response = await patch(`users/update/${username}`, userData);
+  const response = await patch(`users/update/${clerkId}`, userData);
   console.log("Response from updateUser:", response);
 
   if (response.status === "error") {

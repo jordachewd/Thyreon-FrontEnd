@@ -1,20 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPrivateRoute = createRouteMatcher(["/(admin)/(.*)"]);
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-  "/api/webhooks/stripe",
-  "/api/webhooks/clerk",
-]);
+// const isPrivateRoute = createRouteMatcher(["/(admin)/(.*)"]);
+const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   try {
     const { userId } = await auth();
     //const { userId, sessionClaims } = await auth();
-    // const isAdmin = sessionClaims?.metadata?.role === "admin";
 
     // Redirect to sign-in if the route is not public and the user is not logged in
     if (!userId && !isPublicRoute(req)) {
@@ -22,11 +15,12 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     }
 
     // Allow access to private routes if the user is signed in and is an admin
+    // const isAdmin = sessionClaims?.metadata?.role === "admin";
     // if (userId && !isAdmin && isPrivateRoute(req)) {
-    if (userId && isPrivateRoute(req)) {
+    /*     if (userId && isPrivateRoute(req)) {
       const unAuthUrl = new URL("/401", req.url);
       return NextResponse.redirect(unAuthUrl);
-    }
+    } */
   } catch (error) {
     console.error("Error in middleware:", error);
     if (error instanceof Error && "digest" in error) {

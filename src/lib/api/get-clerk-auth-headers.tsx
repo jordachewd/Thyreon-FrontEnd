@@ -1,13 +1,16 @@
 import { auth } from "@clerk/nextjs/server";
 
-export const getClerkAuthHeaders = async () => {
+export const getClerkAuthHeaders = async (isFormData: boolean = false) => {
   const { getToken } = await auth();
   const token = await getToken();
 
   const headers: Record<string, string | undefined> = {
     Authorization: token ? `Bearer ${token}` : undefined,
-    "Content-Type": "application/json",
   };
+
+  if (!isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
 
   const filteredHeaders = Object.fromEntries(
     Object.entries(headers).filter(([, v]) => v !== undefined) as [

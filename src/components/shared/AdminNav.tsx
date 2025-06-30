@@ -1,15 +1,15 @@
 "use client";
-import { IconButton, Avatar, Menu, MenuItem, Divider } from "@mui/material";
+import { Divider, IconButton, Menu, MenuItem } from "@mui/material";
 import { useState, MouseEvent } from "react";
 import { TooltipArrow } from "./TooltipArrow";
-import { useClerk, useUser } from "@clerk/clerk-react";
-import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
+import { UserButton, useUser } from "@clerk/clerk-react";
 import LoadingBubbles from "./LoadingBubbles";
 import Link from "next/link";
+import ToggleTheme from "./ToggleTheme";
 
-export default function AvatarMenu() {
-  const { user, isLoaded } = useUser();
-  const { signOut } = useClerk();
+export default function AdminNav() {
+  const { isLoaded } = useUser();
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElUser);
 
@@ -21,30 +21,20 @@ export default function AvatarMenu() {
     setAnchorElUser(null);
   };
 
-  const handleLogout = () => {
-    setAnchorElUser(null);
-    signOut({ redirectUrl: "/" });
-  };
-
   return (
-    <div className="flex">
+    <div className="flex gap-6">
       {!isLoaded && <LoadingBubbles size="small" />}
       {isLoaded && (
         <>
-          <TooltipArrow title="Account" placement="bottom">
+          <TooltipArrow title="Navigation" placement="bottom">
             <IconButton
               onClick={handleOpenMenu}
               sx={{ p: 0, backgroundColor: "transparent!important" }}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
-              aria-controls={open ? "my-account" : undefined}
+              aria-controls={open ? "admin-nav" : undefined}
             >
-              <Avatar
-                alt={user?.fullName ?? undefined}
-                src={user?.imageUrl ?? undefined}
-                sx={{ width: 28, height: 28 }}
-                {...getAvatarInitials(user?.fullName ?? "")}
-              />
+              <i className="bi bi-menu-app text-base"></i>
             </IconButton>
           </TooltipArrow>
 
@@ -53,11 +43,11 @@ export default function AvatarMenu() {
             anchorEl={anchorElUser}
             anchorOrigin={{
               vertical: "top",
-              horizontal: "left",
+              horizontal: "right",
             }}
             transformOrigin={{
               vertical: "bottom",
-              horizontal: "left",
+              horizontal: "right",
             }}
             open={Boolean(anchorElUser)}
             onClose={handleCloseMenu}
@@ -67,29 +57,29 @@ export default function AvatarMenu() {
               <span>Home</span>
             </MenuItem>
 
-            <MenuItem component={Link} href="/plans" onClick={handleCloseMenu}>
-              <i className="bi bi-graph-up mr-4"></i>
-              <span>Plans</span>
-            </MenuItem>
-
             <MenuItem
               component={Link}
               href="/profile"
               onClick={handleCloseMenu}
             >
               <i className="bi bi-person mr-4"></i>
-              <span>Profile</span>
+              <span>Profile & Billing</span>
+            </MenuItem>
+
+            <MenuItem component={Link} href="/plans" onClick={handleCloseMenu}>
+              <i className="bi bi-graph-up mr-4"></i>
+              <span>Plans & FAQs</span>
             </MenuItem>
 
             <Divider />
-
-            <MenuItem onClick={handleLogout}>
-              <i className="bi bi-box-arrow-right mr-4"></i>
-              <span>Logout</span>
-            </MenuItem>
+            <div className="flex justify-center items-center px-5 py-1 gap-4">
+              <span>Theme:</span>
+              <ToggleTheme />
+            </div>
           </Menu>
         </>
       )}
+      <UserButton />
     </div>
   );
 }

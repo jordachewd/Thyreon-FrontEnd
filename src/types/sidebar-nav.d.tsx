@@ -3,4 +3,5 @@ export default interface SidebarNavItem {
   href: string;
   icon: string;
   label: string;
+  isAdmin: boolean; // Optional property
 }

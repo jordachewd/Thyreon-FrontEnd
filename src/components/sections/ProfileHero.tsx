@@ -12,7 +12,7 @@ export default function ProfileHero() {
 
   return (
     <section className={css.section}>
-      <PageHead title="Profile" subtitle="Manage your account settings" />
+      <PageHead title="Profile Overview" />
 
       <div className={css.hero}>
         {!isLoaded && <LoadingBubbles wrapped />}

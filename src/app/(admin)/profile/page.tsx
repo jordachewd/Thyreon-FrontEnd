@@ -3,6 +3,7 @@ import ProfileHero from "@/components/sections/ProfileHero";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { dummyTransactions } from "@/constants/dummy-transactions.const";
 import { Transaction } from "@/types/transaction-data.d";
+
 import { auth } from "@clerk/nextjs/server";
 
 export default async function ProfilePage() {

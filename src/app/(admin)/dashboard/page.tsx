@@ -1,17 +1,32 @@
-//import AddNewUserButton from "@/components/shared/AddNewUserButton";
 import PageHead from "@/components/shared/PageHead";
 
-//import getUsers from "@/lib/actions/users/get-users";
-//import { GetUserData } from "@/types/get-user-data.d";
+/* 
+import getUsers from "@/lib/actions/users/get-users";
+import { GetUserData } from "@/types/get-user-data.d";
+import getCurrentUser from "@/lib/actions/users/get-current-user";
+import getUserProfile from "@/lib/actions/users/get-user-profile";
+import getUserById from "@/lib/actions/users/get-user-by-id"; 
+import RouteTestUserButtons from "@/components/shared/RouteTestUserButtons";
+*/
 
 export default async function AdminDashboard() {
-  // const users = (await getUsers()) as GetUserData[];
-  // console.log("Fetched users:", users);
+  /*   const users = (await getUsers()) as GetUserData[];
+  console.log("getUsers:", users);
+
+  const currentUser = (await getCurrentUser()) as GetUserData;
+  console.log("getCurrentUser:", currentUser);
+
+  const userProfile = await getUserProfile("wpguard");
+  console.log("getUserProfile:", userProfile);
+
+  const userById = await getUserById(3);
+  console.log("getUserById:", userById); */
 
   return (
     <div className="flex flex-col w-full gap-6">
       <PageHead title="Dashboard" alignTitle="left" />
-      {/*       <AddNewUserButton /> */}
+
+      {/*  <RouteTestUserButtons /> */}
 
       <p>
         Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut

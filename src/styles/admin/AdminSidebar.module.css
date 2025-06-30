@@ -11,7 +11,7 @@
 }
 
 .logo {
-  @apply flex p-4 mb-4 items-center border-b w-full;
+  @apply flex p-4 items-center border-b w-full;
   @apply dark:bg-midnight-700 bg-vanilla-200;
   @apply border-vanilla-300 dark:border-midnight-600;
   @apply transition-all duration-500 ease-in-out relative;
@@ -49,7 +49,16 @@
 }
 
 .navigation {
-  @apply flex flex-col px-4 py-6 gap-4;
+  @apply flex flex-col h-full overflow-y-auto justify-between;
+}
+
+.navTop,
+.navBottom {
+  @apply flex flex-col px-4 py-8 gap-4;
+}
+
+.navBottom {
+  @apply border-t dark:border-midnight-600 border-vanilla-300;
 }
 
 .navItemOff {

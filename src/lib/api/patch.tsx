@@ -6,8 +6,8 @@ export const patch = async (
   path: string,
   data: UpdateUserData | FormData | object
 ) => {
-  const headers = await getClerkAuthHeaders();
   const isFormData = data instanceof FormData;
+  const headers = await getClerkAuthHeaders(isFormData);
   const resp = await fetch(`${API_URL}/${path}`, {
     method: "PATCH",
     headers: headers,

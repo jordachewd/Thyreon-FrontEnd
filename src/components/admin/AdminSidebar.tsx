@@ -9,10 +9,25 @@ import SidebarToggle from "../shared/SidebarToggle";
 import ToggleTheme from "../shared/ToggleTheme";
 import TextField from "@mui/material/TextField";
 import { TooltipArrow } from "../shared/TooltipArrow";
+import SidebarNavItem from "@/types/sidebar-nav.d";
 
 export default function AdminSidebar() {
   const { sidebarCtx } = useAdminContext();
   const { isNavOpen, updateSb } = sidebarCtx;
+
+  const getNavItem = (item: SidebarNavItem) => (
+    <Link key={item.id} href={item.href} className={css.linkItem}>
+      <TooltipArrow title={item.label} placement="right">
+        <span className={css.linkIcon}>
+          <i className={item.icon}></i>
+        </span>
+      </TooltipArrow>
+
+      <span className={`${css.linkLabel} ${isNavOpen && css.navItemOff}`}>
+        {item.label}
+      </span>
+    </Link>
+  );
 
   return (
     <aside
@@ -51,20 +66,20 @@ export default function AdminSidebar() {
       </div>
 
       <nav className={css.navigation}>
-        {sidebarNavItems.map((item) => (
-          <Link key={item.id} href={item.href} className={css.linkItem}>
-            <TooltipArrow title={item.label} placement="right">
-              <span className={css.linkIcon}>
-                <i className={`bi ${item.icon}`}></i>
-              </span>
-            </TooltipArrow>
-
-            <span className={`${css.linkLabel} ${isNavOpen && css.navItemOff}`}>
-              {item.label}
-            </span>
-          </Link>
-        ))}
+        <div className={css.navTop}>
+          {sidebarNavItems.map((item) => {
+            if (item.isAdmin) return null;
+            return getNavItem(item);
+          })}
+        </div>
+        <div className={css.navBottom}>
+          {sidebarNavItems.map((item) => {
+            if (!item.isAdmin) return;
+            return getNavItem(item);
+          })}
+        </div>
       </nav>
+
       <div className={css.footer}>
         <ToggleTheme />
       </div>
