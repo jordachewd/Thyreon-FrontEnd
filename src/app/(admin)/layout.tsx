@@ -1,6 +1,6 @@
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import AdminContent from "@/components/admin/AdminContent";
-import AdminWrapper from "@/components/admin/AdminWrapper";
+import AdminSidebar from "@/components/layout/admin/AdminSidebar";
+import AdminContent from "@/components/layout/admin/AdminContent";
+import AdminWrapper from "@/components/layout/admin/AdminWrapper";
 import { AdminContextProvider } from "@/context/AdminContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

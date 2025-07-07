@@ -1,0 +1,15 @@
+.wrapper {
+  @apply flex w-full;
+}
+
+.link {
+  @apply flex flex-col w-full text-midnight-400 hover:text-leafGreen-400 transition duration-500;
+}
+
+.name {
+  @apply flex w-full text-sm font-semibold;
+}
+
+.username {
+  @apply flex w-full text-xs text-slate-400;
+}

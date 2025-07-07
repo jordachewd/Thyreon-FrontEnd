@@ -1,12 +1,13 @@
 "use client";
 
 import { Button } from "@mui/material";
-import { CheckoutPlanParams, PlanStatus } from "@/types/plan-data.d";
+import { PlanStatus } from "@/types/plan/plan-status.d";
+import { PlanCheckout } from "@/types/plan/plan-checkout.d";
 //import { ClerkUserData } from "@/types/create-user-data.d";
 
 interface CheckoutProps {
-  plan: CheckoutPlanParams;
- // clerkUser: ClerkUserData;
+  plan: PlanCheckout;
+  // clerkUser: ClerkUserData;
   planStatus: PlanStatus;
 }
 

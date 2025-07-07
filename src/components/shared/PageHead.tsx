@@ -19,14 +19,17 @@ export default function PageHead({
 }: PageHeadProps) {
   return (
     <div className={css.section}>
-      <Typography variant={size} align={alignTitle}>
-        {title}
-      </Typography>
-      {subtitle && (
-        <Typography variant="body2" align={alignSubtitle}>
-          {subtitle}
+      <div className={css.title}>
+        <Typography variant={size} align={alignTitle}>
+          {title}
         </Typography>
-      )}
+        {subtitle && (
+          <Typography variant="body2" align={alignSubtitle}>
+            {subtitle}
+          </Typography>
+        )}
+      </div>
+
       {children}
     </div>
   );

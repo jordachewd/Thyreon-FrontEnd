@@ -1,0 +1,36 @@
+.wrapper {
+  @apply flex w-full justify-between p-2 pl-3 bg-white rounded mb-1 shadow-sm items-center min-h-[50px];
+}
+
+.selected {
+  @apply bg-midnight-400 text-white;
+}
+
+.selectedLeft,
+.selectedRigth {
+  @apply flex;
+}
+
+.removeAllBtn {
+  @apply flex p-2 bg-white text-midnight-400 rounded-full text-base transition duration-500 leading-none cursor-pointer hover:text-midnight-400;
+}
+
+.search {
+  @apply flex w-1/4;
+}
+
+.filters {
+  @apply flex w-1/2 justify-end space-x-3 items-center pr-2;
+}
+
+.filterBtn {
+  @apply min-w-1! py-2! text-[12px]! leading-none! !capitalize;
+}
+
+.loadingWrp {
+  @apply flex items-center space-x-3;
+}
+
+.loading {
+  @apply h-[16px] animate-spin text-leafGreen-400;
+}

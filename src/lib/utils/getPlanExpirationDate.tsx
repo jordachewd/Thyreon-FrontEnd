@@ -1,6 +1,10 @@
-import { BillingCycle, PlanName } from "@/types/plan-data.d";
+import { BillingCycle } from "@/types/plan/billing-cycle.d";
+import { PlanName } from "@/types/plan/plan-name.d";
 
-export function getPlanExpirationDate(plan: PlanName, billing?: BillingCycle): Date {
+export function getPlanExpirationDate(
+  plan: PlanName,
+  billing?: BillingCycle
+): Date {
   const currentDate = new Date();
   let expiresOn: Date = new Date();
 

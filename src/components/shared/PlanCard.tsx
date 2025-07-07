@@ -1,12 +1,14 @@
 import css from "@/styles/shared/PlanCard.module.css";
-import { Plan, PlanData, PlanStatus } from "@/types/plan-data.d";
+import { PlanData } from "@/types/plan/plan-data.d";
 import { Typography } from "@mui/material";
 import Checkout from "@/components/shared/Checkout";
 import { usePlanStatus } from "@/lib/hooks/usePlanStatus";
-import { GetUserData } from "@/types/get-user-data.d";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { PlanCardInterface } from "@/types/plan/plan-card.d";
+import { PlanStatus } from "@/types/plan/plan-status.d";
 
 interface PlanCardProps {
-  plan: Plan;
+  plan: PlanCardInterface;
   yearly: boolean;
   userData?: GetUserData | null;
   save?: number;
@@ -19,8 +21,6 @@ export default function PlanCard({
   save = 0,
 }: PlanCardProps) {
   const hasUserData = userData && Object.keys(userData).length > 0;
-
-  //const { id, clerkId, username, firstName, lastName, email } = userData || {};
 
   const planFee =
     plan.price === 0
@@ -42,7 +42,6 @@ export default function PlanCard({
   });
 
   const { isCurrent, isPopular } = planStatus as PlanStatus;
-
   const planType = isCurrent ? css.current : isPopular && css.popular;
   const planBadge = isCurrent ? "Current" : "Popular";
 
@@ -82,17 +81,17 @@ export default function PlanCard({
       </div>
       <div className={css.features}>
         <p className="flex font-bold mb-2">What is included:</p>
-        {plan.inclusions.map((incl) => (
-          <div key={plan.name + incl.label} className={css.feature}>
+        {plan.features.map((feature) => (
+          <div key={plan.name + feature.label} className={css.feature}>
             <i
               className={`bi ${
-                incl.isIncluded
+                feature.isIncluded
                   ? "bi-check2 text-leafGreen-400"
                   : "bi-x text-slate-400"
               }`}
             ></i>
-            <p className={`${!incl.isIncluded && "text-gray-400"}`}>
-              {incl.label}
+            <p className={`${!feature.isIncluded && "text-gray-400"}`}>
+              {feature.label}
             </p>
           </div>
         ))}

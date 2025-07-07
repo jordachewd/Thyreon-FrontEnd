@@ -1,3 +1,7 @@
 .section {
-  @apply flex flex-col gap-3;
+  @apply flex justify-between items-center gap-4 w-full mb-4;
+}
+
+.title {
+  @apply flex flex-col w-full;
 }

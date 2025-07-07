@@ -1,8 +1,8 @@
-import ProfileBilling from "@/components/sections/ProfileBilling";
-import ProfileHero from "@/components/sections/ProfileHero";
+import ProfileBilling from "@/components/sections/admin/ProfileBilling";
+import ProfileHero from "@/components/sections/admin/ProfileHero";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { dummyTransactions } from "@/constants/dummy-transactions.const";
-import { Transaction } from "@/types/transaction-data.d";
+import { Transaction } from "@/types/transactions/transaction.d";
 
 import { auth } from "@clerk/nextjs/server";
 

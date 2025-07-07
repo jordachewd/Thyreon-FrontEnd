@@ -1,0 +1,15 @@
+.wrapper {
+  @apply flex space-x-4;
+}
+
+.button {
+  @apply flex cursor-pointer;
+}
+
+.iconEye {
+  @apply text-base text-slate-400 hover:text-midnight-400 transition duration-500;
+}
+
+.iconTrash {
+  @apply text-base text-slate-400 hover:text-red-700 transition duration-500;
+}

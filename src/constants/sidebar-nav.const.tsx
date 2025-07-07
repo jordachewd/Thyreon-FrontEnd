@@ -36,6 +36,7 @@ const sidebarNavItems: SidebarNavItem[] = [
     label: "Security",
     isAdmin: false,
   },
+
   {
     id: 5,
     href: "/users",
@@ -45,6 +46,13 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
   {
     id: 6,
+    href: "/transactions",
+    icon: "bi bi-bank",
+    label: "Transactions",
+    isAdmin: true, // Admin only
+  },
+  {
+    id: 7,
     href: "/settings",
     icon: "bi bi-gear",
     label: "Settings",

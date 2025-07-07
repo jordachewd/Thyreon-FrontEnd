@@ -1,0 +1,85 @@
+"use client";
+import css from "@/styles/sections/shared/Plans.module.css";
+import { plans } from "@/constants/plans.const";
+import Button from "@mui/material/Button";
+import Switch from "@mui/material/Switch";
+import { useState } from "react";
+import { useUser } from "@clerk/clerk-react";
+import PageHead from "../../shared/PageHead";
+import PlanCard from "@/components/shared/PlanCard";
+import LoadingBubbles from "../../shared/LoadingBubbles";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { PlanCardInterface } from "@/types/plan/plan-card.d";
+
+interface PlansProps {
+  userData?: GetUserData | null;
+  hasLoader?: boolean;
+}
+
+export default function Plans({ userData, hasLoader = false }: PlansProps) {
+  const save = 0.3; // Save 30% on Yearly plans
+  const { isSignedIn } = useUser();
+  const [yearly, setYearly] = useState<boolean>(false);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setYearly(event.target.checked);
+  };
+
+  const cssMonthly = !yearly ? css.switched : "";
+  const cssYearly = yearly ? css.switched : "";
+
+  if (hasLoader && !userData) return <LoadingBubbles wrapped />;
+
+  return (
+    <div className={css.section}>
+      <div className={css.content}>
+        <PageHead
+          title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}
+          subtitle="Select the plan that suits your needs."
+        >
+          <div className={css.switch}>
+            <p className={cssMonthly}>Monthly</p>
+            <Switch
+              size="small"
+              checked={yearly}
+              onChange={handleChange}
+              slotProps={{
+                input: {
+                  "aria-label": "controlled",
+                },
+              }}
+            />
+            <p className={cssYearly}>Yearly</p>
+            <span className={css.bubble}>Save {save * 100}%</span>
+          </div>
+        </PageHead>
+
+        <div className={css.plans}>
+          {plans.map((plan: PlanCardInterface) => {
+            return (
+              <PlanCard
+                key={plan.id}
+                plan={plan}
+                yearly={yearly}
+                userData={userData}
+                save={save}
+              />
+            );
+          })}
+        </div>
+
+        {!isSignedIn && (
+          <div className={css.planActions}>
+            <Button
+              size="large"
+              variant="contained"
+              href="/sign-up"
+              sx={{ minWidth: 280, marginTop: "1rem" }}
+            >
+              Get Started
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

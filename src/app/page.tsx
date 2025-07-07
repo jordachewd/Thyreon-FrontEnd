@@ -1,6 +1,6 @@
-import Header from "@/components/front/Header";
-import Footer from "@/components/front/Footer";
-import LandingPage from "@/components/front/LandingPage";
+import Header from "@/components/layout/front/Header";
+import Footer from "@/components/layout/front/Footer";
+import LandingPage from "@/components/layout/front/LandingPage";
 
 export default async function Home() {
   return (

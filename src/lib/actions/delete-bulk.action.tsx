@@ -1,12 +1,16 @@
 "use server";
-
 import { revalidateTag } from "next/cache";
-
 import { BulkDeleteProps } from "@/types/bulk-delete.interface";
 import { del } from "../api/delete";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function bulkDelete({ route, items }: BulkDeleteProps) {
   const selected = Object.values(items)[0];
+  const whoIs = await currentUser();
+
+  if (!whoIs || whoIs.publicMetadata.role !== "admin") {
+    return { status: "error", message: "Unauthorized action!" };
+  }
 
   if (!Array.isArray(selected) || selected.length === 0) {
     return { status: "error", message: "No items selected for deletion" };
@@ -18,35 +22,16 @@ export default async function bulkDelete({ route, items }: BulkDeleteProps) {
     case "users":
       body = {
         users: selected.map((user) => ({
-          username: user.username,
-          email: user.email,
+          clerkId: user.clerkId,
         })),
       };
       break;
 
-    /*     case "products":
-      body = {
-        products: selected.map((item) => Number(item.id)),
-      };
-      break;
-
-    case "prod-categories":
-      body = {
-        categories: selected.map((item) => Number(item.id)),
-      };
-      break;
-
-    case "prod-tags":
-      body = {
-        tags: selected.map((item) => Number(item.id)),
-      };
-      break; */
-
     default:
-      throw new Error(`Unknown delete route: ${route}`);
+      return { status: "error", message: `Unknown delete route: ${route}` };
   }
 
-  const deleteAll = await del(`${route}/bulk`, body);
+  const deleteAll = await del(`${route}/delete`, body);
 
   if (deleteAll.status === "error") {
     return deleteAll;

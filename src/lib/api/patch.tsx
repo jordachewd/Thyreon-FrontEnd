@@ -1,5 +1,5 @@
 import { API_URL } from "@/constants/public-api-url";
-import { UpdateUserData } from "@/types/update-user-data.d";
+import { UpdateUserData } from "@/types/users/update-user-data.d";
 import { getClerkAuthHeaders } from "./get-clerk-auth-headers";
 
 export const patch = async (

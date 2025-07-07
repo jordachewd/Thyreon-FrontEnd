@@ -1,8 +1,10 @@
 import { useMemo } from "react";
-import { Plan, PlanData, PlanStatus } from "@/types/plan-data.d";
+import { PlanData } from "@/types/plan/plan-data.d";
+import { PlanCardInterface } from "@/types/plan/plan-card.d";
+import { PlanStatus } from "@/types/plan/plan-status.d";
 
 interface PlanStatusParams {
-  plan: Plan;
+  plan: PlanCardInterface;
   yearly: boolean;
   planFee: number;
   userPlan?: PlanData;

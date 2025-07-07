@@ -1,4 +1,4 @@
-import { PlanName } from "@/types/plan-data.d";
+import { PlanName } from "@/types/plan/plan-name.d";
 
 export const plans = [
   {
@@ -6,7 +6,7 @@ export const plans = [
     price: 0,
     name: "Lite" as PlanName,
     desc: "Perfect for trying WP Care on one site. Includes basic automation to keep your site online and updated.",
-    inclusions: [
+    features: [
       {
         label: "1 website",
         isIncluded: true,
@@ -54,7 +54,7 @@ export const plans = [
     price: 29,
     name: "Pro" as PlanName,
     desc: "A complete maintenance suite for small teams or freelancers. Includes backups, scans, and standard support.",
-    inclusions: [
+    features: [
       {
         label: "Up to 5 websites",
         isIncluded: true,
@@ -102,7 +102,7 @@ export const plans = [
     price: 69,
     name: "Premium" as PlanName,
     desc: "For serious site owners and agencies. Includes everything in Pro plus performance tuning, AI monitoring, and premium support.",
-    inclusions: [
+    features: [
       {
         label: "Unlimited websites",
         isIncluded: true,

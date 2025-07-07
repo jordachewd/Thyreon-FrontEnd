@@ -1,0 +1,1 @@
+export type BillingCycle = "Monthly" | "Yearly";
