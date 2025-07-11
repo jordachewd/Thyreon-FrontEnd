@@ -1,1 +1,1 @@
-export type PlanName = "Lite" | "Pro" | "Premium";
+export type PlanName = "lite" | "pro" | "premium";

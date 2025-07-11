@@ -10,4 +10,5 @@ export interface UpdateUserErrors {
   role?: ErrorField;
   fileSize?: ErrorField;
   bio?: ErrorField;
+  activePlan?: ErrorField;
 }

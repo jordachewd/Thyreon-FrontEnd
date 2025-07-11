@@ -1,46 +1,45 @@
 import { useMemo } from "react";
-import { PlanData } from "@/types/plan/plan-data.d";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { PlanStatus } from "@/types/plan/plan-status.d";
+import { PlanName } from "@/types/plan/plan-name.d";
+import { Transaction } from "@/types/transactions/transaction.d";
 
 interface PlanStatusParams {
+  isYearly: boolean;
+  isSignedIn?: boolean;
   plan: PlanCardInterface;
-  yearly: boolean;
-  planFee: number;
-  userPlan?: PlanData;
+  userPlan: Transaction | undefined;
 }
 
 export function usePlanStatus({
   plan,
-  yearly,
-  planFee,
+  isYearly,
+  isSignedIn = false,
   userPlan,
 }: PlanStatusParams): PlanStatus {
   return useMemo(() => {
-    const planId = Number(plan.id);
-    const { id: userPlanId, billing, amount } = userPlan || {};
-    const prevPlans = Number(planFee) <= Number(amount);
-
-    const billingCycle = billing === (yearly ? "Yearly" : "Monthly");
-    const isIncluded = prevPlans && planId <= Number(userPlanId);
+    const planName = plan.name as PlanName;
+    const { billing } = userPlan || {};
+    const interval = billing === (isYearly ? "yearly" : "monthly");
 
     let isCurrent = false;
     let isPopular = false;
 
-    if (planId === 0) {
-      isCurrent = planId === Number(userPlanId);
+    if (planName === "lite") {
+      isCurrent = planName === userPlan?.plan || !userPlan?.plan;
     }
 
-    if (planId === 1) {
-      isCurrent = billingCycle && planId === Number(userPlanId);
-      isPopular = (!isIncluded && Number(userPlanId) === 0) || !userPlanId;
+    if (planName === "pro") {
+      isCurrent = planName === userPlan?.plan && interval;
     }
 
-    if (planId === 2) {
-      isCurrent = billingCycle && planId === Number(userPlanId);
-      isPopular = !isIncluded && [1, 2].includes(Number(userPlanId));
+    if (planName === "premium") {
+      isCurrent = planName === userPlan?.plan && interval;
+      isPopular = true;
     }
 
-    return { isIncluded, isCurrent, isPopular };
-  }, [plan.id, yearly, planFee, userPlan]);
+    isCurrent = isCurrent && isSignedIn;
+
+    return { isCurrent, isPopular };
+  }, [plan, isYearly, isSignedIn, userPlan]);
 }

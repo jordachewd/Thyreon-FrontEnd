@@ -12,7 +12,7 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import RemoveSelectedBtn from "../table/RemoveSelectedBtn";
 import AlertMessage from "@/components/layout/common/AlertMessage";
 import updateUser from "@/lib/actions/users/update";
-import { defaultEditUserFields } from "@/constants/users/fields/edit-user-fields";
+import { defaultEditUserFields as editFields } from "@/constants/users/fields/edit-user-fields";
 import { UpdateUserErrors } from "@/types/users/user-update-errors";
 import { validateSectionField } from "@/lib/utils/validateSectionField";
 
@@ -23,7 +23,7 @@ interface EditUserProps {
 export default function EditUserProfile({ userData }: EditUserProps) {
   const router = useRouter();
 
-  const isAdmin = userData.role === ("admin" as UserRole);
+  const isUserAdmin = userData.role === ("admin" as UserRole);
 
   const [alert, setAlert] = useState<AlertParams | null>(null);
   const [formData, setFormData] = useState<UpdateUserData>(userData);
@@ -72,20 +72,23 @@ export default function EditUserProfile({ userData }: EditUserProps) {
           setAlert({
             text: Array.isArray(updateUserData.message)
               ? updateUserData.message.join(", ")
-              : updateUserData.message || "An error occurred",
+              : updateUserData.message || "Failed to update user.",
             severity: "error",
           });
+          return;
         } else {
           setAlert({
-            text: "User profile updated successfully",
+            text: `${updateUserData.message || "User updated successfully"} `,
             severity: "success",
           });
           setFormData(newData);
         }
-      } catch (error) {
-        console.error("Error updating user profile: ", error);
+      } catch (error: unknown) {
+        const defaultMsg = "Failed to update user profile. Please try again.";
+        const errorMsg = error instanceof Error ? error.message : defaultMsg;
+
         setAlert({
-          text: "Failed to update user profile. Please try again.",
+          text: errorMsg,
           severity: "error",
         });
       }
@@ -100,9 +103,9 @@ export default function EditUserProfile({ userData }: EditUserProps) {
     <>
       {alert && <AlertMessage message={alert} />}
 
-      <form onSubmit={handleSubmit} className={css.form}>
+      <div className={css.form}>
         <div className={css.fields}>
-          {defaultEditUserFields.map((field) => (
+          {editFields.map((field) => (
             <SectionFormField<UpdateUserData, UpdateUserErrors>
               key={field.name}
               field={field}
@@ -124,17 +127,17 @@ export default function EditUserProfile({ userData }: EditUserProps) {
             </Button>
           </div>
         </div>
-      </form>
+      </div>
 
       <div className="flex my-2 gap-3 items-center">
         <RemoveSelectedBtn
-          disabled={isAdmin}
+          disabled={isUserAdmin}
           btnLabel="Delete Account"
           data={{ route: "users", items: { users: [userData] } }}
           successFn={() => router.push("/users")}
           confirmMsg={`Are you sure you want to delete '${userData.username}'?`}
         />
-        {isAdmin && (
+        {isUserAdmin && (
           <span className="text-xs text-gray-400">
             Admin users cannot be deleted.
           </span>

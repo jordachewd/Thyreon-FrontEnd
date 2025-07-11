@@ -19,6 +19,7 @@
     "@mui/styled-engine-sc": "^7.2.0",
     "@mui/styles": "^6.4.8",
     "@mui/x-data-grid": "^8.6.0",
+    "@stripe/stripe-js": "^7.4.0",
     "bootstrap-icons": "^1.11.3",
     "next": "^15.2.5",
     "openapi-typescript": "^7.5.2",

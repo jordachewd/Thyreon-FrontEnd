@@ -1,13 +1,12 @@
 .section {
-  @apply flex flex-col w-full max-w-6xl mx-auto p-4 gap-8;
+  @apply flex flex-col w-full max-w-6xl mx-auto p-4 gap-4 pt-0;
 }
 
 .hero {
   @apply flex flex-col md:flex-row justify-between items-center;
-  @apply rounded-lg shadow-md border p-6 gap-8 w-full;
-
-  border-color: var(--mui-palette-primary-main);
-  background-color: rgb(var(--mui-palette-primary-mainChannel) / 0.5);
+  @apply rounded-lg shadow-md p-6 gap-8 w-full;
+  @apply bg-vanilla-200 text-midnight-400;
+  @apply dark:bg-midnight-700 dark:text-vanilla-400;
 }
 
 .heroImg {

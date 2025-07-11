@@ -2,6 +2,7 @@ import { SectionField } from "@/types/fields/section-field.interface";
 import css from "./SectionFormField.module.css";
 import { TextField, MenuItem, TextareaAutosize } from "@mui/material";
 import { RefObject } from "react";
+import Image from "next/image";
 
 interface FormFieldProps<T, E = Record<string, unknown>> {
   field: SectionField;
@@ -79,6 +80,34 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
           )}
         </div>
       );
+      break;
+
+    case "image":
+      inputField = (
+        <div className={css.wrapper}>
+          <div className={css.label}>
+            <span className={css.labelTitle}>
+              {field.label}
+              {field.required && <sup>*</sup>}
+            </span>
+            {field.info && <span className={css.labelInfo}>{field.info}</span>}
+          </div>
+          <div className={`${css.field} flex-col flex`}>
+            {String(formData[name]) !== "" &&
+            String(formData[name]) !== "null" ? (
+              <Image
+                src={String(formData[name])}
+                alt="User Image"
+                width={64}
+                height={64}
+              />
+            ) : (
+              <>No Image Yet</>
+            )}
+          </div>
+        </div>
+      );
+
       break;
 
     case "textarea":
@@ -170,6 +199,7 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
               }}
             />
           )}
+          {isError && <div className={css.fieldError}>{isError}</div>}
         </div>
       );
   }

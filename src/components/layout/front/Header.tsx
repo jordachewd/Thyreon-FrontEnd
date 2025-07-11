@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import ToggleTheme from "@/components/shared/ToggleTheme";
 import Logo from "../../shared/Logo";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -35,6 +35,7 @@ export default function Header() {
             <Button size="small" href="/dashboard">
               Dashboard
             </Button>
+            <UserButton />
           </SignedIn>
           <SignedOut>
             <Button size="small" href="/sign-in">

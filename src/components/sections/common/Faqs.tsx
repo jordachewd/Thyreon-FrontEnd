@@ -7,8 +7,9 @@ import {
 import css from "@/styles/sections/shared/Faqs.module.css";
 import { faqs } from "@/constants/faqs.const";
 import PageHead from "../../shared/PageHead";
+import { memo } from "react";
 
-export default function Faqs() {
+function Faqs() {
   return (
     <div className={css.section}>
       <div className={css.content}>
@@ -40,3 +41,5 @@ export default function Faqs() {
     </div>
   );
 }
+
+export default memo(Faqs);

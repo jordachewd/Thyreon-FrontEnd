@@ -1,44 +1,36 @@
 import css from "@/styles/shared/PlanCard.module.css";
-import { PlanData } from "@/types/plan/plan-data.d";
+import CheckoutBtn from "./CheckoutBtn";
 import { Typography } from "@mui/material";
-import Checkout from "@/components/shared/Checkout";
-import { usePlanStatus } from "@/lib/hooks/usePlanStatus";
-import { GetUserData } from "@/types/users/get-user-data.d";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { PlanStatus } from "@/types/plan/plan-status.d";
+import { PlanCheckout } from "@/types/plan/plan-checkout.d";
+import { usePlanPrice } from "@/lib/hooks/usePlanPrice";
+import { usePlanStatus } from "@/lib/hooks/usePlanStatus";
+import { Transaction } from "@/types/transactions/transaction.d";
+import { memo } from "react";
 
 interface PlanCardProps {
+  save: number;
   plan: PlanCardInterface;
-  yearly: boolean;
-  userData?: GetUserData | null;
-  save?: number;
+  isSignedIn: boolean;
+  isYearly: boolean;
+  userPlan: Transaction | undefined;
 }
 
-export default function PlanCard({
+function PlanCard({
+  save,
   plan,
-  yearly,
-  userData,
-  save = 0,
+  isSignedIn,
+  isYearly = false,
+  userPlan = undefined,
 }: PlanCardProps) {
-  const hasUserData = userData && Object.keys(userData).length > 0;
-
-  const planFee =
-    plan.price === 0
-      ? plan.price
-      : yearly
-      ? Math.round(plan.price * 12 * (1 - save))
-      : plan.price;
+  const planPrice = usePlanPrice({ price: plan.price || 0, isYearly, save });
 
   const planStatus = usePlanStatus({
     plan,
-    planFee,
-    yearly,
-    userPlan: {
-      id: "1",
-      name: "Lite",
-      amount: 29,
-      billing: "Monthly",
-    } as PlanData /* dummy array for testing purpose */,
+    isYearly,
+    userPlan,
+    isSignedIn
   });
 
   const { isCurrent, isPopular } = planStatus as PlanStatus;
@@ -63,16 +55,16 @@ export default function PlanCard({
         <div className={css.priceBox}>
           <Typography variant="h3" className={css.price}>
             <span className="flex">
-              {plan.price !== 0 ? "€" + planFee : "Free"}
+              {plan.price !== 0 ? "€" + planPrice : "Free"}
             </span>
 
             {plan.price !== 0 && (
               <span className="flex text-sm opacity-80 self-end">
-                {yearly ? "/Yr" : "/Mo"}
+                {isYearly ? "/Yr" : "/Mo"}
               </span>
             )}
           </Typography>
-          {yearly && plan.price !== 0 && (
+          {save > 0 && isYearly && plan.price !== 0 && (
             <span className="flex line-through opacity-70">
               €{plan.price * 12} /Yr
             </span>
@@ -97,27 +89,23 @@ export default function PlanCard({
         ))}
       </div>
 
-      {hasUserData && (
+      {isSignedIn && (
         <div className={css.actions}>
-          <Checkout
-            plan={{
-              id: plan.id,
-              billing: yearly ? "Yearly" : "Monthly",
-              name: plan.name,
-              price: planFee,
-            }}
-            planStatus={planStatus}
-            /*             clerkUser={{
-              userId: id || "",
-              clerkId: clerkId || "",
-              username: username || "",
-              firstName: firstName,
-              lastName: lastName,
-              email: email,
-            }} */
+          <CheckoutBtn
+            isCurrent={isCurrent}
+            plan={
+              {
+                id: plan.id,
+                billing: isYearly ? "yearly" : "monthly",
+                name: plan.name,
+                price: planPrice,
+              } as PlanCheckout
+            }
           />
         </div>
       )}
     </div>
   );
 }
+
+export default memo(PlanCard);

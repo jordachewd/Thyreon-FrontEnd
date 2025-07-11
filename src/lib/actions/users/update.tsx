@@ -2,17 +2,10 @@
 
 import { patch } from "@/lib/api/patch";
 import { UpdateUserData } from "@/types/users/update-user-data.d";
-import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 
 export default async function updateUser(formData: UpdateUserData) {
   const { clerkId } = formData;
-
-  const whoIs = await currentUser();
-
-  if (!whoIs || whoIs.publicMetadata.role !== "admin") {
-    return { status: "error", message: "Unauthorized action!" };
-  }
 
   if (!clerkId) {
     return {
@@ -31,8 +24,11 @@ export default async function updateUser(formData: UpdateUserData) {
 
   const response = await patch(`users/update`, userData);
 
-  if (response.status === "error") {
-    return response;
+  if (response.error || response.status === "error") {
+    return {
+      status: "error",
+      message: response.message || "An error occurred while creating the user.",
+    };
   }
 
   revalidateTag("users");

@@ -35,7 +35,7 @@
 }
 
 .title {
-  @apply flex w-full;
+  @apply flex w-full capitalize;
 }
 
 .subtitle {

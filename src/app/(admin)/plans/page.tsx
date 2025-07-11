@@ -1,30 +1,24 @@
 import Faqs from "@/components/sections/common/Faqs";
 import Plans from "@/components/sections/common/Plans";
+import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import getCurrentUser from "@/lib/actions/users/get-current-user";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import { UserRole } from "@/types/users/user-role.d";
-import { currentUser } from "@clerk/nextjs/server";
 
 export default async function PlansPage() {
-  const user = await currentUser();
+  const profile = (await getCurrentUser()) as GetUserData;
 
-  if (!user) {
+  if (!profile) {
     return <LoadingBubbles wrapped />;
   }
 
-  const userData: GetUserData = {
-    id: user.id as unknown as number,
-    clerkId: user.id,
-    username: user.username || "",
-    email: user.emailAddresses[0].emailAddress || "",
-    role: user.publicMetadata.role as UserRole,
-    firstName: user.firstName || "",
-    lastName: user.lastName || "",
-  };
+  if ("status" in profile && "message" in profile) {
+    return <ErrorCard title="Error!" error={String(profile.message)} />;
+  }
 
   return (
     <>
-      <Plans userData={userData} hasLoader />
+      <Plans hasLoader userData={profile} />
       <Faqs />
     </>
   );

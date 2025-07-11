@@ -29,7 +29,6 @@ export default function PageHead({
           </Typography>
         )}
       </div>
-
       {children}
     </div>
   );

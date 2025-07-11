@@ -4,7 +4,7 @@ export const plans = [
   {
     id: 0,
     price: 0,
-    name: "Lite" as PlanName,
+    name: "lite" as PlanName,
     desc: "Perfect for trying WP Care on one site. Includes basic automation to keep your site online and updated.",
     features: [
       {
@@ -52,7 +52,7 @@ export const plans = [
   {
     id: 1,
     price: 29,
-    name: "Pro" as PlanName,
+    name: "pro" as PlanName,
     desc: "A complete maintenance suite for small teams or freelancers. Includes backups, scans, and standard support.",
     features: [
       {
@@ -100,7 +100,7 @@ export const plans = [
   {
     id: 2,
     price: 69,
-    name: "Premium" as PlanName,
+    name: "premium" as PlanName,
     desc: "For serious site owners and agencies. Includes everything in Pro plus performance tuning, AI monitoring, and premium support.",
     features: [
       {

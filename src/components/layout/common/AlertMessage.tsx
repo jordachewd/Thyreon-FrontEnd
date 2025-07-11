@@ -6,17 +6,18 @@ import {
   Snackbar,
   SnackbarCloseReason,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 interface AlertMessageProps {
   message: AlertParams;
+  onCloseFn?: () => void;
 }
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction="left" />;
 }
 
-export default function AlertMessage({ message }: AlertMessageProps) {
+function AlertMessage({ message, onCloseFn = () => {} }: AlertMessageProps) {
   const { text, severity = "info", variant = "filled" } = message;
   const [openAlert, setOpenAlert] = useState(false);
 
@@ -28,6 +29,7 @@ export default function AlertMessage({ message }: AlertMessageProps) {
     if (reason === "clickaway") {
       return;
     }
+    onCloseFn();
     setOpenAlert(false);
   };
 
@@ -41,7 +43,7 @@ export default function AlertMessage({ message }: AlertMessageProps) {
     <Snackbar
       open={openAlert}
       onClose={handleClose}
-      autoHideDuration={6000}
+      autoHideDuration={10000}
       slots={{ transition: SlideTransition }}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       sx={{ zIndex: 100 }}
@@ -57,3 +59,5 @@ export default function AlertMessage({ message }: AlertMessageProps) {
     </Snackbar>
   );
 }
+
+export default memo(AlertMessage);

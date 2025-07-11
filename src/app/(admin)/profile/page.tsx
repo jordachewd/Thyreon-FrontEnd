@@ -1,31 +1,32 @@
 import ProfileBilling from "@/components/sections/admin/ProfileBilling";
 import ProfileHero from "@/components/sections/admin/ProfileHero";
+import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { dummyTransactions } from "@/constants/dummy-transactions.const";
-import { Transaction } from "@/types/transactions/transaction.d";
-
-import { auth } from "@clerk/nextjs/server";
+import getCurrentUser from "@/lib/actions/users/get-current-user";
+// import getUserTransactions from "@/lib/actions/users/get-user-transactions";
+import { GetUserData } from "@/types/users/get-user-data.d";
 
 export default async function ProfilePage() {
-  const { userId } = await auth();
+  const profile = (await getCurrentUser()) as GetUserData;
 
-  let userTxns: Transaction[] | null = null;
-
-  if (userId) {
-    userTxns = dummyTransactions as Transaction[];
+  if (!profile) {
+    return <LoadingBubbles wrapped />;
   }
 
-  const stripeId = "stripe_123456789989870"; // Example Stripe ID, replace with actual logic to fetch user's Stripe ID
+  if ("status" in profile && "message" in profile) {
+    return <ErrorCard title="Error!" error={String(profile.message)} />;
+  }
+
+/*   const userTransactions = await getUserTransactions(
+    "user_2zgGC5RTwi6Fh1btC9u2woTZSBE"
+  );
+
+  console.log("User Transactions:", userTransactions); */
 
   return (
     <>
-      {!userId && <LoadingBubbles wrapped />}
-      {userId && (
-        <>
-          <ProfileHero />
-          <ProfileBilling stripeId={stripeId} userTxns={userTxns} />
-        </>
-      )}
+      <ProfileHero profile={profile} />
+      <ProfileBilling profile={profile} />
     </>
   );
 }

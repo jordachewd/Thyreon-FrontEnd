@@ -1,33 +1,54 @@
 "use client";
 import css from "@/styles/sections/shared/Plans.module.css";
 import { plans } from "@/constants/plans.const";
-import Button from "@mui/material/Button";
-import Switch from "@mui/material/Switch";
-import { useState } from "react";
-import { useUser } from "@clerk/clerk-react";
+import { PlanCardInterface } from "@/types/plan/plan-card.d";
+import { memo, useEffect, useState } from "react";
 import PageHead from "../../shared/PageHead";
 import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "../../shared/LoadingBubbles";
+import Button from "@mui/material/Button";
+import Switch from "@mui/material/Switch";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import { PlanCardInterface } from "@/types/plan/plan-card.d";
+import { Transaction } from "@/types/transactions/transaction.d";
+import { BillingCycle } from "@/types/plan/billing-cycle.d";
+import { useUser } from "@clerk/nextjs";
 
 interface PlansProps {
-  userData?: GetUserData | null;
   hasLoader?: boolean;
+  userData?: GetUserData;
 }
 
-export default function Plans({ userData, hasLoader = false }: PlansProps) {
-  const save = 0.3; // Save 30% on Yearly plans
-  const { isSignedIn } = useUser();
-  const [yearly, setYearly] = useState<boolean>(false);
+function Plans({ hasLoader = false, userData }: PlansProps) {
+  const isLoggedIn = useUser();
+  const { isSignedIn } = isLoggedIn;
+
+  const save: number = 0.3; // Save 30% on Yearly plans
+  const [planType, setPlanType] = useState<boolean>(false);
+
+  const cssMonthly = !planType ? css.switched : "";
+  const cssYearly = planType ? css.switched : "";
+
+  let userPlan: Transaction | undefined = undefined;
+  let userBilling: BillingCycle | undefined = undefined;
+  const { transactions, plan } = userData || {};
+
+  if (transactions && transactions.length > 0 && plan) {
+    userPlan = transactions.find((p) => p.stripeId === plan);
+    userBilling = userPlan?.billing as BillingCycle;
+  }
+
+  useEffect(() => {
+    if (!userBilling) return;
+
+    const setBilling = userBilling === "yearly" ? true : false;
+    setPlanType(setBilling);
+  }, [userBilling]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setYearly(event.target.checked);
+    setPlanType(event.target.checked);
   };
 
-  const cssMonthly = !yearly ? css.switched : "";
-  const cssYearly = yearly ? css.switched : "";
-
-  if (hasLoader && !userData) return <LoadingBubbles wrapped />;
+  if (hasLoader && !isSignedIn) return <LoadingBubbles wrapped />;
 
   return (
     <div className={css.section}>
@@ -35,23 +56,23 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
         <PageHead
           title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}
           subtitle="Select the plan that suits your needs."
-        >
-          <div className={css.switch}>
-            <p className={cssMonthly}>Monthly</p>
-            <Switch
-              size="small"
-              checked={yearly}
-              onChange={handleChange}
-              slotProps={{
-                input: {
-                  "aria-label": "controlled",
-                },
-              }}
-            />
-            <p className={cssYearly}>Yearly</p>
-            <span className={css.bubble}>Save {save * 100}%</span>
-          </div>
-        </PageHead>
+        />
+
+        <div className={css.switch}>
+          <p className={cssMonthly}>Monthly</p>
+          <Switch
+            size="small"
+            checked={planType}
+            onChange={handleChange}
+            slotProps={{
+              input: {
+                "aria-label": "controlled",
+              },
+            }}
+          />
+          <p className={cssYearly}>Yearly</p>
+          {save > 0 && <span className={css.bubble}>Save {save * 100}%</span>}
+        </div>
 
         <div className={css.plans}>
           {plans.map((plan: PlanCardInterface) => {
@@ -59,9 +80,10 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
               <PlanCard
                 key={plan.id}
                 plan={plan}
-                yearly={yearly}
-                userData={userData}
                 save={save}
+                isYearly={planType}
+                isSignedIn={isSignedIn || false}
+                userPlan={userPlan}
               />
             );
           })}
@@ -83,3 +105,5 @@ export default function Plans({ userData, hasLoader = false }: PlansProps) {
     </div>
   );
 }
+
+export default memo(Plans);

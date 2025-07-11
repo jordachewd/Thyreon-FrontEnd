@@ -9,18 +9,18 @@ export function getPlanExpirationDate(
   let expiresOn: Date = new Date();
 
   switch (plan) {
-    case "Lite":
+    case "lite":
       expiresOn = new Date(currentDate.setDate(currentDate.getDate() + 3));
       break;
-    case "Pro":
-    case "Premium":
+    case "pro":
+    case "premium":
       switch (billing) {
-        case "Monthly":
+        case "monthly":
           expiresOn = new Date(
             currentDate.setMonth(currentDate.getMonth() + 1)
           );
           break;
-        case "Yearly":
+        case "yearly":
           expiresOn = new Date(
             currentDate.setFullYear(currentDate.getFullYear() + 1)
           );

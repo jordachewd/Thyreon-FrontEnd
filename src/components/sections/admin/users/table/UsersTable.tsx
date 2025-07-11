@@ -62,7 +62,6 @@ export default function UsersTable({ users }: UsersProps) {
             typeof newSelection === "object" &&
             "ids" in newSelection
           ) {
-            console.log("New selection:", newSelection);
             setSelectedIds({
               type: newSelection.type,
               ids: new Set(newSelection.ids),

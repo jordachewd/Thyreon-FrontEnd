@@ -2,15 +2,9 @@
 import { revalidateTag } from "next/cache";
 import { BulkDeleteProps } from "@/types/bulk-delete.interface";
 import { del } from "../api/delete";
-import { currentUser } from "@clerk/nextjs/server";
 
 export default async function bulkDelete({ route, items }: BulkDeleteProps) {
   const selected = Object.values(items)[0];
-  const whoIs = await currentUser();
-
-  if (!whoIs || whoIs.publicMetadata.role !== "admin") {
-    return { status: "error", message: "Unauthorized action!" };
-  }
 
   if (!Array.isArray(selected) || selected.length === 0) {
     return { status: "error", message: "No items selected for deletion" };

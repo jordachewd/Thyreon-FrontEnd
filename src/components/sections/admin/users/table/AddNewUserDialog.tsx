@@ -9,22 +9,21 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import AdminAddNewButton from "../../AdminAddNewFab";
 import { validateNewUserFields } from "@/lib/utils/validateNewUserFields";
-import { defaultNewUserValues } from "@/constants/users/defaults/new-user-values";
+import { defaultNewUserValues as defaultVals } from "@/constants/users/defaults/new-user-values";
+import { defaultNewUserFields as defaultFields } from "@/constants/users/fields/new-user-fields";
 import createUser from "@/lib/actions/users/create-user";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { AlertParams } from "@/types/alert-message.interface";
+import AdminAddNewButton from "../../AdminAddNewFab";
 import AlertMessage from "@/components/layout/common/AlertMessage";
-import { defaultNewUserFields } from "@/constants/users/fields/new-user-fields";
+import { AlertParams } from "@/types/alert-message.interface";
 import { CreateUserData } from "@/types/users/create-user-data.d";
 import { NewUserFormErrors } from "@/types/users/user-add-errors.interface";
 import { generatePassword } from "@/lib/utils/generate-password";
 
 export default function AddNewUserDialog() {
   const [alert, setAlert] = useState<AlertParams | null>(null);
-  const [formData, setFormData] =
-    useState<CreateUserData>(defaultNewUserValues);
+  const [formData, setFormData] = useState<CreateUserData>(defaultVals);
   const [fieldErrors, setFieldErrors] = useState<NewUserFormErrors>({});
   const [isAddingUser, setIsAddingUser] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -49,8 +48,6 @@ export default function AddNewUserDialog() {
     try {
       const newUser = await createUser(formData);
 
-      console.log("newUser response", newUser);
-
       if (newUser.error || newUser.status === "error") {
         setAlert({
           text: Array.isArray(newUser.message)
@@ -59,18 +56,18 @@ export default function AddNewUserDialog() {
           severity: "error",
         });
         return;
+      } else {
+        setAlert({
+          text: newUser.message,
+          severity: newUser.status,
+        });
       }
+    } catch (error: unknown) {
+      const defaultMsg = "An error occurred while creating the user.";
+      const errorMsg = error instanceof Error ? error.message : defaultMsg;
 
       setAlert({
-        text: newUser.message,
-        severity: newUser.status,
-      });
-
-      handleCloseDialog();
-    } catch (error) {
-      console.error("Error creating user:", error);
-      setAlert({
-        text: "An error occurred while creating the user.",
+        text: errorMsg,
         severity: "error",
       });
     } finally {
@@ -78,19 +75,27 @@ export default function AddNewUserDialog() {
     }
   };
 
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
   const handleCloseDialog = (e?: React.MouseEvent | React.SyntheticEvent) => {
     if (e) {
       e.preventDefault();
     }
-    setOpenDialog(false);
     setAlert(null);
+    setOpenDialog(false);
     setFieldErrors({});
-    setFormData(defaultNewUserValues);
+    setFormData(defaultVals);
+  };
+
+  const handleAlertClose = () => {
+    setAlert(null);
   };
 
   return (
     <>
-      <AdminAddNewButton execFn={() => setOpenDialog(true)} />
+      <AdminAddNewButton execFn={handleOpenDialog} />
 
       <Dialog
         maxWidth="sm"
@@ -99,14 +104,16 @@ export default function AddNewUserDialog() {
         onClose={() => handleCloseDialog()}
         aria-labelledby="responsive-dialog-title"
       >
-        {alert && <AlertMessage message={alert} />}
+        {alert && (
+          <AlertMessage message={alert} onCloseFn={handleAlertClose} />
+        )}
 
         <DialogTitle id="responsive-dialog-title" sx={{ paddingBottom: 0 }}>
           <div className="flex w-full justify-between items-start">
             <Typography variant="h4" className="py-2!">
               Add new user
             </Typography>
-            <Button onClick={() => handleCloseDialog()} size="small">
+            <Button onClick={handleCloseDialog} size="small">
               <i className="bi bi-x-lg"></i>
             </Button>
           </div>
@@ -114,7 +121,7 @@ export default function AddNewUserDialog() {
 
         <DialogContent sx={{ paddingTop: 0 }}>
           <form className="flex flex-col w-full space-y-4 mt-4">
-            {defaultNewUserFields.map(({ label, name, type }) => {
+            {defaultFields.map(({ label, name, type }) => {
               const fdValue = formData[name as keyof CreateUserData] || "";
               const hasInfo =
                 fieldErrors[name as keyof NewUserFormErrors]?.info;
