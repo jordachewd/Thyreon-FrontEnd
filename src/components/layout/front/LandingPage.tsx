@@ -10,7 +10,7 @@ import { GetUserData } from "@/types/users/get-user-data.d";
 export default async function LandingPage() {
   // const profile = (await getCurrentUser()) as GetUserData;
 
-  let userData: GetUserData | undefined = undefined;
+  const userData: GetUserData | undefined = undefined;
 
 /*   if (profile && !("statusCode" in profile && "error" in profile)) {
     userData = profile;
