@@ -1,4 +1,4 @@
-import { AlertParams } from "@/types/alert-message.interface";
+"use client";
 import {
   Alert,
   Slide,
@@ -7,19 +7,22 @@ import {
   SnackbarCloseReason,
 } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-
-interface AlertMessageProps {
-  message: AlertParams;
-  onCloseFn?: () => void;
-}
+import { useAdminContext } from "@/context/admin/AdminContext";
+import { AlertMessageParams } from "@/context/admin/types/alert/alert-msg-params.interface";
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction="left" />;
 }
 
-function AlertMessage({ message, onCloseFn = () => {} }: AlertMessageProps) {
-  const { text, severity = "info", variant = "filled" } = message;
+function AlertMessage() {
+  const { alertCtx } = useAdminContext();
   const [openAlert, setOpenAlert] = useState(false);
+
+  const {
+    text = "",
+    severity = "info",
+    variant = "filled",
+  } = alertCtx?.message as AlertMessageParams;
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -29,7 +32,7 @@ function AlertMessage({ message, onCloseFn = () => {} }: AlertMessageProps) {
     if (reason === "clickaway") {
       return;
     }
-    onCloseFn();
+
     setOpenAlert(false);
   };
 
@@ -37,7 +40,7 @@ function AlertMessage({ message, onCloseFn = () => {} }: AlertMessageProps) {
     if (text !== "") {
       setOpenAlert(true);
     }
-  }, [message, text]);
+  }, [text]);
 
   return (
     <Snackbar
@@ -46,7 +49,7 @@ function AlertMessage({ message, onCloseFn = () => {} }: AlertMessageProps) {
       autoHideDuration={10000}
       slots={{ transition: SlideTransition }}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      sx={{ zIndex: 100 }}
+      sx={{ zIndex: 999999999 }}
     >
       <Alert
         onClose={handleClose}

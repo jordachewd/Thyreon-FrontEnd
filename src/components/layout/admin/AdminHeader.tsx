@@ -2,7 +2,7 @@
 import css from "@/styles/layout/admin/AdminHeader.module.css";
 import AdminNav from "@/components/sections/admin/AdminNav";
 import SidebarToggle from "../../sections/admin/SidebarToggle";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminContext } from "@/context/admin/AdminContext";
 import TextField from "@mui/material/TextField";
 import Logo from "../../shared/Logo";
 import IconButton from "@mui/material/IconButton";

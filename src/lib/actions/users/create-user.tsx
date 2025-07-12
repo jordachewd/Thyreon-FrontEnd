@@ -1,6 +1,6 @@
 "use server";
 import { post } from "@/lib/api/post";
-import { revalidateTag } from "next/cache";
+// import { revalidateTag } from "next/cache";
 import { CreateUserData } from "@/types/users/create-user-data.d";
 
 export default async function createUser(formData: CreateUserData) {
@@ -13,6 +13,6 @@ export default async function createUser(formData: CreateUserData) {
     };
   }
 
-  revalidateTag("users");
+ // revalidateTag("users");
   return response;
 }

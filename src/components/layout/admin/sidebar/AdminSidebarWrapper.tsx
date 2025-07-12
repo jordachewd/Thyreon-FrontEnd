@@ -1,7 +1,7 @@
 "use client";
 
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminContext } from "@/context/admin/AdminContext";
 import AdminSidebarHeader from "./AdminSidebarHeader";
 import AdminSidebarSearch from "./AdminSidebarSearch";
 import AdminSidebarNav from "./AdminSidebarNav";

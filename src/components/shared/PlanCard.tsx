@@ -12,15 +12,15 @@ import { memo } from "react";
 interface PlanCardProps {
   save: number;
   plan: PlanCardInterface;
-  isSignedIn: boolean;
-  isYearly: boolean;
-  userPlan: Transaction | undefined;
+  isSignedIn?: boolean;
+  isYearly?: boolean;
+  userPlan?: Transaction | undefined;
 }
 
 function PlanCard({
   save,
   plan,
-  isSignedIn,
+  isSignedIn = false,
   isYearly = false,
   userPlan = undefined,
 }: PlanCardProps) {
@@ -30,7 +30,7 @@ function PlanCard({
     plan,
     isYearly,
     userPlan,
-    isSignedIn
+    isSignedIn,
   });
 
   const { isCurrent, isPopular } = planStatus as PlanStatus;

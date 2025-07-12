@@ -7,7 +7,6 @@ import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import { UserRole } from "@/types/users/user-role.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import PlanPromo from "@/components/shared/PlanPromo";
-import { Transaction } from "@/types/transactions/transaction.d";
 import { memo } from "react";
 
 interface ProfileHeroProps {
@@ -20,18 +19,12 @@ function ProfileHero({ profile }: ProfileHeroProps) {
     firstName,
     lastName,
     username,
-    plan,
-    transactions,
     role,
+    currentPlan,
     createdAt,
     updatedAt,
   } = profile;
   const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
-
-  let userPlan: Transaction | undefined = undefined;
-  if (transactions && transactions.length > 0 && plan) {
-    userPlan = transactions.find((p) => p.stripeId === plan);
-  }
 
   return (
     <section className={css.section}>
@@ -73,7 +66,7 @@ function ProfileHero({ profile }: ProfileHeroProps) {
         </div>
 
         <div className={css.heroPlan}>
-          <PlanPromo userPlan={userPlan} userRole={role} />
+          <PlanPromo userPlan={currentPlan} userRole={role} />
         </div>
       </div>
     </section>

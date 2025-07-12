@@ -1,10 +1,11 @@
-import getCurrentUser from "@/lib/actions/users/get-current-user";
+import getCurrentUser from "@/lib/actions/users/get-me-user";
 import AdminSidebarWrapper from "./sidebar/AdminSidebarWrapper";
 import { UserRole } from "@/types/users/user-role.d";
+import { GetUserData } from "@/types/users/get-user-data.d";
 
 export default async function AdminSidebar() {
-  const currentUser = await getCurrentUser();
-  const isAdmin = currentUser?.role === ("admin" as UserRole);
+  const profile = await getCurrentUser<GetUserData>();
+  const isAdmin = profile?.role === ("admin" as UserRole);
 
   return <AdminSidebarWrapper isAdmin={isAdmin} />;
 }

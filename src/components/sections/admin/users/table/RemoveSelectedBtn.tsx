@@ -1,10 +1,9 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import { AlertParams } from "@/types/alert-message.interface";
 import { BulkDeleteProps } from "@/types/bulk-delete.interface";
-import AlertMessage from "@/components/layout/common/AlertMessage";
 import bulkDelete from "@/lib/actions/delete-bulk.action";
+import { useAdminContext } from "@/context/admin/AdminContext";
 
 interface RemoveSelectedBtnProps {
   data: BulkDeleteProps;
@@ -23,18 +22,20 @@ export default function RemoveSelectedBtn({
 }: RemoveSelectedBtnProps) {
   const { route, items } = data as BulkDeleteProps;
   const [isRemoving, setIsRemoving] = useState<boolean>(false);
-  const [alert, setAlert] = useState<AlertParams | null>(null);
-  const alertMsg =
-    confirmMsg || `Are you sure you want to remove selected ${route}?`;
+
+  const { alertCtx } = useAdminContext();
+  const { updateAlert } = alertCtx;
 
   const handleRemoveAll = async () => {
-    if (confirm(`${alertMsg}\nThis action cannot be undone.`)) {
+    const confirmation =
+      confirmMsg || `Are you sure you want to remove selected ${route}?`;
+    if (confirm(`${confirmation}\nThis action cannot be undone.`)) {
       setIsRemoving(true);
       try {
         const remove = await bulkDelete({ route, items });
         const failed = remove.status === "error" || remove.status === "warning";
 
-        setAlert({
+        updateAlert({
           text: remove.message,
           severity: remove.status,
         });
@@ -43,7 +44,7 @@ export default function RemoveSelectedBtn({
           successFn();
         }
       } catch (error: unknown) {
-        setAlert({
+        updateAlert({
           text: (error as Error).message,
           severity: "error",
         });
@@ -55,7 +56,6 @@ export default function RemoveSelectedBtn({
 
   return (
     <div className="flex items-center my-4 gap-2">
-      {alert && <AlertMessage message={alert} />}
       <Button
         size="small"
         variant="outlined"

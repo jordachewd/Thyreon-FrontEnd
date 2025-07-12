@@ -2,7 +2,7 @@
 
 import { patch } from "@/lib/api/patch";
 import { UpdateUserData } from "@/types/users/update-user-data.d";
-import { revalidateTag } from "next/cache";
+//import { revalidateTag } from "next/cache";
 
 export default async function updateUser(formData: UpdateUserData) {
   const { clerkId } = formData;
@@ -31,6 +31,6 @@ export default async function updateUser(formData: UpdateUserData) {
     };
   }
 
-  revalidateTag("users");
+  //revalidateTag("users");
   return response;
 }

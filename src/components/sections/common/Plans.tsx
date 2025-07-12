@@ -8,17 +8,15 @@ import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "../../shared/LoadingBubbles";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
-import { GetUserData } from "@/types/users/get-user-data.d";
 import { Transaction } from "@/types/transactions/transaction.d";
-import { BillingCycle } from "@/types/plan/billing-cycle.d";
 import { useUser } from "@clerk/nextjs";
 
 interface PlansProps {
   hasLoader?: boolean;
-  userData?: GetUserData;
+  currentPlan?: Transaction | undefined;
 }
 
-function Plans({ hasLoader = false, userData }: PlansProps) {
+function Plans({ hasLoader = false, currentPlan = undefined }: PlansProps) {
   const isLoggedIn = useUser();
   const { isSignedIn } = isLoggedIn;
 
@@ -28,21 +26,12 @@ function Plans({ hasLoader = false, userData }: PlansProps) {
   const cssMonthly = !planType ? css.switched : "";
   const cssYearly = planType ? css.switched : "";
 
-  let userPlan: Transaction | undefined = undefined;
-  let userBilling: BillingCycle | undefined = undefined;
-  const { transactions, plan } = userData || {};
-
-  if (transactions && transactions.length > 0 && plan) {
-    userPlan = transactions.find((p) => p.stripeId === plan);
-    userBilling = userPlan?.billing as BillingCycle;
-  }
-
   useEffect(() => {
-    if (!userBilling) return;
+    if (!currentPlan?.billing) return;
 
-    const setBilling = userBilling === "yearly" ? true : false;
+    const setBilling = currentPlan?.billing === "yearly" ? true : false;
     setPlanType(setBilling);
-  }, [userBilling]);
+  }, [currentPlan?.billing]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setPlanType(event.target.checked);
@@ -82,8 +71,8 @@ function Plans({ hasLoader = false, userData }: PlansProps) {
                 plan={plan}
                 save={save}
                 isYearly={planType}
-                isSignedIn={isSignedIn || false}
-                userPlan={userPlan}
+                isSignedIn={isSignedIn}
+                userPlan={currentPlan}
               />
             );
           })}

@@ -1,5 +1,5 @@
 "use server";
-import { revalidateTag } from "next/cache";
+// import { revalidateTag } from "next/cache";
 import { BulkDeleteProps } from "@/types/bulk-delete.interface";
 import { del } from "../api/delete";
 
@@ -31,6 +31,6 @@ export default async function bulkDelete({ route, items }: BulkDeleteProps) {
     return deleteAll;
   }
 
-  revalidateTag(route);
+  // revalidateTag(route);
   return deleteAll;
 }

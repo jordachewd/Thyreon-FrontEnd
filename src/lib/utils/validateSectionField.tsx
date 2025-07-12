@@ -10,6 +10,11 @@ export function validateSectionField<T>(formData: T): {
   for (const key in formData) {
     const value = formData[key];
 
+    // Skip null, undefined, or array values
+    if (value === null || value === undefined || Array.isArray(value)) {
+      continue;
+    }
+
     if (!isNaN(Number(value)) && Number(value) <= 0) {
       errors[key as keyof T] = {
         value,

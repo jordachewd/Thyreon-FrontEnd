@@ -2,11 +2,11 @@ import Faqs from "@/components/sections/common/Faqs";
 import Plans from "@/components/sections/common/Plans";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import getCurrentUser from "@/lib/actions/users/get-current-user";
+import getCurrentUser from "@/lib/actions/users/get-me-user";
 import { GetUserData } from "@/types/users/get-user-data.d";
 
 export default async function PlansPage() {
-  const profile = (await getCurrentUser()) as GetUserData;
+  const profile = await getCurrentUser<GetUserData>({ plan: true });
 
   if (!profile) {
     return <LoadingBubbles wrapped />;
@@ -18,7 +18,7 @@ export default async function PlansPage() {
 
   return (
     <>
-      <Plans hasLoader userData={profile} />
+      <Plans hasLoader currentPlan={profile.currentPlan} />
       <Faqs />
     </>
   );

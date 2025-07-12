@@ -19,23 +19,23 @@ export function usePlanStatus({
 }: PlanStatusParams): PlanStatus {
   return useMemo(() => {
     const planName = plan.name as PlanName;
-    const { billing } = userPlan || {};
+    const { billing, plan: userPlanName } = userPlan || {};
     const interval = billing === (isYearly ? "yearly" : "monthly");
 
     let isCurrent = false;
     let isPopular = false;
 
     if (planName === "lite") {
-      isCurrent = planName === userPlan?.plan || !userPlan?.plan;
+      isCurrent = planName === userPlanName || !userPlanName;
     }
 
     if (planName === "pro") {
-      isCurrent = planName === userPlan?.plan && interval;
+      isCurrent = planName === userPlanName && interval;
     }
 
     if (planName === "premium") {
-      isCurrent = planName === userPlan?.plan && interval;
       isPopular = true;
+      isCurrent = planName === userPlanName && interval;
     }
 
     isCurrent = isCurrent && isSignedIn;

@@ -15,18 +15,21 @@ import { defaultNewUserFields as defaultFields } from "@/constants/users/fields/
 import createUser from "@/lib/actions/users/create-user";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import AdminAddNewButton from "../../AdminAddNewFab";
-import AlertMessage from "@/components/layout/common/AlertMessage";
-import { AlertParams } from "@/types/alert-message.interface";
 import { CreateUserData } from "@/types/users/create-user-data.d";
 import { NewUserFormErrors } from "@/types/users/user-add-errors.interface";
 import { generatePassword } from "@/lib/utils/generate-password";
+import { useAdminContext } from "@/context/admin/AdminContext";
+import { alertDefaults } from "@/context/admin/constants/alert-defaults.const";
 
 export default function AddNewUserDialog() {
-  const [alert, setAlert] = useState<AlertParams | null>(null);
   const [formData, setFormData] = useState<CreateUserData>(defaultVals);
   const [fieldErrors, setFieldErrors] = useState<NewUserFormErrors>({});
   const [isAddingUser, setIsAddingUser] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  const { alertCtx } = useAdminContext();
+  const { updateAlert } = alertCtx;
+  const clearAlert = alertDefaults.message;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,7 +52,7 @@ export default function AddNewUserDialog() {
       const newUser = await createUser(formData);
 
       if (newUser.error || newUser.status === "error") {
-        setAlert({
+        updateAlert({
           text: Array.isArray(newUser.message)
             ? newUser.message.join(", ")
             : newUser.message || "An error occurred",
@@ -57,7 +60,7 @@ export default function AddNewUserDialog() {
         });
         return;
       } else {
-        setAlert({
+        updateAlert({
           text: newUser.message,
           severity: newUser.status,
         });
@@ -66,7 +69,7 @@ export default function AddNewUserDialog() {
       const defaultMsg = "An error occurred while creating the user.";
       const errorMsg = error instanceof Error ? error.message : defaultMsg;
 
-      setAlert({
+      updateAlert({
         text: errorMsg,
         severity: "error",
       });
@@ -83,14 +86,10 @@ export default function AddNewUserDialog() {
     if (e) {
       e.preventDefault();
     }
-    setAlert(null);
+    updateAlert(clearAlert);
     setOpenDialog(false);
     setFieldErrors({});
     setFormData(defaultVals);
-  };
-
-  const handleAlertClose = () => {
-    setAlert(null);
   };
 
   return (
@@ -104,10 +103,6 @@ export default function AddNewUserDialog() {
         onClose={() => handleCloseDialog()}
         aria-labelledby="responsive-dialog-title"
       >
-        {alert && (
-          <AlertMessage message={alert} onCloseFn={handleAlertClose} />
-        )}
-
         <DialogTitle id="responsive-dialog-title" sx={{ paddingBottom: 0 }}>
           <div className="flex w-full justify-between items-start">
             <Typography variant="h4" className="py-2!">

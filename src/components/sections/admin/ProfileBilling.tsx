@@ -4,16 +4,15 @@ import { Typography } from "@mui/material";
 import { TooltipArrow } from "../../shared/TooltipArrow";
 import { getRandomString } from "@/lib/utils/getRandomString";
 import PageHead from "../../shared/PageHead";
-import { GetUserData } from "@/types/users/get-user-data.d";
 import { memo } from "react";
+import { Transaction } from "@/types/transactions/transaction.d";
 
 interface BillingProps {
-  profile: GetUserData;
+  currentPlan: string;
+  transactions: Transaction[] | undefined;
 }
 
-function ProfileBilling({ profile }: BillingProps) {
-  const { transactions, plan: currentPlan } = profile;
-
+function ProfileBilling({ transactions, currentPlan }: BillingProps) {
   const hasTransactions = transactions && transactions.length > 0;
 
   if (!hasTransactions) {

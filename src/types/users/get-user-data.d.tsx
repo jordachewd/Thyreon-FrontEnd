@@ -10,13 +10,14 @@ export interface GetUserData {
   username: string;
   firstName?: string;
   lastName?: string;
-  plan?: string;
+  plan: string;
   role: UserRole;
+
+  transactions?: Transaction[];
+  currentPlan?: Transaction;
 
   createdAt?: Date | string;
   updatedAt?: Date | string;
-
-  transactions?: Transaction[];
 
   sites?: SiteData[];
 
