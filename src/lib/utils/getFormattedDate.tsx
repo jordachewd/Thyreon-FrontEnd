@@ -1,6 +1,6 @@
 export default function getFormattedDate(date: string | number | Date): string {
   if (!date) {
-    throw new Error("Date is undefined in getFormattedDate()!");
+    return "Invalid date";
   }
 
   const parsedDate = new Date(date);
