@@ -6,29 +6,11 @@
 
 ## 🌐 Live Demo
 
-> Coming Soon…
+> [wpguard.vercel.app](https://wpguard.vercel.app/)
 
 ---
 
 ## 📦 Tech Stack
-
-### 🔧 Backend – NestJS
-
-| Category            | Technology/Library                          |
-|---------------------|---------------------------------------------|
-| Framework           | [NestJS](https://nestjs.com/)               |
-| Language            | TypeScript                                  |
-| Authentication      | [Clerk](https://clerk.dev/) via Passport    |
-| Authorization       | Role-Based Access Control (RBAC)            |
-| API Types           | GraphQL (Apollo Driver), REST               |
-| Database ORM        | [Prisma](https://www.prisma.io/)            |
-| Database            | PostgreSQL                                  |
-| Logging             | [nestjs-pino](https://github.com/iamolegga/nestjs-pino) |
-| Configuration       | `@nestjs/config`                            |
-| Documentation       | Swagger (`@nestjs/swagger`)                 |
-| Static Hosting      | `@nestjs/serve-static`                      |
-
----
 
 ### ⚛️ Frontend – Next.js 15+ (App Router)
 
