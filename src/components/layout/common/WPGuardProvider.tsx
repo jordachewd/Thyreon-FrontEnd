@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import muiTheme from "@/themes/muiTheme";
 import { ReactNode } from "react";
+import { ApolloWrapper } from "./ApolloWrapper";
 
 interface ThemeProps {
   children: ReactNode;
@@ -12,7 +13,7 @@ export default function WPGuardProvider({ children }: ThemeProps) {
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
-      {children}
+      <ApolloWrapper>{children}</ApolloWrapper>
     </ThemeProvider>
   );
 }

@@ -17,12 +17,11 @@ export default async function AdminUserProfile({ params }: UserProfileProps) {
     return <LoadingBubbles wrapped />;
   }
 
-  if ("status" in user && "message" in user) {
+  if (("status" in user || "error" in user) && "message" in user) {
     return (
       <ErrorCard
-        title="Error!"
+        title={String(user.error) + "!"}
         error={String(user.message)}
-        backToUrl="users"
       />
     );
   }

@@ -9,6 +9,7 @@ export const getClerkAuthHeaders = async (isFormData: boolean = false) => {
   };
 
   if (!isFormData) {
+    headers["Accept"] = "application/json";
     headers["Content-Type"] = "application/json";
   }
 

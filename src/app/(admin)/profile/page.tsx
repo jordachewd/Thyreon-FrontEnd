@@ -15,8 +15,13 @@ export default async function ProfilePage() {
     return <LoadingBubbles wrapped />;
   }
 
-  if ("status" in profile && "message" in profile) {
-    return <ErrorCard title="Error!" error={String(profile.message)} />;
+  if (("status" in profile || "error" in profile) && "message" in profile) {
+    return (
+      <ErrorCard
+        title={String(profile.error) + "!"}
+        error={String(profile.message)}
+      />
+    );
   }
 
   return (

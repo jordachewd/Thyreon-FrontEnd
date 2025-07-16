@@ -1,9 +1,12 @@
+import TestingGraphql from "@/components/layout/admin/TestingGraphql";
 import PageHead from "@/components/shared/PageHead";
 
 export default async function AdminDashboard() {
   return (
     <>
       <PageHead title="Dashboard" alignTitle="left" />
+
+      <TestingGraphql />
 
       <p>
         Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut

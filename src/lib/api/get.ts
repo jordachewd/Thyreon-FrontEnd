@@ -1,4 +1,4 @@
-import { API_URL } from "@/constants/public-api-url";
+import { API_URL } from "@/constants/api/public-api-url";
 import { getClerkAuthHeaders } from "./get-clerk-auth-headers";
 
 export const get = async <T>(
@@ -16,6 +16,5 @@ export const get = async <T>(
   });
 
   const response = (await resp.json()) as T;
-
   return response;
 };

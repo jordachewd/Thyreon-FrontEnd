@@ -13,8 +13,17 @@ export default async function AdminUsers() {
     return <LoadingBubbles wrapped />;
   }
 
-  if ("status" in users && "message" in users) {
-    return <ErrorCard title="Error!" error={String(users.message)} />;
+  if (("status" in users || "error" in users) && "message" in users) {
+    const errorTitle =
+      "error" in users
+        ? String((users as Record<"error", unknown>).error) + "!"
+        : String((users as Record<"status", unknown>).status) + "!";
+    return (
+      <ErrorCard
+        title={errorTitle}
+        error={String((users as Record<"message", unknown>).message)}
+      />
+    );
   }
 
   return (

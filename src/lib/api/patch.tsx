@@ -1,4 +1,4 @@
-import { API_URL } from "@/constants/public-api-url";
+import { API_URL } from "@/constants/api/public-api-url";
 import { getClerkAuthHeaders } from "./get-clerk-auth-headers";
 
 export const patch = async (path: string, data: FormData | object) => {
