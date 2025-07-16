@@ -1,23 +1,72 @@
-`Front-End`
+# 🛡️ WP Guard – WordPress Maintenance Made Easy
 
-# WPGuard
-_WordPress Maintenance Made Easy_
- 
->Keep your WordPress site secure and up-to-date with automated maintenance amoring.
+**WP Guard** is a full-stack SaaS platform that simplifies WordPress site management. Designed for freelancers, agencies, and site owners, it offers a centralized dashboard to monitor, maintain, and secure your WordPress sites — with real-time updates, billing integration, and user management powered by Clerk.
 
-:point_right: [See it in action](https://wpguard.vercel.app/)
+---
 
-<hr />
+## 🌐 Live Demo
 
-### Strategy
+> Coming Soon…
 
-Software as a service (SaaS)
+---
 
-### Tech Stack
-- [NextJS](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Material UI](https://mui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Clerk](https://clerk.com/)
-- [Stripe](https://stripe.com)
-- [OpenAI](https://openai.com/)
+## 📦 Tech Stack
+
+### 🔧 Backend – NestJS
+
+| Category            | Technology/Library                          |
+|---------------------|---------------------------------------------|
+| Framework           | [NestJS](https://nestjs.com/)               |
+| Language            | TypeScript                                  |
+| Authentication      | [Clerk](https://clerk.dev/) via Passport    |
+| Authorization       | Role-Based Access Control (RBAC)            |
+| API Types           | GraphQL (Apollo Driver), REST               |
+| Database ORM        | [Prisma](https://www.prisma.io/)            |
+| Database            | PostgreSQL                                  |
+| Logging             | [nestjs-pino](https://github.com/iamolegga/nestjs-pino) |
+| Configuration       | `@nestjs/config`                            |
+| Documentation       | Swagger (`@nestjs/swagger`)                 |
+| Static Hosting      | `@nestjs/serve-static`                      |
+
+---
+
+### ⚛️ Frontend – Next.js 15+ (App Router)
+
+| Category            | Technology/Library                          |
+|---------------------|---------------------------------------------|
+| Framework           | [Next.js](https://nextjs.org/) App Router   |
+| Language            | TypeScript                                  |
+| Authentication      | [@clerk/nextjs](https://clerk.dev/)         |
+| GraphQL Client      | [Apollo Client](https://www.apollographql.com/docs/react/) |
+| UI Library          | [MUI (Material UI)](https://mui.com/)       |
+| State Management    | Apollo Client cache + React Hooks           |
+| Data Fetching       | Fetch API + FormData support                |
+| Forms               | React Hook Form / Native                    |
+| Env Management      | `.env.local`, `.env.production`             |
+
+---
+
+## 🚧 Features (in progress)
+
+- 🔐 Auth via Clerk (JWT, sessions, RBAC)
+- 📊 GraphQL API with `@nestjs/graphql`
+- 🧾 Stripe-powered billing & subscriptions
+- 🔄 Clerk webhooks for user sync
+- 💼 Admin dashboard for user/site management
+- 🗃️ Transaction logs
+- 🔧 Static & dynamic health checks
+- 🧪 Full unit + integration test setup (planned)
+
+---
+
+## 📁 Folder Structure (Backend)
+
+src/
+├── auth/ # Clerk strategy, guards, decorators
+├── checkout/ # Stripe integration
+├── common/ # Shared types & decorators
+├── prisma/ # Prisma service + client
+├── users/ # User resolvers, services, DTOs
+├── graphql/ # Auto-generated schemas
+├── main.ts # App bootstrap
+└── app.module.ts # Root module
