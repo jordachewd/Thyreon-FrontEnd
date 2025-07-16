@@ -57,16 +57,3 @@
 - 🔧 Static & dynamic health checks
 - 🧪 Full unit + integration test setup (planned)
 
----
-
-## 📁 Folder Structure (Backend)
-
-src/
-├── auth/ # Clerk strategy, guards, decorators
-├── checkout/ # Stripe integration
-├── common/ # Shared types & decorators
-├── prisma/ # Prisma service + client
-├── users/ # User resolvers, services, DTOs
-├── graphql/ # Auto-generated schemas
-├── main.ts # App bootstrap
-└── app.module.ts # Root module
