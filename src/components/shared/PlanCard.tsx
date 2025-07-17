@@ -95,10 +95,9 @@ function PlanCard({
             isCurrent={isCurrent}
             plan={
               {
-                id: plan.id,
-                billing: isYearly ? "yearly" : "monthly",
                 name: plan.name,
                 price: planPrice,
+                billing: isYearly ? "yearly" : "monthly",
               } as PlanCheckout
             }
           />

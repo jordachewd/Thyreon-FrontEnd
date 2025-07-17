@@ -1,35 +1,74 @@
+"use client";
+
 import css from "@/styles/sections/admin/ProfileBilling.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import { Typography } from "@mui/material";
-import { TooltipArrow } from "../../shared/TooltipArrow";
+import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { getRandomString } from "@/lib/utils/getRandomString";
-import PageHead from "../../shared/PageHead";
-import { memo } from "react";
+import { gql, useQuery } from "@apollo/client";
 import { Transaction } from "@/types/transactions/transaction.d";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import ProfileBillingWrapper from "./ProfileBillingWrapper";
+import Typography from "@mui/material/Typography";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import { memo } from "react";
+import ErrorCard from "@/components/shared/ErrorCard";
 
-interface BillingProps {
-  currentPlan: string;
-  transactions: Transaction[] | undefined;
-}
+const GET_MY_TRANSACTIONS_QUERY = gql`
+  query GetMe {
+    me {
+      currentPlan {
+        plan
+        billing
+        amount
+        stripeId
+      }
+      transactions {
+        plan
+        amount
+        billing
+        stripeId
+        createdAt
+        expiresAt
+      }
+    }
+  }
+`;
 
-function ProfileBilling({ transactions, currentPlan }: BillingProps) {
-  const hasTransactions = transactions && transactions.length > 0;
+function ProfileBilling() {
+  const { data, loading, error } = useQuery<{ me: GetUserData }>(
+    GET_MY_TRANSACTIONS_QUERY
+  );
+
+  if (loading)
+    return (
+      <ProfileBillingWrapper>
+        <LoadingBubbles wrapped />
+      </ProfileBillingWrapper>
+    );
+
+  if (error)
+    return (
+      <ProfileBillingWrapper>
+        <ErrorCard error={error.message} title="" backToUrl="" />
+      </ProfileBillingWrapper>
+    );
+
+  const currentPlan: Transaction | undefined = data?.me.currentPlan;
+  const transactions: Transaction[] = data?.me.transactions || [];
+  const hasTransactions = transactions.length > 0;
 
   if (!hasTransactions) {
     return (
-      <section className={css.section}>
-        <PageHead title="Transaction History" />
+      <ProfileBillingWrapper>
         <Typography variant="body2" className="text-center !text-slate-600">
           No transactions yet.
         </Typography>
-      </section>
+      </ProfileBillingWrapper>
     );
   }
 
   return (
-    <section className={css.section}>
-      <PageHead title="Transaction History" />
-
+    <ProfileBillingWrapper>
       <div className={css.table}>
         <div className={css.tableHead}>
           <p className="flex-1">Plan</p>
@@ -46,7 +85,7 @@ function ProfileBilling({ transactions, currentPlan }: BillingProps) {
         </div>
 
         {transactions.map((txn) => {
-          const isActive = txn.stripeId === currentPlan;
+          const isActive = txn.stripeId === currentPlan?.stripeId;
           const txnStatus = isActive ? "Active" : "Inactive";
           const txnColor = isActive ? css.active : css.inactive;
 
@@ -82,7 +121,7 @@ function ProfileBilling({ transactions, currentPlan }: BillingProps) {
           );
         })}
       </div>
-    </section>
+    </ProfileBillingWrapper>
   );
 }
 

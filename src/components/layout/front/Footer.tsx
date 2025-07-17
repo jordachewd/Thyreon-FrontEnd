@@ -4,8 +4,9 @@ import css from "@/styles/layout/front/Footer.module.css";
 import lightLogo from "../../../../public/images/jwd_light.png";
 import darkLogo from "../../../../public/images/jwd_dark.png";
 import Image from "next/image";
+import { memo } from "react";
 
-export default function Footer() {
+ function Footer() {
   const { mode } = useColorScheme();
 
   return (
@@ -36,3 +37,4 @@ export default function Footer() {
     </section>
   );
 }
+export default memo(Footer);

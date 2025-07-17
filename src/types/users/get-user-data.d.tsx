@@ -9,8 +9,7 @@ export interface GetUserData {
   email: string;
   username: string;
   firstName?: string;
-  lastName?: string;
-  plan: string;
+  lastName?: string;  
   role: UserRole;
 
   transactions?: Transaction[];

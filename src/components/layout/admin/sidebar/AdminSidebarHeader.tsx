@@ -10,30 +10,24 @@ interface AdminSidebarHeaderProps {
   updateSb: () => void;
 }
 
-const AdminSidebarHeader = memo(
-  ({ isNavOpen, updateSb }: AdminSidebarHeaderProps) => {
-    return (
-      <div className={css.logo}>
-        <div className={css.logoSymbol}>
-          <Logo href="/dashboard" symbol />
-        </div>
-        <div className={`${css.logoText}`}>
-          <Logo
-            href="/dashboard"
-            className={`${isNavOpen && css.navItemOff}`}
-          />
-        </div>
-        <div className={css.toggleButton}>
-          <SidebarToggle
-            icon="bi-x-lg"
-            title={`${isNavOpen ? "Show menu" : "Hide menu"}`}
-            toggleSidebar={updateSb}
-          />
-        </div>
+function AdminSidebarHeader({ isNavOpen, updateSb }: AdminSidebarHeaderProps) {
+  return (
+    <div className={css.logo}>
+      <div className={css.logoSymbol}>
+        <Logo href="/dashboard" symbol />
       </div>
-    );
-  }
-);
+      <div className={`${css.logoText}`}>
+        <Logo href="/dashboard" className={`${isNavOpen && css.navItemOff}`} />
+      </div>
+      <div className={css.toggleButton}>
+        <SidebarToggle
+          icon="bi-x-lg"
+          title={`${isNavOpen ? "Show menu" : "Hide menu"}`}
+          toggleSidebar={updateSb}
+        />
+      </div>
+    </div>
+  );
+}
 
-AdminSidebarHeader.displayName = "AdminSidebarHeader";
-export default AdminSidebarHeader;
+export default memo(AdminSidebarHeader);

@@ -1,43 +1,75 @@
 "use client";
+
 import css from "@/styles/sections/shared/Plans.module.css";
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 import { plans } from "@/constants/plans.const";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
-import { memo, useEffect, useState } from "react";
-import PageHead from "../../shared/PageHead";
+import { Transaction } from "@/types/transactions/transaction.d";
+import { gql, useQuery } from "@apollo/client";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import PlansWrapper from "@/components/sections/admin/plans/PlansWrapper";
+import ErrorCard from "@/components/shared/ErrorCard";
+import PageHead from "@/components/shared/PageHead";
 import PlanCard from "@/components/shared/PlanCard";
-import LoadingBubbles from "../../shared/LoadingBubbles";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
-import { Transaction } from "@/types/transactions/transaction.d";
-import { useUser } from "@clerk/nextjs";
 
-interface PlansProps {
-  hasLoader?: boolean;
-  currentPlan?: Transaction | undefined;
-}
+const GET_MY_CURRENT_PLAN_QUERY = gql`
+  query GetMe {
+    me {
+      currentPlan {
+        plan
+        billing
+      }
+    }
+  }
+`;
 
-function Plans({ hasLoader = false, currentPlan = undefined }: PlansProps) {
-  const isLoggedIn = useUser();
-  const { isSignedIn } = isLoggedIn;
-
-  const save: number = 0.3; // Save 30% on Yearly plans
+function Plans() {
+  const { isSignedIn, isLoaded } = useUser();
   const [planType, setPlanType] = useState<boolean>(false);
 
   const cssMonthly = !planType ? css.switched : "";
   const cssYearly = planType ? css.switched : "";
+  const save: number = 0.3; // Save 30% on Yearly plans
 
-  useEffect(() => {
-    if (!currentPlan?.billing) return;
+  const { data, loading, error } = useQuery<{ me: GetUserData }>(
+    GET_MY_CURRENT_PLAN_QUERY,
+    {
+      skip: !isSignedIn,
+    }
+  );
 
-    const setBilling = currentPlan?.billing === "yearly" ? true : false;
-    setPlanType(setBilling);
-  }, [currentPlan?.billing]);
+  const currentPlan: Transaction | undefined = data?.me.currentPlan;
+  const billingType = currentPlan?.billing;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setPlanType(event.target.checked);
   };
 
-  if (hasLoader && !isSignedIn) return <LoadingBubbles wrapped />;
+  useEffect(() => {
+    if (!isSignedIn && !billingType) return;
+    const setBilling = billingType === "yearly" ? true : false;
+    setPlanType(setBilling);
+  }, [isSignedIn, billingType]);
+
+  if (!isLoaded) return <LoadingBubbles wrapped />;
+
+  if (isSignedIn && loading)
+    return (
+      <PlansWrapper title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}>
+        <LoadingBubbles wrapped />
+      </PlansWrapper>
+    );
+
+  if (isSignedIn && error)
+    return (
+      <PlansWrapper title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}>
+        <ErrorCard error={error.message} title="" backToUrl="" />
+      </PlansWrapper>
+    );
 
   return (
     <div className={css.section}>
@@ -95,4 +127,4 @@ function Plans({ hasLoader = false, currentPlan = undefined }: PlansProps) {
   );
 }
 
-export default memo(Plans);
+export default Plans;

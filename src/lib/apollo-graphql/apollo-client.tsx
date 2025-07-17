@@ -17,7 +17,7 @@ export function useApolloClient() {
     const authLink = setContext(async (_, { headers }) => {
       const token = await getToken();
 
-      console.warn("Apollo Client Token:", token);
+      //  console.warn("Apollo Client Token:", token);
 
       return {
         headers: {

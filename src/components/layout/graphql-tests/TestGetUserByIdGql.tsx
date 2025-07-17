@@ -12,16 +12,21 @@ const GET_USER_BY_ID_QUERY = gql`
   query GetUserById($id: Int!) {
     userById(id: $id) {
       id
-      clerkId
-      clerkImg
       email
       username
       firstName
       lastName
-      plan
       role
+      clerkId
+      clerkImg
       createdAt
       updatedAt
+      currentPlan {
+        plan
+        billing
+        amount
+        expiresAt
+      }
       transactions {
         id
         stripeId
@@ -29,7 +34,6 @@ const GET_USER_BY_ID_QUERY = gql`
         billing
         amount
         createdAt
-        expiresAt
       }
     }
   }
@@ -39,7 +43,7 @@ export default function TestGetUserByIdGql() {
   const { data, loading, error } = useQuery<{ userById: GetUserData }>(
     GET_USER_BY_ID_QUERY,
     {
-      variables: { id: 29 },
+      variables: { id: 32 },
     }
   );
 
@@ -48,6 +52,7 @@ export default function TestGetUserByIdGql() {
     return <p className="flex p-4 text-red-600">Error: {error.message}</p>;
 
   const user = data?.userById;
+  console.log("Fetched User by ID:", user);
 
   return (
     <div className="flex flex-col w-full py-4">
@@ -80,7 +85,7 @@ export default function TestGetUserByIdGql() {
               <strong>Clerk ID: </strong> {user?.clerkId}
             </p>
             <p>
-              <strong>Active Plan ID: </strong> {user?.plan}
+              <strong>Active Plan ID: </strong> {user?.currentPlan?.plan}
             </p>
             <p>
               <strong>Email: </strong> {user?.email}
@@ -102,32 +107,37 @@ export default function TestGetUserByIdGql() {
           </div>
 
           {user?.transactions && user?.transactions.length > 0 && (
-            <ul className="flex w-1/2 flex-col mt-2 pl-4 text-xs">
-              {user.transactions.map((tx: Transaction) => (
-                <li key={tx.id} className="mb-4">
-                  <p>
-                    <strong>Plan: </strong>
-                    <span className="capitalize">{tx.plan}</span>,
-                    <strong> Billing: </strong>
-                    <span className="capitalize">{tx.billing}</span>,
-                    <strong> Amount: </strong>
-                    {"€" + tx.amount}
-                  </p>
-                  <p>
-                    <strong>StripeID: </strong>
-                    {tx.stripeId}
-                  </p>
-                  <p>
-                    <strong> From: </strong>
-                    {getFormattedDate(tx.createdAt as Date)}
-                  </p>
-                  <p>
-                    <strong>Expires At: </strong>
-                    {getFormattedDate(tx.expiresAt as Date)}
-                  </p>
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-col w-full md:w-1/2">
+              <Typography variant="h6" className="!mb-2">
+                Transactions
+              </Typography>
+              <ul className="flex flex-col my-1 text-xs">
+                {user.transactions.map((tx: Transaction) => (
+                  <li key={tx.id} className="mb-4">
+                    <p>
+                      <strong>Plan: </strong>
+                      <span className="capitalize">{tx.plan}</span>,
+                      <strong> Billing: </strong>
+                      <span className="capitalize">{tx.billing}</span>,
+                      <strong> Amount: </strong>
+                      {"€" + tx.amount}
+                    </p>
+                    <p>
+                      <strong>StripeID: </strong>
+                      {tx.stripeId}
+                    </p>
+                    <p>
+                      <strong> From: </strong>
+                      {getFormattedDate(tx.createdAt as Date)}
+                    </p>
+                    <p>
+                      <strong>Expires At: </strong>
+                      {getFormattedDate(tx.expiresAt as Date)}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       )}

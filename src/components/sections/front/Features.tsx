@@ -2,8 +2,9 @@ import appFeatures from "@/constants/features.const";
 import css from "@/styles/sections/front/Features.module.css";
 import Typography from "@mui/material/Typography";
 import PageHead from "../../shared/PageHead";
+import { memo } from "react";
 
-export default function Features() {
+function Features() {
   return (
     <div className={css.section}>
       <div className={css.content}>
@@ -28,3 +29,5 @@ export default function Features() {
     </div>
   );
 }
+
+export default memo(Features);

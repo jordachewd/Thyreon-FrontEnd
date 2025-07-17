@@ -1,12 +1,14 @@
+"use client";
+
 import { useColorScheme } from "@mui/material/styles";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import { TooltipArrow } from "./TooltipArrow";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 type ColorSchemes = "system" | "light" | "dark";
 
-export default function ToggleTheme() {
+function ToggleTheme() {
   const { mode, setMode } = useColorScheme();
 
   useEffect(() => {
@@ -59,3 +61,5 @@ export default function ToggleTheme() {
     </ButtonGroup>
   );
 }
+
+export default memo(ToggleTheme);

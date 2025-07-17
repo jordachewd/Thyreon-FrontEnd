@@ -1,5 +1,6 @@
 import css from "@/styles/layout/admin/AdminWrapper.module.css";
 import { ReactNode } from "react";
+import AlertMessage from "../common/AlertMessage";
 
 interface AdminPageWrapperProps {
   children: ReactNode;
@@ -7,8 +8,11 @@ interface AdminPageWrapperProps {
 
 export default function AdminWrapper({ children }: AdminPageWrapperProps) {
   return (
-    <div id="AdminWrapper" className={css.wrapper}>
-      {children}
-    </div>
+    <>
+      <AlertMessage />
+      <div id="AdminWrapper" className={css.wrapper}>
+        {children}
+      </div>
+    </>
   );
 }

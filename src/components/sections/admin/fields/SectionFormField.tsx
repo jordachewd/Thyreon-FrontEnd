@@ -6,8 +6,9 @@ import Image from "next/image";
 
 interface FormFieldProps<T, E = Record<string, unknown>> {
   field: SectionField;
-  formData: T;
-  setFormData: React.Dispatch<React.SetStateAction<T>>;
+  formData: T | undefined;
+  // setFormData: React.Dispatch<React.SetStateAction<T>>;
+  setFormData: React.Dispatch<React.SetStateAction<T | undefined>>;
   inputRefs: RefObject<{
     [key: string]: HTMLInputElement | HTMLTextAreaElement | null;
   }>;
@@ -46,7 +47,7 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
 
           {isRestricted && (
             <div className="capitalize text-gray-400 text-sm">
-              {String(formData[name] ?? "")}
+              {String(formData?.[name] ?? "")}
             </div>
           )}
           {!isRestricted && (
@@ -57,12 +58,14 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
               name={field.name}
               disabled={isRestricted}
               className={`${css.field}`}
-              value={formData[name]}
+              value={formData?.[name]}
               helperText={isError}
               error={Boolean(isError)}
               onChange={(e) => {
                 const value = e.target.value;
-                setFormData((prev) => ({ ...prev, [name]: value }));
+                setFormData((prev) =>
+                  prev ? { ...prev, [name]: value } : ({ [name]: value } as T)
+                );
               }}
               sx={{ textTransform: "capitalize" }}
               inputRef={(el: HTMLInputElement | null) => {
@@ -93,10 +96,9 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
             {field.info && <span className={css.labelInfo}>{field.info}</span>}
           </div>
           <div className={`${css.field} flex-col flex`}>
-            {String(formData[name]) !== "" &&
-            String(formData[name]) !== "null" ? (
+            {String(formData?.[name]) ? (
               <Image
-                src={String(formData[name])}
+                src={String(formData?.[name])}
                 alt="User Image"
                 width={64}
                 height={64}
@@ -123,7 +125,7 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
           <div className={`${css.field} flex-col flex`}>
             {isRestricted && (
               <div className="text-gray-400 text-sm">
-                {String(formData[name] ?? "")}
+                {String(formData?.[name] ?? "")}
               </div>
             )}
 
@@ -134,10 +136,14 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
                 placeholder={field.label}
                 aria-label={field.label}
                 required={field.required}
-                value={(formData[name] as string) || ""}
+                value={(formData?.[name] as string) || ""}
                 disabled={isRestricted}
                 onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, [name]: e.target.value }))
+                  setFormData((prev) =>
+                    prev
+                      ? { ...prev, [name]: e.target.value }
+                      : ({ [name]: e.target.value } as T)
+                  )
                 }
                 ref={(el: HTMLTextAreaElement | null) => {
                   if (inputRefs.current) {
@@ -174,7 +180,7 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
 
           {isRestricted && (
             <div className="text-gray-400 text-sm">
-              {String(formData[name] ?? "")}
+              {String(formData?.[name] ?? "")}
             </div>
           )}
           {!isRestricted && (
@@ -186,11 +192,15 @@ export default function SectionFormField<T, E = Record<string, unknown>>({
               className={`${css.field}`}
               disabled={isRestricted}
               required={field.required}
-              value={(formData[name] as string) || ""}
+              value={(formData?.[name] as string) || ""}
               helperText={isError}
               error={Boolean(isError)}
               onChange={(e) =>
-                setFormData((prev) => ({ ...prev, [name]: e.target.value }))
+                setFormData((prev) =>
+                  prev
+                    ? { ...prev, [name]: e.target.value }
+                    : ({ [name]: e.target.value } as T)
+                )
               }
               inputRef={(el: HTMLInputElement | null) => {
                 if (inputRefs.current) {

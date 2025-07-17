@@ -1,7 +1,9 @@
 "use client";
+
 import css from "./EditUserProfile.module.css";
 import { Button } from "@mui/material";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import SectionFormField from "../../fields/SectionFormField";
 import { GetUserData } from "@/types/users/get-user-data.d";
@@ -14,26 +16,70 @@ import { defaultEditUserFields as editFields } from "@/constants/users/fields/ed
 import { UpdateUserErrors } from "@/types/users/user-update-errors";
 import { validateSectionField } from "@/lib/utils/validateSectionField";
 import { useAdminContext } from "@/context/admin/AdminContext";
+import ErrorCard from "@/components/shared/ErrorCard";
+
+const GET_USER_BY_ID_QUERY = gql`
+  query GetUserById($id: Int!) {
+    userById(id: $id) {
+      id
+      email
+      username
+      firstName
+      lastName
+      role
+      clerkImg
+    }
+  }
+`;
 
 interface EditUserProps {
-  userData: GetUserData;
+  userId: number;
 }
 
-export default function EditUserProfile({ userData }: EditUserProps) {
-  const router = useRouter();
+export default function EditUserProfile({ userId }: EditUserProps) {
+  const { data, loading, error } = useQuery<{ userById: GetUserData }>(
+    GET_USER_BY_ID_QUERY,
+    {
+      variables: { id: Number(userId) },
+    }
+  );
 
+  const router = useRouter();
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
-  const isUserAdmin = userData.role === ("admin" as UserRole);
-
-  const [formData, setFormData] = useState<UpdateUserData>(userData);
   const [fieldErrors, setFieldErrors] = useState<UpdateUserErrors>({});
   const [isUpdatingUser, setIsUpdatingUser] = useState<boolean>(false);
 
   const inputRefs = useRef<{
     [key: string]: HTMLInputElement | HTMLTextAreaElement | null;
   }>({});
+
+  const [formData, setFormData] = useState<UpdateUserData | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (data) {
+      setFormData(data.userById as UpdateUserData);
+    }
+  }, [data, formData]);
+
+  const isUserAdmin = formData?.role === ("admin" as UserRole);
+
+  if (loading) return <LoadingBubbles wrapped />;
+
+  if (error)
+    return <ErrorCard title="Error!" error={error.message} backToUrl="users" />;
+
+  if (!formData)
+    return (
+      <ErrorCard
+        title="Error!"
+        error="Failed to load user data."
+        backToUrl="users"
+      />
+    );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,9 +180,9 @@ export default function EditUserProfile({ userData }: EditUserProps) {
         <RemoveSelectedBtn
           disabled={isUserAdmin}
           btnLabel="Delete Account"
-          data={{ route: "users", items: { users: [userData] } }}
+          data={{ route: "users", items: { users: [formData] } }}
           successFn={() => router.push("/users")}
-          confirmMsg={`Are you sure you want to delete '${userData.username}'?`}
+          confirmMsg={`Are you sure you want to delete '${formData.username}'?`}
         />
         {isUserAdmin && (
           <span className="text-xs text-gray-400">

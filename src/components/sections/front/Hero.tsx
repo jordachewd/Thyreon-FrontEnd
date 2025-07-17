@@ -1,8 +1,9 @@
 import css from "@/styles/sections/front/Hero.module.css";
 import { Typography, Button } from "@mui/material";
 import Image from "next/image";
+import { memo } from "react";
 
-export default function Hero() {
+function Hero() {
   return (
     <div className={css.section}>
       <div className={css.content}>
@@ -40,3 +41,4 @@ export default function Hero() {
     </div>
   );
 }
+export default memo(Hero);

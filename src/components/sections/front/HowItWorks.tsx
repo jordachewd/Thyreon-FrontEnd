@@ -2,8 +2,9 @@ import css from "@/styles/sections/front/HowItWorks.module.css";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import PageHead from "../../shared/PageHead";
+import { memo } from "react";
 
-export default function HowItWorks() {
+function HowItWorks() {
   return (
     <div className={css.section}>
       <div className={css.content}>
@@ -69,3 +70,5 @@ export default function HowItWorks() {
     </div>
   );
 }
+
+export default memo(HowItWorks);

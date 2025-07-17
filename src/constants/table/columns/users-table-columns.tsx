@@ -5,12 +5,12 @@ import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/users/table/UsersNameCell";
 import UsersActionsCell from "@/components/sections/admin/users/table/UsersActionsCell";
-//import UsersImageCell from "@/components/sections/admin/users/table/UsersImageCell";
+import UsersImageCell from "@/components/sections/admin/users/table/UsersImageCell";
 
 export const usersTableColumns: GridColDef[] = [
-  /*   {
+  {
     align: "center",
-    field: "userImg",
+    field: "clerkImg",
     display: "flex",
     headerName: "",
     sortable: false,
@@ -18,12 +18,12 @@ export const usersTableColumns: GridColDef[] = [
     disableColumnMenu: true,
     renderCell: (params: GridRenderCellParams) => (
       <UsersImageCell
-       // src={params.row.userImg}
-       // alt={params.row.username}
+        src={params.row.clerkImg}
+        alt={params.row.username}
         href={`users/${params.row.username.toLowerCase()}`}
       />
     ),
-  }, */
+  },
   {
     field: "username",
     headerName: "User",

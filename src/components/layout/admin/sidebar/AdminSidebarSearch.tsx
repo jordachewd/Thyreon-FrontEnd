@@ -3,7 +3,7 @@ import { memo } from "react";
 import TextField from "@mui/material/TextField";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 
-const AdminSidebarSearch = memo(() => {
+const AdminSidebarSearch = () => {
   return (
     <div className={css.search}>
       <TextField
@@ -16,7 +16,6 @@ const AdminSidebarSearch = memo(() => {
       />
     </div>
   );
-});
+};
 
-AdminSidebarSearch.displayName = "AdminSidebarSearch";
-export default AdminSidebarSearch;
+export default memo(AdminSidebarSearch);

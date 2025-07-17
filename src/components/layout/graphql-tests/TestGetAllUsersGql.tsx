@@ -12,16 +12,24 @@ const GET_ALL_USERS_QUERY = gql`
   query GetAllUsers {
     users {
       id
-      clerkId
-      clerkImg
       email
       username
       firstName
       lastName
-      plan
       role
+      clerkId
+      clerkImg
       createdAt
       updatedAt
+      currentPlan {
+        id
+        stripeId
+        plan
+        billing
+        amount
+        createdAt
+        expiresAt
+      }
       transactions {
         id
         stripeId
@@ -45,6 +53,8 @@ export default function TestGetAllUsersGql() {
     return <p className="flex p-4 text-red-600">Error: {error.message}</p>;
 
   const users = data?.users;
+
+  console.log("Fetched Users:", users);
 
   return (
     <div className="flex flex-col w-full py-4 border-b">
@@ -79,7 +89,7 @@ export default function TestGetAllUsersGql() {
               <strong>Clerk ID: </strong> {user.clerkId}
             </p>
             <p>
-              <strong>Active Plan ID: </strong> {user.plan}
+              <strong>Active Plan ID: </strong> {user?.currentPlan?.plan}
             </p>
             <p>
               <strong>Email: </strong> {user.email}
@@ -100,32 +110,37 @@ export default function TestGetAllUsersGql() {
             </p>
           </div>
           {user.transactions && user.transactions.length > 0 && (
-            <ul className="flex w-1/2 flex-col mt-2 pl-4 text-xs">
-              {user.transactions.map((tx: Transaction) => (
-                <li key={tx.id} className="mb-4">
-                  <p>
-                    <strong>Plan: </strong>
-                    <span className="capitalize">{tx.plan}</span>,
-                    <strong> Billing: </strong>
-                    <span className="capitalize">{tx.billing}</span>,
-                    <strong> Amount: </strong>
-                    {"€" + tx.amount}
-                  </p>
-                  <p>
-                    <strong>StripeID: </strong>
-                    {tx.stripeId}
-                  </p>
-                  <p>
-                    <strong> From: </strong>
-                    {getFormattedDate(tx.createdAt as Date)}
-                  </p>
-                  <p>
-                    <strong>Expires At: </strong>
-                    {getFormattedDate(tx.expiresAt as Date)}
-                  </p>
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-col w-full md:w-1/2">
+              <Typography variant="h6" className="!mb-2">
+                Transactions
+              </Typography>
+              <ul className="flex flex-col my-1 text-xs">
+                {user.transactions.map((tx: Transaction) => (
+                  <li key={tx.id} className="mb-4">
+                    <p>
+                      <strong>Plan: </strong>
+                      <span className="capitalize">{tx.plan}</span>,
+                      <strong> Billing: </strong>
+                      <span className="capitalize">{tx.billing}</span>,
+                      <strong> Amount: </strong>
+                      {"€" + tx.amount}
+                    </p>
+                    <p>
+                      <strong>StripeID: </strong>
+                      {tx.stripeId}
+                    </p>
+                    <p>
+                      <strong> From: </strong>
+                      {getFormattedDate(tx.createdAt as Date)}
+                    </p>
+                    <p>
+                      <strong>Expires At: </strong>
+                      {getFormattedDate(tx.expiresAt as Date)}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       ))}

@@ -1,4 +1,5 @@
 import Fab from "@mui/material/Fab";
+import { memo } from "react";
 
 interface AdminAddNewButtonProps {
   execFn: () => void;
@@ -6,7 +7,7 @@ interface AdminAddNewButtonProps {
   size?: "small" | "medium" | "large";
 }
 
-export default function AdminAddNewButton({
+function AdminAddNewButton({
   execFn,
   color = "primary",
   size = "small",
@@ -17,3 +18,4 @@ export default function AdminAddNewButton({
     </Fab>
   );
 }
+export default memo(AdminAddNewButton);

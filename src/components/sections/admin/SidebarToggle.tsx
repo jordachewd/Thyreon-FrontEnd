@@ -1,5 +1,6 @@
 import { IconButton } from "@mui/material";
 import { TooltipArrow } from "../../shared/TooltipArrow";
+import { memo } from "react";
 
 interface SidebarToggleProps {
   title?: string | null;
@@ -8,7 +9,7 @@ interface SidebarToggleProps {
   toggleSidebar: () => void;
 }
 
-export default function SidebarToggle({
+function SidebarToggle({
   title = null,
   show = true,
   icon,
@@ -34,3 +35,5 @@ export default function SidebarToggle({
     </TooltipArrow>
   ) : null;
 }
+
+export default memo(SidebarToggle);

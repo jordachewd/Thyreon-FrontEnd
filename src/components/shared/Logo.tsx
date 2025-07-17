@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { memo } from "react";
 
 type LogoProps = {
   width?: number;
@@ -9,7 +10,7 @@ type LogoProps = {
   fullLogo?: boolean;
 };
 
-export default function Logo({
+ function Logo({
   width,
   height,
   href = "/",
@@ -63,3 +64,5 @@ export default function Logo({
     </Link>
   );
 }
+
+export default memo(Logo);

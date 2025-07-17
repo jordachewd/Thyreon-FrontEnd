@@ -5,12 +5,12 @@ import { Button, Typography } from "@mui/material";
 import { memo } from "react";
 
 interface PlanPromoProps {
-  userRole: UserRole;
+  userRole: UserRole | undefined;
   userPlan: Transaction | undefined;
 }
 
 function PlanPromo({ userRole, userPlan }: PlanPromoProps) {
-  const { plan, billing } = userPlan || {};
+  const { billing } = userPlan || {};
   return (
     <div className={css.wrapper}>
       <div className={css.content}>
@@ -30,7 +30,7 @@ function PlanPromo({ userRole, userPlan }: PlanPromoProps) {
             gap: "1rem",
           }}
         >
-          {plan || userRole}
+          {userRole}
         </Typography>
 
         <div className={css.details}>
@@ -38,11 +38,10 @@ function PlanPromo({ userRole, userPlan }: PlanPromoProps) {
             ? "You have unrestricted access all-over."
             : "Unlock premium features!"}
         </div>
-        {userRole !== "admin" && (
-          <Button size="small" href="/plans" variant="contained">
-            Upgrade now
-          </Button>
-        )}
+
+        <Button size="small" href="/plans" variant="contained">
+          {userRole === "admin" ? "See plans" : "Upgrade plan"}
+        </Button>
       </div>
 
       <div className={css.background}></div>

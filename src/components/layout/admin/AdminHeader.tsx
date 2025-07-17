@@ -1,14 +1,16 @@
 "use client";
 import css from "@/styles/layout/admin/AdminHeader.module.css";
-import AdminNav from "@/components/sections/admin/AdminNav";
-import SidebarToggle from "../../sections/admin/SidebarToggle";
+import AdminHeaderNav from "@/components/layout/admin/header/AdminHeaderNav";
+import SidebarToggle from "@/components/sections/admin/SidebarToggle";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import TextField from "@mui/material/TextField";
-import Logo from "../../shared/Logo";
+import Logo from "@/components/shared/Logo";
 import IconButton from "@mui/material/IconButton";
-import { TooltipArrow } from "../../shared/TooltipArrow";
+import { TooltipArrow } from "@/components/shared/TooltipArrow";
+import { UserButton } from "@clerk/nextjs";
+import { memo } from "react";
 
-export default function AdminHeader() {
+function AdminHeader() {
   const { sidebarCtx } = useAdminContext();
   const { isNavOpen, updateSb } = sidebarCtx;
 
@@ -38,6 +40,7 @@ export default function AdminHeader() {
                 <i className="bi bi-patch-question text-base"></i>
               </IconButton>
             </TooltipArrow>
+
             <TooltipArrow title="Notifications" placement="bottom">
               <IconButton
                 sx={{ p: 0, backgroundColor: "transparent!important" }}
@@ -45,10 +48,14 @@ export default function AdminHeader() {
                 <i className="bi bi-bell text-base"></i>
               </IconButton>
             </TooltipArrow>
+
+            <AdminHeaderNav />
           </div>
-          <AdminNav />
+          <UserButton />
         </div>
       </div>
     </header>
   );
 }
+
+export default memo(AdminHeader);

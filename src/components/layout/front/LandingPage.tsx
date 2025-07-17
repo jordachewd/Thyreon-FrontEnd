@@ -4,25 +4,14 @@ import Faqs from "../../sections/common/Faqs";
 import Hero from "../../sections/front/Hero";
 import Features from "../../sections/front/Features";
 import HowItWorks from "../../sections/front/HowItWorks";
-// import { GetUserData } from "@/types/users/get-user-data.d";
-// import getCurrentUser from "@/lib/actions/users/get-current-user";
 
-export default async function LandingPage() {
-  // const profile = await getCurrentUser<GetUserData>({ plan: true });
-
-  /*   if (profile && !("statusCode" in profile && "error" in profile)) {
-    userData = profile;
-  } */
-
+export default function LandingPage() {
   return (
     <section className={css.wrapper}>
       <Hero />
       <Features />
       <HowItWorks />
-      <Plans
-      // hasLoader={profile !== undefined}
-      // currentPlan={profile.currentPlan}
-      />
+      <Plans />
       <Faqs />
     </section>
   );

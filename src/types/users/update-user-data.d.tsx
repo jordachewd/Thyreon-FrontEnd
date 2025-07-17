@@ -1,15 +1,19 @@
 import { SiteData } from "../site-data.d";
+import { Transaction } from "../transactions/transaction.d";
 import { UserRole } from "./user-role.d";
 
 export interface UpdateUserData {
+  id: number;
   clerkId: string;
   clerkImg?: string;
   email: string;
   username: string;
   firstName?: string;
   lastName?: string;
-  plan?: string;
   role: UserRole;
+
+  transactions?: Transaction[];
+  currentPlan?: Transaction;
 
   createdAt?: Date | string;
   updatedAt?: Date | string;
