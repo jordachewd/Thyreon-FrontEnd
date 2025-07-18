@@ -1,11 +1,5 @@
-import ProfileBilling from "@/components/sections/admin/profile/ProfileBilling";
-import ProfileHero from "@/components/sections/admin/profile/ProfileHero";
+import ProfileMePage from "@/components/sections/admin/profile/ProfileMePage";
 
 export default function ProfilePage() {
-  return (
-    <>
-      <ProfileHero />
-      <ProfileBilling />
-    </>
-  );
+  return <ProfileMePage />;
 }

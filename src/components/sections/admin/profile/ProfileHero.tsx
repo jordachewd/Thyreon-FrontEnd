@@ -1,4 +1,5 @@
 "use client";
+
 import css from "@/styles/sections/admin/ProfileHero.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { Typography, Avatar } from "@mui/material";
@@ -6,55 +7,63 @@ import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import { UserRole } from "@/types/users/user-role.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import PlanPromo from "@/components/shared/PlanPromo";
-import { gql, useQuery } from "@apollo/client";
+import { DocumentNode, useQuery } from "@apollo/client";
 import { memo } from "react";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import ProfileHeroWrapper from "./ProfileHeroWrapper";
 import { Transaction } from "@/types/transactions/transaction.d";
 import ErrorCard from "@/components/shared/ErrorCard";
 
-const GET_MY_PROFILE_QUERY = gql`
-  query GetMe {
-    me {
-      role
-      clerkImg
-      firstName
-      lastName
-      username
-      createdAt
-      updatedAt
-      currentPlan {
-        billing
-      }
-    }
-  }
-`;
+type ProfileHeroProps = {
+  query: DocumentNode;
+  variables?: Record<string, number>;
+  dataSelector: (data: undefined) => GetUserData | undefined;
+  title?: string;
+  alignTitle?: "left" | "center" | "right";
+  titleSize?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+};
 
-function ProfileHero() {
-  const { data, loading, error } = useQuery<{ me: GetUserData }>(
-    GET_MY_PROFILE_QUERY
-  );
+function ProfileHero({
+  query,
+  variables,
+  dataSelector,
+  title,
+  alignTitle,
+  titleSize,
+}: ProfileHeroProps) {
+  const { data, loading, error } = useQuery(query, { variables });
 
   if (loading)
     return (
-      <ProfileHeroWrapper>
+      <ProfileHeroWrapper
+        title={title}
+        alignTitle={alignTitle}
+        size={titleSize}
+      >
         <LoadingBubbles wrapped />
       </ProfileHeroWrapper>
     );
 
   if (error)
     return (
-      <ProfileHeroWrapper>
+      <ProfileHeroWrapper
+        title={title}
+        alignTitle={alignTitle}
+        size={titleSize}
+      >
         <ErrorCard error={error.message} title="" backToUrl="" />
       </ProfileHeroWrapper>
     );
 
-  const profile = data?.me as GetUserData | undefined;
+  const profile = dataSelector(data);
+
+  console.log("ProfileHero: ", profile);
+
   const currentPlan = profile?.currentPlan as Transaction | undefined;
   const fullName = `${profile?.firstName} ${profile?.lastName}`;
 
   return (
-    <ProfileHeroWrapper>
+    <ProfileHeroWrapper title={title} alignTitle={alignTitle} size={titleSize}>
       <div className={css.heroImg}>
         <Avatar
           alt={profile?.username}

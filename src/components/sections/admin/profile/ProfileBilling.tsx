@@ -4,7 +4,7 @@ import css from "@/styles/sections/admin/ProfileBilling.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { getRandomString } from "@/lib/utils/getRandomString";
-import { gql, useQuery } from "@apollo/client";
+import { DocumentNode, useQuery } from "@apollo/client";
 import { Transaction } from "@/types/transactions/transaction.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import ProfileBillingWrapper from "./ProfileBillingWrapper";
@@ -13,53 +13,62 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { memo } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
 
-const GET_MY_TRANSACTIONS_QUERY = gql`
-  query GetMe {
-    me {
-      currentPlan {
-        plan
-        billing
-        amount
-        stripeId
-      }
-      transactions {
-        plan
-        amount
-        billing
-        stripeId
-        createdAt
-        expiresAt
-      }
-    }
-  }
-`;
+type ProfileBillingProps = {
+  query: DocumentNode;
+  variables?: Record<string, number>;
+  dataSelector: (data: undefined) => GetUserData | undefined;
+  title?: string;
+  alignTitle?: "left" | "center" | "right";
+  titleSize?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+};
 
-function ProfileBilling() {
-  const { data, loading, error } = useQuery<{ me: GetUserData }>(
-    GET_MY_TRANSACTIONS_QUERY
-  );
+function ProfileBilling({
+  query,
+  variables,
+  dataSelector,
+  title,
+  alignTitle,
+  titleSize,
+}: ProfileBillingProps) {
+  const { data, loading, error } = useQuery(query, { variables });
 
   if (loading)
     return (
-      <ProfileBillingWrapper>
+      <ProfileBillingWrapper
+        title={title}
+        alignTitle={alignTitle}
+        size={titleSize}
+      >
         <LoadingBubbles wrapped />
       </ProfileBillingWrapper>
     );
 
   if (error)
     return (
-      <ProfileBillingWrapper>
+      <ProfileBillingWrapper
+        title={title}
+        alignTitle={alignTitle}
+        size={titleSize}
+      >
         <ErrorCard error={error.message} title="" backToUrl="" />
       </ProfileBillingWrapper>
     );
 
-  const currentPlan: Transaction | undefined = data?.me.currentPlan;
-  const transactions: Transaction[] = data?.me.transactions || [];
+  const profile = dataSelector(data);
+
+  console.log("ProfileBilling: ", profile);
+
+  const currentPlan: Transaction | undefined = profile?.currentPlan;
+  const transactions: Transaction[] = profile?.transactions || [];
   const hasTransactions = transactions.length > 0;
 
   if (!hasTransactions) {
     return (
-      <ProfileBillingWrapper>
+      <ProfileBillingWrapper
+        title={title}
+        alignTitle={alignTitle}
+        size={titleSize}
+      >
         <Typography variant="body2" className="text-center text-slate-600!">
           No transactions yet.
         </Typography>
@@ -68,7 +77,11 @@ function ProfileBilling() {
   }
 
   return (
-    <ProfileBillingWrapper>
+    <ProfileBillingWrapper
+      title={title}
+      alignTitle={alignTitle}
+      size={titleSize}
+    >
       <div className={css.table}>
         <div className={css.tableHead}>
           <p className="flex-1">Plan</p>

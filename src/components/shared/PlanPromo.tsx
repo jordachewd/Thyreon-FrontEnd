@@ -14,7 +14,7 @@ function PlanPromo({ userRole, userPlan }: PlanPromoProps) {
   return (
     <div className={css.wrapper}>
       <div className={css.content}>
-        {userRole !== "admin" && (
+        {userRole !== "admin" && billing && (
           <div className={css.badge}>
             <span className={css.badgeValue}>{billing}</span>
           </div>
