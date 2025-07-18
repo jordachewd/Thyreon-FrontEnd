@@ -48,5 +48,3 @@ export function AdminContextProvider({ children }: AdminCtxProviderProps) {
 }
 
 export const useAdminContext = () => useContext(AdminContext);
-
-export default AdminContext;

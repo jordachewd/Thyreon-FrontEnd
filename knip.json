@@ -1,0 +1,9 @@
+{
+  "ignore": ["src/middleware.tsx"],
+  "ignoreDependencies": [
+    "@apollo/client-integration-nextjs",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "styled-components"
+  ]
+}
