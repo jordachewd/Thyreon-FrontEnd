@@ -1,7 +1,7 @@
+import PageHead from "@/components/layout/common/PageHead";
 import appFeatures from "@/constants/features.const";
 import css from "@/styles/sections/front/Features.module.css";
 import Typography from "@mui/material/Typography";
-import PageHead from "../../shared/PageHead";
 import { memo } from "react";
 
 function Features() {

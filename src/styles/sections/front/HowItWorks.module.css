@@ -1,3 +1,5 @@
+@reference "../../../app/globals.css";
+
 .section {
   @apply flex flex-col w-full p-4;
   @apply bg-vanilla-200 dark:bg-midnight-700;
@@ -30,7 +32,7 @@
 }
 
 .icon {
-  @apply bg-leafGreen-400 text-white text-3xl;
+  @apply bg-leaf-green-400 text-white text-3xl;
   @apply w-16 h-16 flex items-center justify-center rounded-full;
 }
 

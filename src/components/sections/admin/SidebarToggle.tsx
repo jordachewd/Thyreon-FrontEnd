@@ -19,7 +19,7 @@ function SidebarToggle({
     <TooltipArrow
       placement="right"
       title={show ? title : null}
-      className="!transition-all"
+      className="transition-all!"
     >
       <IconButton
         size="small"

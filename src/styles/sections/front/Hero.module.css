@@ -1,3 +1,5 @@
+@reference "../../../app/globals.css";
+
 .section {
   @apply flex w-full justify-between items-center pt-14 px-4;
   @apply bg-vanilla-200 dark:bg-midnight-700 shadow-sm;

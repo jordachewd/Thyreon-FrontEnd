@@ -78,14 +78,14 @@ function ProfileHero() {
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Member since:</span>
-          <span className="text-xxs leading-none">
+          <span className="textxxs leading-none">
             {getFormattedDate(profile?.createdAt as Date)}
           </span>
         </div>
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Last update:</span>
-          <span className="text-xxs leading-none">
+          <span className="textxxs leading-none">
             {getFormattedDate(profile?.updatedAt as Date)}
           </span>
         </div>

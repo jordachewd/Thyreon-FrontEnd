@@ -1,4 +1,4 @@
-import PageHead from "@/components/shared/PageHead";
+import PageHead from "@/components/layout/common/PageHead";
 
 export default async function AdminTransactions() {
   return (

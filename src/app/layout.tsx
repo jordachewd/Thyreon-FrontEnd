@@ -36,7 +36,7 @@ export default function RootLayout({
         },
         elements: {
           formButtonPrimary: "bg-midnight-700 hover:bg-midnight-900",
-          footerActionLink: "text-leafGreen-500 hover:text-leafGreen-800",
+          footerActionLink: "text-leaf-green-500 hover:text-leaf-green-800",
         },
       }}
     >

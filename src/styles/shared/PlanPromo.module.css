@@ -1,3 +1,5 @@
+@reference "../../app/globals.css";
+
 .wrapper {
   @apply flex flex-col gap-1 w-full rounded-lg p-4 shadow-md;
   @apply overflow-hidden relative items-center;
@@ -21,11 +23,11 @@
 }
 
 .badgeLabel {
-  @apply text-xxs font-semibold;
+  @apply font-semibold textxxs;
 }
 
 .badgeValue {
-  @apply px-1 py-0.5 rounded-[5px] uppercase text-2xs;
+  @apply px-1 py-0.5 rounded-[5px] uppercase text2xs;
   @apply bg-vanilla-400 text-midnight-500 leading-none;
   @apply dark:bg-midnight-400 dark:text-vanilla-400 tracking-wider;
 }

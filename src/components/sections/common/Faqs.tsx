@@ -6,8 +6,8 @@ import {
 } from "@mui/material";
 import css from "@/styles/sections/shared/Faqs.module.css";
 import { faqs } from "@/constants/faqs.const";
-import PageHead from "../../shared/PageHead";
 import { memo } from "react";
+import PageHead from "@/components/layout/common/PageHead";
 
 function Faqs() {
   return (

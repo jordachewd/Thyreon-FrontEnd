@@ -1,4 +1,4 @@
-import PageHead from "@/components/shared/PageHead";
+import PageHead from "@/components/layout/common/PageHead";
 import css from "@/styles/sections/shared/Plans.module.css";
 import { memo } from "react";
 

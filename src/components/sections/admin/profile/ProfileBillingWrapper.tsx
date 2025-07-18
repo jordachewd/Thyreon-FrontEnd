@@ -1,6 +1,6 @@
 import { memo } from "react";
 import css from "@/styles/sections/admin/ProfileBilling.module.css";
-import PageHead from "@/components/shared/PageHead";
+import PageHead from "@/components/layout/common/PageHead";
 
 interface ProfileBillingWrapperProps {
   children: React.ReactNode;

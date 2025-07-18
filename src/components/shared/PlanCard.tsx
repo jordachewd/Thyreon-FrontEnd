@@ -78,7 +78,7 @@ function PlanCard({
             <i
               className={`bi ${
                 feature.isIncluded
-                  ? "bi-check2 text-leafGreen-400"
+                  ? "bi-check2 text-leaf-green-400"
                   : "bi-x text-slate-400"
               }`}
             ></i>

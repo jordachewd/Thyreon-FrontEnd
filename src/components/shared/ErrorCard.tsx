@@ -35,7 +35,7 @@ export default function ErrorCard({
           size="small"
           variant="contained"
           onClick={() => router.push(`/${backToUrl}`)}
-          className="!px-6 !mt-4"
+          className="px-6! mt-4!"
         >
           Back to {backToUrl}
         </Button>

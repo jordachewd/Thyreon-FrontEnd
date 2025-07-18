@@ -1,7 +1,7 @@
+import PageHead from "@/components/layout/common/PageHead";
 import TestGetAllUsersGql from "@/components/layout/graphql-tests/TestGetAllUsersGql";
 import TestGetMeUserGql from "@/components/layout/graphql-tests/TestGetMeUserGql";
 import TestGetUserByIdGql from "@/components/layout/graphql-tests/TestGetUserByIdGql";
-import PageHead from "@/components/shared/PageHead";
 
 export default async function AdminDashboard() {
   return (

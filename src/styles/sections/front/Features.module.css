@@ -1,3 +1,5 @@
+@reference "../../../app/globals.css";
+
 .section {
   @apply flex flex-col w-full p-4;
 }
@@ -20,5 +22,5 @@
 }
 
 .icon {
-  @apply text-7xl text-leafGreen-400;
+  @apply text-7xl text-leaf-green-400;
 }

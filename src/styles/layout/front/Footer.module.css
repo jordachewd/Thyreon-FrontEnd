@@ -1,3 +1,5 @@
+@reference "../../../app/globals.css";
+
 .section {
   @apply flex w-full justify-between items-center px-4 z-20 border-t;
   @apply bg-vanilla-300  border-vanilla-400 dark:bg-midnight-900 dark:border-midnight-700;
@@ -22,5 +24,5 @@
 }
 
 .jwdinfo {
-  @apply flex flex-col text-xxs leading-3 opacity-70;
+  @apply flex flex-col textxxs leading-3 opacity-70;
 }

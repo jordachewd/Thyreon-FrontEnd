@@ -1,9 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* WPGuard App Styles */
+@theme {
+  /* Custom colors */
+  --color-midnight-100: #d0d3dc;
+  --color-midnight-200: #a2a7b9;
+  --color-midnight-300: #737b96;
+  --color-midnight-400: #212842;
+  --color-midnight-500: #1b2239;
+  --color-midnight-600: #161c30;
+  --color-midnight-700: #111627;
+  --color-midnight-800: #0b101e;
+  --color-midnight-900: #060a15;
 
+  --color-vanilla-100: #fffdf9;
+  --color-vanilla-200: #fbf6ed;
+  --color-vanilla-300: #f5efdf;
+  --color-vanilla-400: #f0e7d5;
+  --color-vanilla-500: #d9d0bf;
+  --color-vanilla-600: #c2b9a9;
+  --color-vanilla-700: #aca293;
+  --color-vanilla-800: #958b7d;
+  --color-vanilla-900: #7f7568;
+
+  --color-leaf-green-100: #e6f7e5;
+  --color-leaf-green-200: #b9eab7;
+  --color-leaf-green-300: #84dc83;
+  --color-leaf-green-400: #37b02b;
+  --color-leaf-green-500: #2e9c25;
+  --color-leaf-green-600: #24871f;
+  --color-leaf-green-700: #1c6e19;
+  --color-leaf-green-800: #155714;
+  --color-leaf-green-900: #0d3a0c;
+
+  /* Custom breakpoints */
+  --breakpoint-xxl: 1440px;
+  --breakpoint-3xl: 1600px;
+
+  /* Custom spacing/sizing - properly defined */
+  --width-edge: 96%;
+  --max-width-edge: 96%;
+  --max-height-edge: 92%;
+
+  /* Custom font sizes */
+  --font-size-xxs: 0.625rem;
+  --font-size-2xs: 0.5rem;
+
+  /* Custom animation duration */
+  --animate-bounce: bounce 1s infinite;
+  --animate-bounce-slow: bounce 2s infinite;
+  --animate-bounce-fast: bounce 0.5s infinite;
+}
+
+/* Custom dark mode variant */
+@variant dark (&:is([data-wpguard-theme="dark"] *));
+
+/* Base styles */
 * {
   margin: 0;
   padding: 0;
@@ -11,14 +62,28 @@
   scroll-behavior: smooth;
 }
 
-@layer base {
-  body {
-    @apply scroll-smooth antialiased bg-vanilla-400 dark:bg-midnight-800;
-    @apply pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
-  }
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  border-color: theme(colors.gray.200 / 1);
 }
 
-/*  all media elements set to block and full width */
+body {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: theme(colors.vanilla.400);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+[data-wpguard-theme="dark"] body {
+  background-color: theme(colors.midnight.800);
+}
+
+/* Media elements */
 img,
 svg,
 video,
@@ -27,10 +92,11 @@ audio,
 iframe,
 embed,
 object {
-  @apply block max-w-full;
+  display: block;
+  max-width: 100%;
 }
 
-/* reset heading style */
+/* Reset heading styles */
 h1,
 h2,
 h3,
@@ -41,7 +107,37 @@ h6 {
   font-weight: inherit;
 }
 
-a {
-  @apply transition-all ease-in text-[color:--mui-palette-text-secondary]
-  hover:text-midnight-400 dark:hover:text-vanilla-400;
+/* a:not([class*="button"]) {
+  color: theme(colors.leaf-green.400);
+  text-decoration: none;
+} */
+
+/* Custom utilities - correct syntax without dots */
+@utility wedge {
+  width: var(--width-edge);
+}
+
+@utility maxwedge {
+  max-width: var(--max-width-edge);
+}
+
+@utility maxhedge {
+  max-height: var(--max-height-edge);
+}
+
+@utility textxxs {
+  font-size: var(--font-size-xxs);
+}
+
+@utility text2xs {
+  font-size: var(--font-size-2xs);
+}
+
+/* Custom bounce utilities */
+@utility bounceslow {
+  animation: var(--animate-bounce-slow);
+}
+
+@utility bouncefast {
+  animation: var(--animate-bounce-fast);
 }

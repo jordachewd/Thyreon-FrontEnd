@@ -1,7 +1,7 @@
+import PageHead from "@/components/layout/common/PageHead";
 import css from "@/styles/sections/front/HowItWorks.module.css";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import PageHead from "../../shared/PageHead";
 import { memo } from "react";
 
 function HowItWorks() {

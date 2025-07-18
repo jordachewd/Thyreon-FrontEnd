@@ -1,5 +1,5 @@
+import PageHead from "@/components/layout/common/PageHead";
 import EditUserProfile from "@/components/sections/admin/users/profile/EditUserProfile";
-import PageHead from "@/components/shared/PageHead";
 
 interface UserProfileProps {
   params: Promise<{ id: number }>;

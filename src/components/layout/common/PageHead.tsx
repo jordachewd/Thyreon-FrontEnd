@@ -1,5 +1,5 @@
 "use client";
-import css from "@/styles/shared/PageHead.module.css";
+import css from "@/styles/layout/shared/PageHead.module.css";
 import { Typography } from "@mui/material";
 import { memo } from "react";
 

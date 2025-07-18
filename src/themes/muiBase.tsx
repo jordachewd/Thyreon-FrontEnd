@@ -93,6 +93,7 @@ const base: ThemeOptions = {
 
     h5: {
       fontSize: "1.4rem",
+      margin: "0.5rem 0",
       fontFamily: dosis.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
       "@media (min-width:768px)": {

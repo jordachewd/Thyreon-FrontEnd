@@ -1,22 +1,23 @@
+@reference "../../app/globals.css";
+
 .wrapper {
   @apply flex justify-center items-center gap-1 w-full;
 }
 
 .bubble {
-  @apply flex rounded-full -mb-0.5 animate-bounce;
-  @apply animate-infinite animate-duration-700 animate-ease-in;
+  @apply flex rounded-full -mb-0.5;
 }
 
 .bubble1 {
-  @apply bg-leafGreen-400;
+  @apply bg-leaf-green-400 animate-bounce-slow;
 }
 
 .bubble2 {
-  @apply bg-leafGreen-400 animate-delay-100;
+  @apply bg-leaf-green-400 animate-bounce;
 }
 
 .bubble3 {
-  @apply bg-leafGreen-400 animate-delay-200;
+  @apply bg-leaf-green-400 animate-bounce-fast;
 }
 
 .isWrapped {

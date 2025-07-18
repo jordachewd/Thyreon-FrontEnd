@@ -1,3 +1,5 @@
+@reference "../../../app/globals.css";
+
 .section {
   @apply flex flex-col w-full max-w-6xl mx-auto p-4 gap-4 pt-8;
 }
@@ -25,8 +27,8 @@
 
 .active,
 .inactive {
-  @apply inline-flex justify-center items-center bg-leafGreen-400;
-  @apply text-xxs leading-none py-1 px-1.5 rounded text-white;
+  @apply inline-flex justify-center items-center bg-leaf-green-400;
+  @apply textxxs leading-none py-1 px-1.5 rounded text-white;
 }
 
 .inactive {

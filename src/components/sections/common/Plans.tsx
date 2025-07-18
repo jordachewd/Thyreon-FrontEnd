@@ -1,7 +1,6 @@
 "use client";
 
 import css from "@/styles/sections/shared/Plans.module.css";
-import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { plans } from "@/constants/plans.const";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
@@ -10,11 +9,12 @@ import { gql, useQuery } from "@apollo/client";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import PlansWrapper from "@/components/sections/admin/plans/PlansWrapper";
 import ErrorCard from "@/components/shared/ErrorCard";
-import PageHead from "@/components/shared/PageHead";
+import PageHead from "@/components/layout/common/PageHead";
 import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
+import { useUser } from "@clerk/nextjs";
 
 const GET_MY_CURRENT_PLAN_QUERY = gql`
   query GetMe {

@@ -1,3 +1,5 @@
+@reference "../../../../../app/globals.css";
+
 .wrapper {
   @apply flex w-full justify-between p-2 pl-3 bg-white rounded mb-1 shadow-sm items-center min-h-[50px];
 }
@@ -32,5 +34,5 @@
 }
 
 .loading {
-  @apply h-[16px] animate-spin text-leafGreen-400;
+  @apply h-[16px] animate-spin text-leaf-green-400;
 }

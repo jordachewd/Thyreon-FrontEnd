@@ -60,7 +60,7 @@ function ProfileBilling() {
   if (!hasTransactions) {
     return (
       <ProfileBillingWrapper>
-        <Typography variant="body2" className="text-center !text-slate-600">
+        <Typography variant="body2" className="text-center text-slate-600!">
           No transactions yet.
         </Typography>
       </ProfileBillingWrapper>
@@ -94,7 +94,7 @@ function ProfileBilling() {
               key={txn.id + getRandomString(32)}
               className={`${css.tableRow} ${
                 isActive &&
-                "font-medium !text-midnight-400 dark:!text-vanilla-400"
+                "font-medium text-midnight-400! dark:text-vanilla-400!"
               }`}
             >
               <p className="flex-1 capitalize">{txn.plan}</p>
@@ -104,13 +104,13 @@ function ProfileBilling() {
               <p className="flex-1 text-center capitalize text-xs">
                 {txn.billing}
               </p>
-              <p className="hidden md:flex flex-1 text-xxs text-center">
+              <p className="hidden md:flex flex-1 textxxs text-center">
                 {getFormattedDate(txn.createdAt)}
               </p>
-              <p className="hidden md:flex flex-1 text-xxs text-center">
+              <p className="hidden md:flex flex-1 textxxs text-center">
                 {getFormattedDate(txn.expiresAt)}
               </p>
-              <p className="min-w-14 text-xxs text-center">
+              <p className="min-w-14 textxxs text-center">
                 <span className={txnColor}>{txnStatus}</span>
               </p>
 

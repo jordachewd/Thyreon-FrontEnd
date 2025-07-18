@@ -1,6 +1,6 @@
+import PageHead from "@/components/layout/common/PageHead";
 import AddNewUserDialog from "@/components/sections/admin/users/table/AddNewUserDialog";
 import UsersTable from "@/components/sections/admin/users/table/UsersTable";
-import PageHead from "@/components/shared/PageHead";
 
 export default function AdminUsers() {
   return (

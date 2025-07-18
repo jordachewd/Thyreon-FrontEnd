@@ -1,3 +1,4 @@
+@reference '../../../../../app/globals.css';
 
 .form {
   @apply flex flex-col w-full;
@@ -8,7 +9,7 @@
 }
 
 .required {
-  @apply flex text-leafGreen-600 text-xs leading-none;
+  @apply flex text-leaf-green-600 text-xs leading-none;
 }
 
 .actions {

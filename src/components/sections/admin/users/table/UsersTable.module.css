@@ -1,3 +1,5 @@
+@reference "../../../../../app/globals.css";
+
 .wrapper {
   @apply flex  w-full;
 }

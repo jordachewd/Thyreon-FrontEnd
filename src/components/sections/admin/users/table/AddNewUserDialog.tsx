@@ -173,7 +173,7 @@ export default function AddNewUserDialog() {
             })}
           </form>
         </DialogContent>
-        <DialogActions className="!flex m-4 !justify-between">
+        <DialogActions className="!flex m-4 justify-between!">
           <span className="text-red-600 text-xs leading-none">* required</span>
           {isAddingUser && <LoadingBubbles />}
           <Button onClick={handleSubmit} variant="contained" size="large">

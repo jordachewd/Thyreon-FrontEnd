@@ -61,7 +61,7 @@ export default function TestGetUserByIdGql() {
       </Typography>
 
       {user && (
-        <div className="flex flex-col md:flex-row gap-4 md:gap-0 py-4 mt-4 border-t border-b">
+        <div className="flex flex-col md:flex-row gap-4 !py-4 border-t border-b">
           <div className="flex flex-col mr-6 pt-2.5">
             {user?.clerkImg ? (
               <Image
@@ -75,7 +75,7 @@ export default function TestGetUserByIdGql() {
             )}
           </div>
           <div className="flex flex-col flex-1 gap-0.5">
-            <Typography variant="h6" className="!mb-2">
+            <Typography variant="h6" className="mb-2!">
               {user?.firstName} {user?.lastName}
             </Typography>
             <p>
@@ -108,7 +108,7 @@ export default function TestGetUserByIdGql() {
 
           {user?.transactions && user?.transactions.length > 0 && (
             <div className="flex flex-col w-full md:w-1/2">
-              <Typography variant="h6" className="!mb-2">
+              <Typography variant="h6" className="mb-2!">
                 Transactions
               </Typography>
               <ul className="flex flex-col my-1 text-xs">
