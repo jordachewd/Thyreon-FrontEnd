@@ -28,7 +28,7 @@ const GET_MY_CURRENT_PLAN_QUERY = gql`
 `;
 
 function Plans() {
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn } = useUser();
   const [planType, setPlanType] = useState<boolean>(false);
 
   const cssMonthly = !planType ? css.switched : "";
@@ -54,8 +54,6 @@ function Plans() {
     const setBilling = billingType === "yearly" ? true : false;
     setPlanType(setBilling);
   }, [isSignedIn, billingType]);
-
-  if (!isLoaded) return <LoadingBubbles wrapped />;
 
   if (isSignedIn && loading)
     return (
