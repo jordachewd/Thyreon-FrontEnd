@@ -9,14 +9,14 @@ interface PlansWrapperProps {
 }
 
 function PlansWrapper({
-  title = "Choose your plan",
-  subtitle = "Select the plan that suits your needs.",
+  title = "",
+  subtitle = "",
   children,
 }: PlansWrapperProps) {
   return (
     <div className={css.section}>
       <div className={css.content}>
-        <PageHead title={title} subtitle={subtitle} />
+        {title && <PageHead title={title} subtitle={subtitle} />}
         {children}
       </div>
     </div>

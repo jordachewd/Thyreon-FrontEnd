@@ -5,44 +5,26 @@ import { useEffect, useState } from "react";
 import { plans } from "@/constants/plans.const";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { Transaction } from "@/types/transactions/transaction.d";
-import { gql, useQuery } from "@apollo/client";
-import { GetUserData } from "@/types/users/get-user-data.d";
 import PlansWrapper from "@/components/sections/admin/plans/PlansWrapper";
 import ErrorCard from "@/components/shared/ErrorCard";
-import PageHead from "@/components/layout/common/PageHead";
 import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
 import { useUser } from "@clerk/nextjs";
-
-const GET_MY_CURRENT_PLAN_QUERY = gql`
-  query GetMe {
-    me {
-      currentPlan {
-        plan
-        billing
-      }
-    }
-  }
-`;
+import { useAdminContext } from "@/context/admin/AdminContext";
 
 function Plans() {
   const { isSignedIn } = useUser();
+  const { meCtx } = useAdminContext();
+  const { data, loading, error } = meCtx;
   const [planType, setPlanType] = useState<boolean>(false);
 
   const cssMonthly = !planType ? css.switched : "";
   const cssYearly = planType ? css.switched : "";
   const save: number = 0.3; // Save 30% on Yearly plans
 
-  const { data, loading, error } = useQuery<{ me: GetUserData }>(
-    GET_MY_CURRENT_PLAN_QUERY,
-    {
-      skip: !isSignedIn,
-    }
-  );
-
-  const currentPlan: Transaction | undefined = data?.me.currentPlan;
+  const currentPlan: Transaction | undefined = data?.me?.currentPlan;
   const billingType = currentPlan?.billing;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -55,28 +37,26 @@ function Plans() {
     setPlanType(setBilling);
   }, [isSignedIn, billingType]);
 
-  if (isSignedIn && loading)
+  if (loading)
     return (
-      <PlansWrapper title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}>
+      <PlansWrapper title="Loading plans...">
         <LoadingBubbles wrapped />
       </PlansWrapper>
     );
 
-  if (isSignedIn && error)
+  if (error)
     return (
-      <PlansWrapper title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}>
+      <PlansWrapper title="Error loading plans">
         <ErrorCard error={error.message} title="" backToUrl="" />
       </PlansWrapper>
     );
 
-  return (
-    <div className={css.section}>
-      <div className={css.content}>
-        <PageHead
-          title={`${isSignedIn ? "Upgrade" : "Choose"} your plan`}
-          subtitle="Select the plan that suits your needs."
-        />
+  const pageTitle = isSignedIn ? "Upgrade your plan" : "Choose your plan";
+  const pageSubtitle = "Select the plan that suits your needs.";
 
+  return (
+    <PlansWrapper title={pageTitle} subtitle={pageSubtitle}>
+      <>
         <div className={css.switch}>
           <p className={cssMonthly}>Monthly</p>
           <Switch
@@ -120,8 +100,8 @@ function Plans() {
             </Button>
           </div>
         )}
-      </div>
-    </div>
+      </>
+    </PlansWrapper>
   );
 }
 

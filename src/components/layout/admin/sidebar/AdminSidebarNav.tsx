@@ -3,46 +3,16 @@
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import { memo } from "react";
 import Link from "next/link";
-import { gql, useQuery } from "@apollo/client";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
-import { GetUserData } from "@/types/users/get-user-data.d";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import sidebarNavItems from "@/constants/sidebar-nav.const";
 import SidebarNavItem from "@/types/sidebar-nav.d";
 
-const GET_ME_USER_QUERY = gql`
-  query GetMe {
-    me {
-      role
-    }
-  }
-`;
-
 interface AdminSidebarNavProps {
+  isAdmin: boolean;
   isNavOpen: boolean;
 }
 
-function AdminSidebarNav({ isNavOpen }: AdminSidebarNavProps) {
-  const { data, loading, error } = useQuery<{ me: GetUserData }>(
-    GET_ME_USER_QUERY
-  );
-
-  if (loading)
-    return (
-      <nav className={css.navigation}>
-        <LoadingBubbles wrapped />
-      </nav>
-    );
-
-  if (error)
-    return (
-      <nav className={css.navigation}>
-        <p className="flex p-4 text-red-600">Error: {error.message}</p>
-      </nav>
-    );
-
-  const isAdmin = data?.me.role === "admin";
-
+function AdminSidebarNav({ isNavOpen, isAdmin }: AdminSidebarNavProps) {
   const getNavItem = (item: SidebarNavItem) => (
     <Link key={item.id} href={item.href} className={css.linkItem}>
       <TooltipArrow title={item.label} placement="right">

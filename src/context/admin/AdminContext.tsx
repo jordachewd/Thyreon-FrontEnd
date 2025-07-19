@@ -3,19 +3,53 @@ import { createContext, useState, useContext, ReactNode } from "react";
 import { AlertMessageParams } from "@/context/admin/types/alert/alert-msg-params.interface";
 import { AlertCtxParams } from "./types/alert/alert-ctx-params.interface";
 import { SidebarCtxParams } from "./types/sidebar/sidebar-ctx-params.interface";
+import { MeCtxParams } from "./types/get-me/me-ctx-params.interface";
+import { meDefaults as meState } from "./constants/me-defaults.const";
 import { sidebarDefaults as sbState } from "./constants/sidebar-defaults.const";
 import { alertDefaults as atState } from "./constants/alert-defaults.const";
+import { gql, useQuery } from "@apollo/client";
+import { GetUserData } from "@/types/users/get-user-data.d";
 
-interface AdminCtxType {
-  sidebarCtx: SidebarCtxParams;
-  alertCtx: AlertCtxParams;
-}
+const GET_ME_QUERY = gql`
+  query GetMe {
+    me {
+      role
+      clerkImg
+      firstName
+      lastName
+      username
+      createdAt
+      updatedAt
+      currentPlan {
+        plan
+        billing
+        stripeId
+        expiresAt
+      }
+      transactions {
+        plan
+        amount
+        billing
+        stripeId
+        createdAt
+        expiresAt
+      }
+    }
+  }
+`;
 
 interface AdminCtxProviderProps {
   children: ReactNode;
 }
 
+interface AdminCtxType {
+  meCtx: MeCtxParams;
+  sidebarCtx: SidebarCtxParams;
+  alertCtx: AlertCtxParams;
+}
+
 const defaultCtxVals: AdminCtxType = {
+  meCtx: meState,
   sidebarCtx: sbState,
   alertCtx: atState,
 };
@@ -26,7 +60,15 @@ export function AdminContextProvider({ children }: AdminCtxProviderProps) {
   const [openNav, setOpenNav] = useState<boolean>(sbState.isNavOpen);
   const [alertMsg, setAlertMsg] = useState<AlertMessageParams>(atState.message);
 
+  const { data, loading, error } = useQuery<{ me: GetUserData }>(GET_ME_QUERY);
+  const profileData = { me: data?.me as GetUserData | undefined };
+
   const context: AdminCtxType = {
+    meCtx: {
+      data: profileData,
+      loading,
+      error,
+    },
     sidebarCtx: {
       isNavOpen: openNav,
       updateSb: () => setOpenNav((prevOpenNav) => !prevOpenNav),

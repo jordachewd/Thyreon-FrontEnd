@@ -7,7 +7,7 @@ import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import { UserRole } from "@/types/users/user-role.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import PlanPromo from "@/components/shared/PlanPromo";
-import { DocumentNode, useQuery } from "@apollo/client";
+import { ApolloError } from "@apollo/client";
 import { memo } from "react";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import ProfileHeroWrapper from "./ProfileHeroWrapper";
@@ -15,24 +15,24 @@ import { Transaction } from "@/types/transactions/transaction.d";
 import ErrorCard from "@/components/shared/ErrorCard";
 
 type ProfileHeroProps = {
-  query: DocumentNode;
-  variables?: Record<string, number>;
-  dataSelector: (data: undefined) => GetUserData | undefined;
+  data: { profile: GetUserData | undefined };
+  loading: boolean;
+  error: ApolloError | undefined;
+  isAdmin: boolean;
   title?: string;
   alignTitle?: "left" | "center" | "right";
   titleSize?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 };
 
 function ProfileHero({
-  query,
-  variables,
-  dataSelector,
+  data,
+  loading,
+  error,
   title,
   alignTitle,
   titleSize,
+  isAdmin = false,
 }: ProfileHeroProps) {
-  const { data, loading, error } = useQuery(query, { variables });
-
   if (loading)
     return (
       <ProfileHeroWrapper
@@ -55,10 +55,7 @@ function ProfileHero({
       </ProfileHeroWrapper>
     );
 
-  const profile = dataSelector(data);
-
-  console.log("ProfileHero: ", profile);
-
+  const profile = data.profile as GetUserData | undefined;
   const currentPlan = profile?.currentPlan as Transaction | undefined;
   const fullName = `${profile?.firstName} ${profile?.lastName}`;
 
@@ -101,7 +98,11 @@ function ProfileHero({
       </div>
 
       <div className={css.heroPlan}>
-        <PlanPromo userPlan={currentPlan} userRole={profile?.role} />
+        <PlanPromo
+          userPlan={currentPlan}
+          userRole={profile?.role}
+          isAdmin={isAdmin}
+        />
       </div>
     </ProfileHeroWrapper>
   );

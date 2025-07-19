@@ -4,7 +4,7 @@ import css from "@/styles/sections/admin/ProfileBilling.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { getRandomString } from "@/lib/utils/getRandomString";
-import { DocumentNode, useQuery } from "@apollo/client";
+import { ApolloError } from "@apollo/client";
 import { Transaction } from "@/types/transactions/transaction.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import ProfileBillingWrapper from "./ProfileBillingWrapper";
@@ -14,24 +14,22 @@ import { memo } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
 
 type ProfileBillingProps = {
-  query: DocumentNode;
-  variables?: Record<string, number>;
-  dataSelector: (data: undefined) => GetUserData | undefined;
+  data: { profile: GetUserData | undefined };
+  loading: boolean;
+  error: ApolloError | undefined;
   title?: string;
   alignTitle?: "left" | "center" | "right";
   titleSize?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 };
 
 function ProfileBilling({
-  query,
-  variables,
-  dataSelector,
+  data,
+  loading,
+  error,
   title,
   alignTitle,
   titleSize,
 }: ProfileBillingProps) {
-  const { data, loading, error } = useQuery(query, { variables });
-
   if (loading)
     return (
       <ProfileBillingWrapper
@@ -54,10 +52,7 @@ function ProfileBilling({
       </ProfileBillingWrapper>
     );
 
-  const profile = dataSelector(data);
-
-  console.log("ProfileBilling: ", profile);
-
+  const profile = data.profile as GetUserData | undefined;
   const currentPlan: Transaction | undefined = profile?.currentPlan;
   const transactions: Transaction[] = profile?.transactions || [];
   const hasTransactions = transactions.length > 0;

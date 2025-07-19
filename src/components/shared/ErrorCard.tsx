@@ -20,7 +20,7 @@ export default function ErrorCard({
   return (
     <div className="flex flex-col items-center justify-center gap-6 w-full h-full">
       {title && <Typography variant="h3">{title}</Typography>}
-      <div className="flex flex-col items-center gap-2 bg-red-600 py-6 px-12 rounded-xl shadow-lg">
+      <div className="flex flex-col items-center gap-2 bg-red-600 !py-6 !px-12 rounded-xl shadow-lg">
         <Typography variant="h6" color="white">
           {error}
         </Typography>
