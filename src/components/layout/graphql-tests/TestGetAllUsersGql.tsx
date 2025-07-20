@@ -54,8 +54,6 @@ export default function TestGetAllUsersGql() {
 
   const users = data?.users;
 
-  console.log("Fetched Users:", users);
-
   return (
     <div className="flex flex-col w-full py-4 border-b">
       <Typography variant="h5" color="green">

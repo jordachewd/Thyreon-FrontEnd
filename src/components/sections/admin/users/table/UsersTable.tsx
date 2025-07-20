@@ -1,7 +1,7 @@
 "use client";
 import css from "./UsersTable.module.css";
 import { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { usersTableColumns as columns } from "@/constants/table/columns/users-table-columns";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { UserRole } from "@/types/users/user-role.d";
@@ -10,6 +10,7 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import UsersTableToolbar from "./UsersTableToolbar";
 import dynamic from "next/dynamic";
 import ErrorCard from "@/components/shared/ErrorCard";
+import { GET_USERS_QUERY } from "@/constants/graphql/get-users.const";
 
 const DynamicDataGrid = dynamic(
   () => import("@mui/x-data-grid").then((mod) => mod.DataGrid),
@@ -19,21 +20,6 @@ const DynamicDataGrid = dynamic(
   }
 );
 
-const GET_ALL_USERS_QUERY = gql`
-  query GetAllUsers {
-    users {
-      id
-      email
-      username
-      firstName
-      lastName
-      role
-      clerkImg
-      createdAt
-    }
-  }
-`;
-
 interface SelectedIdsProps {
   type: "include" | "exclude";
   ids: Set<string | number>;
@@ -41,7 +27,7 @@ interface SelectedIdsProps {
 
 export default function UsersTable() {
   const { data, loading, error } = useQuery<{ users: GetUserData[] }>(
-    GET_ALL_USERS_QUERY
+    GET_USERS_QUERY
   );
 
   const [selectedIds, setSelectedIds] = useState<SelectedIdsProps>({
