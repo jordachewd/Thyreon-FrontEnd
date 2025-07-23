@@ -46,22 +46,22 @@ function AdminHeaderNav() {
         onClose={handleCloseMenu}
       >
         <MenuItem component={Link} href="/" onClick={handleCloseMenu}>
-          <i className="bi bi-house mr-4"></i>
+          <i className="bi bi-house !mr-4"></i>
           <span>Home</span>
         </MenuItem>
 
         <MenuItem component={Link} href="/profile" onClick={handleCloseMenu}>
-          <i className="bi bi-person mr-4"></i>
+          <i className="bi bi-person !mr-4"></i>
           <span>Profile & Billing</span>
         </MenuItem>
 
         <MenuItem component={Link} href="/plans" onClick={handleCloseMenu}>
-          <i className="bi bi-graph-up mr-4"></i>
+          <i className="bi bi-graph-up !mr-4"></i>
           <span>Plans & FAQs</span>
         </MenuItem>
 
         <Divider />
-        <div className="flex justify-center items-center px-5 py-1 gap-4">
+        <div className="flex justify-center items-center !px-5 !py-1 gap-4">
           <span>Theme:</span>
           <ToggleTheme />
         </div>

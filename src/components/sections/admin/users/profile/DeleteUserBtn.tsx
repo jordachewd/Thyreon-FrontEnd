@@ -3,8 +3,9 @@
 import { Button } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
 import { useAdminContext } from "@/context/admin/AdminContext";
+import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
+import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 import ErrorCard from "@/components/shared/ErrorCard";
 
 interface DeleteUserButtonProps {
@@ -18,7 +19,10 @@ export default function DeleteUserBtn({
   disabled = false,
   onSuccess,
 }: DeleteUserButtonProps) {
-  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS);
+  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
+    refetchQueries: [GET_USERS_QUERY, "GetAllUsers"],
+    awaitRefetchQueries: true,
+  });
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
@@ -33,16 +37,13 @@ export default function DeleteUserBtn({
 
     const clerkIds = users?.map((user) => user.clerkId);
 
-    console.log("Deleting users:", users);
-    console.log("Deleting users with clerkIds:", clerkIds);
-
     try {
       await deleteUsers({
         variables: { clerkIds: clerkIds },
-        refetchQueries: ["GetAllUsers"],
-        awaitRefetchQueries: true,
         onCompleted: (data) => {
           const response = data?.deleteUsers;
+
+          console.log("Delete response:", response);
 
           updateAlert({
             text: response.message || "User deleted successfully.",

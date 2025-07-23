@@ -26,6 +26,7 @@ function AlertMessage() {
     reason?: SnackbarCloseReason
   ) => {
     event?.preventDefault();
+
     if (reason === "clickaway") {
       return;
     }

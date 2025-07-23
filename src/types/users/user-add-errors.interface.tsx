@@ -1,9 +1,9 @@
-import { UserFieldError } from "./user-field-error.interface";
+import { FieldError } from "../common/field-error.interface";
 
 export interface NewUserFormErrors {
-  firstName?: UserFieldError;
-  lastName?: UserFieldError;
-  username?: UserFieldError;
-  email?: UserFieldError;
-  password?: UserFieldError;
+  firstName?: FieldError;
+  lastName?: FieldError;
+  username?: FieldError;
+  email?: FieldError;
+  password?: FieldError;
 }

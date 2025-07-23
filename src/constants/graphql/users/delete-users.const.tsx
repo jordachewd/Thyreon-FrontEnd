@@ -5,6 +5,7 @@ export const DELETE_USERS = gql`
     deleteUsers(clerkIds: $clerkIds) {
       status
       message
+      deletedUsers 
     }
   }
 `;

@@ -76,14 +76,12 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
     try {
       await updateUser({
         variables: { input: { ...formData } },
-        refetchQueries: ["GetUserById"],
-        awaitRefetchQueries: true,
         onCompleted: (data) => {
-          handleResetDialog();
           updateAlert({
             text: data?.updateUser.message || "User updated successfully",
             severity: data?.updateUser.status || "success",
           });
+          handleResetDialog();
         },
       });
     } catch (error: unknown) {

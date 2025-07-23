@@ -12,24 +12,26 @@ import {
 
 import { useCallback, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { defaultNewUserValues as defaultVals } from "@/constants/users/defaults/new-user-values";
-import { defaultNewUserFields as defaultFields } from "@/constants/users/fields/new-user-fields";
-import { CreateUserData } from "@/types/users/create-user-data.d";
-import { NewUserFormErrors } from "@/types/users/user-add-errors.interface";
+import { defaultNewSiteValues as defaultVals } from "@/constants/sites/new-site-values";
+import { defaultNewSiteFields as defaultFields } from "@/constants/sites/new-site-fields";
+
 import { generatePassword } from "@/lib/utils/generate-password";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { alertDefaults } from "@/context/admin/constants/alert-defaults.const";
 
-import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import AdminAddNewFab from "@/components/sections/admin/AdminAddNewFab";
-import { validateUserInputs } from "@/lib/utils/validateUserInputs";
-import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
+import { validateSiteInputs } from "@/lib/utils/validateSiteInputs";
 
-export default function AddUserDialog() {
-  const [formData, setFormData] = useState<CreateUserData>(defaultVals);
-  const [fieldErrors, setFieldErrors] = useState<NewUserFormErrors>({});
+import { CreateSiteData } from "@/types/sites/create-site-data.d";
+import { AddSiteErrors } from "@/types/sites/add-site-errors.d";
+import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-sites.const";
+import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
+
+export default function AddSiteDialog() {
+  const [formData, setFormData] = useState<CreateSiteData>(defaultVals);
+  const [fieldErrors, setFieldErrors] = useState<AddSiteErrors>({});
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
@@ -37,25 +39,27 @@ export default function AddUserDialog() {
   const { updateAlert } = alertCtx;
   const clearAlert = alertDefaults.message;
 
-  const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
-    refetchQueries: [GET_USERS_QUERY, "GetAllUsers"],
+  const [createSite, { loading, error }] = useMutation(CREATE_SITE_MUTATION, {
+    refetchQueries: [GET_SITES_QUERY, "GetSites"],
     awaitRefetchQueries: true,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const validateFields = validateUserInputs(formData);
+    const validateFields = validateSiteInputs(formData);
 
     if (!validateFields.isValid) {
       setFieldErrors(validateFields.errors);
       return;
     }
 
-    await createUser({
+    await createSite({
       variables: { input: formData },
 
       onCompleted: (data) => {
-        const response = data?.createUser;
+        const response = data?.createSite;
+
+        console.log("Create site response:", response);
 
         updateAlert({
           text: response.message || "User created successfully",
@@ -118,7 +122,7 @@ export default function AddUserDialog() {
         <DialogTitle id="responsive-dialog-title">
           <div className="flex w-full justify-between items-center">
             <div className="flex flex-col">
-              <Typography variant="h4">Add new user</Typography>
+              <Typography variant="h4">Add new site</Typography>
               <span className="text-red-600 textxxs leading-none">
                 * required
               </span>
@@ -135,9 +139,8 @@ export default function AddUserDialog() {
           <form className="flex flex-col w-full gap-3">
             {error && <ErrorCard mini error={error.message} />}
             {defaultFields.map(({ label, name, type, info }) => {
-              const fdValue = formData[name as keyof CreateUserData] || "";
-              const hasError =
-                fieldErrors[name as keyof NewUserFormErrors]?.info;
+              const fdValue = formData[name as keyof CreateSiteData] || "";
+              const hasError = fieldErrors[name as keyof AddSiteErrors]?.info;
               return (
                 <div key={name} className="flex flex-col w-full">
                   {name === "password" ? (

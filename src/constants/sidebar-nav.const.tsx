@@ -10,9 +10,9 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
   {
     id: 1,
-    href: "/monitoring",
+    href: "/sites",
     icon: "bi bi-display",
-    label: "Monitoring",
+    label: "My Sites",
     isAdmin: false,
   },
   {
