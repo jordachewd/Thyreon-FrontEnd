@@ -7,7 +7,9 @@ import ProfileBilling from "../../profile/ProfileBilling";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import ErrorCard from "@/components/shared/ErrorCard";
-import { GET_USER_BY_ID } from "@/constants/graphql/get-user-by-id.const";
+import { GET_USER_BY_ID } from "@/constants/graphql/users/get-user-by-id.const";
+import PageHead from "@/components/layout/common/PageHead";
+import EditUserDialog from "./EditUserDialog";
 
 interface EditUserProps {
   userId: number;
@@ -20,6 +22,7 @@ export default function EditUserProfile({ userId }: EditUserProps) {
   const { data, loading, error } = useQuery<{ userById: GetUserData }>(
     GET_USER_BY_ID,
     {
+      fetchPolicy: "network-only",
       variables: { id: Number(userId) },
     }
   );
@@ -32,17 +35,18 @@ export default function EditUserProfile({ userId }: EditUserProps) {
 
   return (
     <>
+      <PageHead title="User Details" alignTitle="left">
+        <EditUserDialog data={profileData} />
+      </PageHead>
+
       <ProfileHero
-        title="Profile Overview"
-        titleSize="h5"
-        alignTitle="left"
         data={profileData}
         loading={loading}
         error={error}
         isAdmin={isAdmin}
       />
       <ProfileBilling
-        title="Transaction History"
+        title="Transactions"
         titleSize="h5"
         alignTitle="left"
         data={profileData}

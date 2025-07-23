@@ -1,18 +1,19 @@
 import Link from "next/link";
 import css from "./UsersNameCell.module.css";
+import { memo } from "react";
 
 interface UsersNameProps {
   href: string;
   username: string;
   firstname: string;
-  lastname: string;
+  lastname?: string;
 }
 
-export default function UsersNameCell({
+function UsersNameCell({
   href,
   username,
   firstname,
-  lastname,
+  lastname = "",
 }: UsersNameProps) {
   return (
     <div className={css.wrapper}>
@@ -25,3 +26,5 @@ export default function UsersNameCell({
     </div>
   );
 }
+
+export default memo(UsersNameCell);

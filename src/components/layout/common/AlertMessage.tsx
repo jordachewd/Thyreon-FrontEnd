@@ -17,13 +17,9 @@ function SlideTransition(props: SlideProps) {
 
 function AlertMessage() {
   const { alertCtx } = useAdminContext();
+  const { message, updateAlert } = alertCtx;
+  const { text = "", severity = "info" } = message as AlertMessageParams;
   const [openAlert, setOpenAlert] = useState(false);
-
-  const {
-    text = "",
-    severity = "info",
-    variant = "filled",
-  } = alertCtx?.message as AlertMessageParams;
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -35,10 +31,11 @@ function AlertMessage() {
     }
 
     setOpenAlert(false);
+    updateAlert({ text: "" });
   };
 
   useEffect(() => {
-    if (text !== "") {
+    if (text && text.length > 0) {
       setOpenAlert(true);
     }
   }, [text]);
@@ -53,8 +50,8 @@ function AlertMessage() {
       sx={{ zIndex: 999999999 }}
     >
       <Alert
+        variant="filled"
         onClose={handleClose}
-        variant={variant}
         severity={severity}
         sx={{ width: "100%" }}
       >

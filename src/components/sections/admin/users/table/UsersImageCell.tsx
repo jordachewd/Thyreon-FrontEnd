@@ -1,24 +1,25 @@
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
+import { memo } from "react";
 
-interface UsersImageProps {
-  alt?: string;
-  src?: string;
+interface ImgCellProps {
   href: string;
+  src?: string;
+  alt?: string;
 }
 
-export default function UsersImageCell({
-  href,
-  src,
-  alt = "User Avatar",
-}: UsersImageProps) {
+function UsersImageCell({ href, src, alt = "User Avatar" }: ImgCellProps) {
   return (
     <Link href={href}>
       {src ? (
         <Avatar
           alt={alt}
           src={src}
-          sx={{ width: 32, height: 32, borderWidth: 2, borderColor: "#f05722" }}
+          sx={{
+            width: 32,
+            height: 32,
+            boxShadow: 0,
+          }}
         />
       ) : (
         <p>No Image Yet</p>
@@ -26,3 +27,5 @@ export default function UsersImageCell({
     </Link>
   );
 }
+
+export default memo(UsersImageCell);

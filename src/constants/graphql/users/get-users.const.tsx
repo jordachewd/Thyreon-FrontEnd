@@ -4,13 +4,18 @@ export const GET_USERS_QUERY = gql`
   query GetAllUsers {
     users {
       id
+      role
       email
       username
       firstName
       lastName
-      role
+      clerkId
       clerkImg
       createdAt
+      currentPlan {
+        plan
+        expiresAt
+      }
     }
   }
 `;

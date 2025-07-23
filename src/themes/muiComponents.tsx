@@ -65,6 +65,7 @@ export const muiComponents: ThemeOptions = {
         },
       },
     },
+
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -74,10 +75,14 @@ export const muiComponents: ThemeOptions = {
           "&:after": {
             display: "none",
           },
+          "&.Mui-focused": {
+            borderColor: "var(--mui-palette-action-active)",
+          },
         },
         input: {
           fontSize: ".875rem",
-          padding: "0.25rem 0.35rem!important",
+          lineHeight: 1,
+          // padding: "0.25rem 0.35rem!important",
         },
       },
     },
@@ -85,7 +90,8 @@ export const muiComponents: ThemeOptions = {
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          fontSize: ".875rem",
+          fontSize: ".75rem",
+          color: "var(--mui-palette-text-secondary)",
           lineHeight: 1,
           "&.Mui-focused": {
             color: "var(--mui-palette-action-active)",
@@ -123,24 +129,19 @@ export const muiComponents: ThemeOptions = {
     MuiChip: {
       styleOverrides: {
         root: {
-          height: "auto",
-          borderRadius: "0.5rem",
-          color: "var(--mui-palette-primary-dark)",
-          borderColor: "var(--mui-palette-primary-dark)",
+          // height: "auto",
+          // borderRadius: "0.5rem",
+          // color: "var(--mui-palette-primary-dark)",
+          // borderColor: "var(--mui-palette-primary-dark)",
           transition: "all 0.35s ease-in-out",
         },
-        icon: {
-          paddingLeft: "0.4rem",
-          paddingRight: "0.4rem",
-          color: "var(--mui-palette-primary-dark)",
-          transition: "all 0.35s ease-in-out",
-        },
+
         label: {
-          fontSize: "0.875rem",
-          display: "block",
-          whiteSpace: "normal",
-          padding: "0.5rem",
+          textTransform: "capitalize",
+          fontSize: "0.725rem",
+          lineHeight: 0.75,
         },
+        /*         
         clickable: {
           "&:hover": {
             color: "var(--mui-palette-common-white)",
@@ -150,7 +151,7 @@ export const muiComponents: ThemeOptions = {
               color: "var(--mui-palette-common-white)",
             },
           },
-        },
+        }, */
       },
     },
     MuiMenu: {

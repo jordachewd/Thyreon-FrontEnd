@@ -1,7 +1,37 @@
 export const defaultNewUserFields = [
-  { label: "Username", name: "username", type: "text" },
-  { label: "Email", name: "email", type: "email" },
-  { label: "Password", name: "password", type: "text" },
-  { label: "First Name", name: "firstName", type: "text" },
-  { label: "Last Name", name: "lastName", type: "text" },
+  {
+    label: "Username",
+    name: "username",
+    type: "text",
+    info: "Cannot be empty.",
+    required: true,
+  },
+  {
+    label: "Email",
+    name: "email",
+    type: "email",
+    info: "Must be a valid email address.",
+    required: true,
+  },
+  {
+    label: "Password",
+    name: "password",
+    type: "text",
+    info: "Must be at least 8 characters long and contain no spaces.",
+    required: true,
+  },
+  {
+    label: "First Name",
+    name: "firstName",
+    type: "text",
+    info: "Cannot be empty.",
+    required: true,
+  },
+  {
+    label: "Last Name",
+    name: "lastName",
+    type: "text",
+    info: "Cannot be empty.",
+    required: true,
+  },
 ];

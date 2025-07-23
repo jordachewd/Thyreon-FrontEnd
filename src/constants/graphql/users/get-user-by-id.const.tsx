@@ -5,6 +5,8 @@ export const GET_USER_BY_ID = gql`
     userById(id: $id) {
       id
       role
+      email
+      clerkId
       clerkImg
       firstName
       lastName

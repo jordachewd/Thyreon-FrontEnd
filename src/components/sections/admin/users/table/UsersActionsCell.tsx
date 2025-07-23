@@ -2,12 +2,13 @@
 import Link from "next/link";
 import { MenuItem } from "@mui/material";
 import UserActionsMenu from "./UserActionsMenu";
+import { memo } from "react";
 
 interface UsersActionProps {
   href: string;
 }
 
-export default function UsersActionsCell({ href }: UsersActionProps) {
+function UsersActionsCell({ href }: UsersActionProps) {
   return (
     <>
       <UserActionsMenu>
@@ -27,3 +28,4 @@ export default function UsersActionsCell({ href }: UsersActionProps) {
     </>
   );
 }
+export default memo(UsersActionsCell);

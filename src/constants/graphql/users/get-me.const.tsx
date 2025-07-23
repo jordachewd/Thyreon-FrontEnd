@@ -4,6 +4,7 @@ export const GET_ME_QUERY = gql`
   query GetMe {
     me {
       role
+      email
       clerkImg
       firstName
       lastName

@@ -1,6 +1,6 @@
 "use client";
 import { Divider, IconButton, Menu, MenuItem } from "@mui/material";
-import { useState, MouseEvent, memo } from "react";
+import { useState, MouseEvent, memo, useCallback } from "react";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import ToggleTheme from "@/components/shared/ToggleTheme";
 import Link from "next/link";
@@ -9,13 +9,13 @@ function AdminHeaderNav() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElUser);
 
-  const handleOpenMenu = (event: MouseEvent<HTMLElement>) => {
+  const handleOpenMenu = useCallback((event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
+  }, []);
 
-  const handleCloseMenu = () => {
+  const handleCloseMenu = useCallback(() => {
     setAnchorElUser(null);
-  };
+  }, []);
 
   return (
     <div className="flex">

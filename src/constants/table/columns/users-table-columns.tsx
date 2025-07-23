@@ -1,3 +1,5 @@
+"use client";
+
 import { Chip } from "@mui/material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { UserRoleColors } from "@/types/users/user-role-colors.interface";
@@ -16,11 +18,12 @@ export const usersTableColumns: GridColDef[] = [
     sortable: false,
     filterable: false,
     disableColumnMenu: true,
+    flex: 0.5,
     renderCell: (params: GridRenderCellParams) => (
       <UsersImageCell
         src={params.row.clerkImg}
         alt={params.row.username}
-        href={`users/${params.row.username.toLowerCase()}`}
+        href={`users/${params.row.id}`}
       />
     ),
   },
@@ -40,14 +43,38 @@ export const usersTableColumns: GridColDef[] = [
     ),
   },
   {
-    field: "email",
-    headerName: "Email",
-    flex: 6,
+    field: "plan",
+    headerName: "Current Plan",
+    flex: 2,
     display: "flex",
+    renderCell: (params: GridRenderCellParams) => {
+      const currentPlan = params.row.currentPlan;
+      const planName = currentPlan?.plan || "Lite";
+      const expiresAt = currentPlan?.expiresAt;
+      const planUntil = expiresAt
+        ? "Until: " + getFormattedDate(currentPlan?.expiresAt)
+        : "N/A";
+      return (
+        <div className="flex flex-col">
+          <span className="text-sm capitalize font-semibold">{planName}</span>
+          <span className="textxxs text-slate-400">{planUntil}</span>
+        </div>
+      );
+    },
   },
   {
+    field: "email",
+    headerName: "Email",
+    flex: 2,
+    display: "flex",
+    renderCell: (params: GridRenderCellParams) => {
+      return <span className="text-sm">{params.row.email}</span>;
+    },
+  },
+
+  {
     field: "createdAt",
-    headerName: "Member since",
+    headerName: "Registered",
     flex: 2,
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
@@ -76,7 +103,7 @@ export const usersTableColumns: GridColDef[] = [
     headerAlign: "center",
     display: "flex",
     renderCell: (params: GridRenderCellParams) => (
-      <UsersActionsCell href={`users/${params.row.username.toLowerCase()}`} />
+      <UsersActionsCell href={`users/${params.row.id}`} />
     ),
   },
 ];

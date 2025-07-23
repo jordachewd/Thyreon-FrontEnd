@@ -9,7 +9,7 @@ import { sidebarDefaults as sbState } from "./constants/sidebar-defaults.const";
 import { alertDefaults as atState } from "./constants/alert-defaults.const";
 import { useQuery } from "@apollo/client";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import { GET_ME_QUERY } from "@/constants/graphql/get-me.const";
+import { GET_ME_QUERY } from "@/constants/graphql/users/get-me.const";
 
 interface AdminCtxProviderProps {
   children: ReactNode;
@@ -52,7 +52,6 @@ export function AdminContextProvider({ children }: AdminCtxProviderProps) {
         setAlertMsg({
           text: newAlert.text,
           severity: newAlert.severity,
-          variant: newAlert.variant,
         }),
     },
   };

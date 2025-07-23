@@ -1,24 +1,19 @@
 "use client";
 import css from "./UsersTable.module.css";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { usersTableColumns as columns } from "@/constants/table/columns/users-table-columns";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { UserRole } from "@/types/users/user-role.d";
-import { GridRowParams } from "@mui/x-data-grid";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import {
+  DataGrid,
+  GridRowParams,
+  GridRowSelectionModel,
+} from "@mui/x-data-grid";
+import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 import UsersTableToolbar from "./UsersTableToolbar";
-import dynamic from "next/dynamic";
 import ErrorCard from "@/components/shared/ErrorCard";
-import { GET_USERS_QUERY } from "@/constants/graphql/get-users.const";
-
-const DynamicDataGrid = dynamic(
-  () => import("@mui/x-data-grid").then((mod) => mod.DataGrid),
-  {
-    ssr: false, // This ensures it's only rendered on the client
-    loading: () => <LoadingBubbles />,
-  }
-);
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
 
 interface SelectedIdsProps {
   type: "include" | "exclude";
@@ -35,20 +30,41 @@ export default function UsersTable() {
     ids: new Set<string | number>(),
   });
 
-  if (error) return <ErrorCard title="Error!" error={error.message} />;
-
   const users: GetUserData[] = data?.users || [];
-
   const selectedUsers: GetUserData[] = users.filter((user) =>
     selectedIds.ids.has(user.id as number)
   );
 
+  const isRowSelectable = useCallback(
+    (params: GridRowParams) => !(params.row.role === ("admin" as UserRole)),
+    []
+  );
+
+  const handleSelectionChange = useCallback(
+    (newSelection: GridRowSelectionModel) => {
+      setSelectedIds({
+        type: newSelection.type,
+        ids: new Set(newSelection.ids),
+      });
+    },
+    []
+  );
+
+  if (loading) return <LoadingBubbles />;
+  if (error) return <ErrorCard title="Error!" error={error.message} />;
+
   return (
     <div className={css.wrapper}>
-      <DynamicDataGrid
-        loading={loading}
+      <DataGrid
         rows={users}
         columns={columns}
+        checkboxSelection
+        disableColumnResize
+        disableColumnSelector
+        disableRowSelectionOnClick
+        disableColumnMenu
+        pagination
+        pageSizeOptions={[10, 20, 50]}
         initialState={{
           pagination: {
             paginationModel: {
@@ -56,31 +72,12 @@ export default function UsersTable() {
             },
           },
         }}
-        pageSizeOptions={[10, 20, 50]}
-        checkboxSelection
-        disableRowSelectionOnClick
-        isRowSelectable={(params: GridRowParams) =>
-          !(params.row.role === ("admin" as UserRole))
-        }
-        disableColumnResize
-        disableColumnSelector
-        disableColumnMenu
-        onRowSelectionModelChange={(newSelection) => {
-          if (
-            newSelection &&
-            typeof newSelection === "object" &&
-            "ids" in newSelection
-          ) {
-            setSelectedIds({
-              type: newSelection.type,
-              ids: new Set(newSelection.ids),
-            });
-          }
-        }}
+        isRowSelectable={isRowSelectable}
+        onRowSelectionModelChange={handleSelectionChange}
+        showToolbar
         slots={{
           toolbar: () => <UsersTableToolbar selectedRows={selectedUsers} />,
         }}
-        showToolbar
       />
     </div>
   );

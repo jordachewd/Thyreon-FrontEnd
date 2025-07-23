@@ -1,8 +1,8 @@
- 
 import { CreateUserData } from "@/types/users/create-user-data.d";
 import { NewUserFormErrors } from "../../types/users/user-add-errors.interface";
+import { UpdateUserData } from "@/types/users/update-user-data.d";
 
-export function validateNewUserFields(formData: CreateUserData) {
+export function validateUserInputs(formData: CreateUserData | UpdateUserData) {
   const errors: NewUserFormErrors = {};
 
   Object.entries(formData).forEach(([key, value]) => {

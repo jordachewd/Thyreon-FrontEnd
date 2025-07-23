@@ -3,7 +3,7 @@ import css from "@/styles/layout/admin/AdminHeader.module.css";
 import AdminHeaderNav from "@/components/layout/admin/header/AdminHeaderNav";
 import SidebarToggle from "@/components/sections/admin/SidebarToggle";
 import { useAdminContext } from "@/context/admin/AdminContext";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
 import Logo from "@/components/shared/Logo";
 import IconButton from "@mui/material/IconButton";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
@@ -23,9 +23,11 @@ function AdminHeader() {
             title={`${isNavOpen ? "Show menu" : "Hide menu"}`}
             toggleSidebar={updateSb}
           />
+          {/*           
           <div className={css.search}>
             <TextField id="standard-basic" label="Search ..." size="small" />
-          </div>
+          </div> 
+          */}
         </div>
         <div className={css.center}>
           <Logo href="/dashboard" fullLogo />

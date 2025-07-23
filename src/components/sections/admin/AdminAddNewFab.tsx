@@ -1,21 +1,28 @@
+import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import Fab from "@mui/material/Fab";
 import { memo } from "react";
 
-interface AdminAddNewButtonProps {
+interface AdminAddNewFabProps {
   execFn: () => void;
   color?: "primary" | "secondary";
   size?: "small" | "medium" | "large";
+  icon?: string;
+  tooltipTitle?: string;
 }
 
-function AdminAddNewButton({
+function AdminAddNewFab({
   execFn,
   color = "primary",
   size = "small",
-}: AdminAddNewButtonProps) {
+  icon = "bi-plus-lg",
+  tooltipTitle = "Add New",
+}: AdminAddNewFabProps) {
   return (
-    <Fab onClick={execFn} color={color} size={size}>
-      <i className="bi bi-plus-lg text-lg"></i>
-    </Fab>
+    <TooltipArrow title={tooltipTitle} placement="left">
+      <Fab onClick={execFn} color={color} size={size} aria-label={tooltipTitle}>
+        <i className={`bi ${icon} text-lg`}></i>
+      </Fab>
+    </TooltipArrow>
   );
 }
-export default memo(AdminAddNewButton);
+export default memo(AdminAddNewFab);

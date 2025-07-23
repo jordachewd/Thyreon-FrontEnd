@@ -9,7 +9,7 @@ export interface GetUserData {
   email: string;
   username: string;
   firstName?: string;
-  lastName?: string;  
+  lastName?: string;
   role: UserRole;
 
   transactions?: Transaction[];
@@ -20,6 +20,6 @@ export interface GetUserData {
 
   sites?: SiteData[];
 
-  error?: string;
-  message?: string;
+  // error?: string;
+  // message?: string;
 }

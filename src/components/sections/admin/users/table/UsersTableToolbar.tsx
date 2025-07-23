@@ -14,12 +14,13 @@ import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import InputAdornment from "@mui/material/InputAdornment";
-import RemoveSelectedBtn from "./RemoveSelectedBtn";
+
 import { useState, useRef } from "react";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { TableToolbarQuickFilter } from "@/constants/table/toolbar/toolbar-quick-filter.const";
 import { TableToolbarButton } from "@/constants/table/toolbar/toolbar-button.const";
 import { TableToolbarTextField } from "@/constants/table/toolbar/toolbar-textfield.const";
+import DeleteUserBtn from "../profile/DeleteUserBtn";
 
 type ProductsTableToolbarProps = {
   selectedRows: GetUserData[];
@@ -35,9 +36,7 @@ export default function UsersTableToolbar({
     <Toolbar>
       {selectedRows.length > 0 && (
         <div className="flex w-full">
-          <RemoveSelectedBtn
-            data={{ route: "users", items: { users: selectedRows } }}
-          />
+          <DeleteUserBtn users={selectedRows} />
         </div>
       )}
 
