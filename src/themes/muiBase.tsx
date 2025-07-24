@@ -32,32 +32,26 @@ const base: ThemeOptions = {
     fontFamily: albertsans.style.fontFamily,
 
     h1: {
-      fontSize: "3.4rem",
+      fontSize: "4rem",
       fontFamily: dosis.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
-      "@media (min-width:768px)": {
-        fontSize: "4.2rem",
-      },
       "@media (min-width:1024px)": {
-        fontSize: "5rem",
+        fontSize: "4.5rem",
       },
       "@media (min-width:1080px)": {
-        fontSize: "5.8rem",
+        fontSize: "5rem",
       },
     },
 
     h2: {
-      fontSize: "2.6rem",
+      fontSize: "3rem",
       fontFamily: dosis.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
-      "@media (min-width:768px)": {
-        fontSize: "3.2rem",
-      },
       "@media (min-width:1024px)": {
-        fontSize: "3.8rem",
+        fontSize: "3.5rem",
       },
       "@media (min-width:1080px)": {
-        fontSize: "4.4rem",
+        fontSize: "4rem",
       },
     },
 
@@ -65,39 +59,18 @@ const base: ThemeOptions = {
       fontSize: "2.2rem",
       fontFamily: dosis.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
-      "@media (min-width:768px)": {
+      "@media (min-width:1024px)": {
         fontSize: "2.4rem",
       },
-      "@media (min-width:1024px)": {
-        fontSize: "2.6rem",
-      },
       "@media (min-width:1080px)": {
-        fontSize: "2.8rem",
+        fontSize: "2.6rem",
       },
     },
 
     h4: {
-      fontSize: "1.8rem",
+      fontSize: "1.6rem",
       fontFamily: dosis.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
-      "@media (min-width:768px)": {
-        fontSize: "2rem",
-      },
-      "@media (min-width:1024px)": {
-        fontSize: "2.2rem",
-      },
-      "@media (min-width:1080px)": {
-        fontSize: "2.4rem",
-      },
-    },
-
-    h5: {
-      fontSize: "1.4rem",
-      fontFamily: dosis.style.fontFamily,
-      color: "var(--mui-palette-text-primary)",
-      "@media (min-width:768px)": {
-        fontSize: "1.6rem",
-      },
       "@media (min-width:1024px)": {
         fontSize: "1.8rem",
       },
@@ -106,18 +79,28 @@ const base: ThemeOptions = {
       },
     },
 
-    h6: {
+    h5: {
       fontSize: "1.2rem",
       fontFamily: dosis.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
-      "@media (min-width:768px)": {
-        fontSize: "1.3rem",
-      },
       "@media (min-width:1024px)": {
         fontSize: "1.4rem",
       },
       "@media (min-width:1080px)": {
-        fontSize: "1.5rem",
+        fontSize: "1.6rem",
+      },
+    },
+
+    h6: {
+      fontSize: "1rem",
+      fontFamily: dosis.style.fontFamily,
+      color: "var(--mui-palette-text-primary)",
+      "@media (min-width:1024px)": {
+        fontSize: "1.1rem",
+      },
+
+      "@media (min-width:1080px)": {
+        fontSize: "1.2rem",
       },
     },
 
@@ -148,13 +131,13 @@ const base: ThemeOptions = {
     },
 
     body1: {
-      fontSize: "1.125rem",
+      fontSize: "1rem",
       fontFamily: albertsans.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
     },
 
     body2: {
-      fontSize: "1rem",
+      fontSize: ".85rem",
       fontFamily: albertsans.style.fontFamily,
       color: "var(--mui-palette-text-primary)",
     },

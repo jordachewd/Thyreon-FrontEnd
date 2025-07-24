@@ -10,7 +10,7 @@ function Hero() {
         <div className={css.left}>
           <Typography variant="h2">WordPress Maintenance Made Easy</Typography>
 
-          <Typography variant="h6">
+          <Typography variant="h5">
             Keep your WordPress site secure and up-to-date with automated
             maintenance amoring.
           </Typography>

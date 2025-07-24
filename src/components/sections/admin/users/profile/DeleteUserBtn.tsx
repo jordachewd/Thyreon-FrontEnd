@@ -78,7 +78,7 @@ export default function DeleteUserBtn({
             backgroundColor: "transparent",
           }}
         >
-          {loading ? "Deleting..." : `Delete ${userOrUsers}`}
+          {loading ? "Deleting ..." : `Delete ${userOrUsers}`}
         </Button>
       )}
     </>

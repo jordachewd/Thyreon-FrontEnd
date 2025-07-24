@@ -201,7 +201,7 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
           <div className="flex gap-3 items-center">
             {loading && <LoadingBubbles className="!w-auto" />}
             <Button onClick={handleSubmit} variant="contained" size="small">
-              {loading ? "Updating..." : "Update User"}
+              {loading ? "Updating ..." : "Update User"}
             </Button>
           </div>
         </DialogActions>

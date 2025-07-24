@@ -8,6 +8,7 @@ export default async function AdminMonitoring() {
       <PageHead title="My Sites" alignTitle="left">
         <AddSiteDialog />
       </PageHead>
+
       <MySites />
     </>
   );

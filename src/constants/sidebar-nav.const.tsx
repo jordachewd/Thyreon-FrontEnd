@@ -44,15 +44,22 @@ const sidebarNavItems: SidebarNavItem[] = [
     label: "Users",
     isAdmin: true, // Admin only
   },
-  {
+    {
     id: 6,
+    href: "/allsites",
+    icon: "bi bi-database",
+    label: "All Sites",
+    isAdmin: true, // Admin only
+  },
+  {
+    id: 7,
     href: "/transactions",
     icon: "bi bi-bank",
     label: "Transactions",
     isAdmin: true, // Admin only
   },
   {
-    id: 7,
+    id: 8,
     href: "/settings",
     icon: "bi bi-gear",
     label: "Settings",

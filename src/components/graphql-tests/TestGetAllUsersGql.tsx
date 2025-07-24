@@ -1,16 +1,16 @@
 "use client";
 
-import { Typography } from "@mui/material";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import getFormattedDate from "@/lib/utils/getFormattedDate";
+import { Transaction } from "@/types/transactions/transaction.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { gql, useQuery } from "@apollo/client";
-import { Transaction } from "@/types/transactions/transaction.d";
-import getFormattedDate from "@/lib/utils/getFormattedDate";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
-const GET_USER_BY_ID_QUERY = gql`
-  query GetUserById($id: Int!) {
-    userById(id: $id) {
+const GET_ALL_USERS_QUERY = gql`
+  query GetAllUsers {
+    users {
       id
       email
       username
@@ -22,9 +22,12 @@ const GET_USER_BY_ID_QUERY = gql`
       createdAt
       updatedAt
       currentPlan {
+        id
+        stripeId
         plan
         billing
         amount
+        createdAt
         expiresAt
       }
       transactions {
@@ -34,36 +37,35 @@ const GET_USER_BY_ID_QUERY = gql`
         billing
         amount
         createdAt
+        expiresAt
       }
     }
   }
 `;
 
-export default function TestGetUserByIdGql() {
-  const { data, loading, error } = useQuery<{ userById: GetUserData }>(
-    GET_USER_BY_ID_QUERY,
-    {
-      variables: { id: 32 },
-    }
+export default function TestGetAllUsersGql() {
+  const { data, loading, error } = useQuery<{ users: GetUserData[] }>(
+    GET_ALL_USERS_QUERY
   );
 
   if (loading) return <LoadingBubbles wrapped />;
   if (error)
-    return <p className="flex p-4 text-red-600">Error: {error.message}</p>;
+    return <p className="flex !p-4 text-red-600">Error: {error.message}</p>;
 
-  const user = data?.userById;
-  console.log("Fetched User by ID:", user);
+  const users = data?.users;
 
   return (
-    <div className="flex flex-col w-full py-4">
+    <div className="flex flex-col w-full !py-4 border-b">
       <Typography variant="h5" color="green">
-        GraphQL / GetUserById (ID: {user?.id})
+        GraphQL / GetAllUsers
       </Typography>
-
-      {user && (
-        <div className="flex flex-col md:flex-row gap-4 !py-4 border-t border-b">
-          <div className="flex flex-col mr-6 pt-2.5">
-            {user?.clerkImg ? (
+      {users?.map((user: GetUserData) => (
+        <div
+          key={user.id}
+          className="flex flex-col md:flex-row gap-4 border-t !py-4"
+        >
+          <div className="flex flex-col !mr-6 pt-2.5">
+            {user.clerkImg ? (
               <Image
                 src={String(user.clerkImg)}
                 alt="User Image"
@@ -75,45 +77,44 @@ export default function TestGetUserByIdGql() {
             )}
           </div>
           <div className="flex flex-col flex-1 gap-0.5">
-            <Typography variant="h6" className="mb-2!">
-              {user?.firstName} {user?.lastName}
+            <Typography variant="h6" className="!mb-2">
+              {user.firstName} {user.lastName}
             </Typography>
             <p>
-              <strong>User ID: </strong> {user?.id}
+              <strong>User ID: </strong> {user.id}
             </p>
             <p>
-              <strong>Clerk ID: </strong> {user?.clerkId}
+              <strong>Clerk ID: </strong> {user.clerkId}
             </p>
             <p>
               <strong>Active Plan ID: </strong> {user?.currentPlan?.plan}
             </p>
             <p>
-              <strong>Email: </strong> {user?.email}
+              <strong>Email: </strong> {user.email}
             </p>
             <p>
-              <strong>Username: </strong> {user?.username}
+              <strong>Username: </strong> {user.username}
             </p>
             <p>
-              <strong>Role: </strong> {user?.role}
+              <strong>Role: </strong> {user.role}
             </p>
             <p>
               <strong>Member since: </strong>
-              {getFormattedDate(user?.createdAt as Date)}
+              {getFormattedDate(user.createdAt as Date)}
             </p>
             <p>
               <strong>Last seen: </strong>
-              {getFormattedDate(user?.updatedAt as Date)}
+              {getFormattedDate(user.updatedAt as Date)}
             </p>
           </div>
-
-          {user?.transactions && user?.transactions.length > 0 && (
-            <div className="flex flex-col w-full md:w-1/2">
-              <Typography variant="h6" className="mb-2!">
+          {user.transactions && user.transactions.length > 0 && (
+            <div className="flex flex-col flex-1">
+              <Typography variant="h6" className="!mb-2">
                 Transactions
               </Typography>
               <ul className="flex flex-col my-1 text-xs">
                 {user.transactions.map((tx: Transaction) => (
-                  <li key={tx.id} className="mb-4">
+                  <li key={tx.id} className="!mb-4">
                     <p>
                       <strong>Plan: </strong>
                       <span className="capitalize">{tx.plan}</span>,
@@ -140,7 +141,7 @@ export default function TestGetUserByIdGql() {
             </div>
           )}
         </div>
-      )}
+      ))}
     </div>
   );
 }

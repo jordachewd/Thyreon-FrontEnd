@@ -18,8 +18,8 @@ function Features() {
           {appFeatures.map((feature) => (
             <div key={feature.id} className={css.feature}>
               <i className={`bi ${feature.icon} ${css.icon}`}></i>
-              <Typography variant="h6">{feature.title}</Typography>
-              <Typography variant="body2" align="center">
+              <Typography variant="h5">{feature.title}</Typography>
+              <Typography variant="body1" align="center">
                 {feature.description}
               </Typography>
             </div>

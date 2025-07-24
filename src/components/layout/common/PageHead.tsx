@@ -1,4 +1,5 @@
 "use client";
+
 import css from "@/styles/layout/shared/PageHead.module.css";
 import { Typography } from "@mui/material";
 import { memo } from "react";
@@ -28,7 +29,7 @@ const PageHead = memo(
             {title}
           </Typography>
           {subtitle && (
-            <Typography variant="body2" align={alignSubtitle}>
+            <Typography variant="body1" align={alignSubtitle}>
               {subtitle}
             </Typography>
           )}

@@ -26,8 +26,9 @@ import { validateSiteInputs } from "@/lib/utils/validateSiteInputs";
 
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { AddSiteErrors } from "@/types/sites/add-site-errors.d";
-import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-sites.const";
+
 import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
+import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 
 export default function AddSiteDialog() {
   const [formData, setFormData] = useState<CreateSiteData>(defaultVals);
@@ -40,7 +41,7 @@ export default function AddSiteDialog() {
   const clearAlert = alertDefaults.message;
 
   const [createSite, { loading, error }] = useMutation(CREATE_SITE_MUTATION, {
-    refetchQueries: [GET_SITES_QUERY, "GetSites"],
+    refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
     awaitRefetchQueries: true,
   });
 
@@ -62,7 +63,7 @@ export default function AddSiteDialog() {
         console.log("Create site response:", response);
 
         updateAlert({
-          text: response.message || "User created successfully",
+          text: response.message || "Site registered successfully!",
           severity: response.status || "success",
         });
 
@@ -188,7 +189,7 @@ export default function AddSiteDialog() {
         <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
           {loading && <LoadingBubbles className="!w-auto" />}
           <Button onClick={handleSubmit} variant="contained" size="small">
-            {loading ? "Creating..." : " Create User"}
+            {loading ? "Registering ..." : " Register Site"}
           </Button>
         </DialogActions>
       </Dialog>

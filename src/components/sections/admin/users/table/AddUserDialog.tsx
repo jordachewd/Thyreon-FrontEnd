@@ -185,7 +185,7 @@ export default function AddUserDialog() {
         <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
           {loading && <LoadingBubbles className="!w-auto" />}
           <Button onClick={handleSubmit} variant="contained" size="small">
-            {loading ? "Creating..." : " Create User"}
+            {loading ? "Creating ..." : " Create User"}
           </Button>
         </DialogActions>
       </Dialog>
