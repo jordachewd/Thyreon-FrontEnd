@@ -15,13 +15,13 @@ function UsersActionsCell({ href }: UsersActionProps) {
         <MenuItem>
           <Link href={href}>
             <i className="bi bi-eye"></i>
-            <span className="ml-4">View</span>
+            <span className="!ml-4">View</span>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href={href}>
             <i className="bi bi-pen"></i>
-            <span className="ml-4">Edit</span>
+            <span className="!ml-4">Edit</span>
           </Link>
         </MenuItem>
       </UserActionsMenu>

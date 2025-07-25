@@ -1,11 +1,10 @@
 "use client";
 import css from "@/styles/layout/admin/AdminHeader.module.css";
-import AdminHeaderNav from "@/components/layout/admin/header/AdminHeaderNav";
+import AdminHeaderMenu from "@/components/layout/admin/header/AdminHeaderMenu";
 import SidebarToggle from "@/components/sections/admin/SidebarToggle";
-import { useAdminContext } from "@/context/admin/AdminContext";
-// import TextField from "@mui/material/TextField";
 import Logo from "@/components/shared/Logo";
 import IconButton from "@mui/material/IconButton";
+import { useAdminContext } from "@/context/admin/AdminContext";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { UserButton } from "@clerk/nextjs";
 import { memo } from "react";
@@ -23,11 +22,6 @@ function AdminHeader() {
             title={`${isNavOpen ? "Show menu" : "Hide menu"}`}
             toggleSidebar={updateSb}
           />
-          {/*           
-          <div className={css.search}>
-            <TextField id="standard-basic" label="Search ..." size="small" />
-          </div> 
-          */}
         </div>
         <div className={css.center}>
           <Logo href="/dashboard" fullLogo />
@@ -51,7 +45,7 @@ function AdminHeader() {
               </IconButton>
             </TooltipArrow>
 
-            <AdminHeaderNav />
+            <AdminHeaderMenu />
           </div>
           <UserButton />
         </div>

@@ -2,9 +2,11 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
+import SitesTable from "./SitesTable";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useQuery } from "@apollo/client";
+import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
+import { mySitesTableColumns } from "@/constants/table/columns/my-sites-table-columns";
 
 export default function MySites() {
   const { data, loading, error } = useQuery(GET_MY_SITES_QUERY);
@@ -12,25 +14,16 @@ export default function MySites() {
   if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard title="Error!" error={error.message} />;
 
-  const sites = data?.meSites || [];
+  const sites = data?.meSites || ([] as GetSiteData[]);
 
   if (sites.length === 0) return <p>No sites found.</p>;
 
   return (
-    <ul>
-      {sites.map((site: GetSiteData) => (
-        <li key={site.id} className="flex flex-col gap-2 !mb-4 border-b !pb-4">
-          <p>
-            <b>Name:</b> {site.siteName}
-          </p>
-          <p>
-            <b>Domain:</b> {site.domain}
-          </p>
-          <p>
-            <b>API Key:</b> {site.apiKey}
-          </p>
-        </li>
-      ))}
-    </ul>
+    <SitesTable
+      sites={sites}
+      loading={loading}
+      error={error}
+      tableCols={mySitesTableColumns}
+    />
   );
 }

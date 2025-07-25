@@ -12,7 +12,7 @@ const sidebarNavItems: SidebarNavItem[] = [
     id: 1,
     href: "/sites",
     icon: "bi bi-display",
-    label: "My Sites",
+    label: "Sites",
     isAdmin: false,
   },
   {
@@ -41,28 +41,28 @@ const sidebarNavItems: SidebarNavItem[] = [
     id: 5,
     href: "/users",
     icon: "bi bi-people",
-    label: "Users",
+    label: "All Users",
     isAdmin: true, // Admin only
   },
     {
     id: 6,
     href: "/allsites",
-    icon: "bi bi-database",
+    icon: "bi bi-window-stack",
     label: "All Sites",
     isAdmin: true, // Admin only
   },
   {
     id: 7,
     href: "/transactions",
-    icon: "bi bi-bank",
-    label: "Transactions",
+    icon: "bi bi-coin",
+    label: "All Transactions",
     isAdmin: true, // Admin only
   },
   {
     id: 8,
     href: "/settings",
     icon: "bi bi-gear",
-    label: "Settings",
+    label: "App Settings",
     isAdmin: true, // Admin only
   },
 ];

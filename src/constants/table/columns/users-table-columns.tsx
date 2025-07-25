@@ -7,35 +7,18 @@ import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/users/table/UsersNameCell";
 import UsersActionsCell from "@/components/sections/admin/users/table/UsersActionsCell";
-import UsersImageCell from "@/components/sections/admin/users/table/UsersImageCell";
 
 export const usersTableColumns: GridColDef[] = [
   {
-    align: "center",
-    field: "clerkImg",
-    display: "flex",
-    headerName: "",
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
-    flex: 0.5,
-    renderCell: (params: GridRenderCellParams) => (
-      <UsersImageCell
-        src={params.row.clerkImg}
-        alt={params.row.username}
-        href={`users/${params.row.id}`}
-      />
-    ),
-  },
-  {
     field: "username",
-    headerName: "User",
-    flex: 2,
+    headerName: "Account",
+    flex: 1.5,
     display: "flex",
 
     renderCell: (params: GridRenderCellParams) => (
       <UsersNameCell
         href={`users/${params.row.id}`}
+        image={params.row.clerkImg}
         username={params.row.username}
         firstname={params.row.firstName}
         lastname={params.row.lastName}
@@ -45,7 +28,7 @@ export const usersTableColumns: GridColDef[] = [
   {
     field: "plan",
     headerName: "Current Plan",
-    flex: 2,
+    flex: 1.5,
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
       const currentPlan = params.row.currentPlan;
@@ -65,7 +48,7 @@ export const usersTableColumns: GridColDef[] = [
   {
     field: "email",
     headerName: "Email",
-    flex: 2,
+    flex: 3,
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
       return <span className="text-sm">{params.row.email}</span>;
@@ -74,8 +57,8 @@ export const usersTableColumns: GridColDef[] = [
 
   {
     field: "createdAt",
-    headerName: "Registered",
-    flex: 2,
+    headerName: "Member Since",
+    flex: 1,
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
       const createdAt = getFormattedDate(params.row.createdAt);

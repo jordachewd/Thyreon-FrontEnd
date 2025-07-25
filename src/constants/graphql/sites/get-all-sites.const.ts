@@ -5,7 +5,15 @@ export const GET_SITES_QUERY = gql`
     sites {
       id
       siteName
-      userId
+      user {
+        id
+        clerkId
+        clerkImg
+        username
+        firstName
+        lastName
+        role
+      }
       siteName
       domain
       apiKey

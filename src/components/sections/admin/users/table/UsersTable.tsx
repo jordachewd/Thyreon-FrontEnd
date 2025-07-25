@@ -11,21 +11,18 @@ import {
   GridRowSelectionModel,
 } from "@mui/x-data-grid";
 import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
-import UsersTableToolbar from "./UsersTableToolbar";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-
-interface SelectedIdsProps {
-  type: "include" | "exclude";
-  ids: Set<string | number>;
-}
+import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
+import TableToolbar from "../../TableToolbar";
+import DeleteUserBtn from "../profile/DeleteUserBtn";
 
 export default function UsersTable() {
   const { data, loading, error } = useQuery<{ users: GetUserData[] }>(
     GET_USERS_QUERY
   );
 
-  const [selectedIds, setSelectedIds] = useState<SelectedIdsProps>({
+  const [selectedIds, setSelectedIds] = useState<ToolbarSelectedIds>({
     type: "include",
     ids: new Set<string | number>(),
   });
@@ -50,6 +47,13 @@ export default function UsersTable() {
     []
   );
 
+  const handleToolbarContent = useCallback(() => {
+    if (selectedUsers.length > 0) {
+      return <DeleteUserBtn users={selectedUsers} />;
+    }
+    return null;
+  }, [selectedUsers]);
+
   if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard title="Error!" error={error.message} />;
 
@@ -58,7 +62,6 @@ export default function UsersTable() {
       <DataGrid
         rows={users}
         columns={columns}
-        checkboxSelection
         disableColumnResize
         disableColumnSelector
         disableRowSelectionOnClick
@@ -75,8 +78,9 @@ export default function UsersTable() {
         isRowSelectable={isRowSelectable}
         onRowSelectionModelChange={handleSelectionChange}
         showToolbar
+        checkboxSelection
         slots={{
-          toolbar: () => <UsersTableToolbar selectedRows={selectedUsers} />,
+          toolbar: () => <TableToolbar toolbarContent={handleToolbarContent()} />,
         }}
       />
     </div>

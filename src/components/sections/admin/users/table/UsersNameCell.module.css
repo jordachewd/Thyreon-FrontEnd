@@ -4,7 +4,7 @@
 }
 
 .link {
-  @apply flex flex-col w-full text-midnight-400 hover:text-leaf-green-400 transition duration-500;
+  @apply flex w-full text-midnight-400 hover:text-leaf-green-400 transition duration-500 gap-3 items-center;
 }
 
 .name {

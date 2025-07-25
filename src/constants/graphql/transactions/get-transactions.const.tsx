@@ -14,6 +14,7 @@ export const GET_TRANSACTIONS_QUERY = gql`
       user {
         id
         email
+        clerkImg
         firstName
         lastName
         username

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import sidebarNavItems from "@/constants/sidebar-nav.const";
 import SidebarNavItem from "@/types/sidebar-nav.d";
-import Typography from "@mui/material/Typography";
 
 interface AdminSidebarNavProps {
   isAdmin: boolean;
@@ -38,7 +37,6 @@ function AdminSidebarNav({ isNavOpen, isAdmin }: AdminSidebarNavProps) {
 
       {isAdmin && (
         <div className={css.navBottom}>
-          <Typography variant="h6">Admin Navigation</Typography>
           {sidebarNavItems.map((item) => {
             if (!item.isAdmin) return null;
             return getNavItem(item);

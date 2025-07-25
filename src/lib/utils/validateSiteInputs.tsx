@@ -7,13 +7,14 @@ export function validateSiteInputs(formData: CreateSiteData) {
   Object.entries(formData).forEach(([key, value]) => {
     switch (key) {
       case "domain":
-      case "siteName":
+        // case "siteName":
         if (typeof value === "string" && (!value || value.trim() === "")) {
           errors[key as keyof AddSiteErrors] = {
             value,
-            info: `${
-              key === "siteName" ? "Site Name" : "Domain"
-            } cannot be empty.`,
+            // info: `${
+            //    key === "siteName" ? "Site Name" : "Domain"
+            //   } cannot be empty.`,
+            info: "Cannot be empty.",
             status: "error",
           };
         }

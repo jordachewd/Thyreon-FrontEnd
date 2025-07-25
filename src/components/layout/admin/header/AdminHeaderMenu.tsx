@@ -5,7 +5,7 @@ import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import ToggleTheme from "@/components/shared/ToggleTheme";
 import Link from "next/link";
 
-function AdminHeaderNav() {
+function AdminHeaderMenu() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElUser);
 
@@ -70,4 +70,4 @@ function AdminHeaderNav() {
   );
 }
 
-export default memo(AdminHeaderNav);
+export default memo(AdminHeaderMenu);

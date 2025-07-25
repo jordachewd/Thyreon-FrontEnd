@@ -14,19 +14,14 @@ import { useCallback, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { defaultNewSiteValues as defaultVals } from "@/constants/sites/new-site-values";
 import { defaultNewSiteFields as defaultFields } from "@/constants/sites/new-site-fields";
-
-import { generatePassword } from "@/lib/utils/generate-password";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { alertDefaults } from "@/context/admin/constants/alert-defaults.const";
-
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import AdminAddNewFab from "@/components/sections/admin/AdminAddNewFab";
 import { validateSiteInputs } from "@/lib/utils/validateSiteInputs";
-
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { AddSiteErrors } from "@/types/sites/add-site-errors.d";
-
 import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 
@@ -101,14 +96,6 @@ export default function AddSiteDialog() {
     [updateAlert, clearAlert, handleResetDialog]
   );
 
-  const handlePasswordGenerate = useCallback(() => {
-    const newPassword = generatePassword(24);
-    setFormData((prevData) => ({
-      ...prevData,
-      password: newPassword,
-    }));
-  }, []);
-
   return (
     <>
       <AdminAddNewFab execFn={handleOpenDialog} />
@@ -139,48 +126,23 @@ export default function AddSiteDialog() {
         >
           <form className="flex flex-col w-full gap-3">
             {error && <ErrorCard mini error={error.message} />}
-            {defaultFields.map(({ label, name, type, info }) => {
+            {defaultFields.map(({ label, name, type, info, required }) => {
               const fdValue = formData[name as keyof CreateSiteData] || "";
               const hasError = fieldErrors[name as keyof AddSiteErrors]?.info;
               return (
                 <div key={name} className="flex flex-col w-full">
-                  {name === "password" ? (
-                    <div className="flex w-full items-start gap-2">
-                      <TextField
-                        helperText={hasError || info}
-                        error={hasError ? true : false}
-                        required
-                        label={label}
-                        type={type}
-                        name={name}
-                        value={fdValue}
-                        onChange={handleInputChange}
-                        size="small"
-                      />
-
-                      <Button
-                        size="small"
-                        startIcon={<i className="bi bi-stars"></i>}
-                        onClick={handlePasswordGenerate}
-                        className="!mt-1"
-                      >
-                        Generate
-                      </Button>
-                    </div>
-                  ) : (
-                    <TextField
-                      helperText={hasError || info}
-                      error={hasError ? true : false}
-                      required
-                      fullWidth
-                      label={label}
-                      type={type}
-                      name={name}
-                      value={fdValue}
-                      onChange={handleInputChange}
-                      size="small"
-                    />
-                  )}
+                  <TextField
+                    helperText={hasError || info}
+                    error={hasError ? true : false}
+                    required={required}
+                    fullWidth
+                    label={label}
+                    type={type}
+                    name={name}
+                    value={fdValue}
+                    onChange={handleInputChange}
+                    size="small"
+                  />
                 </div>
               );
             })}

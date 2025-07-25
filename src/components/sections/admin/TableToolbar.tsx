@@ -14,31 +14,22 @@ import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import InputAdornment from "@mui/material/InputAdornment";
-
 import { useState, useRef } from "react";
-import { GetUserData } from "@/types/users/get-user-data.d";
 import { TableToolbarQuickFilter } from "@/constants/table/toolbar/toolbar-quick-filter.const";
 import { TableToolbarButton } from "@/constants/table/toolbar/toolbar-button.const";
 import { TableToolbarTextField } from "@/constants/table/toolbar/toolbar-textfield.const";
-import DeleteUserBtn from "../profile/DeleteUserBtn";
 
-type ProductsTableToolbarProps = {
-  selectedRows: GetUserData[];
+type TableToolbarProps = {
+  toolbarContent?: React.ReactNode;
 };
 
-export default function UsersTableToolbar({
-  selectedRows,
-}: ProductsTableToolbarProps) {
+export default function TableToolbar({ toolbarContent }: TableToolbarProps) {
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const exportMenuTriggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <Toolbar>
-      {selectedRows.length > 0 && (
-        <div className="flex w-full">
-          <DeleteUserBtn users={selectedRows} />
-        </div>
-      )}
+      {toolbarContent && <div className="flex w-full">{toolbarContent}</div>}
 
       <TableToolbarQuickFilter>
         <QuickFilterTrigger

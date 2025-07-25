@@ -1,9 +1,11 @@
 import Link from "next/link";
 import css from "./UsersNameCell.module.css";
 import { memo } from "react";
+import Avatar from "@mui/material/Avatar";
 
 interface UsersNameProps {
   href: string;
+  image: string;
   username: string;
   firstname: string;
   lastname?: string;
@@ -11,6 +13,7 @@ interface UsersNameProps {
 
 function UsersNameCell({
   href,
+  image,
   username,
   firstname,
   lastname = "",
@@ -18,10 +21,21 @@ function UsersNameCell({
   return (
     <div className={css.wrapper}>
       <Link href={href} className={css.link}>
-        <span className={css.name}>
-          {firstname} {lastname}
-        </span>
-        <span className={css.username}>@{username}</span>
+        <Avatar
+          alt={username}
+          src={image}
+          sx={{
+            width: 32,
+            height: 32,
+            boxShadow: 0,
+          }}
+        />
+        <div className={css.text}>
+          <span className={css.name}>
+            {firstname} {lastname}
+          </span>
+          <span className={css.username}>@{username}</span>
+        </div>
       </Link>
     </div>
   );
