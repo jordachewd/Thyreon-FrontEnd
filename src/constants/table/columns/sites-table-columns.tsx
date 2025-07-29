@@ -1,12 +1,16 @@
 "use client";
-
+import Link from "next/link";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/users/table/UsersNameCell";
-import { Chip } from "@mui/material";
-import Link from "next/link";
+import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
+import { maskApiKey } from "@/lib/utils/maskApiKey";
+import { Chip, IconButton } from "@mui/material";
+import { TooltipArrow } from "@/components/shared/TooltipArrow";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
 
-export const sitesTableColumns: GridColDef[] = [
+export const sitesTableColumns = (
+  onEditSite: (siteData: GetSiteData) => void
+): GridColDef[] => [
   {
     field: "id",
     headerName: "ID",
@@ -18,26 +22,6 @@ export const sitesTableColumns: GridColDef[] = [
       return <span className="text-xs">{params.row.id}</span>;
     },
   },
-
-  {
-    field: "user",
-    headerName: "Account",
-    display: "flex",
-    flex: 1.5,
-    renderCell: (params: GridRenderCellParams) => {
-      const user = params.row.user;
-      return (
-        <UsersNameCell
-          href={`users/${user.id}`}
-          image={user.clerkImg}
-          username={user.username}
-          firstname={user.firstName}
-          lastname={user.lastName}
-        />
-      );
-    },
-  },
-
   {
     field: "siteName",
     headerName: "Site Name",
@@ -51,17 +35,35 @@ export const sitesTableColumns: GridColDef[] = [
       );
     },
   },
-
+  {
+    field: "user",
+    headerName: "Owner",
+    display: "flex",
+    flex: 1.5,
+    renderCell: (params: GridRenderCellParams) => {
+      const user = params.row.user;
+      return (
+        <UsersNameCell
+          href={`users/${user.id}`}
+          image={user.clerkImg}
+          username={user.username}
+          firstname={user.firstName}
+          lastname={user.lastName}
+          noImage
+        />
+      );
+    },
+  },
   {
     field: "apiKey",
     headerName: "Api Key",
     display: "flex",
     flex: 4,
     renderCell: (params: GridRenderCellParams) => {
-      return <span>{params.row.apiKey}</span>;
+      const maskedKey = maskApiKey(params.row.apiKey);
+      return <span className="text-xs">{maskedKey}</span>;
     },
   },
-
   {
     field: "createdAt",
     headerName: "Date",
@@ -91,7 +93,38 @@ export const sitesTableColumns: GridColDef[] = [
     display: "flex",
     flex: 1,
     renderCell: () => {
-      return <Chip size="small" label="Not Connected" color="error" />;
+      return <Chip size="small" label="Disconnected" color="error" />;
+    },
+  },
+  {
+    field: "actions",
+    headerName: "Actions",
+    sortable: false,
+    filterable: false,
+    disableColumnMenu: true,
+    align: "center",
+    headerAlign: "center",
+    display: "flex",
+    renderCell: (params: GridRenderCellParams) => {
+      return (
+        <div className="flex gap-4 items-center">
+          <TooltipArrow title="Edit" placement="bottom">
+            <IconButton
+              sx={{ p: 0, backgroundColor: "transparent!important" }}
+              onClick={() => onEditSite(params.row)}
+            >
+              <i className="bi bi-pen text-xs"></i>
+            </IconButton>
+          </TooltipArrow>
+
+          <TooltipArrow title="Delete" placement="bottom">
+            <IconButton sx={{ p: 0, backgroundColor: "transparent!important" }}>
+              {/* To be developed soon  */}
+              <i className="bi bi-trash3 text-xs"></i>
+            </IconButton>
+          </TooltipArrow>
+        </div>
+      );
     },
   },
 ];

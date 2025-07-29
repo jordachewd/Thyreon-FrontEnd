@@ -1,8 +1,7 @@
-import css from "./UserActionsMenu.module.css";
 import { Button, Menu } from "@mui/material";
 import { ReactNode, useEffect, useState } from "react";
 
-export default function UserActionsMenu({
+export default function TableActions({
   children,
   closeMenu,
 }: Readonly<{
@@ -25,7 +24,7 @@ export default function UserActionsMenu({
   }, [closeMenu]);
 
   return (
-    <div className={css.wrapper}>
+    <div className="flex gap-4">
       <Button
         size="small"
         id="actionsBtn"

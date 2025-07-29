@@ -1,5 +1,5 @@
 import { IconButton } from "@mui/material";
-import { TooltipArrow } from "../../shared/TooltipArrow";
+import { TooltipArrow } from "../../../shared/TooltipArrow";
 import { memo } from "react";
 
 interface SidebarToggleProps {

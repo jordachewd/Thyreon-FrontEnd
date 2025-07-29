@@ -18,6 +18,7 @@ export const GET_ME_QUERY = gql`
         expiresAt
       }
       transactions {
+        id
         plan
         amount
         billing

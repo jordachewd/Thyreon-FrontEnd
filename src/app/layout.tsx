@@ -40,7 +40,7 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
         <body>
           <AppRouterCacheProvider>
             <InitColorSchemeScript attribute="data-wpguard-theme" />

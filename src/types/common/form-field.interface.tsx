@@ -1,4 +1,4 @@
-export interface EditUserField {
+export interface FormField {
   label: string;
   name: string;
   type: string;

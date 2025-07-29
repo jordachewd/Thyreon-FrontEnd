@@ -1,6 +1,6 @@
 import { FieldError } from "../common/field-error.interface";
 
-export interface AddSiteErrors {
+export interface SiteFormErrors {
   domain?: FieldError;
   siteName?: FieldError;
 }

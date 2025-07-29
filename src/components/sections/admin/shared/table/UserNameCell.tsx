@@ -1,35 +1,40 @@
 import Link from "next/link";
-import css from "./UsersNameCell.module.css";
-import { memo } from "react";
+import css from "./UserNameCell.module.css";
 import Avatar from "@mui/material/Avatar";
+import { memo } from "react";
 
-interface UsersNameProps {
+interface UserNameProps {
   href: string;
   image: string;
   username: string;
   firstname: string;
   lastname?: string;
+  noImage?: boolean;
 }
 
-function UsersNameCell({
+function UserNameCell({
   href,
   image,
   username,
   firstname,
   lastname = "",
-}: UsersNameProps) {
+  noImage = false,
+}: UserNameProps) {
   return (
     <div className={css.wrapper}>
       <Link href={href} className={css.link}>
-        <Avatar
-          alt={username}
-          src={image}
-          sx={{
-            width: 32,
-            height: 32,
-            boxShadow: 0,
-          }}
-        />
+        {!noImage && (
+          <Avatar
+            alt={username}
+            src={image}
+            sx={{
+              width: 32,
+              height: 32,
+              boxShadow: 0,
+            }}
+          />
+        )}
+
         <div className={css.text}>
           <span className={css.name}>
             {firstname} {lastname}
@@ -41,4 +46,4 @@ function UsersNameCell({
   );
 }
 
-export default memo(UsersNameCell);
+export default memo(UserNameCell);

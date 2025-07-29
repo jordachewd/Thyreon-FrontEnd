@@ -1,6 +1,6 @@
-import { EditUserField } from "@/types/users/edit-user-field.interface";
+import { FormField } from "@/types/common/form-field.interface";
 
-export const defaultEditUserFields: EditUserField[] = [
+export const defaultEditUserFields: FormField[] = [
   {
     label: "First Name",
     name: "firstName",

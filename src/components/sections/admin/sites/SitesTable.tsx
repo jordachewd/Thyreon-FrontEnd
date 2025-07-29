@@ -8,7 +8,7 @@ import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { useCallback, useState } from "react";
 import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
-import TableToolbar from "../TableToolbar";
+import TableToolbar from "../shared/table/TableToolbar";
 import DeleteSiteBtn from "./DeleteSiteBtn";
 
 interface SitesTableProps {

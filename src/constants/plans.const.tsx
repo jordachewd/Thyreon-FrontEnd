@@ -21,15 +21,15 @@ export const plans = [
       },
       {
         label: "Automatic Backups",
-        isIncluded: false,
+        isIncluded: true,
       },
       {
-        label: "Security Scanning",
-        isIncluded: false,
+        label: "Automatic Security Scanning",
+        isIncluded: true,
       },
       {
         label: "Standard Email support",
-        isIncluded: false,
+        isIncluded: true,
       },
       {
         label: "Custom Maintenance Rules",
@@ -56,7 +56,7 @@ export const plans = [
     desc: "A complete maintenance suite for small teams or freelancers. Includes backups, scans, and standard support.",
     features: [
       {
-        label: "Up to 5 websites",
+        label: "Up to 10 websites",
         isIncluded: true,
       },
       {
@@ -72,7 +72,7 @@ export const plans = [
         isIncluded: true,
       },
       {
-        label: "Security Scanning",
+        label: "Automatic Security Scanning",
         isIncluded: true,
       },
       {
@@ -104,7 +104,7 @@ export const plans = [
     desc: "For serious site owners and agencies. Includes everything in Pro plus performance tuning, AI monitoring, and premium support.",
     features: [
       {
-        label: "Unlimited websites",
+        label: "Up to 50 websites",
         isIncluded: true,
       },
       {
@@ -120,7 +120,7 @@ export const plans = [
         isIncluded: true,
       },
       {
-        label: "Security Scanning",
+        label: "Automatic Security Scanning",
         isIncluded: true,
       },
       {

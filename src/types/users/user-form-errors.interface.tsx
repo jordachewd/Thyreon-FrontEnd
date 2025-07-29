@@ -1,6 +1,6 @@
 import { FieldError } from "../common/field-error.interface";
 
-export interface NewUserFormErrors {
+export interface UserFormErrors {
   firstName?: FieldError;
   lastName?: FieldError;
   username?: FieldError;

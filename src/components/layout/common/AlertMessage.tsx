@@ -10,6 +10,7 @@ import {
 import { memo, useEffect, useState } from "react";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { AlertMessageParams } from "@/context/admin/types/alert/alert-msg-params.interface";
+import { alertDefaults } from "@/context/admin/constants/alert-defaults.const";
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction="left" />;
@@ -20,6 +21,7 @@ function AlertMessage() {
   const { message, updateAlert } = alertCtx;
   const { text = "", severity = "info" } = message as AlertMessageParams;
   const [openAlert, setOpenAlert] = useState(false);
+  const clearAlert = alertDefaults.message;
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -32,7 +34,7 @@ function AlertMessage() {
     }
 
     setOpenAlert(false);
-    updateAlert({ text: "" });
+    updateAlert(clearAlert);
   };
 
   useEffect(() => {

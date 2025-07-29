@@ -2,7 +2,7 @@
 
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/users/table/UsersNameCell";
+import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
 import { Chip } from "@mui/material";
 
 export const transactionsTableColumns: GridColDef[] = [
@@ -17,7 +17,24 @@ export const transactionsTableColumns: GridColDef[] = [
       return <span className="text-xs">{params.row.id}</span>;
     },
   },
-
+  {
+    field: "user",
+    headerName: "Account",
+    display: "flex",
+    flex: 1,
+    renderCell: (params: GridRenderCellParams) => {
+      const user = params.row.user;
+      return (
+        <UsersNameCell
+          href={`users/${user.id}`}
+          image={user.clerkImg}
+          username={user.username}
+          firstname={user.firstName}
+          lastname={user.lastName}
+        />
+      );
+    },
+  },
   {
     field: "plan",
     headerName: "Plan",
@@ -68,24 +85,6 @@ export const transactionsTableColumns: GridColDef[] = [
     },
   },
 
-  {
-    field: "user",
-    headerName: "Account",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      const user = params.row.user;
-      return (
-        <UsersNameCell
-          href={`users/${user.id}`}
-          image={user.clerkImg}
-          username={user.username}
-          firstname={user.firstName}
-          lastname={user.lastName}
-        />
-      );
-    },
-  },
   {
     field: "status",
     headerName: "Status",

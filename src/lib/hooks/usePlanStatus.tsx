@@ -30,11 +30,11 @@ export function usePlanStatus({
     }
 
     if (planName === "pro") {
+      isPopular = true;
       isCurrent = planName === userPlanName && interval;
     }
 
     if (planName === "premium") {
-      isPopular = true;
       isCurrent = planName === userPlanName && interval;
     }
 

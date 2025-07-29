@@ -15,27 +15,25 @@ import { useMutation } from "@apollo/client";
 import { defaultNewUserValues as defaultVals } from "@/constants/users/defaults/new-user-values";
 import { defaultNewUserFields as defaultFields } from "@/constants/users/fields/new-user-fields";
 import { CreateUserData } from "@/types/users/create-user-data.d";
-import { NewUserFormErrors } from "@/types/users/user-add-errors.interface";
+import { UserFormErrors } from "@/types/users/user-form-errors.interface";
 import { generatePassword } from "@/lib/utils/generate-password";
 import { useAdminContext } from "@/context/admin/AdminContext";
-import { alertDefaults } from "@/context/admin/constants/alert-defaults.const";
 
 import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import AdminAddNewFab from "@/components/sections/admin/AdminAddNewFab";
+import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
 import { validateUserInputs } from "@/lib/utils/validateUserInputs";
 import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 
 export default function AddUserDialog() {
   const [formData, setFormData] = useState<CreateUserData>(defaultVals);
-  const [fieldErrors, setFieldErrors] = useState<NewUserFormErrors>({});
+  const [fieldErrors, setFieldErrors] = useState<UserFormErrors>({});
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
-  const clearAlert = alertDefaults.message;
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
     refetchQueries: [GET_USERS_QUERY, "GetAllUsers"],
@@ -90,10 +88,10 @@ export default function AddUserDialog() {
       if (e) {
         e.preventDefault();
       }
-      updateAlert(clearAlert);
+
       handleResetDialog();
     },
-    [updateAlert, clearAlert, handleResetDialog]
+    [updateAlert, handleResetDialog]
   );
 
   const handlePasswordGenerate = useCallback(() => {
@@ -136,8 +134,7 @@ export default function AddUserDialog() {
             {error && <ErrorCard mini error={error.message} />}
             {defaultFields.map(({ label, name, type, info }) => {
               const fdValue = formData[name as keyof CreateUserData] || "";
-              const hasError =
-                fieldErrors[name as keyof NewUserFormErrors]?.info;
+              const hasError = fieldErrors[name as keyof UserFormErrors]?.info;
               return (
                 <div key={name} className="flex flex-col w-full">
                   {name === "password" ? (

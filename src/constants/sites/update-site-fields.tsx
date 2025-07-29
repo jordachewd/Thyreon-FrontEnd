@@ -1,6 +1,6 @@
 import { FormField } from "@/types/common/form-field.interface";
 
-export const defaultNewSiteFields: FormField[] = [
+export const defaultUpdateSiteFields: FormField[] = [
   {
     label: "Domain",
     name: "domain",

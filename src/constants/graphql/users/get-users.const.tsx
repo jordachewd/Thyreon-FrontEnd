@@ -13,6 +13,7 @@ export const GET_USERS_QUERY = gql`
       clerkImg
       createdAt
       currentPlan {
+        id
         plan
         expiresAt
       }

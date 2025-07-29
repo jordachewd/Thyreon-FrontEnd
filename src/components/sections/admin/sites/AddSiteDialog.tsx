@@ -15,25 +15,23 @@ import { useMutation } from "@apollo/client";
 import { defaultNewSiteValues as defaultVals } from "@/constants/sites/new-site-values";
 import { defaultNewSiteFields as defaultFields } from "@/constants/sites/new-site-fields";
 import { useAdminContext } from "@/context/admin/AdminContext";
-import { alertDefaults } from "@/context/admin/constants/alert-defaults.const";
-import ErrorCard from "@/components/shared/ErrorCard";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import AdminAddNewFab from "@/components/sections/admin/AdminAddNewFab";
 import { validateSiteInputs } from "@/lib/utils/validateSiteInputs";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
-import { AddSiteErrors } from "@/types/sites/add-site-errors.d";
+import { SiteFormErrors } from "@/types/sites/site-form-errors.d";
 import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
+import ErrorCard from "@/components/shared/ErrorCard";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
 
 export default function AddSiteDialog() {
   const [formData, setFormData] = useState<CreateSiteData>(defaultVals);
-  const [fieldErrors, setFieldErrors] = useState<AddSiteErrors>({});
+  const [fieldErrors, setFieldErrors] = useState<SiteFormErrors>({});
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
-  const clearAlert = alertDefaults.message;
 
   const [createSite, { loading, error }] = useMutation(CREATE_SITE_MUTATION, {
     refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
@@ -55,11 +53,9 @@ export default function AddSiteDialog() {
       onCompleted: (data) => {
         const response = data?.createSite;
 
-        console.log("Create site response:", response);
-
         updateAlert({
-          text: response.message || "Site registered successfully!",
-          severity: response.status || "success",
+          text: response.message,
+          severity: response.status,
         });
 
         handleResetDialog();
@@ -90,10 +86,10 @@ export default function AddSiteDialog() {
       if (e) {
         e.preventDefault();
       }
-      updateAlert(clearAlert);
+
       handleResetDialog();
     },
-    [updateAlert, clearAlert, handleResetDialog]
+    [updateAlert, handleResetDialog]
   );
 
   return (
@@ -128,7 +124,7 @@ export default function AddSiteDialog() {
             {error && <ErrorCard mini error={error.message} />}
             {defaultFields.map(({ label, name, type, info, required }) => {
               const fdValue = formData[name as keyof CreateSiteData] || "";
-              const hasError = fieldErrors[name as keyof AddSiteErrors]?.info;
+              const hasError = fieldErrors[name as keyof SiteFormErrors]?.info;
               return (
                 <div key={name} className="flex flex-col w-full">
                   <TextField

@@ -14,11 +14,13 @@ export const GET_USER_BY_ID = gql`
       createdAt
       updatedAt
       currentPlan {
+        id
         billing
         stripeId
         expiresAt
       }
       transactions {
+        id
         plan
         amount
         billing

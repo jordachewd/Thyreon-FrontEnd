@@ -5,10 +5,21 @@ import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { UserRoleColors } from "@/types/users/user-role-colors.interface";
 import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/users/table/UsersNameCell";
-import UsersActionsCell from "@/components/sections/admin/users/table/UsersActionsCell";
+import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
+import UsersActions from "@/components/sections/admin/users/table/UsersActions";
 
 export const usersTableColumns: GridColDef[] = [
+  {
+    field: "id",
+    headerName: "ID",
+    headerAlign: "center",
+    display: "flex",
+    align: "center",
+    flex: 0.25,
+    renderCell: (params: GridRenderCellParams) => {
+      return <span className="text-xs">{params.row.id}</span>;
+    },
+  },
   {
     field: "username",
     headerName: "Account",
@@ -28,7 +39,7 @@ export const usersTableColumns: GridColDef[] = [
   {
     field: "plan",
     headerName: "Current Plan",
-    flex: 1.5,
+    flex: 2,
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
       const currentPlan = params.row.currentPlan;
@@ -40,7 +51,7 @@ export const usersTableColumns: GridColDef[] = [
       return (
         <div className="flex flex-col">
           <span className="text-sm capitalize font-semibold">{planName}</span>
-          <span className="textxxs text-slate-400">{planUntil}</span>
+          <span className="text-xs text-slate-400">{planUntil}</span>
         </div>
       );
     },
@@ -48,7 +59,7 @@ export const usersTableColumns: GridColDef[] = [
   {
     field: "email",
     headerName: "Email",
-    flex: 3,
+    flex: 2,
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
       return <span className="text-sm">{params.row.email}</span>;
@@ -86,7 +97,7 @@ export const usersTableColumns: GridColDef[] = [
     headerAlign: "center",
     display: "flex",
     renderCell: (params: GridRenderCellParams) => (
-      <UsersActionsCell href={`users/${params.row.id}`} />
+      <UsersActions href={`users/${params.row.id}`} />
     ),
   },
 ];

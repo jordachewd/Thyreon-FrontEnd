@@ -24,8 +24,8 @@ function HowItWorks() {
               <div className={css.details}>
                 <Typography variant="h6">Sign Up & Install Plugin</Typography>
                 <Typography variant="body2">
-                  Create an account on our website and install the WP Guard
-                  plugin on your WordPress site.
+                  Create an account on our website and install the{" "}
+                  <b>WP Guard Client</b> on your WordPress site.
                 </Typography>
               </div>
             </div>

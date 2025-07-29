@@ -1,5 +1,5 @@
 "use client";
-import css from "./UsersTable.module.css";
+
 import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { usersTableColumns as columns } from "@/constants/table/columns/users-table-columns";
@@ -14,7 +14,7 @@ import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
-import TableToolbar from "../../TableToolbar";
+import TableToolbar from "../../shared/table/TableToolbar";
 import DeleteUserBtn from "../profile/DeleteUserBtn";
 
 export default function UsersTable() {
@@ -58,7 +58,7 @@ export default function UsersTable() {
   if (error) return <ErrorCard title="Error!" error={error.message} />;
 
   return (
-    <div className={css.wrapper}>
+    <div className="flex w-full">
       <DataGrid
         rows={users}
         columns={columns}
@@ -80,7 +80,9 @@ export default function UsersTable() {
         showToolbar
         checkboxSelection
         slots={{
-          toolbar: () => <TableToolbar toolbarContent={handleToolbarContent()} />,
+          toolbar: () => (
+            <TableToolbar toolbarContent={handleToolbarContent()} />
+          ),
         }}
       />
     </div>

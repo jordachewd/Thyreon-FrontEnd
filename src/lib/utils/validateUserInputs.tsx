@@ -1,9 +1,9 @@
 import { CreateUserData } from "@/types/users/create-user-data.d";
-import { NewUserFormErrors } from "../../types/users/user-add-errors.interface";
+import { UserFormErrors } from "../../types/users/user-form-errors.interface";
 import { UpdateUserData } from "@/types/users/update-user-data.d";
 
 export function validateUserInputs(formData: CreateUserData | UpdateUserData) {
-  const errors: NewUserFormErrors = {};
+  const errors: UserFormErrors = {};
 
   Object.entries(formData).forEach(([key, value]) => {
     switch (key) {
@@ -26,7 +26,7 @@ export function validateUserInputs(formData: CreateUserData | UpdateUserData) {
       case "firstName":
       case "lastName":
         if (typeof value === "string" && (!value || value.trim() === "")) {
-          errors[key as keyof NewUserFormErrors] = {
+          errors[key as keyof UserFormErrors] = {
             value,
             info: `${
               key === "firstName" ? "First" : "Last"

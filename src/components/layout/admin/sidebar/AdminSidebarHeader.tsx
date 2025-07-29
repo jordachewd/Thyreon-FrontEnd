@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import Logo from "@/components/shared/Logo";
-import SidebarToggle from "@/components/sections/admin/SidebarToggle";
+import SidebarToggle from "@/components/sections/admin/shared/SidebarToggle";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 
 interface AdminSidebarHeaderProps {

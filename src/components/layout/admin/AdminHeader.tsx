@@ -1,7 +1,7 @@
 "use client";
 import css from "@/styles/layout/admin/AdminHeader.module.css";
 import AdminHeaderMenu from "@/components/layout/admin/header/AdminHeaderMenu";
-import SidebarToggle from "@/components/sections/admin/SidebarToggle";
+import SidebarToggle from "@/components/sections/admin/shared/SidebarToggle";
 import Logo from "@/components/shared/Logo";
 import IconButton from "@mui/material/IconButton";
 import { useAdminContext } from "@/context/admin/AdminContext";

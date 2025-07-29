@@ -1,4 +1,6 @@
-export const defaultNewUserFields = [
+import { FormField } from "@/types/common/form-field.interface";
+
+export const defaultNewUserFields: FormField[] = [
   {
     label: "Username",
     name: "username",
