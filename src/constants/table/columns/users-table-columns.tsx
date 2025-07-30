@@ -117,7 +117,7 @@ export const usersTableColumns = ({
     headerAlign: "center",
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
-      console.log("User Row: ", params.row);
+      const isAdmin = params.row.role === "admin";
       return (
         <div className="flex gap-2 items-center">
           <TooltipArrow title="View" placement="bottom">
@@ -139,14 +139,20 @@ export const usersTableColumns = ({
             </IconButton>
           </TooltipArrow>
 
-          <TooltipArrow title="Delete" placement="bottom">
-            <IconButton
-              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() => onDeleteUser(params.row)}
-              disabled={params.row.role === "admin"}
-            >
-              <i className="bi bi-trash3 text-xs"></i>
-            </IconButton>
+          <TooltipArrow
+            title={isAdmin ? "Admin users cannot be deleted" : "Delete"}
+            placement="bottom"
+          >
+            {isAdmin ? (
+              <i className="bi bi-trash3 text-xs text-slate-400"></i>
+            ) : (
+              <IconButton
+                sx={{ p: 0.5, backgroundColor: "transparent!important" }}
+                onClick={() => onDeleteUser(params.row)}
+              >
+                <i className="bi bi-trash3 text-xs"></i>
+              </IconButton>
+            )}
           </TooltipArrow>
         </div>
       );

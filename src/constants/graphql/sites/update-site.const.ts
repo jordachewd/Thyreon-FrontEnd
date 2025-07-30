@@ -5,11 +5,6 @@ export const UPDATE_SITE_MUTATION = gql`
     updateSite(input: $input) {
       status
       message
-      site {
-        id
-        domain
-        siteName
-      }
     }
   }
 `;

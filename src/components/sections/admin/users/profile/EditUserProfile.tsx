@@ -10,6 +10,7 @@ import ErrorCard from "@/components/shared/ErrorCard";
 import { GET_USER_BY_ID } from "@/constants/graphql/users/get-user-by-id.const";
 import PageHead from "@/components/layout/common/PageHead";
 import EditUserDialog from "./EditUserDialog";
+import { useUpdatedUserSocket } from "@/lib/hooks/sockets/useUpdatedUserSocket";
 
 interface EditUserProps {
   userId: number;
@@ -19,13 +20,16 @@ export default function EditUserProfile({ userId }: EditUserProps) {
   const { meCtx } = useAdminContext();
   const { data: meData, loading: meLoading, error: meErr } = meCtx;
 
-  const { data, loading, error } = useQuery<{ userById: GetUserData }>(
+  const { data, loading, error, refetch } = useQuery<{ userById: GetUserData }>(
     GET_USER_BY_ID,
     {
-      fetchPolicy: "network-only",
       variables: { id: Number(userId) },
     }
   );
+
+  useUpdatedUserSocket(() => {
+    refetch();
+  });
 
   const profileData = { profile: data?.userById as GetUserData | undefined };
   const isAdmin = meData?.me?.role === "admin";

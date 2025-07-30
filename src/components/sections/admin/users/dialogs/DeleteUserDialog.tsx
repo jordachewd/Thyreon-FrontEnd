@@ -1,67 +1,51 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useCallback } from "react";
-import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
-import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-
-import { useAdminContext } from "@/context/admin/AdminContext";
-import { GetSiteData } from "@/types/sites/get-site-data.d";
-
 import { useMutation } from "@apollo/client";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { useAdminContext } from "@/context/admin/AdminContext";
+import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-
 import Typography from "@mui/material/Typography";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 
-interface DeleteSiteDialogProps {
-  data: GetSiteData | undefined;
+interface DeleteUserDialog {
+  data: GetUserData | undefined;
   open: boolean;
   onClose: () => void;
 }
 
-export default function DeleteSiteDialog({
+export default function DeleteUserDialog({
   data,
   open,
   onClose,
-}: DeleteSiteDialogProps) {
-  const pathname = usePathname();
-
-  const isAdminPage = pathname.includes("/allsites");
-  const queriesToRefetch = isAdminPage
-    ? [GET_SITES_QUERY, "GetAllSites"]
-    : [GET_MY_SITES_QUERY, "GetMySites"];
+}: DeleteUserDialog) {
+  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS);
 
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
-
-  const [deleteSites, { loading, error }] = useMutation(DELETE_SITES, {
-    refetchQueries: queriesToRefetch,
-    awaitRefetchQueries: true,
-  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      await deleteSites({
-        variables: { siteIds: [Number(data?.id)] },
+      await deleteUsers({
+        variables: { clerkIds: [data?.clerkId] },
         onCompleted: (data) => {
           updateAlert({
-            text: data?.deleteSites.message,
-            severity: data?.deleteSites.status,
+            text: data?.deleteUsers.message,
+            severity: data?.deleteUsers.status,
           });
           handleCloseDialog();
         },
       });
     } catch (error: unknown) {
-      const defaultMsg = "An error occurred while deleting the site.";
+      const defaultMsg = "An error occurred while deleting the user.";
       const errorMessage = (error as Error).message || defaultMsg;
       console.log(errorMessage);
     }
@@ -89,7 +73,7 @@ export default function DeleteSiteDialog({
         <DialogTitle id="responsive-dialog-title" sx={{ zIndex: 0 }}>
           <div className="flex w-full justify-between items-center">
             <div className="flex flex-col">
-              <Typography variant="h4">Remove site registration</Typography>
+              <Typography variant="h4">Remove user</Typography>
             </div>
             <Button onClick={handleCloseDialog} size="small">
               <i className="bi bi-x-lg"></i>
@@ -99,7 +83,7 @@ export default function DeleteSiteDialog({
 
         <DialogContent sx={{ paddingTop: "1rem!important" }}>
           <Typography variant="body1">
-            Are you sure you want to delete <b>{data?.domain}</b>?
+            Are you sure you want to delete <b>{data?.username}</b>?
           </Typography>
           <p className="font-semibold !my-2">
             <span className="text-red-500 uppercase">warning: </span>This action
@@ -126,7 +110,7 @@ export default function DeleteSiteDialog({
               size="small"
               color="error"
             >
-              {loading ? "Deleting ..." : "Delete Site"}
+              {loading ? "Deleting ..." : "Delete User"}
             </Button>
           </div>
         </DialogActions>

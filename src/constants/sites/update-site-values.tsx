@@ -4,4 +4,5 @@ export const defaultUpdateSiteValues: UpdateSiteData = {
   id: 0,
   siteName: "",
   domain: "",
+  apiKey: "",
 };

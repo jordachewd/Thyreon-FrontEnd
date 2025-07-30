@@ -5,7 +5,6 @@ import { useMutation } from "@apollo/client";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
-import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 import ErrorCard from "@/components/shared/ErrorCard";
 
 interface DeleteUserButtonProps {
@@ -19,10 +18,7 @@ export default function DeleteUserBtn({
   disabled = false,
   onSuccess,
 }: DeleteUserButtonProps) {
-  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
-    refetchQueries: [GET_USERS_QUERY, "GetAllUsers"],
-    awaitRefetchQueries: true,
-  });
+  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS);
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 

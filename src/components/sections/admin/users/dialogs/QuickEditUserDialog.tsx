@@ -21,7 +21,6 @@ import { UpdateUserData } from "@/types/users/update-user-data.d";
 import { UserFormErrors } from "@/types/users/user-form-errors.interface";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
-import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 
 interface QuickEditUserProps {
   data: GetUserData | undefined;
@@ -52,12 +51,7 @@ export default function QuickEditUserDialog({
     });
   }, [data]);
 
-  /* GQL direct cache update needed instead! - It doesn't work because users changes goes via Clerk */
-  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION, {
-    refetchQueries: [GET_USERS_QUERY, "GetAllUsers"],
-    awaitRefetchQueries: true,
-  });
-  /** */
+  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -12,7 +12,6 @@ export const defaultNewSiteFields: FormField[] = [
     label: "Site Name",
     name: "siteName",
     type: "text",
-    // info: "Cannot be empty.",
-    // required: true,
+    info: "The name of the site as it will appear in the dashboard.",
   },
 ];

@@ -22,7 +22,7 @@ export default function ErrorCard({
 
   if (mini)
     return (
-      <div className="flex flex-col w-full !px-2 !py-1 bg-red-600 rounded-md">
+      <div className="flex flex-col w-full !px-2 !py-1 !my-3 bg-red-600 rounded-md">
         <div className="flex gap-2 items-center">
           <Typography variant="body2" color="white" className="!font-semibold !wrap-break-word">
             {title ? title + ": " : ""}

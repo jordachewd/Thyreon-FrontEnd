@@ -1,0 +1,63 @@
+import { defaultNewUserFields as defaultFields } from "@/constants/users/fields/new-user-fields";
+import { CreateUserData } from "@/types/users/create-user-data.d";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { memo } from "react";
+
+interface AddUserFormProps {
+  data: CreateUserData;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  genPassword: () => void;
+}
+
+function AddUserForm({ data, onChange, genPassword }: AddUserFormProps) {
+  return (
+    <form className="flex flex-col w-full gap-3">
+      {defaultFields.map(({ label, name, type, info }) => {
+        const fdValue = data[name as keyof CreateUserData] || "";
+
+        return (
+          <div key={name} className="flex flex-col w-full">
+            {name === "password" ? (
+              <div className="flex w-full items-start gap-2">
+                <TextField
+                  helperText={info}
+                  required
+                  label={label}
+                  type={type}
+                  name={name}
+                  value={fdValue}
+                  onChange={onChange}
+                  size="small"
+                />
+
+                <Button
+                  size="small"
+                  startIcon={<i className="bi bi-stars"></i>}
+                  onClick={genPassword}
+                  className="!mt-1"
+                >
+                  Generate
+                </Button>
+              </div>
+            ) : (
+              <TextField
+                helperText={info}
+                required
+                fullWidth
+                label={label}
+                type={type}
+                name={name}
+                value={fdValue}
+                onChange={onChange}
+                size="small"
+              />
+            )}
+          </div>
+        );
+      })}
+    </form>
+  );
+}
+
+export default memo(AddUserForm);

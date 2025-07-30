@@ -22,8 +22,8 @@ export default function DeleteSiteBtn({
   onSuccess,
 }: DeleteSiteBtnProps) {
   const pathname = usePathname();
-
   const isAdminPage = pathname.includes("/allsites");
+
   const queriesToRefetch = isAdminPage
     ? [GET_SITES_QUERY, "GetAllSites"]
     : [GET_MY_SITES_QUERY, "GetMySites"];
@@ -36,18 +36,14 @@ export default function DeleteSiteBtn({
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
-  const isOne = sites?.length === 1;
-  const oneOrMany = isOne ? "Site" : "Sites";
+  const oneOrMany = sites?.length === 1 ? "site" : "sites";
 
   const handleDelete = async () => {
-    const confirmMsg = isOne
-      ? `Are you sure you want to delete '${sites[0].siteName}'?`
-      : `Are you sure you want to delete ${sites?.length} sites?`;
+    const confirmMsg = `Are you sure you want to delete ${sites?.length} ${oneOrMany}?`;
     if (!confirm(confirmMsg + `\nThis action cannot be undone.`)) return;
 
-    const siteIds = sites?.map((site) => Number(site.id));
-
     try {
+      const siteIds = sites?.map((site) => Number(site.id));
       await deleteSites({
         variables: { siteIds: siteIds },
         onCompleted: (data) => {

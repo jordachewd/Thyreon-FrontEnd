@@ -16,13 +16,29 @@ import TableToolbar from "../../shared/table/TableToolbar";
 import DeleteUserBtn from "./DeleteUserBtn";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import QuickEditUserDialog from "./QuickEditUserDialog";
-import DeleteUserDialog from "./DeleteUserDialog";
+import QuickEditUserDialog from "../dialogs/QuickEditUserDialog";
+import DeleteUserDialog from "../dialogs/DeleteUserDialog";
+import { useNewUserSocket } from "@/lib/hooks/sockets/useNewUserSocket";
+import { useUpdatedUserSocket } from "@/lib/hooks/sockets/useUpdatedUserSocket";
+import { useDeletedUserSocket } from "@/lib/hooks/sockets/useDeletedUserSocket";
 
 export default function UsersTable() {
-  const { data, loading, error } = useQuery<{ users: GetUserData[] }>(
+  const { data, loading, error, refetch } = useQuery<{ users: GetUserData[] }>(
     GET_USERS_QUERY
   );
+
+  useNewUserSocket(() => {
+    refetch();
+  });
+
+  useUpdatedUserSocket(() => {
+    refetch();
+  });
+
+  useDeletedUserSocket(() => {
+    console.log("User deleted via socket");
+    refetch();
+  });
 
   const [editUser, setEditUser] = useState<GetUserData | undefined>(undefined);
   const [deleteUser, setDeleteUser] = useState<GetUserData | undefined>(

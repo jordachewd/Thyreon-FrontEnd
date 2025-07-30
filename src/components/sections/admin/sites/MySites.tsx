@@ -8,9 +8,9 @@ import { useQuery } from "@apollo/client";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { mySitesTableColumns } from "@/constants/table/columns/my-sites-table-columns";
 import { useCallback, useState } from "react";
-import EditSiteDialog from "./EditSiteDialog";
+import EditSiteDialog from "./dialogs/EditSiteDialog";
 import Typography from "@mui/material/Typography";
-import DeleteSiteDialog from "./DeleteSiteDialog";
+import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
 
 export default function MySites() {
   const { data, loading, error } = useQuery(GET_MY_SITES_QUERY);

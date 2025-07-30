@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback } from "react";
-import { useMutation } from "@apollo/client";
-import { GetUserData } from "@/types/users/get-user-data.d";
+import { usePathname } from "next/navigation";
+import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
+import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
+import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { useAdminContext } from "@/context/admin/AdminContext";
-import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
-import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
+import { useMutation } from "@apollo/client";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -13,45 +15,50 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Typography from "@mui/material/Typography";
 import ErrorCard from "@/components/shared/ErrorCard";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import DialogFooter from "../../shared/dialog/DialogFooter";
 
-interface DeleteUserDialog {
-  data: GetUserData | undefined;
+interface DeleteSiteDialogProps {
+  data: GetSiteData | undefined;
   open: boolean;
   onClose: () => void;
 }
 
-export default function DeleteUserDialog({
+export default function DeleteSiteDialog({
   data,
   open,
   onClose,
-}: DeleteUserDialog) {
-  /* GQL direct cache update needed instead! - It doesn't work because users changes goes via Clerk */
-  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
-    refetchQueries: [GET_USERS_QUERY, "GetAllUsers"],
-    awaitRefetchQueries: true,
-  });
-  /***/
+}: DeleteSiteDialogProps) {
+  const pathname = usePathname();
+
+  const isAdminPage = pathname.includes("/allsites");
+  const queriesToRefetch = isAdminPage
+    ? [GET_SITES_QUERY, "GetAllSites"]
+    : [GET_MY_SITES_QUERY, "GetMySites"];
 
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
+
+  const [deleteSites, { loading, error }] = useMutation(DELETE_SITES, {
+    refetchQueries: queriesToRefetch,
+    awaitRefetchQueries: true,
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      await deleteUsers({
-        variables: { clerkIds: [data?.clerkId] },
+      await deleteSites({
+        variables: { siteIds: [Number(data?.id)] },
         onCompleted: (data) => {
           updateAlert({
-            text: data?.deleteUsers.message,
-            severity: data?.deleteUsers.status,
+            text: data?.deleteSites.message,
+            severity: data?.deleteSites.status,
           });
           handleCloseDialog();
         },
       });
     } catch (error: unknown) {
-      const defaultMsg = "An error occurred while deleting the user.";
+      const defaultMsg = "An error occurred while deleting the site.";
       const errorMessage = (error as Error).message || defaultMsg;
       console.log(errorMessage);
     }
@@ -59,9 +66,7 @@ export default function DeleteUserDialog({
 
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
-      if (e) {
-        e.preventDefault();
-      }
+      if (e) e.preventDefault();
       onClose();
     },
     []
@@ -79,7 +84,7 @@ export default function DeleteUserDialog({
         <DialogTitle id="responsive-dialog-title" sx={{ zIndex: 0 }}>
           <div className="flex w-full justify-between items-center">
             <div className="flex flex-col">
-              <Typography variant="h4">Remove user</Typography>
+              <Typography variant="h4">Remove site registration</Typography>
             </div>
             <Button onClick={handleCloseDialog} size="small">
               <i className="bi bi-x-lg"></i>
@@ -89,7 +94,7 @@ export default function DeleteUserDialog({
 
         <DialogContent sx={{ paddingTop: "1rem!important" }}>
           <Typography variant="body1">
-            Are you sure you want to delete <b>{data?.username}</b>?
+            Are you sure you want to delete <b>{data?.domain}</b>?
           </Typography>
           <p className="font-semibold !my-2">
             <span className="text-red-500 uppercase">warning: </span>This action
@@ -97,28 +102,15 @@ export default function DeleteUserDialog({
           </p>
           {error && <ErrorCard mini error={error.message} />}
         </DialogContent>
-        <DialogActions className="!flex !m-4 !mt-0 !justify-between !items-center">
-          <div className="flex gap-3 items-center">
-            <Button
-              onClick={handleCloseDialog}
-              size="small"
-              variant="outlined"
-              color="info"
-            >
-              Cancel
-            </Button>
-          </div>
-          <div className="flex gap-3 items-center">
-            {loading && <LoadingBubbles className="!w-auto" />}
-            <Button
-              onClick={handleSubmit}
-              variant="outlined"
-              size="small"
-              color="error"
-            >
-              {loading ? "Deleting ..." : "Delete User"}
-            </Button>
-          </div>
+
+        <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
+          <DialogFooter
+            loading={loading}
+            btnColor="error"
+            btnText="Delete Site"
+            onSubmit={handleSubmit}
+            onCancel={handleCloseDialog}
+          />
         </DialogActions>
       </Dialog>
     </>

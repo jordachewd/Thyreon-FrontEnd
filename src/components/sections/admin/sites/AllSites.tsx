@@ -8,9 +8,9 @@ import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { sitesTableColumns } from "@/constants/table/columns/sites-table-columns";
 import { useCallback, useState } from "react";
-import EditSiteDialog from "./EditSiteDialog";
+import EditSiteDialog from "./dialogs/EditSiteDialog";
 import Typography from "@mui/material/Typography";
-import DeleteSiteDialog from "./DeleteSiteDialog";
+import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
 
 export default function AllSites() {
   const { data, loading, error } = useQuery(GET_SITES_QUERY);
