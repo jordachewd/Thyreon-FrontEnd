@@ -2,7 +2,12 @@ import { GridColDef } from "@mui/x-data-grid";
 import { sitesTableColumns } from "./sites-table-columns";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 
+interface MySitesTableColumnsProps {
+  onEditSite: (siteData: GetSiteData) => void;
+  onDeleteSite: (siteData: GetSiteData) => void;
+}
+
 export const mySitesTableColumns = (
-  onEditSite: (siteData: GetSiteData) => void
+  props: MySitesTableColumnsProps
 ): GridColDef[] =>
-  sitesTableColumns(onEditSite).filter((col) => col.field !== "user");
+  sitesTableColumns(props).filter((col) => col.field !== "user");

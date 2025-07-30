@@ -39,6 +39,7 @@ export default function RootLayout({
           footerActionLink: "text-leaf-green-500 hover:text-leaf-green-800",
         },
       }}
+      afterSignOutUrl="/"
     >
       <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
         <body>

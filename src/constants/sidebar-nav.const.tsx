@@ -4,7 +4,7 @@ const sidebarNavItems: SidebarNavItem[] = [
   {
     id: 0,
     href: "/dashboard",
-    icon: "bi bi-house",
+    icon: "bi bi-grid",
     label: "Dashboard",
     isAdmin: false,
   },

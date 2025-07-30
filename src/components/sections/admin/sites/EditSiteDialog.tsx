@@ -19,6 +19,9 @@ import Typography from "@mui/material/Typography";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { validateSiteInputs } from "@/lib/utils/validateSiteInputs";
+import { usePathname } from "next/navigation";
+import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
+import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 
 interface EditSiteDialogProps {
   data: GetSiteData | undefined;
@@ -31,8 +34,6 @@ export default function EditSiteDialog({
   open,
   onClose,
 }: EditSiteDialogProps) {
-  if (!data) return null;
-
   const [formData, setFormData] = useState<UpdateSiteData>(defaultVals);
   const [fieldErrors, setFieldErrors] = useState<SiteFormErrors>({});
 
@@ -49,7 +50,17 @@ export default function EditSiteDialog({
     });
   }, [data]);
 
-  const [updateSite, { loading, error }] = useMutation(UPDATE_SITE_MUTATION);
+  const pathname = usePathname();
+
+  const isAdminPage = pathname.includes("/allsites");
+  const queriesToRefetch = isAdminPage
+    ? [GET_SITES_QUERY, "GetAllSites"]
+    : [GET_MY_SITES_QUERY, "GetMySites"];
+
+  const [updateSite, { loading, error }] = useMutation(UPDATE_SITE_MUTATION, {
+    refetchQueries: queriesToRefetch,
+    awaitRefetchQueries: true,
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,9 +134,7 @@ export default function EditSiteDialog({
           </div>
         </DialogTitle>
 
-        <DialogContent
-          sx={{ paddingTop: "1.25rem!important", paddingBottom: "0!important" }}
-        >
+        <DialogContent sx={{ paddingTop: "1rem!important" }}>
           <form className="flex flex-col w-full gap-3">
             {defaultFields.map(
               ({ label, name, type, required, info, disabled }) => {
@@ -159,7 +168,7 @@ export default function EditSiteDialog({
           <div className="flex gap-3 items-center">&nbsp;</div>
           <div className="flex gap-3 items-center">
             {loading && <LoadingBubbles className="!w-auto" />}
-            <Button onClick={handleSubmit} variant="contained" size="small">
+            <Button onClick={handleSubmit} variant="outlined" size="small">
               {loading ? "Updating ..." : "Update Site"}
             </Button>
           </div>

@@ -1,14 +1,24 @@
 "use client";
 
-import { Chip } from "@mui/material";
+import getFormattedDate from "@/lib/utils/getFormattedDate";
+import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
+import { Chip, IconButton } from "@mui/material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { UserRoleColors } from "@/types/users/user-role-colors.interface";
 import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
-import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
-import UsersActions from "@/components/sections/admin/users/table/UsersActions";
+import { TooltipArrow } from "@/components/shared/TooltipArrow";
+import Link from "next/link";
+import { GetUserData } from "@/types/users/get-user-data.d";
 
-export const usersTableColumns: GridColDef[] = [
+interface UsersTableColumnsProps {
+  onEditUser: (userData: GetUserData) => void;
+  onDeleteUser: (userData: GetUserData) => void;
+}
+
+export const usersTableColumns = ({
+  onEditUser,
+  onDeleteUser,
+}: UsersTableColumnsProps): GridColDef[] => [
   {
     field: "id",
     headerName: "ID",
@@ -67,6 +77,16 @@ export const usersTableColumns: GridColDef[] = [
   },
 
   {
+    field: "sites",
+    headerName: "Sites",
+    display: "flex",
+    flex: 1,
+    renderCell: () => {
+      return <span className="textxxs">Sites Count</span>;
+    },
+  },
+
+  {
     field: "createdAt",
     headerName: "Member Since",
     flex: 1,
@@ -96,8 +116,40 @@ export const usersTableColumns: GridColDef[] = [
     align: "center",
     headerAlign: "center",
     display: "flex",
-    renderCell: (params: GridRenderCellParams) => (
-      <UsersActions href={`users/${params.row.id}`} />
-    ),
+    renderCell: (params: GridRenderCellParams) => {
+      console.log("User Row: ", params.row);
+      return (
+        <div className="flex gap-2 items-center">
+          <TooltipArrow title="View" placement="bottom">
+            <IconButton
+              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
+            >
+              <Link href={`users/${params.row.id}`} className="flex">
+                <i className="bi bi-eye text-xs"></i>
+              </Link>
+            </IconButton>
+          </TooltipArrow>
+
+          <TooltipArrow title="Quick Edit" placement="bottom">
+            <IconButton
+              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
+              onClick={() => onEditUser(params.row)}
+            >
+              <i className="bi bi-pen text-xs"></i>
+            </IconButton>
+          </TooltipArrow>
+
+          <TooltipArrow title="Delete" placement="bottom">
+            <IconButton
+              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
+              onClick={() => onDeleteUser(params.row)}
+              disabled={params.row.role === "admin"}
+            >
+              <i className="bi bi-trash3 text-xs"></i>
+            </IconButton>
+          </TooltipArrow>
+        </div>
+      );
+    },
   },
 ];

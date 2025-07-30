@@ -29,25 +29,31 @@ export const muiComponents: ThemeOptions = {
           },
         },
         outlined: {
-          borderColor: "var(--mui-palette-action-active)",
-          color: "var(--mui-palette-action-active)",
-          "&:hover": {
-            borderColor: "var(--mui-palette-action-hover)",
-            color: "var(--mui-palette-action-hover)!important",
-          },
+          "&:not(.MuiButton-colorInfo):not(.MuiButton-colorWarning):not(.MuiButton-colorError)":
+            {
+              borderColor: "var(--mui-palette-action-active)",
+              color: "var(--mui-palette-action-active)",
+              "&:hover": {
+                borderColor: "var(--mui-palette-action-hover)",
+                color: "var(--mui-palette-action-hover)!important",
+              },
+            },
         },
         contained: {
-          color: "var(--mui-palette-common-white)",
-          backgroundColor: "var(--mui-palette-action-active)",
-          boxShadow:
-            "0px 1px 4px 0px rgba(var(--mui-palette-secondary-mainChannel) / 0.3)",
-          "&:hover": {
-            color: "var(--mui-palette-common-white)!important",
-            backgroundColor: "var(--mui-palette-action-hover)",
-          },
+          "&:not(.MuiButton-colorInfo):not(.MuiButton-colorWarning):not(.MuiButton-colorError)":
+            {
+              color: "var(--mui-palette-common-white)",
+              backgroundColor: "var(--mui-palette-action-active)",
+              boxShadow:
+                "0px 1px 4px 0px rgba(var(--mui-palette-secondary-mainChannel) / 0.3)",
+              "&:hover": {
+                color: "var(--mui-palette-common-white)!important",
+                backgroundColor: "var(--mui-palette-action-hover)",
+              },
+            },
         },
         sizeSmall: {
-          fontSize: "1rem",
+          fontSize: "0.875rem",
         },
         sizeMedium: {
           fontSize: "1.25rem",

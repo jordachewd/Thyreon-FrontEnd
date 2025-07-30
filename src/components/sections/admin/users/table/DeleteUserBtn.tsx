@@ -42,12 +42,9 @@ export default function DeleteUserBtn({
         variables: { clerkIds: clerkIds },
         onCompleted: (data) => {
           const response = data?.deleteUsers;
-
-          console.log("Delete response:", response);
-
           updateAlert({
-            text: response.message || "User deleted successfully.",
-            severity: response.status || "success",
+            text: response.message,
+            severity: response.status,
           });
 
           if (onSuccess) onSuccess();

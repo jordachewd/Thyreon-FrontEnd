@@ -53,11 +53,9 @@ export default function DeleteSiteBtn({
         onCompleted: (data) => {
           const response = data?.deleteSites;
 
-          console.log("Delete response:", response);
-
           updateAlert({
-            text: response.message || "Site deleted successfully.",
-            severity: response.status || "success",
+            text: response.message,
+            severity: response.status,
           });
 
           if (onSuccess) onSuccess();

@@ -117,9 +117,7 @@ export default function AddSiteDialog() {
           </div>
         </DialogTitle>
 
-        <DialogContent
-          sx={{ paddingTop: "1.25rem!important", paddingBottom: "0!important" }}
-        >
+        <DialogContent sx={{ paddingTop: "1.25rem!important" }}>
           <form className="flex flex-col w-full gap-3">
             {error && <ErrorCard mini error={error.message} />}
             {defaultFields.map(({ label, name, type, info, required }) => {
@@ -146,7 +144,7 @@ export default function AddSiteDialog() {
         </DialogContent>
         <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
           {loading && <LoadingBubbles className="!w-auto" />}
-          <Button onClick={handleSubmit} variant="contained" size="small">
+          <Button onClick={handleSubmit} variant="outlined" size="small">
             {loading ? "Registering ..." : " Register Site"}
           </Button>
         </DialogActions>

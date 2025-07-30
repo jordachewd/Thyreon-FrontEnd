@@ -8,9 +8,15 @@ import { Chip, IconButton } from "@mui/material";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 
-export const sitesTableColumns = (
-  onEditSite: (siteData: GetSiteData) => void
-): GridColDef[] => [
+interface SitesTableColumnsProps {
+  onEditSite: (siteData: GetSiteData) => void;
+  onDeleteSite: (siteData: GetSiteData) => void;
+}
+
+export const sitesTableColumns = ({
+  onEditSite,
+  onDeleteSite,
+}: SitesTableColumnsProps): GridColDef[] => [
   {
     field: "id",
     headerName: "ID",
@@ -107,10 +113,10 @@ export const sitesTableColumns = (
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
       return (
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 items-center">
           <TooltipArrow title="Edit" placement="bottom">
             <IconButton
-              sx={{ p: 0, backgroundColor: "transparent!important" }}
+              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
               onClick={() => onEditSite(params.row)}
             >
               <i className="bi bi-pen text-xs"></i>
@@ -118,8 +124,10 @@ export const sitesTableColumns = (
           </TooltipArrow>
 
           <TooltipArrow title="Delete" placement="bottom">
-            <IconButton sx={{ p: 0, backgroundColor: "transparent!important" }}>
-              {/* To be developed soon  */}
+            <IconButton
+              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
+              onClick={() => onDeleteSite(params.row)}
+            >
               <i className="bi bi-trash3 text-xs"></i>
             </IconButton>
           </TooltipArrow>
