@@ -1,12 +1,14 @@
 "use client";
 
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
-
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import ErrorCard from "@/components/shared/ErrorCard";
+import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
+import AddUserForm from "../forms/AddUserForm";
+import DialogHeader from "../../shared/dialog/DialogHeader";
+import DialogFooter from "../../shared/dialog/DialogFooter";
 import { useCallback, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { defaultNewUserValues as defaultVals } from "@/constants/users/defaults/new-user-values";
@@ -14,11 +16,6 @@ import { CreateUserData } from "@/types/users/create-user-data.d";
 import { generatePassword } from "@/lib/utils/generate-password";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
-import ErrorCard from "@/components/shared/ErrorCard";
-import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
-import AddUserForm from "../forms/AddUserForm";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import DialogFooter from "../../shared/dialog/DialogFooter";
 
 export default function AddUserDialog() {
   const [formData, setFormData] = useState<CreateUserData>(defaultVals);
@@ -78,15 +75,14 @@ export default function AddUserDialog() {
   return (
     <>
       <AdminAddNewFab execFn={handleOpenDialog} />
-
       <Dialog
         maxWidth="sm"
         fullWidth={true}
         open={openDialog}
         onClose={() => handleCloseDialog()}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby="add-new-user-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        <DialogTitle id="add-new-user-dialog-title" sx={{ zIndex: 0 }}>
           <DialogHeader title="Add new user" onClose={handleCloseDialog} must />
         </DialogTitle>
 
@@ -99,10 +95,10 @@ export default function AddUserDialog() {
           />
         </DialogContent>
 
-        <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
+        <DialogActions>
           <DialogFooter
             loading={loading}
-            btnText="Create User"
+            btnSubmitTxt="Create User"
             onSubmit={handleSubmit}
           />
         </DialogActions>

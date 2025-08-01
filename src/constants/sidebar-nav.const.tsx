@@ -36,19 +36,18 @@ const sidebarNavItems: SidebarNavItem[] = [
     label: "Security",
     isAdmin: false,
   },
-
   {
     id: 5,
-    href: "/users",
-    icon: "bi bi-people",
-    label: "All Users",
-    isAdmin: true, // Admin only
-  },
-    {
-    id: 6,
     href: "/allsites",
     icon: "bi bi-window-stack",
     label: "All Sites",
+    isAdmin: true, // Admin only
+  },
+  {
+    id: 6,
+    href: "/users",
+    icon: "bi bi-people",
+    label: "All Users",
     isAdmin: true, // Admin only
   },
   {

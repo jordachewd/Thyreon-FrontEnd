@@ -8,8 +8,8 @@ import { GetUserData } from "@/types/users/get-user-data.d";
 export default function ProfileMePage() {
   const { meCtx } = useAdminContext();
   const { data, loading, error } = meCtx;
-  const profileData = { profile: data?.me as GetUserData | undefined };
-  const isAdmin = data?.me?.role === "admin";
+
+  const profileData = { profile: data?.me as GetUserData };
 
   return (
     <>
@@ -18,7 +18,6 @@ export default function ProfileMePage() {
         data={profileData}
         loading={loading}
         error={error}
-        isAdmin={isAdmin}
       />
       <ProfileBilling
         title="Transaction History"

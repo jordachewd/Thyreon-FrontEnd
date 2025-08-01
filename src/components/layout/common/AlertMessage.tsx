@@ -19,7 +19,7 @@ function SlideTransition(props: SlideProps) {
 function AlertMessage() {
   const { alertCtx } = useAdminContext();
   const { message, updateAlert } = alertCtx;
-  const { text = "", severity = "info" } = message as AlertMessageParams;
+  const { text, severity } = message as AlertMessageParams;
   const [openAlert, setOpenAlert] = useState(false);
   const clearAlert = alertDefaults.message;
 
@@ -29,9 +29,7 @@ function AlertMessage() {
   ) => {
     event?.preventDefault();
 
-    if (reason === "clickaway") {
-      return;
-    }
+    if (reason === "clickaway") return;
 
     setOpenAlert(false);
     updateAlert(clearAlert);

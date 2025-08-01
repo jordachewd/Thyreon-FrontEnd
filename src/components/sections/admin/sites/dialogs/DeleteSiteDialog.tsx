@@ -1,5 +1,12 @@
 "use client";
 
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Typography from "@mui/material/Typography";
+import ErrorCard from "@/components/shared/ErrorCard";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import DialogHeader from "../../shared/dialog/DialogHeader";
 import { useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
@@ -8,14 +15,7 @@ import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Typography from "@mui/material/Typography";
-import ErrorCard from "@/components/shared/ErrorCard";
-import DialogFooter from "../../shared/dialog/DialogFooter";
 
 interface DeleteSiteDialogProps {
   data: GetSiteData | undefined;
@@ -73,46 +73,40 @@ export default function DeleteSiteDialog({
   );
 
   return (
-    <>
-      <Dialog
-        open={open}
-        maxWidth="sm"
-        fullWidth={true}
-        onClose={() => handleCloseDialog()}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title" sx={{ zIndex: 0 }}>
-          <div className="flex w-full justify-between items-center">
-            <div className="flex flex-col">
-              <Typography variant="h4">Remove site registration</Typography>
-            </div>
-            <Button onClick={handleCloseDialog} size="small">
-              <i className="bi bi-x-lg"></i>
-            </Button>
-          </div>
-        </DialogTitle>
+    <Dialog
+      open={open}
+      maxWidth="sm"
+      fullWidth={true}
+      onClose={() => handleCloseDialog()}
+      aria-labelledby="delete-site-dialog-title"
+    >
+      <DialogTitle id="delete-site-dialog-title" sx={{ zIndex: 0 }}>
+        <DialogHeader title="Remove site" onClose={handleCloseDialog} />
+      </DialogTitle>
 
-        <DialogContent sx={{ paddingTop: "1rem!important" }}>
-          <Typography variant="body1">
-            Are you sure you want to delete <b>{data?.domain}</b>?
-          </Typography>
-          <p className="font-semibold !my-2">
-            <span className="text-red-500 uppercase">warning: </span>This action
-            cannot be undone!
-          </p>
-          {error && <ErrorCard mini error={error.message} />}
-        </DialogContent>
+      <DialogContent sx={{ paddingTop: "1rem!important" }}>
+        {error && <ErrorCard mini error={error.message} />}
+        <Typography variant="body1">
+          Are you sure you want to delete <b>{data?.domain}</b>?
+        </Typography>
+        <ErrorCard
+          mini
+          title="WARNING"
+          color="warning"
+          error="This action cannot be undone!"
+          message="All data associated with this site will be permanently deleted."
+        />
+      </DialogContent>
 
-        <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
-          <DialogFooter
-            loading={loading}
-            btnColor="error"
-            btnText="Delete Site"
-            onSubmit={handleSubmit}
-            onCancel={handleCloseDialog}
-          />
-        </DialogActions>
-      </Dialog>
-    </>
+      <DialogActions>
+        <DialogFooter
+          loading={loading}
+          btnColor="error"
+          btnSubmitTxt="Delete Site"
+          onSubmit={handleSubmit}
+          onCancel={handleCloseDialog}
+        />
+      </DialogActions>
+    </Dialog>
   );
 }

@@ -1,6 +1,6 @@
 import PageHead from "@/components/layout/common/PageHead";
 import AddSiteDialog from "@/components/sections/admin/sites/dialogs/AddSiteDialog";
-import MySites from "@/components/sections/admin/sites/MySites";
+import MySitesPage from "@/components/sections/admin/sites/MySitesPage";
 
 export default async function AdminMonitoring() {
   return (
@@ -9,7 +9,7 @@ export default async function AdminMonitoring() {
         <AddSiteDialog />
       </PageHead>
 
-      <MySites />
+      <MySitesPage />
     </>
   );
 }

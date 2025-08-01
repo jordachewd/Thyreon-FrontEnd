@@ -1,5 +1,13 @@
 "use client";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import ErrorCard from "@/components/shared/ErrorCard";
+import DialogHeader from "../../shared/dialog/DialogHeader";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import UpdateSiteForm from "../forms/UpdateSiteForm";
 import { useMutation } from "@apollo/client";
 import { useCallback, useEffect, useState } from "react";
 import { UPDATE_SITE_MUTATION } from "@/constants/graphql/sites/update-site.const";
@@ -10,14 +18,6 @@ import { UpdateSiteData } from "@/types/sites/update-site-data.d";
 import { usePathname } from "next/navigation";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import ErrorCard from "@/components/shared/ErrorCard";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import UpdateSiteForm from "../forms/UpdateSiteForm";
 
 interface EditSiteDialogProps {
   data: GetSiteData | undefined;
@@ -47,8 +47,8 @@ export default function EditSiteDialog({
   }, [data]);
 
   const pathname = usePathname();
-
   const isAdminPage = pathname.includes("/allsites");
+
   const queriesToRefetch = isAdminPage
     ? [GET_SITES_QUERY, "GetAllSites"]
     : [GET_MY_SITES_QUERY, "GetMySites"];
@@ -60,8 +60,6 @@ export default function EditSiteDialog({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formData) return;
 
     try {
       await updateSite({
@@ -98,35 +96,33 @@ export default function EditSiteDialog({
   );
 
   return (
-    <>
-      <Dialog
-        open={open}
-        maxWidth="sm"
-        fullWidth={true}
-        onClose={() => handleCloseDialog()}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title" sx={{ zIndex: 0 }}>
-          <DialogHeader
-            must
-            title="Edit site details"
-            onClose={handleCloseDialog}
-          />
-        </DialogTitle>
+    <Dialog
+      open={open}
+      maxWidth="sm"
+      fullWidth={true}
+      onClose={() => handleCloseDialog()}
+      aria-labelledby="edit-site-dialog-title"
+    >
+      <DialogTitle id="edit-site-dialog-title" sx={{ zIndex: 0 }}>
+        <DialogHeader
+          must
+          title="Edit site details"
+          onClose={handleCloseDialog}
+        />
+      </DialogTitle>
 
-        <DialogContent sx={{ paddingTop: "1rem!important" }}>
-          {error && <ErrorCard mini error={error.message} />}
-          <UpdateSiteForm data={formData} onChange={handleInputChange} />
-        </DialogContent>
+      <DialogContent sx={{ paddingTop: "1rem!important" }}>
+        {error && <ErrorCard mini error={error.message} />}
+        <UpdateSiteForm data={formData} onChange={handleInputChange} />
+      </DialogContent>
 
-        <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
-          <DialogFooter
-            loading={loading}
-            btnText="Update Site"
-            onSubmit={handleSubmit}
-          />
-        </DialogActions>
-      </Dialog>
-    </>
+      <DialogActions>
+        <DialogFooter
+          loading={loading}
+          btnSubmitTxt="Update Site"
+          onSubmit={handleSubmit}
+        />
+      </DialogActions>
+    </Dialog>
   );
 }

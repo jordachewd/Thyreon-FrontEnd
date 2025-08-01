@@ -14,7 +14,7 @@ import { memo } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
 
 type ProfileBillingProps = {
-  data: { profile: GetUserData | undefined };
+  data: { profile: GetUserData };
   loading: boolean;
   error: ApolloError | undefined;
   title?: string;
@@ -30,6 +30,11 @@ function ProfileBilling({
   alignTitle,
   titleSize,
 }: ProfileBillingProps) {
+  const profile = data.profile as GetUserData;
+  const currentPlan: Transaction | undefined = profile?.currentPlan;
+  const transactions: Transaction[] = profile?.transactions || [];
+  const hasTransactions = transactions.length > 0;
+
   if (loading)
     return (
       <ProfileBillingWrapper
@@ -51,11 +56,6 @@ function ProfileBilling({
         <ErrorCard error={error.message} title="" backToUrl="" />
       </ProfileBillingWrapper>
     );
-
-  const profile = data.profile as GetUserData | undefined;
-  const currentPlan: Transaction | undefined = profile?.currentPlan;
-  const transactions: Transaction[] = profile?.transactions || [];
-  const hasTransactions = transactions.length > 0;
 
   if (!hasTransactions) {
     return (

@@ -1,12 +1,14 @@
 "use client";
 
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
-
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
+import AddSiteForm from "../forms/AddSiteForm";
+import DialogHeader from "../../shared/dialog/DialogHeader";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import ErrorCard from "@/components/shared/ErrorCard";
 import { useCallback, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { defaultNewSiteValues as defaultVals } from "@/constants/sites/new-site-values";
@@ -14,15 +16,13 @@ import { useAdminContext } from "@/context/admin/AdminContext";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
-import AddSiteForm from "../forms/AddSiteForm";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import ErrorCard from "@/components/shared/ErrorCard";
+import AddSiteResponse from "../forms/AddSiteResponse";
 
 export default function AddSiteDialog() {
   const [formData, setFormData] = useState<CreateSiteData>(defaultVals);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [siteKey, setSiteKey] = useState<string | undefined>(undefined);
+  const [copiedKey, setCopiedKey] = useState<boolean>(false);
 
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
@@ -40,6 +40,9 @@ export default function AddSiteDialog() {
       onCompleted: (data) => {
         const response = data?.createSite;
         console.log("Create site response:", response);
+
+        setSiteKey(response.site.apiKey);
+
         updateAlert({
           text: response.message,
           severity: response.status,
@@ -77,23 +80,42 @@ export default function AddSiteDialog() {
         fullWidth={true}
         open={openDialog}
         onClose={() => handleCloseDialog()}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby="add-new-site-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        <DialogTitle id="add-new-site-dialog-title" sx={{ zIndex: 0 }}>
           <DialogHeader title="Add new site" onClose={handleCloseDialog} must />
         </DialogTitle>
 
         <DialogContent sx={{ paddingTop: "1rem!important" }}>
           {error && <ErrorCard mini error={error.message} />}
-          <AddSiteForm data={formData} onChange={handleInputChange} />
+          {!siteKey && (
+            <AddSiteForm data={formData} onChange={handleInputChange} />
+          )}
+          {siteKey && (
+            <AddSiteResponse
+              apiKey={siteKey}
+              onResponse={() => setCopiedKey(true)}
+            />
+          )}
         </DialogContent>
 
-        <DialogActions className="!flex !m-4 !mt-0 !justify-end !items-center gap-2">
+        <DialogActions>
           <DialogFooter
             loading={loading}
-            btnText="Register Site"
-            onSubmit={handleSubmit}
-          />
+            btnSubmitTxt="Register Site"
+            btnCancelTxt="Close"
+            onSubmit={!siteKey ? handleSubmit : undefined}
+            onCancel={siteKey ? handleCloseDialog : undefined}
+          >
+            {siteKey && !copiedKey && (
+              <ErrorCard
+                mini
+                color="warning"
+                error="You haven't copied your key. If you leave, you cannot retrieve it in the future, and you must create a new key."
+                message="Make sure to copy your key before leaving this page."
+              />
+            )}
+          </DialogFooter>
         </DialogActions>
       </Dialog>
     </>

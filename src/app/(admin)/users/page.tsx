@@ -1,6 +1,6 @@
 import PageHead from "@/components/layout/common/PageHead";
 import AddUserDialog from "@/components/sections/admin/users/dialogs/AddUserDialog";
-import UsersTable from "@/components/sections/admin/users/table/UsersTable";
+import AllUsersPage from "@/components/sections/admin/users/AllUsersPage";
 
 export default function AdminUsers() {
   return (
@@ -8,7 +8,8 @@ export default function AdminUsers() {
       <PageHead title="All Users" alignTitle="left">
         <AddUserDialog />
       </PageHead>
-      <UsersTable />
+
+      <AllUsersPage />
     </>
   );
 }

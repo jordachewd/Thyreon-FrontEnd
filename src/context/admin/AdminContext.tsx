@@ -33,7 +33,10 @@ export function AdminContextProvider({ children }: AdminCtxProviderProps) {
   const [openNav, setOpenNav] = useState<boolean>(sbState.isNavOpen);
   const [alertMsg, setAlertMsg] = useState<AlertMessageParams>(atState.message);
 
-  const { data, loading, error } = useQuery<{ me: GetUserData }>(GET_ME_QUERY);
+  const { data, loading, error } = useQuery<{ me: GetUserData }>(GET_ME_QUERY, {
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: "cache-and-network",
+  });
   const profileData = { me: data?.me as GetUserData | undefined };
 
   const context: AdminCtxType = {

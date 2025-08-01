@@ -10,7 +10,11 @@ import { useQuery } from "@apollo/client";
 
 export default function TransactionsTable() {
   const { data, loading, error } = useQuery<{ transactions: Transaction[] }>(
-    GET_TRANSACTIONS_QUERY
+    GET_TRANSACTIONS_QUERY,
+    {
+      notifyOnNetworkStatusChange: true,
+      fetchPolicy: "cache-and-network",
+    }
   );
 
   const transactions: Transaction[] = data?.transactions || [];

@@ -10,6 +10,7 @@ import { useCallback, useState } from "react";
 import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
 import TableToolbar from "../shared/table/TableToolbar";
 import DeleteSiteBtn from "./DeleteSiteBtn";
+import Typography from "@mui/material/Typography";
 
 interface SitesTableProps {
   sites: GetSiteData[];
@@ -51,6 +52,7 @@ export default function SitesTable({
   }, [selectedSites]);
 
   if (loading) return <LoadingBubbles />;
+
   if (error) {
     return (
       <ErrorCard
@@ -59,6 +61,13 @@ export default function SitesTable({
       />
     );
   }
+
+  if (sites.length === 0)
+    return (
+      <Typography variant="body2" color="textSecondary">
+        No registered sites yet.
+      </Typography>
+    );
 
   return (
     <div className="flex w-full">

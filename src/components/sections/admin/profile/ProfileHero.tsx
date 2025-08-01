@@ -2,23 +2,23 @@
 
 import css from "@/styles/sections/admin/ProfileHero.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import { Typography, Avatar } from "@mui/material";
+import PlanPromo from "@/components/shared/PlanPromo";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import ProfileHeroWrapper from "./ProfileHeroWrapper";
+import ErrorCard from "@/components/shared/ErrorCard";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
 import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import { UserRole } from "@/types/users/user-role.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import PlanPromo from "@/components/shared/PlanPromo";
 import { ApolloError } from "@apollo/client";
-import { memo } from "react";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import ProfileHeroWrapper from "./ProfileHeroWrapper";
 import { Transaction } from "@/types/transactions/transaction.d";
-import ErrorCard from "@/components/shared/ErrorCard";
+import { memo } from "react";
 
 type ProfileHeroProps = {
-  data: { profile: GetUserData | undefined };
+  data: { profile: GetUserData };
   loading: boolean;
   error: ApolloError | undefined;
-  isAdmin: boolean;
   title?: string;
   alignTitle?: "left" | "center" | "right";
   titleSize?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -31,8 +31,12 @@ function ProfileHero({
   title,
   alignTitle,
   titleSize,
-  isAdmin = false,
 }: ProfileHeroProps) {
+  const profile = data.profile as GetUserData;
+  const currentPlan = profile?.currentPlan as Transaction;
+  const fullName = `${profile?.firstName} ${profile?.lastName}`;
+  const isAdmin = profile?.role === "admin";
+
   if (loading)
     return (
       <ProfileHeroWrapper
@@ -54,10 +58,6 @@ function ProfileHero({
         <ErrorCard error={error.message} title="" backToUrl="" />
       </ProfileHeroWrapper>
     );
-
-  const profile = data.profile as GetUserData | undefined;
-  const currentPlan = profile?.currentPlan as Transaction | undefined;
-  const fullName = `${profile?.firstName} ${profile?.lastName}`;
 
   return (
     <ProfileHeroWrapper title={title} alignTitle={alignTitle} size={titleSize}>
@@ -90,7 +90,7 @@ function ProfileHero({
         </div>
 
         <div className="flex gap-2 items-center">
-          <span className="font-semibold leading-none">Last update:</span>
+          <span className="font-semibold leading-none">Last seen:</span>
           <span className="textxxs leading-none">
             {getFormattedDate(profile?.updatedAt as Date)}
           </span>

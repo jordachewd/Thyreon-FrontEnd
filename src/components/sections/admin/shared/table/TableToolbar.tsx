@@ -1,32 +1,23 @@
 import {
   Toolbar,
-  ToolbarButton,
-  FilterPanelTrigger,
   ExportCsv,
   ExportPrint,
   QuickFilterControl,
   QuickFilterClear,
   QuickFilterTrigger,
 } from "@mui/x-data-grid";
-import Tooltip from "@mui/material/Tooltip";
-import Menu from "@mui/material/Menu";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
-import { useState, useRef } from "react";
 import { TableToolbarQuickFilter } from "@/constants/table/toolbar/toolbar-quick-filter.const";
 import { TableToolbarButton } from "@/constants/table/toolbar/toolbar-button.const";
 import { TableToolbarTextField } from "@/constants/table/toolbar/toolbar-textfield.const";
+import { TooltipArrow } from "@/components/shared/TooltipArrow";
 
 type TableToolbarProps = {
   toolbarContent?: React.ReactNode;
 };
 
 export default function TableToolbar({ toolbarContent }: TableToolbarProps) {
-  const [exportMenuOpen, setExportMenuOpen] = useState(false);
-  const exportMenuTriggerRef = useRef<HTMLButtonElement>(null);
-
   return (
     <Toolbar>
       {toolbarContent && <div className="flex w-full">{toolbarContent}</div>}
@@ -34,15 +25,16 @@ export default function TableToolbar({ toolbarContent }: TableToolbarProps) {
       <TableToolbarQuickFilter>
         <QuickFilterTrigger
           render={(triggerProps, state) => (
-            <Tooltip title="Search" enterDelay={0}>
+            <TooltipArrow title="Search" placement="bottom">
               <TableToolbarButton
+                size="small"
                 {...triggerProps}
                 ownerState={{ expanded: state.expanded }}
                 aria-disabled={state.expanded}
               >
                 <i className="bi bi-search text-base"></i>
               </TableToolbarButton>
-            </Tooltip>
+            </TooltipArrow>
           )}
         />
         <QuickFilterControl
@@ -68,7 +60,7 @@ export default function TableToolbar({ toolbarContent }: TableToolbarProps) {
                         size="small"
                         aria-label="Clear search"
                       >
-                        <i className="bi bi-x-circle text-base"></i>
+                        <i className="bi bi-x-circle text-xs"></i>
                       </QuickFilterClear>
                     </InputAdornment>
                   ) : null,
@@ -81,68 +73,17 @@ export default function TableToolbar({ toolbarContent }: TableToolbarProps) {
         />
       </TableToolbarQuickFilter>
 
-      <Tooltip title="Filters">
-        <FilterPanelTrigger
-          render={(props, state) => (
-            <ToolbarButton {...props} color="default">
-              <Badge
-                badgeContent={state.filterCount}
-                color="primary"
-                variant="dot"
-              >
-                <i className="bi bi-funnel text-base"></i>
-              </Badge>
-            </ToolbarButton>
-          )}
-        />
-      </Tooltip>
-
-      <Divider
-        orientation="vertical"
-        variant="middle"
-        flexItem
-        sx={{ mx: 0.5 }}
-      />
-
-      <Tooltip title="Export">
-        <ToolbarButton
-          ref={exportMenuTriggerRef}
-          id="export-menu-trigger"
-          aria-controls="export-menu"
-          aria-haspopup="true"
-          aria-expanded={exportMenuOpen ? "true" : undefined}
-          onClick={() => setExportMenuOpen(true)}
-        >
-          <i className="bi bi-file-earmark-arrow-down text-base"></i>
-        </ToolbarButton>
-      </Tooltip>
-
-      <Menu
-        id="export-menu"
-        anchorEl={exportMenuTriggerRef.current}
-        open={exportMenuOpen}
-        onClose={() => setExportMenuOpen(false)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-        slotProps={{
-          list: {
-            "aria-labelledby": "export-menu-trigger",
-          },
-        }}
-      >
-        <ExportPrint
-          render={<MenuItem />}
-          onClick={() => setExportMenuOpen(false)}
-        >
-          Print
+      <TooltipArrow title="Export CSV" placement="bottom">
+        <ExportPrint render={<Button size="small" />}>
+          <i className="bi bi-printer text-base"></i>
         </ExportPrint>
-        <ExportCsv
-          render={<MenuItem />}
-          onClick={() => setExportMenuOpen(false)}
-        >
-          Download as CSV
+      </TooltipArrow>
+
+      <TooltipArrow title="Print" placement="bottom">
+        <ExportCsv render={<Button size="small" />}>
+          <i className="bi bi-file-earmark-arrow-down text-base"></i>
         </ExportCsv>
-      </Menu>
+      </TooltipArrow>
     </Toolbar>
   );
 }
