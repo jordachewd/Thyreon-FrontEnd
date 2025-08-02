@@ -26,7 +26,6 @@ function UpdateSiteForm({ data, onChange }: UpdateSiteFormProps) {
               value={fdValue}
               disabled={disabled}
               onChange={onChange}
-              size="small"
             />
           </div>
         );

@@ -78,14 +78,6 @@ export default function DeleteUserDialog({
         <Typography variant="body1">
           Are you sure you want to delete <b>{data?.username}</b>?
         </Typography>
-
-        <ErrorCard
-          mini
-          title="WARNING"
-          color="warning"
-          error="This action cannot be undone!"
-          message="All user data will be permanently deleted."
-        />
       </DialogContent>
 
       <DialogActions>
@@ -94,8 +86,14 @@ export default function DeleteUserDialog({
           btnColor="error"
           btnSubmitTxt="Delete User"
           onSubmit={handleSubmit}
-          onCancel={handleCloseDialog}
-        />
+        >
+          <ErrorCard
+            mini
+            color="warning"
+            error="This action cannot be undone!"
+            message="All user data will be permanently deleted."
+          />
+        </DialogFooter>
       </DialogActions>
     </Dialog>
   );

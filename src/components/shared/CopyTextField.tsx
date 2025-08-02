@@ -7,12 +7,14 @@ import { useState } from "react";
 interface CopyTextFieldProps {
   label: string;
   value: string;
+  info?: string;
   doneCopied?: (copied: boolean) => void;
 }
 
 export default function CopyTextField({
   label,
   value,
+  info,
   doneCopied,
 }: CopyTextFieldProps) {
   const [copied, setCopied] = useState(false);
@@ -33,8 +35,8 @@ export default function CopyTextField({
       fullWidth
       label={label}
       value={value}
+      helperText={info}
       variant="outlined"
-      className="!mt-4"
       slotProps={{
         input: {
           readOnly: true,

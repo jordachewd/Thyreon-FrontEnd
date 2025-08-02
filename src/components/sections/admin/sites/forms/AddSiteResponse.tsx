@@ -17,20 +17,21 @@ export default function AddSiteResponse({
   return (
     <div className="flex flex-col w-full gap-4">
       <Typography variant="h6">
-        Next, install and activate the latest <b>WP Guard Client </b> plugin
-        version.
+        Install and activate the latest <b>WP Guard Client</b> plugin version.
       </Typography>
 
       <Button variant="outlined">Download WP Guard Client</Button>
 
-      <Typography variant="body2">
-        If the plugin is already installed on your WordPress site, copy and
-        paste the unique API key into your plugin's settings page.
+      <Typography variant="body2" className="!my-4">
+        If the plugin is already installed on your WordPress website, copy and
+        paste the below API key into your plugin's settings page.
       </Typography>
+
       {apiKey && (
         <CopyTextField
           label="API Key"
           value={apiKey}
+          info="Copy this API key and paste it into the WP Guard Client plugin settings."
           doneCopied={handleOnResponse}
         />
       )}

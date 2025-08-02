@@ -29,6 +29,10 @@ export default function AllSitesPage() {
   const tableColumns = sitesTableColumns({
     onEditSite: handleUpdate,
     onDeleteSite: handleRemove,
+    onRegenerateApiKey: (siteId: number) => {
+      // Handle API key regeneration logic here
+      console.log(`AllSitesPage: New API Key for site ID: ${siteId}`);
+    },
   });
 
   const sites: GetSiteData[] = data?.sites || [];

@@ -6,8 +6,6 @@ export const CREATE_SITE_MUTATION = gql`
       status
       message
       site {
-        domain
-        siteName
         apiKey
       }
     }

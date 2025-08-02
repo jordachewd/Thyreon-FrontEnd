@@ -4,7 +4,10 @@ import ErrorCard from "@/components/shared/ErrorCard";
 const UnauthorizedPage = () => {
   return (
     <AdminWrapper>
-      <ErrorCard error="You do not have the necessary permissions to access this page." />
+      <ErrorCard
+        title="Unauthorized"
+        error="You do not have the necessary permissions to access this page."
+      />
     </AdminWrapper>
   );
 };

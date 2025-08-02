@@ -10,9 +10,9 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
   {
     id: 1,
-    href: "/sites",
+    href: "/mysites",
     icon: "bi bi-window-stack",
-    label: "Sites",
+    label: "My Sites",
     isAdmin: false,
   },
   {

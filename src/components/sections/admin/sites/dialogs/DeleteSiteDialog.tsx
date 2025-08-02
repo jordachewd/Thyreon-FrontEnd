@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import ErrorCard from "@/components/shared/ErrorCard";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
+import Dialog from "@mui/material/Dialog";
 import { useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
@@ -15,7 +16,6 @@ import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client";
-import Dialog from "@mui/material/Dialog";
 
 interface DeleteSiteDialogProps {
   data: GetSiteData | undefined;
@@ -89,13 +89,6 @@ export default function DeleteSiteDialog({
         <Typography variant="body1">
           Are you sure you want to delete <b>{data?.domain}</b>?
         </Typography>
-        <ErrorCard
-          mini
-          title="WARNING"
-          color="warning"
-          error="This action cannot be undone!"
-          message="All data associated with this site will be permanently deleted."
-        />
       </DialogContent>
 
       <DialogActions>
@@ -104,8 +97,14 @@ export default function DeleteSiteDialog({
           btnColor="error"
           btnSubmitTxt="Delete Site"
           onSubmit={handleSubmit}
-          onCancel={handleCloseDialog}
-        />
+        >
+          <ErrorCard
+            mini
+            color="warning"
+            error="This action cannot be undone!"
+            message="All data associated with this site will be permanently deleted."
+          />
+        </DialogFooter>
       </DialogActions>
     </Dialog>
   );

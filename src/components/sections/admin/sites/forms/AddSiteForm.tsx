@@ -24,7 +24,6 @@ function AddSiteForm({ data, onChange }: AddSiteFormProps) {
               name={name}
               value={fdValue}
               onChange={onChange}
-              size="small"
             />
           </div>
         );

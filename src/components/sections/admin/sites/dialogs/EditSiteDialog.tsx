@@ -42,7 +42,6 @@ export default function EditSiteDialog({
       id: Number(data.id),
       domain: data.domain,
       siteName: data.siteName,
-      apiKey: data.apiKey,
     });
   }, [data]);
 
@@ -119,7 +118,7 @@ export default function EditSiteDialog({
       <DialogActions>
         <DialogFooter
           loading={loading}
-          btnSubmitTxt="Update Site"
+          btnSubmitTxt="Update Site Details"
           onSubmit={handleSubmit}
         />
       </DialogActions>

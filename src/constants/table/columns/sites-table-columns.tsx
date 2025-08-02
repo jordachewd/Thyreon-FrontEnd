@@ -11,11 +11,13 @@ import { GetSiteData } from "@/types/sites/get-site-data.d";
 interface SitesTableColumnsProps {
   onEditSite: (siteData: GetSiteData) => void;
   onDeleteSite: (siteData: GetSiteData) => void;
+  onRegenerateApiKey: (siteId: number) => void;
 }
 
 export const sitesTableColumns = ({
   onEditSite,
   onDeleteSite,
+  onRegenerateApiKey
 }: SitesTableColumnsProps): GridColDef[] => [
   {
     field: "id",
@@ -67,7 +69,19 @@ export const sitesTableColumns = ({
     flex: 4,
     renderCell: (params: GridRenderCellParams) => {
       const maskedKey = maskApiKey(params.row.apiKey);
-      return <span className="text-xs">{maskedKey}</span>;
+      return (
+        <div className="flex w-full items-center gap-3">
+          <TooltipArrow title="New API Key" placement="bottom">
+            <IconButton
+              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
+              onClick={() => onRegenerateApiKey(params.row.id)}
+            >
+              <i className="bi bi-arrow-clockwise text-base"></i>
+            </IconButton>
+          </TooltipArrow>
+          <span className="text-xs">{maskedKey}</span>
+        </div>
+      );
     },
   },
   {

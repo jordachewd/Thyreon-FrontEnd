@@ -9,20 +9,32 @@ import AddSiteForm from "../forms/AddSiteForm";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import ErrorCard from "@/components/shared/ErrorCard";
-import { useCallback, useState } from "react";
+import AddSiteResponse from "../forms/AddSiteResponse";
 import { useMutation } from "@apollo/client";
-import { defaultNewSiteValues as defaultVals } from "@/constants/sites/new-site-values";
+import { useCallback, useEffect, useRef } from "react";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import AddSiteResponse from "../forms/AddSiteResponse";
+import { useAddSiteDialogStore } from "@/lib/stores/useAddSiteDialogStore";
 
 export default function AddSiteDialog() {
-  const [formData, setFormData] = useState<CreateSiteData>(defaultVals);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [siteKey, setSiteKey] = useState<string | undefined>(undefined);
-  const [copiedKey, setCopiedKey] = useState<boolean>(false);
+  const {
+    open,
+    formData,
+    siteKey,
+    copiedKey,
+    showCopyWarning,
+    openDialog,
+    closeDialog,
+    resetDialog,
+    setField,
+    setSiteKey,
+    setCopiedKey,
+    setShowCopyWarning,
+  } = useAddSiteDialogStore();
+
+  const closingAttemptedRef = useRef(false);
 
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
@@ -34,15 +46,11 @@ export default function AddSiteDialog() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     await createSite({
       variables: { input: formData },
       onCompleted: (data) => {
         const response = data?.createSite;
-        console.log("Create site response:", response);
-
         setSiteKey(response.site.apiKey);
-
         updateAlert({
           text: response.message,
           severity: response.status,
@@ -51,39 +59,59 @@ export default function AddSiteDialog() {
     });
   };
 
-  const handleOpenDialog = useCallback(() => {
-    setOpenDialog(true);
-  }, []);
-
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
+      setField(name as keyof CreateSiteData, value);
     },
-    []
+    [setField]
   );
 
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
-      setOpenDialog(false);
-      setFormData(defaultVals);
+
+      if (siteKey && !copiedKey) {
+        if (!closingAttemptedRef.current) {
+          closingAttemptedRef.current = true;
+          setShowCopyWarning(true);
+        } else {
+          closeDialog();
+          resetDialog();
+          closingAttemptedRef.current = false;
+        }
+      } else {
+        closeDialog();
+        resetDialog();
+        closingAttemptedRef.current = false;
+      }
     },
-    []
+    [siteKey, copiedKey, closeDialog, resetDialog]
   );
+
+  useEffect(() => {
+    if (open) {
+      closingAttemptedRef.current = false;
+      setShowCopyWarning(false);
+    }
+  }, [open, setShowCopyWarning]);
 
   return (
     <>
-      <AdminAddNewFab execFn={handleOpenDialog} />
+      <AdminAddNewFab execFn={openDialog} />
       <Dialog
         maxWidth="sm"
         fullWidth={true}
-        open={openDialog}
+        open={open}
         onClose={() => handleCloseDialog()}
         aria-labelledby="add-new-site-dialog-title"
       >
         <DialogTitle id="add-new-site-dialog-title" sx={{ zIndex: 0 }}>
-          <DialogHeader title="Add new site" onClose={handleCloseDialog} must />
+          <DialogHeader
+            must={!siteKey}
+            title={siteKey ? "Next step ..." : "Add new site"}
+            onClose={handleCloseDialog}
+          />
         </DialogTitle>
 
         <DialogContent sx={{ paddingTop: "1rem!important" }}>
@@ -103,11 +131,9 @@ export default function AddSiteDialog() {
           <DialogFooter
             loading={loading}
             btnSubmitTxt="Register Site"
-            btnCancelTxt="Close"
             onSubmit={!siteKey ? handleSubmit : undefined}
-            onCancel={siteKey ? handleCloseDialog : undefined}
           >
-            {siteKey && !copiedKey && (
+            {showCopyWarning && (
               <ErrorCard
                 mini
                 color="warning"

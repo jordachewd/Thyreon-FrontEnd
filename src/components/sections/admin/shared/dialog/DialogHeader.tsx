@@ -10,14 +10,15 @@ interface DialogHeadProps {
 
 function DialogHeader({ title, must = false, onClose }: DialogHeadProps) {
   return (
-    <div className="flex w-full justify-between items-center">
-      <div className="flex flex-col">
-        <Typography variant="h4">{title}</Typography>
+    <div className="flex w-full justify-between items-center relative">
+      <Typography variant="h4" className="flex flex-col z-0">
+        <span> {title}</span>
         {must && (
           <span className="text-red-600 textxxs leading-none">* required</span>
         )}
-      </div>
-      <Button onClick={onClose} size="small">
+      </Typography>
+
+      <Button onClick={onClose} size="small" className="absolute -right-6 -top-4">
         <i className="bi bi-x-lg"></i>
       </Button>
     </div>

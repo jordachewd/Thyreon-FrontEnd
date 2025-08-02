@@ -14,11 +14,4 @@ export const defaultUpdateSiteFields: FormField[] = [
     type: "text",
     info: "The name of the site as it will appear in the dashboard.",
   },
-  {
-    label: "API Key",
-    name: "apiKey",
-    type: "text",
-    info: "The API key for the site, used for authentication.",
-    required: true,
-  },
 ];

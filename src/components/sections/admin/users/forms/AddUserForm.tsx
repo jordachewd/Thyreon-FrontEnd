@@ -19,7 +19,7 @@ function AddUserForm({ data, onChange, genPassword }: AddUserFormProps) {
         return (
           <div key={name} className="flex flex-col w-full">
             {name === "password" ? (
-              <div className="flex w-full items-start gap-2">
+              <div className="flex w-full items-start gap-4">
                 <TextField
                   helperText={info}
                   required
@@ -28,14 +28,13 @@ function AddUserForm({ data, onChange, genPassword }: AddUserFormProps) {
                   name={name}
                   value={fdValue}
                   onChange={onChange}
-                  size="small"
                 />
 
                 <Button
                   size="small"
                   startIcon={<i className="bi bi-stars"></i>}
                   onClick={genPassword}
-                  className="!mt-1"
+                  className="!mt-3"
                 >
                   Generate
                 </Button>
@@ -50,7 +49,6 @@ function AddUserForm({ data, onChange, genPassword }: AddUserFormProps) {
                 name={name}
                 value={fdValue}
                 onChange={onChange}
-                size="small"
               />
             )}
           </div>

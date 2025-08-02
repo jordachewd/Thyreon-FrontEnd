@@ -23,7 +23,7 @@ function ErrorCard({
 }: ErrorCardProps) {
   const router = useRouter();
   const miniCardCss = "w-full !px-2 !py-1 !my-3 gap-3 items-center";
-  const bigCardCss = "items-center !py-8 !px-12 gap-4 w-full lg:max-w-1/3";
+  const bigCardCss = "items-center !py-8 !px-12 gap-10 w-full lg:max-w-1/3";
 
   let cardColor = "bg-red-600";
   let cardIcon = "bi-x-circle";
@@ -70,25 +70,29 @@ function ErrorCard({
   return (
     <div className="flex flex-col items-center justify-center gap-6 w-full h-full">
       {title && <Typography variant="h3">{title}</Typography>}
-      <div className={`flex flex-col rounded-md ${bigCardCss} ${cardColor}`}>
-        <Typography
-          variant="h4"
-          color="white"
-          className="!wrap-break-word text-center"
-        >
-          {error}
-        </Typography>
-        {message && (
-          <Typography variant="body2" color="white" className="italic">
-            {message}
+      <div className={`flex rounded-md ${bigCardCss} ${cardColor}`}>
+        <i className={`bi ${cardIcon} text-7xl text-white`}></i>
+        <div className="flex flex-col gap-2">
+          <Typography
+            variant="h4"
+            color="white"
+            className="!wrap-break-word !leading-none"
+          >
+            {error}
           </Typography>
-        )}
+          {message && (
+            <Typography variant="body2" color="white" className="italic">
+              {message}
+            </Typography>
+          )}
+        </div>
       </div>
       {backToUrl && (
         <Button
           size="small"
           variant="outlined"
           onClick={() => handleRouterPush(backToUrl)}
+          startIcon={<i className="bi bi-arrow-90deg-left text-xs"></i>}
         >
           Back to {backToUrl}
         </Button>

@@ -26,7 +26,6 @@ function EditUserForm({ data, onChange }: EditUserFormProps) {
               value={fdValue}
               disabled={disabled}
               onChange={onChange}
-              size="small"
             />
           </div>
         );
