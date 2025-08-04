@@ -1,10 +1,10 @@
 import { defaultEditUserFields as defaultFields } from "@/constants/users/fields/edit-user-fields";
-import { UpdateUserData } from "@/types/users/update-user-data.d";
+import { GetUserData } from "@/types/users/get-user-data.d";
 import TextField from "@mui/material/TextField";
 import { memo } from "react";
 
 interface EditUserFormProps {
-  data: UpdateUserData;
+  data: Partial<GetUserData>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -12,7 +12,7 @@ function EditUserForm({ data, onChange }: EditUserFormProps) {
   return (
     <form className="flex flex-col w-full gap-3">
       {defaultFields.map(({ label, name, type, required, info, disabled }) => {
-        const fdValue = data[name as keyof UpdateUserData] ?? "";
+        const fdValue = data[name as keyof Partial<GetUserData>] ?? "";
 
         return (
           <div key={name} className="flex flex-col w-full">

@@ -9,24 +9,21 @@ import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import EditUserForm from "../forms/EditUserForm";
 import DialogFooter from "../../shared/dialog/DialogFooter";
-import { useState, useEffect, useCallback } from "react";
-import { defaultEditUserValues as defaultVals } from "@/constants/users/defaults/edit-user-values";
+import { useEffect, useCallback } from "react";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import { UpdateUserData } from "@/types/users/update-user-data.d";
+import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 
 interface EditUserDialogProps {
-  data: { profile: GetUserData | undefined };
+  data: { profile: Partial<GetUserData> | undefined };
 }
 
 export default function EditUserDialog({ data }: EditUserDialogProps) {
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
-
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [formData, setFormData] = useState<UpdateUserData>(defaultVals);
+  const { updateAlert } = useAdminContext().alertCtx;
+  const { open, formData, openDialog, closeDialog, setField, setFormData } =
+    useEditUserDialogStore();
 
   const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION, {
     onCompleted: (data) => {
@@ -42,34 +39,29 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
     e.preventDefault();
 
     await updateUser({
-      variables: { input: { ...formData } },
+      variables: { input: formData },
     });
   };
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
+      setField(name as keyof Partial<GetUserData>, value);
     },
-    []
+    [setField]
   );
-
-  const handleOpenDialog = useCallback(() => {
-    setOpenDialog(true);
-  }, []);
 
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
-      setOpenDialog(false);
+      closeDialog();
     },
-    []
+    [closeDialog]
   );
 
   useEffect(() => {
     if (!data?.profile) return;
-    const user = data.profile as GetUserData;
-
+    const user = data.profile;
     setFormData({
       clerkId: user.clerkId,
       username: user.username,
@@ -84,13 +76,13 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
       <AdminAddNewFab
         icon="bi-pen"
         tooltipTitle="Edit User"
-        execFn={handleOpenDialog}
+        execFn={openDialog}
       />
 
       <Dialog
         maxWidth="sm"
         fullWidth={true}
-        open={openDialog}
+        open={open}
         onClose={() => handleCloseDialog()}
         aria-labelledby="edit-user-dialog-title"
       >

@@ -25,9 +25,7 @@ export default function DeleteUserDialog({
   open,
   onClose,
 }: DeleteUserDialog) {
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
-
+  const { updateAlert } = useAdminContext().alertCtx;
   const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
     onCompleted: (data) => {
       updateAlert({

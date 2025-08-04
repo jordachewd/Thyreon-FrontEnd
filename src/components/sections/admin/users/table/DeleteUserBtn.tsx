@@ -2,13 +2,13 @@
 
 import { Button } from "@mui/material";
 import { useMutation } from "@apollo/client";
-import { GetUserData } from "@/types/users/get-user-data.d";
+//import { GetUserData } from "@/types/users/get-user-data.d";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
 import ErrorCard from "@/components/shared/ErrorCard";
 
 interface DeleteUserButtonProps {
-  users: GetUserData[] | undefined;
+  users: string[] | undefined;
   disabled?: boolean;
   onSuccess?: () => void;
 }
@@ -19,23 +19,21 @@ export default function DeleteUserBtn({
   onSuccess,
 }: DeleteUserButtonProps) {
   const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS);
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
+  const { updateAlert } = useAdminContext().alertCtx;
 
-  const isOneUser = users?.length === 1;
-  const userOrUsers = isOneUser ? "User" : "Users";
+  const isOne = users?.length === 1;
+  const oneOrMany = isOne ? "user" : "users";
+  const introMsg = "Are you sure you want to delete";
+  const endMsg = "\nThis action cannot be undone.";
+  const defaultErr = "An error occurred while deleting users.";
 
   const handleDelete = async () => {
-    const confirmMsg = isOneUser
-      ? `Are you sure you want to delete user '${users[0].username}'?`
-      : `Are you sure you want to delete ${users?.length} users?`;
-    if (!confirm(confirmMsg + `\nThis action cannot be undone.`)) return;
-
-    const clerkIds = users?.map((user) => user.clerkId);
+    const confirmMsg = `${introMsg} ${users?.length} ${oneOrMany}?`;
+    if (!confirm(confirmMsg + endMsg)) return;
 
     try {
       await deleteUsers({
-        variables: { clerkIds: clerkIds },
+        variables: { clerkIds: users },
         onCompleted: (data) => {
           const response = data?.deleteUsers;
           updateAlert({
@@ -47,8 +45,7 @@ export default function DeleteUserBtn({
         },
       });
     } catch (error: unknown) {
-      const defaultMsg = "An error occurred while deleting users.";
-      const errorMessage = (error as Error).message || defaultMsg;
+      const errorMessage = (error as Error).message || defaultErr;
       console.log(errorMessage);
     }
   };
@@ -71,7 +68,7 @@ export default function DeleteUserBtn({
             backgroundColor: "transparent",
           }}
         >
-          {loading ? "Deleting ..." : `Delete ${userOrUsers}`}
+          {loading ? "Deleting ..." : `Delete ${users?.length} ${oneOrMany}`}
         </Button>
       )}
     </>

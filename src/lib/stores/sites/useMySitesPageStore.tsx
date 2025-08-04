@@ -1,16 +1,18 @@
-import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { create } from "zustand";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
 
 type MySitesPageStore = {
-  newKeyForSite?: number | undefined;
-  update?: GetSiteData | undefined;
-  remove?: GetSiteData | undefined;
-  setNewKeyForSite: (siteId: number | undefined) => void;
-  setUpdate: (siteData: GetSiteData | undefined) => void;
-  setRemove: (siteData: GetSiteData | undefined) => void;
+  newKeyForSite?: Partial<GetSiteData> | undefined;
+  setNewKeyForSite: (siteData: Partial<GetSiteData> | undefined) => void;
+
+  update?: Partial<GetSiteData> | undefined;
+  setUpdate: (siteData: Partial<GetSiteData> | undefined) => void;
+
+  remove?: Partial<GetSiteData> | undefined;
+  setRemove: (siteData: Partial<GetSiteData> | undefined) => void;
 };
 
-export const useMySitesPageStore = create<MySitesPageStore>((set) => ({
+export const useSitesPageStore = create<MySitesPageStore>((set) => ({
   newKeyForSite: undefined,
   update: undefined,
   remove: undefined,

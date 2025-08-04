@@ -21,21 +21,19 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 interface DeleteSiteDialogProps {
-  data: GetSiteData | undefined;
+  siteData: Partial<GetSiteData> | undefined;
   open: boolean;
   onClose: () => void;
 }
 
 export default function DeleteSiteDialog({
-  data,
+  siteData,
   open,
   onClose,
 }: DeleteSiteDialogProps) {
   const pathname = usePathname();
   const isAdminPage = pathname.includes("/allsites");
-
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
+  const { updateAlert } = useAdminContext().alertCtx;
 
   const queriesToRefetch = isAdminPage
     ? [GET_SITES_QUERY, "GetAllSites"]
@@ -57,7 +55,7 @@ export default function DeleteSiteDialog({
     e.preventDefault();
 
     await deleteSites({
-      variables: { siteIds: [Number(data?.id)] },
+      variables: { siteIds: [Number(siteData?.id)] },
     });
   };
 
@@ -84,7 +82,7 @@ export default function DeleteSiteDialog({
       <DialogContent sx={{ paddingTop: "1rem!important" }}>
         {error && <ErrorCard mini error={error.message} />}
         <Typography variant="body1">
-          Are you sure you want to delete <b>{data?.domain}</b>?
+          Are you sure you want to delete <b>{siteData?.domain}</b>?
         </Typography>
 
         <FormGroup>

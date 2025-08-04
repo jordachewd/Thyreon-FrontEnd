@@ -9,15 +9,15 @@ import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 
 interface SitesTableColumnsProps {
-  onEditSite: (siteData: GetSiteData) => void;
-  onDeleteSite: (siteData: GetSiteData) => void;
-  onNewApiKey: (siteId: number) => void;
+  onEditSite: (siteData: Partial<GetSiteData>) => void;
+  onDeleteSite: (siteData: Partial<GetSiteData>) => void;
+  onNewApiKey: (siteData: Partial<GetSiteData>) => void;
 }
 
 export const sitesTableColumns = ({
   onEditSite,
   onDeleteSite,
-  onNewApiKey
+  onNewApiKey,
 }: SitesTableColumnsProps): GridColDef[] => [
   {
     field: "id",
@@ -71,15 +71,20 @@ export const sitesTableColumns = ({
       const maskedKey = maskApiKey(params.row.apiKey);
       return (
         <div className="flex w-full items-center gap-3">
-          <TooltipArrow title="New API Key" placement="bottom">
+          <span className="text-xs">{maskedKey}</span>
+          <TooltipArrow title="Refresh API Key" placement="bottom">
             <IconButton
               sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() => onNewApiKey(params.row.id)}
+              onClick={() =>
+                onNewApiKey({
+                  id: params.row.id,
+                  domain: params.row.domain,
+                })
+              }
             >
               <i className="bi bi-arrow-clockwise text-base"></i>
             </IconButton>
           </TooltipArrow>
-          <span className="text-xs">{maskedKey}</span>
         </div>
       );
     },
@@ -131,7 +136,13 @@ export const sitesTableColumns = ({
           <TooltipArrow title="Edit" placement="bottom">
             <IconButton
               sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() => onEditSite(params.row)}
+              onClick={() =>
+                onEditSite({
+                  id: params.row.id,
+                  siteName: params.row.siteName,
+                  domain: params.row.domain,
+                })
+              }
             >
               <i className="bi bi-pen text-xs"></i>
             </IconButton>
@@ -140,7 +151,12 @@ export const sitesTableColumns = ({
           <TooltipArrow title="Delete" placement="bottom">
             <IconButton
               sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() => onDeleteSite(params.row)}
+              onClick={() =>
+                onDeleteSite({
+                  id: params.row.id,
+                  domain: params.row.domain,
+                })
+              }
             >
               <i className="bi bi-trash3 text-xs"></i>
             </IconButton>

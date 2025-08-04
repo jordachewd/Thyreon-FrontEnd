@@ -12,12 +12,11 @@ import { useCallback, useEffect, useState } from "react";
 import { defaultEditUserValues as defaultVals } from "@/constants/users/defaults/edit-user-values";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { useMutation } from "@apollo/client";
-import { UpdateUserData } from "@/types/users/update-user-data.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
 
 interface QuickEditUserProps {
-  data: GetUserData | undefined;
+  data: Partial<GetUserData> | undefined;
   open: boolean;
   onClose: () => void;
 }
@@ -30,7 +29,8 @@ export default function QuickEditUserDialog({
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
-  const [formData, setFormData] = useState<UpdateUserData>(defaultVals);
+  const [formData, setFormData] = useState<Partial<GetUserData>>(defaultVals);
+
   const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION, {
     onCompleted: (data) => {
       updateAlert({
@@ -54,7 +54,7 @@ export default function QuickEditUserDialog({
       const { name, value } = e.target;
       setFormData((prevData) => ({ ...prevData, [name]: value }));
     },
-    []
+    [setFormData]
   );
 
   const handleCloseDialog = useCallback(
@@ -62,7 +62,7 @@ export default function QuickEditUserDialog({
       if (e) e.preventDefault();
       onClose();
     },
-    []
+    [onClose]
   );
 
   useEffect(() => {

@@ -14,25 +14,21 @@ import Typography from "@mui/material/Typography";
 
 interface SitesTableProps {
   sites: GetSiteData[];
-  loading: boolean;
   error: ApolloError | undefined;
   tableCols: GridColDef[];
+  loading: boolean;
 }
 
 export default function SitesTable({
   sites,
-  loading,
   error,
   tableCols,
+  loading,
 }: SitesTableProps) {
   const [selectedIds, setSelectedIds] = useState<ToolbarSelectedIds>({
     type: "include",
     ids: new Set<string | number>(),
   });
-
-  const selectedSites: GetSiteData[] = sites.filter((site) =>
-    selectedIds.ids.has(site.id as number)
-  );
 
   const handleSelectionChange = useCallback(
     (newSelection: GridRowSelectionModel) => {
@@ -45,11 +41,11 @@ export default function SitesTable({
   );
 
   const handleToolbarContent = useCallback(() => {
-    if (selectedSites.length > 0) {
-      return <DeleteSiteBtn sites={selectedSites} />;
+    if (selectedIds.ids.size > 0) {
+      return <DeleteSiteBtn sites={selectedIds.ids} />;
     }
     return null;
-  }, [selectedSites]);
+  }, [selectedIds]);
 
   if (loading) return <LoadingBubbles />;
 

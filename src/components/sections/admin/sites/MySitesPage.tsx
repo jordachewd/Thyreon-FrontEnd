@@ -9,7 +9,7 @@ import { useCallback } from "react";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
 import ApiKeyDialog from "./dialogs/ApiKeyDialog";
-import { useMySitesPageStore } from "@/lib/stores/sites/useMySitesPageStore";
+import { useSitesPageStore } from "@/lib/stores/sites/useMySitesPageStore";
 
 export default function MySitesPage() {
   const {
@@ -19,23 +19,23 @@ export default function MySitesPage() {
     setNewKeyForSite,
     setUpdate,
     setRemove,
-  } = useMySitesPageStore();
+  } = useSitesPageStore();
 
   const { data, loading, error } = useQuery(GET_MY_SITES_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "cache-and-network",
   });
 
-  const handleEditSite = useCallback((siteData: GetSiteData) => {
+  const handleEditSite = useCallback((siteData: Partial<GetSiteData>) => {
     setUpdate(siteData);
   }, []);
 
-  const handleDeleteSite = useCallback((siteData: GetSiteData) => {
+  const handleDeleteSite = useCallback((siteData: Partial<GetSiteData>) => {
     setRemove(siteData);
   }, []);
 
-  const handleNewApiKey = useCallback((siteId: number) => {
-    setNewKeyForSite(siteId);
+  const handleNewApiKey = useCallback((siteData: Partial<GetSiteData>) => {
+    setNewKeyForSite(siteData);
   }, []);
 
   const tableColumns = mySitesTableColumns({
@@ -50,7 +50,7 @@ export default function MySitesPage() {
     <>
       {update && (
         <EditSiteDialog
-          data={update}
+          siteData={update}
           open={update !== undefined}
           onClose={() => setUpdate(undefined)}
         />
@@ -58,7 +58,7 @@ export default function MySitesPage() {
 
       {remove && (
         <DeleteSiteDialog
-          data={remove}
+          siteData={remove}
           open={remove !== undefined}
           onClose={() => setRemove(undefined)}
         />
@@ -67,7 +67,7 @@ export default function MySitesPage() {
       {newKeyForSite && (
         <ApiKeyDialog
           open={newKeyForSite !== undefined}
-          siteId={newKeyForSite}
+          siteData={newKeyForSite}
           onClose={() => setNewKeyForSite(undefined)}
         />
       )}

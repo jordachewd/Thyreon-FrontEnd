@@ -47,7 +47,8 @@ export default function AllUsersTable({
 
   const handleToolbar = useCallback(() => {
     if (selectedUsers.length > 0) {
-      return <DeleteUserBtn users={selectedUsers} />;
+      const clerkIds: string[] = selectedUsers.map((user) => user.clerkId);
+      return <DeleteUserBtn users={clerkIds} />;
     }
     return null;
   }, [selectedUsers]);

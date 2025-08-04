@@ -25,6 +25,7 @@ export default function AddSiteDialog() {
     siteKey,
     copiedKey,
     showCopyWarning,
+    alertMsg,
     openDialog,
     closeDialog,
     resetDialog,
@@ -32,12 +33,11 @@ export default function AddSiteDialog() {
     setSiteKey,
     setCopiedKey,
     setShowCopyWarning,
+    setAlertMsg,
   } = useAddSiteDialogStore();
 
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
-
   const closingAttemptedRef = useRef(false);
+  const { updateAlert } = useAdminContext().alertCtx;
 
   const [createSite, { loading, error }] = useMutation(CREATE_SITE_MUTATION, {
     refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
@@ -45,7 +45,7 @@ export default function AddSiteDialog() {
     onCompleted: (data) => {
       const response = data?.createSite;
       setSiteKey(response.site.apiKey);
-      updateAlert({
+      setAlertMsg({
         text: response.message,
         severity: response.status,
       });
@@ -77,22 +77,22 @@ export default function AddSiteDialog() {
           setShowCopyWarning(true);
         } else {
           closeDialog();
-          resetDialog();
+          if (alertMsg) updateAlert(alertMsg);
           closingAttemptedRef.current = false;
         }
       } else {
         closeDialog();
-        resetDialog();
+        if (alertMsg) updateAlert(alertMsg);
         closingAttemptedRef.current = false;
       }
     },
-    [siteKey, copiedKey, closeDialog, resetDialog]
+    [closeDialog, siteKey, copiedKey, setShowCopyWarning, updateAlert, alertMsg]
   );
 
   useEffect(() => {
     if (open) {
       closingAttemptedRef.current = false;
-      setShowCopyWarning(false);
+      resetDialog();
     }
   }, [open, setShowCopyWarning]);
 
@@ -137,8 +137,8 @@ export default function AddSiteDialog() {
               <ErrorCard
                 mini
                 color="warning"
-                error="You haven't copied your key. If you leave, you cannot retrieve it in the future, and you must create a new key."
-                message="Make sure to copy your key before leaving this page."
+                error="Make sure to copy your key before leaving this page."
+                message="If you leave, you cannot retrieve it in the future, and you must generate a new key."
               />
             )}
           </DialogFooter>

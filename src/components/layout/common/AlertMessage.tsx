@@ -17,10 +17,9 @@ function SlideTransition(props: SlideProps) {
 }
 
 function AlertMessage() {
-  const { alertCtx } = useAdminContext();
-  const { message, updateAlert } = alertCtx;
-  const { text, severity } = message as AlertMessageParams;
+  const { message, updateAlert } = useAdminContext().alertCtx;
   const [openAlert, setOpenAlert] = useState(false);
+  const { text, severity } = message as AlertMessageParams;
   const clearAlert = alertDefaults.message;
 
   const handleClose = (
@@ -30,9 +29,8 @@ function AlertMessage() {
     event?.preventDefault();
 
     if (reason === "clickaway") return;
-
-    setOpenAlert(false);
     updateAlert(clearAlert);
+    setOpenAlert(false);
   };
 
   useEffect(() => {
@@ -45,7 +43,7 @@ function AlertMessage() {
     <Snackbar
       open={openAlert}
       onClose={handleClose}
-      autoHideDuration={10000}
+      autoHideDuration={7000}
       slots={{ transition: SlideTransition }}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       sx={{ zIndex: 999999999 }}

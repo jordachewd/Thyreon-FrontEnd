@@ -1,6 +1,6 @@
-import { UpdateUserData } from "@/types/users/update-user-data.d";
+import { GetUserData } from "@/types/users/get-user-data.d";
 
-export const defaultEditUserValues: UpdateUserData = {
+export const defaultEditUserValues: Partial<GetUserData> = {
   clerkId: "",
   firstName: "",
   lastName: "",

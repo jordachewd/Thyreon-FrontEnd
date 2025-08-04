@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import Dialog from "@mui/material/Dialog";
@@ -7,38 +7,45 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import ErrorCard from "@/components/shared/ErrorCard";
 import Typography from "@mui/material/Typography";
+import ApiKeyResponse from "../forms/ApiKeyResponse";
 import { useMutation } from "@apollo/client";
 import { REGENERATE_API_KEY } from "@/constants/graphql/sites/new-site-api-key";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { usePathname } from "next/navigation";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { AlertMessageParams } from "@/context/admin/types/alert/alert-msg-params.interface";
-import ApiKeyResponse from "../forms/ApiKeyResponse";
+import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
 
 interface ApiKeyDialogProps {
   open: boolean;
-  siteId: number;
+  siteData: Partial<GetSiteData>;
   onClose: () => void;
 }
 
 export default function ApiKeyDialog({
   open,
-  siteId,
+  siteData,
   onClose,
 }: ApiKeyDialogProps) {
+  const {
+    alertMsg,
+    newKey,
+    copiedKey,
+    showCopyWarning,
+    setAlertMsg,
+    setNewKey,
+    setCopiedKey,
+    setShowCopyWarning,
+    resetDialog,
+  } = useApiKeyDialogStore();
+
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
   const pathname = usePathname();
-  const isAdminPage = pathname.includes("/allsites");
-
   const closingAttemptedRef = useRef(false);
-
-  const [alertMsg, setAlertMsg] = useState<AlertMessageParams | null>(null);
-  const [newKey, setNewKey] = useState<string | undefined>(undefined);
-  const [copiedKey, setCopiedKey] = useState<boolean>(false);
-  const [showCopyWarning, setShowCopyWarning] = useState<boolean>(false);
+  const isAdminPage = pathname.includes("/allsites");
 
   const queriesToRefetch = isAdminPage
     ? [GET_SITES_QUERY, "GetAllSites"]
@@ -64,14 +71,13 @@ export default function ApiKeyDialog({
     e.preventDefault();
 
     await regenerateApiKey({
-      variables: { siteId: Number(siteId) },
+      variables: { siteId: Number(siteData.id) },
     });
   };
 
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
-      if (alertMsg) updateAlert(alertMsg);
 
       if (newKey && !copiedKey) {
         if (!closingAttemptedRef.current) {
@@ -79,15 +85,24 @@ export default function ApiKeyDialog({
           setShowCopyWarning(true);
         } else {
           onClose();
+          if (alertMsg) updateAlert(alertMsg);
           closingAttemptedRef.current = false;
         }
       } else {
         onClose();
+        if (alertMsg) updateAlert(alertMsg);
         closingAttemptedRef.current = false;
       }
     },
-    [alertMsg, onClose, updateAlert]
+    [onClose, newKey, copiedKey, setShowCopyWarning, updateAlert, alertMsg]
   );
+
+  useEffect(() => {
+    if (open) {
+      closingAttemptedRef.current = false;
+      resetDialog();
+    }
+  }, [open, setShowCopyWarning]);
 
   return (
     <Dialog
@@ -108,7 +123,8 @@ export default function ApiKeyDialog({
         {error && <ErrorCard mini error={error.message} />}
         {!newKey && (
           <Typography variant="body1">
-            Are you sure you want to regenerate the API key?
+            Are you sure you want to regenerate the API key for
+            <b> {siteData.domain}</b>?
           </Typography>
         )}
         {newKey && (
@@ -138,8 +154,8 @@ export default function ApiKeyDialog({
             <ErrorCard
               mini
               color="warning"
-              error="You haven't copied your key. If you leave, you cannot retrieve it in the future, and you must create a new key."
-              message="Make sure to copy your key before leaving this page."
+              error="Make sure to copy your key before leaving this page."
+              message="If you leave, you cannot retrieve it in the future, and you must generate a new key."
             />
           )}
         </DialogFooter>

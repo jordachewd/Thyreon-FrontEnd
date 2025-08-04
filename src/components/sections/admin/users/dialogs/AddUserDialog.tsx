@@ -9,20 +9,17 @@ import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
 import AddUserForm from "../forms/AddUserForm";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import DialogFooter from "../../shared/dialog/DialogFooter";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useMutation } from "@apollo/client";
-import { defaultNewUserValues as defaultVals } from "@/constants/users/defaults/new-user-values";
-import { CreateUserData } from "@/types/users/create-user-data.d";
 import { generatePassword } from "@/lib/utils/generate-password";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
+import { useAddUserDialogStore } from "@/lib/stores/users/useAddUserDialogStore";
 
 export default function AddUserDialog() {
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
-
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [formData, setFormData] = useState<CreateUserData>(defaultVals);
+  const { updateAlert } = useAdminContext().alertCtx;
+  const { open, formData, openDialog, closeDialog, setField } =
+    useAddUserDialogStore();
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
     onCompleted: (data) => {
@@ -44,42 +41,34 @@ export default function AddUserDialog() {
     });
   };
 
-  const handleOpenDialog = useCallback(() => {
-    setOpenDialog(true);
-  }, []);
-
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
+      setField(name as keyof typeof formData, value);
     },
-    []
+    [setField, formData]
   );
 
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
-      setOpenDialog(false);
-      setFormData(defaultVals);
+      closeDialog();
     },
-    []
+    [closeDialog]
   );
 
   const handlePasswordGenerate = useCallback(() => {
     const newPassword = generatePassword(24);
-    setFormData((prevData) => ({
-      ...prevData,
-      password: newPassword,
-    }));
-  }, []);
+    setField("password", newPassword);
+  }, [setField]);
 
   return (
     <>
-      <AdminAddNewFab execFn={handleOpenDialog} />
+      <AdminAddNewFab execFn={openDialog} />
       <Dialog
         maxWidth="sm"
         fullWidth={true}
-        open={openDialog}
+        open={open}
         onClose={() => handleCloseDialog()}
         aria-labelledby="add-new-user-dialog-title"
       >

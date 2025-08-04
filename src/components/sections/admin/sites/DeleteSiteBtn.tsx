@@ -3,7 +3,6 @@
 import { Button } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useMutation } from "@apollo/client";
-import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
@@ -11,7 +10,7 @@ import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const
 import ErrorCard from "@/components/shared/ErrorCard";
 
 interface DeleteSiteBtnProps {
-  sites: GetSiteData[] | undefined;
+  sites: Set<string | number> | undefined;
   disabled?: boolean;
   onSuccess?: () => void;
 }
@@ -23,7 +22,6 @@ export default function DeleteSiteBtn({
 }: DeleteSiteBtnProps) {
   const pathname = usePathname();
   const isAdminPage = pathname.includes("/allsites");
-
   const queriesToRefetch = isAdminPage
     ? [GET_SITES_QUERY, "GetAllSites"]
     : [GET_MY_SITES_QUERY, "GetMySites"];
@@ -36,14 +34,17 @@ export default function DeleteSiteBtn({
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
-  const oneOrMany = sites?.length === 1 ? "site" : "sites";
+  const oneOrMany = sites?.size === 1 ? "site" : "sites";
 
   const handleDelete = async () => {
-    const confirmMsg = `Are you sure you want to delete ${sites?.length} ${oneOrMany}?`;
+    const confirmMsg = `Are you sure you want to delete ${sites?.size} ${oneOrMany}?`;
     if (!confirm(confirmMsg + `\nThis action cannot be undone.`)) return;
 
     try {
-      const siteIds = sites?.map((site) => Number(site.id));
+      const siteIds = sites
+        ? Array.from(sites).map((site) => Number(site))
+        : [];
+
       await deleteSites({
         variables: { siteIds: siteIds },
         onCompleted: (data) => {

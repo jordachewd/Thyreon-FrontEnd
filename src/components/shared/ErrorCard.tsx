@@ -61,7 +61,7 @@ function ErrorCard({
           </Typography>
 
           {message && (
-            <span className="text-white italic textxxs">{message}</span>
+            <span className="text-white italic text-xs">{message}</span>
           )}
         </div>
       </div>

@@ -9,38 +9,37 @@ import DialogHeader from "../../shared/dialog/DialogHeader";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import UpdateSiteForm from "../forms/UpdateSiteForm";
 import { useMutation } from "@apollo/client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { UPDATE_SITE_MUTATION } from "@/constants/graphql/sites/update-site.const";
-import { defaultUpdateSiteValues as defaultVals } from "@/constants/sites/update-site-values";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { UpdateSiteData } from "@/types/sites/update-site-data.d";
 import { usePathname } from "next/navigation";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
+import { useEditSiteDialogStore } from "@/lib/stores/sites/useEditSiteDialogStore";
 
 interface EditSiteDialogProps {
-  data: GetSiteData | undefined;
+  siteData: Partial<GetSiteData> | undefined;
   open: boolean;
   onClose: () => void;
 }
 
 export default function EditSiteDialog({
-  data,
+  siteData,
   open,
   onClose,
 }: EditSiteDialogProps) {
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
+  const { formData, setField, setFormData, resetDialog } =
+    useEditSiteDialogStore();
 
   const pathname = usePathname();
   const isAdminPage = pathname.includes("/allsites");
+  const { updateAlert } = useAdminContext().alertCtx;
 
   const queriesToRefetch = isAdminPage
     ? [GET_SITES_QUERY, "GetAllSites"]
     : [GET_MY_SITES_QUERY, "GetMySites"];
 
-  const [formData, setFormData] = useState<UpdateSiteData>(defaultVals);
   const [updateSite, { loading, error }] = useMutation(UPDATE_SITE_MUTATION, {
     refetchQueries: queriesToRefetch,
     awaitRefetchQueries: true,
@@ -57,35 +56,31 @@ export default function EditSiteDialog({
     e.preventDefault();
 
     await updateSite({
-      variables: { input: formData },
+      variables: { input: { ...formData, id: Number(formData.id) } },
     });
   };
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
+      setField(name as keyof Partial<GetSiteData>, value);
     },
-    []
+    [setField]
   );
 
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
       onClose();
+      resetDialog();
     },
-    []
+    [onClose, updateAlert]
   );
 
   useEffect(() => {
-    if (!data) return;
-
-    setFormData({
-      id: Number(data.id),
-      domain: data.domain,
-      siteName: data.siteName,
-    });
-  }, [data]);
+    if (!siteData) return;
+    setFormData(siteData);
+  }, [siteData]);
 
   return (
     <Dialog

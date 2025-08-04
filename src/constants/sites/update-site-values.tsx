@@ -1,8 +1,7 @@
-import { UpdateSiteData } from "@/types/sites/update-site-data.d";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
 
-export const defaultUpdateSiteValues: UpdateSiteData = {
+export const defaultUpdateSiteValues: Partial<GetSiteData> = {
   id: 0,
   siteName: "",
   domain: "",
-  apiKey: "",
 };

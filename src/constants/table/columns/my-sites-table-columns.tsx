@@ -3,9 +3,9 @@ import { sitesTableColumns } from "./sites-table-columns";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 
 interface MySitesTableColumnsProps {
-  onEditSite: (siteData: GetSiteData) => void;
-  onDeleteSite: (siteData: GetSiteData) => void;
-  onNewApiKey: (siteId: number) => void;
+  onEditSite: (siteData: Partial<GetSiteData>) => void;
+  onDeleteSite: (siteData: Partial<GetSiteData>) => void;
+  onNewApiKey: (siteData: Partial<GetSiteData>) => void;
 }
 
 export const mySitesTableColumns = (
