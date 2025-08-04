@@ -22,46 +22,28 @@ interface EditUserDialogProps {
 }
 
 export default function EditUserDialog({ data }: EditUserDialogProps) {
-  const [formData, setFormData] = useState<UpdateUserData>(defaultVals);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
-  useEffect(() => {
-    if (!data?.profile) return;
-    const user = data.profile as GetUserData;
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [formData, setFormData] = useState<UpdateUserData>(defaultVals);
 
-    setFormData({
-      clerkId: user.clerkId,
-      username: user.username,
-      email: user.email,
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-    });
-  }, [data?.profile]);
-
-  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION);
+  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION, {
+    onCompleted: (data) => {
+      updateAlert({
+        text: data?.updateUser.message,
+        severity: data?.updateUser.status,
+      });
+      handleCloseDialog();
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      await updateUser({
-        variables: { input: { ...formData } },
-        onCompleted: (data) => {
-          updateAlert({
-            text: data?.updateUser.message,
-            severity: data?.updateUser.status,
-          });
-          handleCloseDialog();
-        },
-      });
-    } catch (error: unknown) {
-      const defaultMsg = "An error occurred while updating user.";
-      const errorMessage = (error as Error).message || defaultMsg;
-      console.log(errorMessage);
-    }
+    await updateUser({
+      variables: { input: { ...formData } },
+    });
   };
 
   const handleInputChange = useCallback(
@@ -83,6 +65,19 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
     },
     []
   );
+
+  useEffect(() => {
+    if (!data?.profile) return;
+    const user = data.profile as GetUserData;
+
+    setFormData({
+      clerkId: user.clerkId,
+      username: user.username,
+      email: user.email,
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+    });
+  }, [data?.profile]);
 
   return (
     <>

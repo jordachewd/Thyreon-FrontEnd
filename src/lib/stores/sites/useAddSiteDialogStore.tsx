@@ -8,8 +8,6 @@ type AddSiteDialogStore = {
   siteKey?: string;
   copiedKey: boolean;
   showCopyWarning: boolean;
-
-  // actions
   openDialog: () => void;
   closeDialog: () => void;
   resetDialog: () => void;
@@ -25,7 +23,6 @@ export const useAddSiteDialogStore = create<AddSiteDialogStore>((set) => ({
   siteKey: undefined,
   copiedKey: false,
   showCopyWarning: false,
-
   openDialog: () => set({ open: true }),
   closeDialog: () => set({ open: false }),
   resetDialog: () =>

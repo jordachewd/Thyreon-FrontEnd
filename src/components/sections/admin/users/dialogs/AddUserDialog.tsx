@@ -18,28 +18,29 @@ import { useAdminContext } from "@/context/admin/AdminContext";
 import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
 
 export default function AddUserDialog() {
-  const [formData, setFormData] = useState<CreateUserData>(defaultVals);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-
-  const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION);
-
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [formData, setFormData] = useState<CreateUserData>(defaultVals);
+
+  const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
+    onCompleted: (data) => {
+      const response = data?.createUser;
+      updateAlert({
+        text: response.message,
+        severity: response.status,
+      });
+
+      handleCloseDialog();
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     await createUser({
       variables: { input: formData },
-      onCompleted: (data) => {
-        const response = data?.createUser;
-        updateAlert({
-          text: response.message,
-          severity: response.status,
-        });
-
-        handleCloseDialog();
-      },
     });
   };
 

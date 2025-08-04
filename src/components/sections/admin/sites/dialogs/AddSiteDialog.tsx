@@ -16,7 +16,7 @@ import { useAdminContext } from "@/context/admin/AdminContext";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { useAddSiteDialogStore } from "@/lib/stores/useAddSiteDialogStore";
+import { useAddSiteDialogStore } from "@/lib/stores/sites/useAddSiteDialogStore";
 
 export default function AddSiteDialog() {
   const {
@@ -34,28 +34,28 @@ export default function AddSiteDialog() {
     setShowCopyWarning,
   } = useAddSiteDialogStore();
 
-  const closingAttemptedRef = useRef(false);
-
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
+
+  const closingAttemptedRef = useRef(false);
 
   const [createSite, { loading, error }] = useMutation(CREATE_SITE_MUTATION, {
     refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
     awaitRefetchQueries: true,
+    onCompleted: (data) => {
+      const response = data?.createSite;
+      setSiteKey(response.site.apiKey);
+      updateAlert({
+        text: response.message,
+        severity: response.status,
+      });
+    },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await createSite({
       variables: { input: formData },
-      onCompleted: (data) => {
-        const response = data?.createSite;
-        setSiteKey(response.site.apiKey);
-        updateAlert({
-          text: response.message,
-          severity: response.status,
-        });
-      },
     });
   };
 

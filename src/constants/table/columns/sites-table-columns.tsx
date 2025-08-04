@@ -11,13 +11,13 @@ import { GetSiteData } from "@/types/sites/get-site-data.d";
 interface SitesTableColumnsProps {
   onEditSite: (siteData: GetSiteData) => void;
   onDeleteSite: (siteData: GetSiteData) => void;
-  onRegenerateApiKey: (siteId: number) => void;
+  onNewApiKey: (siteId: number) => void;
 }
 
 export const sitesTableColumns = ({
   onEditSite,
   onDeleteSite,
-  onRegenerateApiKey
+  onNewApiKey
 }: SitesTableColumnsProps): GridColDef[] => [
   {
     field: "id",
@@ -74,7 +74,7 @@ export const sitesTableColumns = ({
           <TooltipArrow title="New API Key" placement="bottom">
             <IconButton
               sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() => onRegenerateApiKey(params.row.id)}
+              onClick={() => onNewApiKey(params.row.id)}
             >
               <i className="bi bi-arrow-clockwise text-base"></i>
             </IconButton>

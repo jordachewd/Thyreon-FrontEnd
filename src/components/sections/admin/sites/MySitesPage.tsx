@@ -5,55 +5,70 @@ import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useQuery } from "@apollo/client";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { mySitesTableColumns } from "@/constants/table/columns/my-sites-table-columns";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
+import ApiKeyDialog from "./dialogs/ApiKeyDialog";
+import { useMySitesPageStore } from "@/lib/stores/sites/useMySitesPageStore";
 
 export default function MySitesPage() {
+  const {
+    update,
+    remove,
+    newKeyForSite,
+    setNewKeyForSite,
+    setUpdate,
+    setRemove,
+  } = useMySitesPageStore();
+
   const { data, loading, error } = useQuery(GET_MY_SITES_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "cache-and-network",
   });
 
-  const [editSite, setEditSite] = useState<GetSiteData | undefined>(undefined);
-  const [deleteSite, setDeleteSite] = useState<GetSiteData | undefined>(
-    undefined
-  );
-
   const handleEditSite = useCallback((siteData: GetSiteData) => {
-    setEditSite(siteData);
+    setUpdate(siteData);
   }, []);
 
   const handleDeleteSite = useCallback((siteData: GetSiteData) => {
-    setDeleteSite(siteData);
+    setRemove(siteData);
+  }, []);
+
+  const handleNewApiKey = useCallback((siteId: number) => {
+    setNewKeyForSite(siteId);
   }, []);
 
   const tableColumns = mySitesTableColumns({
     onEditSite: handleEditSite,
     onDeleteSite: handleDeleteSite,
-    onRegenerateApiKey: (siteId: number) => {
-      // Handle API key regeneration logic here
-      console.log(`MySitesPage: New API Key for site ID: ${siteId}`);
-    },
+    onNewApiKey: handleNewApiKey,
   });
 
   const sites: GetSiteData[] = data?.meSites || [];
 
   return (
     <>
-      {editSite && (
+      {update && (
         <EditSiteDialog
-          data={editSite}
-          open={editSite !== undefined}
-          onClose={() => setEditSite(undefined)}
+          data={update}
+          open={update !== undefined}
+          onClose={() => setUpdate(undefined)}
         />
       )}
 
-      {deleteSite && (
+      {remove && (
         <DeleteSiteDialog
-          data={deleteSite}
-          open={deleteSite !== undefined}
-          onClose={() => setDeleteSite(undefined)}
+          data={remove}
+          open={remove !== undefined}
+          onClose={() => setRemove(undefined)}
+        />
+      )}
+
+      {newKeyForSite && (
+        <ApiKeyDialog
+          open={newKeyForSite !== undefined}
+          siteId={newKeyForSite}
+          onClose={() => setNewKeyForSite(undefined)}
         />
       )}
 

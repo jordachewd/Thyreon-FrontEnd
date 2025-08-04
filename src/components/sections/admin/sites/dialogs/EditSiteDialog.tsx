@@ -30,20 +30,8 @@ export default function EditSiteDialog({
   open,
   onClose,
 }: EditSiteDialogProps) {
-  const [formData, setFormData] = useState<UpdateSiteData>(defaultVals);
-
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
-
-  useEffect(() => {
-    if (!data) return;
-
-    setFormData({
-      id: Number(data.id),
-      domain: data.domain,
-      siteName: data.siteName,
-    });
-  }, [data]);
 
   const pathname = usePathname();
   const isAdminPage = pathname.includes("/allsites");
@@ -52,30 +40,25 @@ export default function EditSiteDialog({
     ? [GET_SITES_QUERY, "GetAllSites"]
     : [GET_MY_SITES_QUERY, "GetMySites"];
 
+  const [formData, setFormData] = useState<UpdateSiteData>(defaultVals);
   const [updateSite, { loading, error }] = useMutation(UPDATE_SITE_MUTATION, {
     refetchQueries: queriesToRefetch,
     awaitRefetchQueries: true,
+    onCompleted: (data) => {
+      updateAlert({
+        text: data?.updateSite.message,
+        severity: data?.updateSite.status,
+      });
+      handleCloseDialog();
+    },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      await updateSite({
-        variables: { input: formData },
-        onCompleted: (data) => {
-          updateAlert({
-            text: data?.updateSite.message,
-            severity: data?.updateSite.status,
-          });
-          handleCloseDialog();
-        },
-      });
-    } catch (error: unknown) {
-      const defaultMsg = "An error occurred while updating site.";
-      const errorMessage = (error as Error).message || defaultMsg;
-      console.log(errorMessage);
-    }
+    await updateSite({
+      variables: { input: formData },
+    });
   };
 
   const handleInputChange = useCallback(
@@ -93,6 +76,16 @@ export default function EditSiteDialog({
     },
     []
   );
+
+  useEffect(() => {
+    if (!data) return;
+
+    setFormData({
+      id: Number(data.id),
+      domain: data.domain,
+      siteName: data.siteName,
+    });
+  }, [data]);
 
   return (
     <Dialog

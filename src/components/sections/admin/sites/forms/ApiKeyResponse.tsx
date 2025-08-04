@@ -1,5 +1,5 @@
 import CopyTextField from "@/components/shared/CopyTextField";
-import { Button, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { memo, useCallback } from "react";
 
 type AddSiteResponseProps = {
@@ -7,7 +7,7 @@ type AddSiteResponseProps = {
   onResponse?: () => void;
 };
 
-function AddSiteResponse({ apiKey, onResponse }: AddSiteResponseProps) {
+function ApiKeyResponse({ apiKey, onResponse }: AddSiteResponseProps) {
   const handleOnResponse = useCallback(() => {
     onResponse?.();
   }, [onResponse]);
@@ -15,14 +15,7 @@ function AddSiteResponse({ apiKey, onResponse }: AddSiteResponseProps) {
   return (
     <div className="flex flex-col w-full gap-4">
       <Typography variant="h6">
-        Install and activate the latest <b>WP Guard Client</b> plugin version.
-      </Typography>
-
-      <Button variant="outlined">Download WP Guard Client</Button>
-
-      <Typography variant="body2" className="!my-4">
-        If the plugin is already installed on your WordPress website, copy and
-        paste the below API key into your plugin's settings page.
+        Update the API key in your plugin settings on your website.
       </Typography>
 
       {apiKey && (
@@ -37,4 +30,4 @@ function AddSiteResponse({ apiKey, onResponse }: AddSiteResponseProps) {
   );
 }
 
-export default memo(AddSiteResponse);
+export default memo(ApiKeyResponse);

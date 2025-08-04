@@ -16,6 +16,9 @@ import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client";
+import Checkbox from "@mui/material/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 interface DeleteSiteDialogProps {
   data: GetSiteData | undefined;
@@ -29,39 +32,33 @@ export default function DeleteSiteDialog({
   onClose,
 }: DeleteSiteDialogProps) {
   const pathname = usePathname();
-
   const isAdminPage = pathname.includes("/allsites");
-  const queriesToRefetch = isAdminPage
-    ? [GET_SITES_QUERY, "GetAllSites"]
-    : [GET_MY_SITES_QUERY, "GetMySites"];
 
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
+  const queriesToRefetch = isAdminPage
+    ? [GET_SITES_QUERY, "GetAllSites"]
+    : [GET_MY_SITES_QUERY, "GetMySites"];
+
   const [deleteSites, { loading, error }] = useMutation(DELETE_SITES, {
     refetchQueries: queriesToRefetch,
     awaitRefetchQueries: true,
+    onCompleted: (data) => {
+      updateAlert({
+        text: data?.deleteSites.message,
+        severity: data?.deleteSites.status,
+      });
+      handleCloseDialog();
+    },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      await deleteSites({
-        variables: { siteIds: [Number(data?.id)] },
-        onCompleted: (data) => {
-          updateAlert({
-            text: data?.deleteSites.message,
-            severity: data?.deleteSites.status,
-          });
-          handleCloseDialog();
-        },
-      });
-    } catch (error: unknown) {
-      const defaultMsg = "An error occurred while deleting the site.";
-      const errorMessage = (error as Error).message || defaultMsg;
-      console.log(errorMessage);
-    }
+    await deleteSites({
+      variables: { siteIds: [Number(data?.id)] },
+    });
   };
 
   const handleCloseDialog = useCallback(
@@ -89,6 +86,19 @@ export default function DeleteSiteDialog({
         <Typography variant="body1">
           Are you sure you want to delete <b>{data?.domain}</b>?
         </Typography>
+
+        <FormGroup>
+          <FormControlLabel
+            control={<Checkbox defaultChecked size="small" />}
+            label="Automatically uninstall WP Guard Client plugin from my site."
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                fontSize: "0.875rem;",
+                fontStyle: "italic",
+              },
+            }}
+          />
+        </FormGroup>
       </DialogContent>
 
       <DialogActions>

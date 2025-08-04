@@ -27,44 +27,26 @@ export default function QuickEditUserDialog({
   open,
   onClose,
 }: QuickEditUserProps) {
-  const [formData, setFormData] = useState<UpdateUserData>(defaultVals);
-
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
 
-  useEffect(() => {
-    if (!data) return;
-
-    setFormData({
-      clerkId: data.clerkId,
-      username: data.username,
-      email: data.email,
-      firstName: data.firstName || "",
-      lastName: data.lastName || "",
-    });
-  }, [data]);
-
-  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION);
+  const [formData, setFormData] = useState<UpdateUserData>(defaultVals);
+  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION, {
+    onCompleted: (data) => {
+      updateAlert({
+        text: data?.updateUser.message,
+        severity: data?.updateUser.status,
+      });
+      handleCloseDialog();
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      await updateUser({
-        variables: { input: formData },
-        onCompleted: (data) => {
-          updateAlert({
-            text: data?.updateUser.message,
-            severity: data?.updateUser.status,
-          });
-          handleCloseDialog();
-        },
-      });
-    } catch (error: unknown) {
-      const defaultMsg = "An error occurred while updating user.";
-      const errorMessage = (error as Error).message || defaultMsg;
-      console.log(errorMessage);
-    }
+    await updateUser({
+      variables: { input: formData },
+    });
   };
 
   const handleInputChange = useCallback(
@@ -82,6 +64,18 @@ export default function QuickEditUserDialog({
     },
     []
   );
+
+  useEffect(() => {
+    if (!data) return;
+
+    setFormData({
+      clerkId: data.clerkId,
+      username: data.username,
+      email: data.email,
+      firstName: data.firstName || "",
+      lastName: data.lastName || "",
+    });
+  }, [data]);
 
   return (
     <Dialog

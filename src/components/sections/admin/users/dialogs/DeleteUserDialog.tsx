@@ -25,30 +25,25 @@ export default function DeleteUserDialog({
   open,
   onClose,
 }: DeleteUserDialog) {
-  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS);
-
   const { alertCtx } = useAdminContext();
   const { updateAlert } = alertCtx;
+
+  const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
+    onCompleted: (data) => {
+      updateAlert({
+        text: data?.deleteUsers.message,
+        severity: data?.deleteUsers.status,
+      });
+      handleCloseDialog();
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      await deleteUsers({
-        variables: { clerkIds: [data?.clerkId] },
-        onCompleted: (data) => {
-          updateAlert({
-            text: data?.deleteUsers.message,
-            severity: data?.deleteUsers.status,
-          });
-          handleCloseDialog();
-        },
-      });
-    } catch (error: unknown) {
-      const defaultMsg = "An error occurred while deleting the user.";
-      const errorMessage = (error as Error).message || defaultMsg;
-      console.log(errorMessage);
-    }
+    await deleteUsers({
+      variables: { clerkIds: [data?.clerkId] },
+    });
   };
 
   const handleCloseDialog = useCallback(
