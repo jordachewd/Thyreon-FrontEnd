@@ -1,16 +1,15 @@
 "use client";
+
 import css from "@/styles/layout/front/Header.module.css";
 import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
-import ToggleTheme from "@/components/shared/ToggleTheme";
-import Logo from "../../shared/Logo";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { NODE_ENV } from "@/constants/api/node-env.const";
+import ToggleTheme from "@/components/shared/ToggleTheme";
+import Logo from "@/components/shared/Logo";
+import Button from "@mui/material/Button";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState<boolean>(false);
-
-  console.log("NODE_ENV:", NODE_ENV);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +45,6 @@ export default function Header() {
               login
             </Button>
           </SignedOut>
-
           <ToggleTheme />
         </div>
       </div>

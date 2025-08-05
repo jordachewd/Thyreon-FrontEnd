@@ -5,19 +5,20 @@ import { useEffect, useState } from "react";
 import { plans } from "@/constants/plans.const";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { Transaction } from "@/types/transactions/transaction.d";
+import { useUser } from "@clerk/nextjs";
+import { useAdminContext } from "@/context/admin/AdminContext";
+import { NODE_ENV } from "@/constants/api/node-env.const";
 import PlansWrapper from "@/components/sections/admin/plans/PlansWrapper";
 import ErrorCard from "@/components/shared/ErrorCard";
 import PlanCard from "@/components/shared/PlanCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
-import { useUser } from "@clerk/nextjs";
-import { useAdminContext } from "@/context/admin/AdminContext";
 
 function Plans() {
   const { isSignedIn } = useUser();
-  const { meCtx } = useAdminContext();
-  const { data, loading, error } = meCtx;
+
+  const { data, loading, error } = useAdminContext().meCtx;
   const [planType, setPlanType] = useState<boolean>(false);
 
   const cssMonthly = !planType ? css.switched : "";
@@ -95,6 +96,7 @@ function Plans() {
               variant="contained"
               href="/sign-up"
               sx={{ minWidth: 280, marginTop: "1rem" }}
+              disabled={NODE_ENV !== "development"}
             >
               Get Started
             </Button>

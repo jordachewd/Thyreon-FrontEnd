@@ -1,7 +1,8 @@
 import css from "@/styles/sections/front/Hero.module.css";
+import { NODE_ENV } from "@/constants/api/node-env.const";
 import { Typography, Button } from "@mui/material";
-import Image from "next/image";
 import { memo } from "react";
+import Image from "next/image";
 
 function Hero() {
   return (
@@ -20,6 +21,7 @@ function Hero() {
             variant="contained"
             href="/sign-up"
             sx={{ minWidth: 300 }}
+            disabled={NODE_ENV !== "development"}
           >
             Get Started
           </Button>
