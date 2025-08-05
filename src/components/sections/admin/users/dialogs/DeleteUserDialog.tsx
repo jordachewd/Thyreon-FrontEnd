@@ -28,11 +28,12 @@ export default function DeleteUserDialog({
   const { updateAlert } = useAdminContext().alertCtx;
   const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
     onCompleted: (data) => {
+      const response = data?.deleteUsers;
       updateAlert({
-        text: data?.deleteUsers.message,
-        severity: data?.deleteUsers.status,
+        text: response.message,
+        severity: response.status,
       });
-      handleCloseDialog();
+      onClose();
     },
   });
 
@@ -46,12 +47,10 @@ export default function DeleteUserDialog({
 
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
-      if (e) {
-        e.preventDefault();
-      }
+      if (e) e.preventDefault();
       onClose();
     },
-    []
+    [onClose]
   );
 
   return (

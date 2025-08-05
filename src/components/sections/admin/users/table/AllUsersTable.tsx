@@ -16,14 +16,9 @@ import TableToolbar from "../../shared/table/TableToolbar";
 interface AllUsersTableProps {
   data: GetUserData[];
   columns: GridColDef[];
-  loading: boolean;
 }
 
-export default function AllUsersTable({
-  data,
-  columns,
-  loading,
-}: AllUsersTableProps) {
+export default function AllUsersTable({ data, columns }: AllUsersTableProps) {
   const [selectedIds, setSelectedIds] = useState<ToolbarSelectedIds>({
     type: "include",
     ids: new Set<string | number>(),
@@ -58,7 +53,6 @@ export default function AllUsersTable({
       <DataGrid
         rows={data}
         columns={columns}
-        loading={loading}
         pagination
         showToolbar
         disableColumnResize
@@ -78,12 +72,6 @@ export default function AllUsersTable({
         }}
         slots={{
           toolbar: () => <TableToolbar toolbarContent={handleToolbar()} />,
-        }}
-        slotProps={{
-          loadingOverlay: {
-            variant: "linear-progress",
-            noRowsVariant: "linear-progress",
-          },
         }}
       />
     </div>

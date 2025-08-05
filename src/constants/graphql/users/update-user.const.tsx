@@ -5,6 +5,7 @@ export const UPDATE_USER_MUTATION = gql`
     updateUser(input: $input) {
       status
       message
+      test
     }
   }
 `;

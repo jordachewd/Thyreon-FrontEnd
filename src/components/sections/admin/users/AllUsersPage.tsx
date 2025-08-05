@@ -4,7 +4,8 @@ import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import QuickEditUserDialog from "./dialogs/QuickEditUserDialog";
 import DeleteUserDialog from "./dialogs/DeleteUserDialog";
-import { useCallback, useState } from "react";
+import AllUsersTable from "./table/AllUsersTable";
+import { useCallback } from "react";
 import { useQuery } from "@apollo/client";
 import { usersTableColumns } from "@/constants/table/columns/users-table-columns";
 import { GetUserData } from "@/types/users/get-user-data.d";
@@ -12,7 +13,7 @@ import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 import { useNewUserSocket } from "@/lib/hooks/sockets/useNewUserSocket";
 import { useUpdatedUserSocket } from "@/lib/hooks/sockets/useUpdatedUserSocket";
 import { useDeletedUserSocket } from "@/lib/hooks/sockets/useDeletedUserSocket";
-import AllUsersTable from "./table/AllUsersTable";
+import { useUsersPageStore } from "@/lib/stores/users/useUsersPageStore";
 
 export default function AllUsersPage() {
   const { data, loading, error, refetch } = useQuery<{
@@ -22,8 +23,8 @@ export default function AllUsersPage() {
     fetchPolicy: "cache-and-network",
   });
 
-  const [update, setUpdate] = useState<GetUserData | undefined>(undefined);
-  const [remove, setRemove] = useState<GetUserData | undefined>(undefined);
+  const users: GetUserData[] = data?.users || [];
+  const { update, remove, setUpdate, setRemove } = useUsersPageStore();
 
   const handleUpdate = useCallback((userData: GetUserData) => {
     setUpdate(userData);
@@ -50,8 +51,6 @@ export default function AllUsersPage() {
     refetch();
   });
 
-  const users: GetUserData[] = data?.users || [];
-
   if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard title="Error!" error={error.message} />;
 
@@ -73,7 +72,7 @@ export default function AllUsersPage() {
         />
       )}
 
-      <AllUsersTable data={users} columns={tableColumns} loading={loading} />
+      <AllUsersTable data={users} columns={tableColumns} />
     </>
   );
 }

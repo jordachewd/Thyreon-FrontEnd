@@ -8,12 +8,12 @@ import ErrorCard from "@/components/shared/ErrorCard";
 import EditUserForm from "../forms/EditUserForm";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import DialogFooter from "../../shared/dialog/DialogFooter";
-import { useCallback, useEffect, useState } from "react";
-import { defaultEditUserValues as defaultVals } from "@/constants/users/defaults/edit-user-values";
+import { useCallback, useEffect } from "react";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { useMutation } from "@apollo/client";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
+import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 
 interface QuickEditUserProps {
   data: Partial<GetUserData> | undefined;
@@ -26,20 +26,21 @@ export default function QuickEditUserDialog({
   open,
   onClose,
 }: QuickEditUserProps) {
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
+  const { updateAlert } = useAdminContext().alertCtx;
+  const { formData, setField, setFormData } = useEditUserDialogStore();
 
-  const [formData, setFormData] = useState<Partial<GetUserData>>(defaultVals);
-
-  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION, {
-    onCompleted: (data) => {
-      updateAlert({
-        text: data?.updateUser.message,
-        severity: data?.updateUser.status,
-      });
-      handleCloseDialog();
-    },
-  });
+  const [updateUser, { loading, error, reset }] = useMutation(
+    UPDATE_USER_MUTATION,
+    {
+      onCompleted: (data) => {
+        updateAlert({
+          text: data?.updateUser.message,
+          severity: data?.updateUser.status,
+        });
+        onClose();
+      },
+    }
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +53,7 @@ export default function QuickEditUserDialog({
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
+      setField(name as keyof Partial<GetUserData>, value);
     },
     [setFormData]
   );
@@ -60,20 +61,20 @@ export default function QuickEditUserDialog({
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
+      reset();
       onClose();
     },
-    [onClose]
+    [reset, onClose]
   );
 
   useEffect(() => {
     if (!data) return;
-
     setFormData({
       clerkId: data.clerkId,
       username: data.username,
       email: data.email,
-      firstName: data.firstName || "",
-      lastName: data.lastName || "",
+      firstName: data.firstName,
+      lastName: data.lastName,
     });
   }, [data]);
 
@@ -94,7 +95,7 @@ export default function QuickEditUserDialog({
       </DialogTitle>
 
       <DialogContent sx={{ paddingTop: "1rem!important" }}>
-        {error && <ErrorCard mini error={error.message} />}
+        {error && <ErrorCard mini error={error.message} onCloseMini={reset} />}
         <EditUserForm data={formData} onChange={handleInputChange} />
       </DialogContent>
 

@@ -14,7 +14,7 @@ export const useAddUserDialogStore = create<AddUserDialogStore>((set) => ({
   open: false,
   formData: defaultVals,
   openDialog: () => set({ open: true }),
-  closeDialog: () => set({ open: false }),
+  closeDialog: () => set({ open: false, formData: defaultVals }),
   setField: (field, value) =>
     set((state) => ({
       formData: { ...state.formData, [field]: value },

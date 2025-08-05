@@ -9,7 +9,7 @@ import { useCallback } from "react";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
 import ApiKeyDialog from "./dialogs/ApiKeyDialog";
-import { useSitesPageStore } from "@/lib/stores/sites/useMySitesPageStore";
+import { useSitesPageStore } from "@/lib/stores/sites/useSitesPageStore";
 
 export default function MySitesPage() {
   const {

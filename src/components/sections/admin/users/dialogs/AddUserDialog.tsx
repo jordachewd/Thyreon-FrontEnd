@@ -21,17 +21,20 @@ export default function AddUserDialog() {
   const { open, formData, openDialog, closeDialog, setField } =
     useAddUserDialogStore();
 
-  const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
-    onCompleted: (data) => {
-      const response = data?.createUser;
-      updateAlert({
-        text: response.message,
-        severity: response.status,
-      });
+  const [createUser, { loading, error, reset }] = useMutation(
+    CREATE_USER_MUTATION,
+    {
+      onCompleted: (data) => {
+        const response = data?.createUser;
+        updateAlert({
+          text: response.message,
+          severity: response.status,
+        });
 
-      handleCloseDialog();
-    },
-  });
+        closeDialog();
+      },
+    }
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,9 +55,10 @@ export default function AddUserDialog() {
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
+      reset();
       closeDialog();
     },
-    [closeDialog]
+    [reset, closeDialog]
   );
 
   const handlePasswordGenerate = useCallback(() => {

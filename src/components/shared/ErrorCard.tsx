@@ -10,6 +10,7 @@ interface ErrorCardProps {
   message?: string;
   backToUrl?: string;
   mini?: boolean;
+  onCloseMini?: () => void;
   color?: "error" | "warning" | "info";
 }
 
@@ -19,18 +20,19 @@ function ErrorCard({
   message = "Please contact your administrator if you believe this is unusual.",
   backToUrl = "dashboard",
   mini = false,
+  onCloseMini,
   color = "error",
 }: ErrorCardProps) {
   const router = useRouter();
-  const miniCardCss = "w-full !px-2 !py-1 !my-3 gap-3 items-center";
-  const bigCardCss = "items-center !py-8 !px-12 gap-10 w-full lg:max-w-1/3";
+  const miniCardCss = "w-full !px-2 !py-1 !my-4 gap-2 items-center relative";
+  const bigCardCss = "w-full lg:max-w-1/3 !py-8 !px-12 gap-12 items-center";
 
   let cardColor = "bg-red-600";
-  let cardIcon = "bi-x-circle";
+  let cardIcon = " bi-patch-exclamation";
   switch (color) {
     case "warning":
       cardColor = "bg-orange-600";
-      cardIcon = "bi-exclamation-circle";
+      //cardIcon = "bi-patch-exclamation";
       break;
     case "info":
       cardColor = "bg-blue-600";
@@ -49,7 +51,7 @@ function ErrorCard({
   if (mini)
     return (
       <div className={`flex rounded-md ${miniCardCss} ${cardColor}`}>
-        <i className={`bi ${cardIcon} text-lg text-white`}></i>
+        <i className={`bi ${cardIcon} text-2xl text-white leading-none`}></i>
         <div className="flex flex-col">
           <Typography
             variant="body2"
@@ -64,6 +66,23 @@ function ErrorCard({
             <span className="text-white italic text-xs">{message}</span>
           )}
         </div>
+        {onCloseMini && (
+          <Button
+            size="small"
+            variant="text"
+            onClick={onCloseMini}
+            sx={{
+              minWidth: "unset",
+              position: "absolute",
+              top: "50%",
+              right: 0,
+              transform: "translateY(-50%)",
+              lineHeight: 0,
+            }}
+          >
+            <i className="bi bi-x text-lg text-white"></i>
+          </Button>
+        )}
       </div>
     );
 
@@ -71,7 +90,7 @@ function ErrorCard({
     <div className="flex flex-col items-center justify-center gap-6 w-full h-full">
       {title && <Typography variant="h3">{title}</Typography>}
       <div className={`flex rounded-md ${bigCardCss} ${cardColor}`}>
-        <i className={`bi ${cardIcon} text-7xl text-white`}></i>
+        <i className={`bi ${cardIcon} text-7xl text-white leading-none`}></i>
         <div className="flex flex-col gap-2">
           <Typography
             variant="h4"

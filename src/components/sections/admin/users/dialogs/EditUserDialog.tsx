@@ -25,15 +25,18 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
   const { open, formData, openDialog, closeDialog, setField, setFormData } =
     useEditUserDialogStore();
 
-  const [updateUser, { loading, error }] = useMutation(UPDATE_USER_MUTATION, {
-    onCompleted: (data) => {
-      updateAlert({
-        text: data?.updateUser.message,
-        severity: data?.updateUser.status,
-      });
-      handleCloseDialog();
-    },
-  });
+  const [updateUser, { loading, error, reset }] = useMutation(
+    UPDATE_USER_MUTATION,
+    {
+      onCompleted: (data) => {
+        updateAlert({
+          text: data?.updateUser.message,
+          severity: data?.updateUser.status,
+        });
+        closeDialog();
+      },
+    }
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,25 +54,34 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
     [setField]
   );
 
+  const handleInitialFormData = useCallback(
+    (profile?: Partial<GetUserData>) => {
+      if (!profile) return;
+      setFormData({
+        clerkId: profile.clerkId,
+        username: profile.username,
+        email: profile.email,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+      });
+    },
+    [setFormData]
+  );
+
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
+      reset();
       closeDialog();
+      handleInitialFormData(data?.profile);
     },
-    [closeDialog]
+    [reset, closeDialog, handleInitialFormData, data?.profile]
   );
 
   useEffect(() => {
     if (!data?.profile) return;
-    const user = data.profile;
-    setFormData({
-      clerkId: user.clerkId,
-      username: user.username,
-      email: user.email,
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-    });
-  }, [data?.profile]);
+    handleInitialFormData(data.profile);
+  }, [data?.profile, handleInitialFormData]);
 
   return (
     <>
@@ -95,7 +107,9 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
         </DialogTitle>
 
         <DialogContent sx={{ paddingTop: "1rem!important" }}>
-          {error && <ErrorCard mini error={error.message} />}
+          {error && (
+            <ErrorCard mini error={error.message} onCloseMini={reset} />
+          )}
           <EditUserForm data={formData} onChange={handleInputChange} />
         </DialogContent>
 

@@ -9,7 +9,7 @@ import { useQuery } from "@apollo/client";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { sitesTableColumns } from "@/constants/table/columns/sites-table-columns";
-import { useSitesPageStore } from "@/lib/stores/sites/useMySitesPageStore";
+import { useSitesPageStore } from "@/lib/stores/sites/useSitesPageStore";
 
 export default function AllSitesPage() {
   const {
