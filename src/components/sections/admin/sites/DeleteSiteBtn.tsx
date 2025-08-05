@@ -21,54 +21,48 @@ export default function DeleteSiteBtn({
   onSuccess,
 }: DeleteSiteBtnProps) {
   const pathname = usePathname();
+  const { updateAlert } = useAdminContext().alertCtx;
   const isAdminPage = pathname.includes("/allsites");
+
   const queriesToRefetch = isAdminPage
     ? [GET_SITES_QUERY, "GetAllSites"]
     : [GET_MY_SITES_QUERY, "GetMySites"];
 
-  const [deleteSites, { loading, error }] = useMutation(DELETE_SITES, {
+  const [deleteSites, { loading, error, reset }] = useMutation(DELETE_SITES, {
     refetchQueries: queriesToRefetch,
     awaitRefetchQueries: true,
-  });
+    onCompleted: (data) => {
+      const response = data?.deleteSites;
 
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
+      updateAlert({
+        text: response.message,
+        severity: response.status,
+      });
+
+      if (onSuccess) onSuccess();
+    },
+  });
 
   const oneOrMany = sites?.size === 1 ? "site" : "sites";
 
   const handleDelete = async () => {
-    const confirmMsg = `Are you sure you want to delete ${sites?.size} ${oneOrMany}?`;
-    if (!confirm(confirmMsg + `\nThis action cannot be undone.`)) return;
+    const introMsg = "Are you sure you want to delete";
+    const endMsg = "\nThis action cannot be undone.";
+    const confirmMsg = `${introMsg} ${sites?.size} ${oneOrMany}?`;
 
-    try {
-      const siteIds = sites
-        ? Array.from(sites).map((site) => Number(site))
-        : [];
+    if (!confirm(confirmMsg + endMsg)) return;
 
-      await deleteSites({
-        variables: { siteIds: siteIds },
-        onCompleted: (data) => {
-          const response = data?.deleteSites;
+    const siteIds = sites ? Array.from(sites).map((site) => Number(site)) : [];
 
-          updateAlert({
-            text: response.message,
-            severity: response.status,
-          });
-
-          if (onSuccess) onSuccess();
-        },
-      });
-    } catch (error: unknown) {
-      const defaultMsg = "An error occurred while deleting sites.";
-      const errorMessage = (error as Error).message || defaultMsg;
-      console.log(errorMessage);
-    }
+    await deleteSites({
+      variables: { siteIds: siteIds },
+    });
   };
 
   return (
     <>
       {error ? (
-        <ErrorCard mini error={error.message} />
+        <ErrorCard mini error={error.message} onCloseMini={reset} />
       ) : (
         <Button
           size="small"

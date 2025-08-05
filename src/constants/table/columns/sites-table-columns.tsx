@@ -37,7 +37,11 @@ export const sitesTableColumns = ({
     flex: 1.5,
     renderCell: (params: GridRenderCellParams) => {
       return (
-        <Link target="_blank" href={params.row.domain}>
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://${params.row.domain}`}
+        >
           {params.row.siteName}
         </Link>
       );
@@ -68,7 +72,7 @@ export const sitesTableColumns = ({
     display: "flex",
     flex: 4,
     renderCell: (params: GridRenderCellParams) => {
-      const maskedKey = maskApiKey(params.row.apiKey);
+      const maskedKey = maskApiKey(params.row.apiKey, 0);
       return (
         <div className="flex w-full items-center gap-3">
           <span className="text-xs">{maskedKey}</span>

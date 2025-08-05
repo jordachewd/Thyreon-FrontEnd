@@ -39,18 +39,21 @@ export default function AddSiteDialog() {
   const closingAttemptedRef = useRef(false);
   const { updateAlert } = useAdminContext().alertCtx;
 
-  const [createSite, { loading, error }] = useMutation(CREATE_SITE_MUTATION, {
-    refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
-    awaitRefetchQueries: true,
-    onCompleted: (data) => {
-      const response = data?.createSite;
-      setSiteKey(response.site.apiKey);
-      setAlertMsg({
-        text: response.message,
-        severity: response.status,
-      });
-    },
-  });
+  const [createSite, { loading, error, reset }] = useMutation(
+    CREATE_SITE_MUTATION,
+    {
+      refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
+      awaitRefetchQueries: true,
+      onCompleted: (data) => {
+        const response = data?.createSite;
+        setSiteKey(response.site.apiKey);
+        setAlertMsg({
+          text: response.message,
+          severity: response.status,
+        });
+      },
+    }
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,6 +70,13 @@ export default function AddSiteDialog() {
     [setField]
   );
 
+  const handleOnExit = useCallback(() => {
+    reset();
+    closeDialog();
+    if (alertMsg) updateAlert(alertMsg);
+    closingAttemptedRef.current = false;
+  }, [reset, closeDialog, alertMsg, updateAlert]);
+
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
@@ -76,17 +86,13 @@ export default function AddSiteDialog() {
           closingAttemptedRef.current = true;
           setShowCopyWarning(true);
         } else {
-          closeDialog();
-          if (alertMsg) updateAlert(alertMsg);
-          closingAttemptedRef.current = false;
+          handleOnExit();
         }
       } else {
-        closeDialog();
-        if (alertMsg) updateAlert(alertMsg);
-        closingAttemptedRef.current = false;
+        handleOnExit();
       }
     },
-    [closeDialog, siteKey, copiedKey, setShowCopyWarning, updateAlert, alertMsg]
+    [handleOnExit, siteKey, copiedKey, setShowCopyWarning]
   );
 
   useEffect(() => {
@@ -94,7 +100,7 @@ export default function AddSiteDialog() {
       closingAttemptedRef.current = false;
       resetDialog();
     }
-  }, [open, setShowCopyWarning]);
+  }, [open, resetDialog]);
 
   return (
     <>
