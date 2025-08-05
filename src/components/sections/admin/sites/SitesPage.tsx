@@ -1,17 +1,20 @@
 "use client";
 
 import SitesTable from "./SitesTable";
-import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useQuery } from "@apollo/client";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { mySitesTableColumns } from "@/constants/table/columns/my-sites-table-columns";
-import { useCallback } from "react";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
 import ApiKeyDialog from "./dialogs/ApiKeyDialog";
+import { useCallback } from "react";
+import { useQuery } from "@apollo/client";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
+import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
+import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
+import { sitesTableColumns } from "@/constants/table/columns/sites-table-columns";
+import { mySitesTableColumns } from "@/constants/table/columns/my-sites-table-columns";
 import { useSitesPageStore } from "@/lib/stores/sites/useSitesPageStore";
+import { usePathname } from "next/navigation";
 
-export default function MySitesPage() {
+export default function SitesPage() {
   const {
     update,
     remove,
@@ -21,16 +24,20 @@ export default function MySitesPage() {
     setRemove,
   } = useSitesPageStore();
 
-  const { data, loading, error } = useQuery(GET_MY_SITES_QUERY, {
+  const pathname = usePathname();
+  const isAllSites = pathname.includes("/allsites");
+
+  const sitesQuery = isAllSites ? GET_SITES_QUERY : GET_MY_SITES_QUERY;
+  const { data, loading, error } = useQuery(sitesQuery, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "cache-and-network",
   });
 
-  const handleEditSite = useCallback((siteData: Partial<GetSiteData>) => {
+  const handleUpdate = useCallback((siteData: Partial<GetSiteData>) => {
     setUpdate(siteData);
   }, []);
 
-  const handleDeleteSite = useCallback((siteData: Partial<GetSiteData>) => {
+  const handleRemove = useCallback((siteData: Partial<GetSiteData>) => {
     setRemove(siteData);
   }, []);
 
@@ -38,13 +45,15 @@ export default function MySitesPage() {
     setNewKeyForSite(siteData);
   }, []);
 
-  const tableColumns = mySitesTableColumns({
-    onEditSite: handleEditSite,
-    onDeleteSite: handleDeleteSite,
+  const getTableColumns = isAllSites ? sitesTableColumns : mySitesTableColumns;
+  const tableColumns = getTableColumns({
+    onEditSite: handleUpdate,
+    onDeleteSite: handleRemove,
     onNewApiKey: handleNewApiKey,
   });
 
-  const sites: GetSiteData[] = data?.meSites || [];
+  const dataSites = isAllSites ? data?.sites : data?.meSites;
+  const sites: GetSiteData[] = dataSites || [];
 
   return (
     <>
@@ -74,9 +83,9 @@ export default function MySitesPage() {
 
       <SitesTable
         sites={sites}
-        tableCols={tableColumns}
         loading={loading}
         error={error}
+        tableCols={tableColumns}
       />
     </>
   );

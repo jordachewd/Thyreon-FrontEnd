@@ -121,7 +121,9 @@ export default function AddSiteDialog() {
         </DialogTitle>
 
         <DialogContent sx={{ paddingTop: "1rem!important" }}>
-          {error && <ErrorCard mini error={error.message} />}
+          {error && (
+            <ErrorCard mini error={error.message} onCloseMini={reset} />
+          )}
           {!siteKey && (
             <AddSiteForm data={formData} onChange={handleInputChange} />
           )}

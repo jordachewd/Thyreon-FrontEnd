@@ -24,15 +24,16 @@ function ErrorCard({
   color = "error",
 }: ErrorCardProps) {
   const router = useRouter();
-  const miniCardCss = "w-full !px-2 !py-1 !my-4 gap-2 items-center relative";
+
+  const miniExtraCss = onCloseMini ? "!pr-14" : "";
   const bigCardCss = "w-full lg:max-w-1/3 !py-8 !px-12 gap-12 items-center";
+  const miniCardCss = `w-full !px-2 !py-1 !my-4 gap-3 items-center relative ${miniExtraCss}`;
 
   let cardColor = "bg-red-600";
   let cardIcon = " bi-patch-exclamation";
   switch (color) {
     case "warning":
       cardColor = "bg-orange-600";
-      //cardIcon = "bi-patch-exclamation";
       break;
     case "info":
       cardColor = "bg-blue-600";
