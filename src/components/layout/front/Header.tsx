@@ -5,17 +5,17 @@ import { Button } from "@mui/material";
 import ToggleTheme from "@/components/shared/ToggleTheme";
 import Logo from "../../shared/Logo";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { NODE_ENV } from "@/constants/api/node-env.const";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState<boolean>(false);
 
+  console.log("NODE_ENV:", NODE_ENV);
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      const scrollY = window.scrollY > 50 ? true : false;
+      setScrolled(scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,7 +38,11 @@ export default function Header() {
             <UserButton />
           </SignedIn>
           <SignedOut>
-            <Button size="small" href="/sign-in">
+            <Button
+              size="small"
+              href="/sign-in"
+              disabled={NODE_ENV !== "development"}
+            >
               login
             </Button>
           </SignedOut>
