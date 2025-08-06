@@ -6,39 +6,36 @@ import { memo } from "react";
 
 interface PageHeadProps {
   title: string;
-  subtitle?: string | null;
+  titleLink?: string;
+  subtitle?: string;
   alignTitle?: "left" | "center" | "right";
-  alignSubtitle?: "left" | "center" | "right";
   size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   children?: React.ReactNode;
 }
 
-const PageHead = memo(
-  ({
-    title,
-    subtitle,
-    children,
-    size = "h4",
-    alignTitle = "center",
-    alignSubtitle = "center",
-  }: PageHeadProps) => {
-    return (
-      <div className={css.section}>
-        <div className={css.title}>
-          <Typography variant={size} align={alignTitle}>
-            {title}
-          </Typography>
-          {subtitle && (
-            <Typography variant="body1" align={alignSubtitle}>
-              {subtitle}
-            </Typography>
-          )}
-        </div>
-        {children}
-      </div>
-    );
-  }
-);
+function PageHead({
+  title,
+  subtitle,
+  children,
+  size = "h4",
+  alignTitle = "center",
+}: PageHeadProps) {
+  return (
+    <div className={css.section}>
+      <div className={css.title}>
+        <Typography variant={size} align={alignTitle}>
+          {title}
+        </Typography>
 
-PageHead.displayName = "PageHead";
-export default PageHead;
+        {subtitle && (
+          <Typography variant="body1" align={alignTitle}>
+            {subtitle}
+          </Typography>
+        )}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export default memo(PageHead);

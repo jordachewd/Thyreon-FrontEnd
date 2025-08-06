@@ -17,7 +17,7 @@ import { GetUserData } from "@/types/users/get-user-data.d";
 import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 
 interface EditUserDialogProps {
-  data: { profile: Partial<GetUserData> | undefined };
+  data: Partial<GetUserData> | undefined;
 }
 
 export default function EditUserDialog({ data }: EditUserDialogProps) {
@@ -73,15 +73,15 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
       if (e) e.preventDefault();
       reset();
       closeDialog();
-      handleInitialFormData(data?.profile);
+      handleInitialFormData(data);
     },
-    [reset, closeDialog, handleInitialFormData, data?.profile]
+    [reset, closeDialog, handleInitialFormData, data]
   );
 
   useEffect(() => {
-    if (!data?.profile) return;
-    handleInitialFormData(data.profile);
-  }, [data?.profile, handleInitialFormData]);
+    if (!data) return;
+    handleInitialFormData(data);
+  }, [data, handleInitialFormData]);
 
   return (
     <>

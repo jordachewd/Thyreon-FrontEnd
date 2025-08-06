@@ -8,6 +8,7 @@ import { useAdminContext } from "@/context/admin/AdminContext";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { UserButton } from "@clerk/nextjs";
 import { memo } from "react";
+import Badge from "@mui/material/Badge";
 
 function AdminHeader() {
   const { sidebarCtx } = useAdminContext();
@@ -33,7 +34,9 @@ function AdminHeader() {
               <IconButton
                 sx={{ p: 0, backgroundColor: "transparent!important" }}
               >
-                <i className="bi bi-patch-question text-base"></i>
+                <Badge variant="dot" color="success">
+                  <i className="bi bi-patch-question text-base"></i>
+                </Badge>
               </IconButton>
             </TooltipArrow>
 

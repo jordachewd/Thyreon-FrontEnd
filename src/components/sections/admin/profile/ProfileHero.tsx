@@ -10,19 +10,9 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import { UserRole } from "@/types/users/user-role.d";
-import { GetUserData } from "@/types/users/get-user-data.d";
-import { ApolloError } from "@apollo/client";
-import { Transaction } from "@/types/transactions/transaction.d";
-import { memo } from "react";
 
-type ProfileHeroProps = {
-  data: { profile: GetUserData };
-  loading: boolean;
-  error: ApolloError | undefined;
-  title?: string;
-  alignTitle?: "left" | "center" | "right";
-  titleSize?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-};
+import { memo, useMemo } from "react";
+import { ProfileSectionType } from "@/types/profile/profile-section.d";
 
 function ProfileHero({
   data,
@@ -31,12 +21,7 @@ function ProfileHero({
   title,
   alignTitle,
   titleSize,
-}: ProfileHeroProps) {
-  const profile = data.profile as GetUserData;
-  const currentPlan = profile?.currentPlan as Transaction;
-  const fullName = `${profile?.firstName} ${profile?.lastName}`;
-  const isAdmin = profile?.role === "admin";
-
+}: ProfileSectionType) {
   if (loading)
     return (
       <ProfileHeroWrapper
@@ -59,50 +44,61 @@ function ProfileHero({
       </ProfileHeroWrapper>
     );
 
+  const {
+    username,
+    firstName,
+    lastName,
+    clerkImg,
+    role,
+    currentPlan,
+    createdAt,
+    updatedAt,
+  } = data;
+
+  const fullName = useMemo(
+    () => `${firstName} ${lastName}`,
+    [firstName, lastName]
+  );
+  const isAdmin = role === "admin";
+
   return (
     <ProfileHeroWrapper title={title} alignTitle={alignTitle} size={titleSize}>
       <div className={css.heroImg}>
         <Avatar
-          alt={profile?.username}
-          src={profile?.clerkImg ?? undefined}
+          alt={username}
+          src={clerkImg ?? undefined}
           sx={{ width: 80, height: 80 }}
           {...getAvatarInitials(fullName)}
         />
         <div className={css.heroImgContent}>
           <Typography variant="h4">{fullName}</Typography>
-          <Typography variant="body2">@{profile?.username}</Typography>
+          <Typography variant="body2">@{username}</Typography>
         </div>
       </div>
 
       <div className={css.heroContent}>
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Role:</span>
-          <span className="capitalize leading-none">
-            {profile?.role as UserRole}
-          </span>
+          <span className="capitalize leading-none">{role as UserRole}</span>
         </div>
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Member since:</span>
           <span className="textxxs leading-none">
-            {getFormattedDate(profile?.createdAt as Date)}
+            {getFormattedDate(createdAt as Date)}
           </span>
         </div>
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Last seen:</span>
           <span className="textxxs leading-none">
-            {getFormattedDate(profile?.updatedAt as Date)}
+            {getFormattedDate(updatedAt as Date)}
           </span>
         </div>
       </div>
 
       <div className={css.heroPlan}>
-        <PlanPromo
-          userPlan={currentPlan}
-          userRole={profile?.role}
-          isAdmin={isAdmin}
-        />
+        <PlanPromo userPlan={currentPlan} userRole={role} isAdmin={isAdmin} />
       </div>
     </ProfileHeroWrapper>
   );

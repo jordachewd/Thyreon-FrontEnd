@@ -1,28 +1,21 @@
 "use client";
 
-import SitesTable from "./SitesTable";
+import SitesTable from "./table/SitesTable";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
-import ApiKeyDialog from "./dialogs/ApiKeyDialog";
-import { useCallback } from "react";
 import { useQuery } from "@apollo/client";
-import { GetSiteData } from "@/types/sites/get-site-data.d";
+import { useCallback, useMemo } from "react";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { sitesTableColumns } from "@/constants/table/columns/sites-table-columns";
 import { mySitesTableColumns } from "@/constants/table/columns/my-sites-table-columns";
 import { useSitesPageStore } from "@/lib/stores/sites/useSitesPageStore";
 import { usePathname } from "next/navigation";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import ErrorCard from "@/components/shared/ErrorCard";
 
 export default function SitesPage() {
-  const {
-    update,
-    remove,
-    newKeyForSite,
-    setNewKeyForSite,
-    setUpdate,
-    setRemove,
-  } = useSitesPageStore();
+  const { update, remove, setUpdate, setRemove } = useSitesPageStore();
 
   const pathname = usePathname();
   const isAllSites = pathname.includes("/allsites");
@@ -33,60 +26,41 @@ export default function SitesPage() {
     fetchPolicy: "cache-and-network",
   });
 
-  const handleUpdate = useCallback((siteData: Partial<GetSiteData>) => {
-    setUpdate(siteData);
-  }, []);
+  const sites = useMemo(() => {
+    return (isAllSites ? data?.sites : data?.meSites) || [];
+  }, [data, isAllSites]);
 
-  const handleRemove = useCallback((siteData: Partial<GetSiteData>) => {
-    setRemove(siteData);
-  }, []);
+  const handleUpdate = useCallback(setUpdate, []);
+  const handleRemove = useCallback(setRemove, []);
 
-  const handleNewApiKey = useCallback((siteData: Partial<GetSiteData>) => {
-    setNewKeyForSite(siteData);
-  }, []);
+  const tableColumns = useMemo(
+    () =>
+      (isAllSites ? sitesTableColumns : mySitesTableColumns)({
+        onEditSite: handleUpdate,
+        onDeleteSite: handleRemove,
+        routePrefix: isAllSites ? "allsites" : "mysites",
+      }),
+    [isAllSites, handleUpdate, handleRemove]
+  );
 
-  const getTableColumns = isAllSites ? sitesTableColumns : mySitesTableColumns;
-  const tableColumns = getTableColumns({
-    onEditSite: handleUpdate,
-    onDeleteSite: handleRemove,
-    onNewApiKey: handleNewApiKey,
-  });
-
-  const dataSites = isAllSites ? data?.sites : data?.meSites;
-  const sites: GetSiteData[] = dataSites || [];
+  if (loading) return <LoadingBubbles />;
+  if (error) return <ErrorCard title="Error!" error={error.message} />;
 
   return (
     <>
-      {update && (
-        <EditSiteDialog
-          siteData={update}
-          open={update !== undefined}
-          onClose={() => setUpdate(undefined)}
-        />
-      )}
-
-      {remove && (
-        <DeleteSiteDialog
-          siteData={remove}
-          open={remove !== undefined}
-          onClose={() => setRemove(undefined)}
-        />
-      )}
-
-      {newKeyForSite && (
-        <ApiKeyDialog
-          open={newKeyForSite !== undefined}
-          siteData={newKeyForSite}
-          onClose={() => setNewKeyForSite(undefined)}
-        />
-      )}
-
-      <SitesTable
-        sites={sites}
-        loading={loading}
-        error={error}
-        tableCols={tableColumns}
+      <EditSiteDialog
+        open={!!update}
+        siteData={update}
+        onClose={() => setUpdate(undefined)}
       />
+
+      <DeleteSiteDialog
+        open={!!remove}
+        siteData={remove}
+        onClose={() => setRemove(undefined)}
+      />
+
+      <SitesTable sites={sites} tableCols={tableColumns} isLoading={loading} />
     </>
   );
 }

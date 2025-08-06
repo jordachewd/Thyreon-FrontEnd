@@ -1,29 +1,24 @@
 "use client";
 
-import ErrorCard from "@/components/shared/ErrorCard";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { DataGrid } from "@mui/x-data-grid/DataGrid";
-import { ApolloError } from "@apollo/client";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { useCallback, useState } from "react";
 import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
-import TableToolbar from "../shared/table/TableToolbar";
+import TableToolbar from "../../shared/table/TableToolbar";
 import DeleteSiteBtn from "./DeleteSiteBtn";
 import Typography from "@mui/material/Typography";
 
 interface SitesTableProps {
   sites: GetSiteData[];
-  error: ApolloError | undefined;
   tableCols: GridColDef[];
-  loading: boolean;
+  isLoading?: boolean;
 }
 
 export default function SitesTable({
   sites,
-  error,
   tableCols,
-  loading,
+  isLoading,
 }: SitesTableProps) {
   const [selectedIds, setSelectedIds] = useState<ToolbarSelectedIds>({
     type: "include",
@@ -47,17 +42,6 @@ export default function SitesTable({
     return null;
   }, [selectedIds]);
 
-  if (loading) return <LoadingBubbles />;
-
-  if (error) {
-    return (
-      <ErrorCard
-        title="Error!"
-        error={error?.message || "An error occurred."}
-      />
-    );
-  }
-
   if (sites.length === 0)
     return (
       <Typography variant="body2" color="textSecondary">
@@ -69,6 +53,7 @@ export default function SitesTable({
     <div className="flex w-full">
       <DataGrid
         rows={sites}
+        loading={isLoading}
         columns={tableCols}
         disableColumnResize
         disableColumnSelector

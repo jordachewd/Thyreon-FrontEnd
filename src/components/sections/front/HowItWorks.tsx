@@ -11,7 +11,6 @@ function HowItWorks() {
         <div className={css.left}>
           <PageHead
             alignTitle="left"
-            alignSubtitle="left"
             title="How It Works"
             subtitle="WP Guard is designed to be user-friendly and effective. Here's how you can get started with our service:"
           />

@@ -1,26 +1,14 @@
 "use client";
 
 import css from "@/styles/sections/admin/ProfileBilling.module.css";
-import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
-import { getRandomString } from "@/lib/utils/getRandomString";
-import { ApolloError } from "@apollo/client";
-import { Transaction } from "@/types/transactions/transaction.d";
-import { GetUserData } from "@/types/users/get-user-data.d";
+import { memo, useMemo } from "react";
+import ErrorCard from "@/components/shared/ErrorCard";
 import ProfileBillingWrapper from "./ProfileBillingWrapper";
 import Typography from "@mui/material/Typography";
+import getFormattedDate from "@/lib/utils/getFormattedDate";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { memo } from "react";
-import ErrorCard from "@/components/shared/ErrorCard";
-
-type ProfileBillingProps = {
-  data: { profile: GetUserData };
-  loading: boolean;
-  error: ApolloError | undefined;
-  title?: string;
-  alignTitle?: "left" | "center" | "right";
-  titleSize?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-};
+import { ProfileSectionType } from "@/types/profile/profile-section.d";
 
 function ProfileBilling({
   data,
@@ -29,12 +17,7 @@ function ProfileBilling({
   title,
   alignTitle,
   titleSize,
-}: ProfileBillingProps) {
-  const profile = data.profile as GetUserData;
-  const currentPlan: Transaction | undefined = profile?.currentPlan;
-  const transactions: Transaction[] = profile?.transactions || [];
-  const hasTransactions = transactions.length > 0;
-
+}: ProfileSectionType) {
   if (loading)
     return (
       <ProfileBillingWrapper
@@ -56,6 +39,10 @@ function ProfileBilling({
         <ErrorCard error={error.message} title="" backToUrl="" />
       </ProfileBillingWrapper>
     );
+
+  const { currentPlan, transactions } = data;
+  const allTxns = useMemo(() => transactions ?? [], [transactions]);
+  const hasTransactions = allTxns.length > 0;
 
   if (!hasTransactions) {
     return (
@@ -92,14 +79,14 @@ function ProfileBilling({
           </TooltipArrow>
         </div>
 
-        {transactions.map((txn) => {
+        {allTxns.map((txn) => {
           const isActive = txn.stripeId === currentPlan?.stripeId;
           const txnStatus = isActive ? "Active" : "Inactive";
           const txnColor = isActive ? css.active : css.inactive;
 
           return (
             <div
-              key={txn.id + getRandomString(32)}
+              key={txn.id}
               className={`${css.tableRow} ${
                 isActive &&
                 "font-medium text-midnight-400! dark:text-vanilla-400!"

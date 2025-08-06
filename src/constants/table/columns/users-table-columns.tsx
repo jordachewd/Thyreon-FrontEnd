@@ -46,9 +46,19 @@ export const usersTableColumns = ({
       />
     ),
   },
+
+  {
+    field: "email",
+    headerName: "Email",
+    flex: 1.5,
+    display: "flex",
+    renderCell: (params: GridRenderCellParams) => {
+      return <span className="text-sm">{params.row.email}</span>;
+    },
+  },
   {
     field: "plan",
-    headerName: "Current Plan",
+    headerName: "Plan",
     flex: 2,
     display: "flex",
     renderCell: (params: GridRenderCellParams) => {
@@ -67,22 +77,26 @@ export const usersTableColumns = ({
     },
   },
   {
-    field: "email",
-    headerName: "Email",
-    flex: 2,
-    display: "flex",
-    renderCell: (params: GridRenderCellParams) => {
-      return <span className="text-sm">{params.row.email}</span>;
-    },
-  },
-
-  {
     field: "sites",
     headerName: "Sites",
     display: "flex",
     flex: 1,
+    renderCell: (params: GridRenderCellParams) => {
+      const sitesLength = params.row.sites?.length || 0;
+      const role = params.row.role as keyof UserRoleColors;
+      return (
+        <Chip size="small" label={sitesLength} color={userRolesColors[role]} />
+      );
+    },
+  },
+
+  {
+    field: "state",
+    headerName: "State",
+    display: "flex",
+    flex: 1,
     renderCell: () => {
-      return <span className="textxxs">Sites Count</span>;
+      return <span className="textxxs">Active / Logged Out</span>;
     },
   },
 

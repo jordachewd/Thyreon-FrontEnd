@@ -8,20 +8,19 @@ import { GetUserData } from "@/types/users/get-user-data.d";
 export default function ProfileMePage() {
   const { meCtx } = useAdminContext();
   const { data, loading, error } = meCtx;
-
-  const profileData = { profile: data?.me as GetUserData };
+  const profile = data?.me as GetUserData;
 
   return (
     <>
       <ProfileHero
         title="Profile Overview"
-        data={profileData}
+        data={profile}
         loading={loading}
         error={error}
       />
       <ProfileBilling
         title="Transaction History"
-        data={profileData}
+        data={profile}
         loading={loading}
         error={error}
       />

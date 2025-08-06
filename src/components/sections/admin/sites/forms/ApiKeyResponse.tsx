@@ -15,14 +15,14 @@ function ApiKeyResponse({ apiKey, onResponse }: AddSiteResponseProps) {
   return (
     <div className="flex flex-col w-full gap-4">
       <Typography variant="h6">
-        Update the API key in your plugin settings on your website.
+        Update the API key in the <b>WP Guard Client</b> plugin settings on your website.
       </Typography>
 
       {apiKey && (
         <CopyTextField
           label="API Key"
           value={apiKey}
-          info="Copy this API key and paste it into the WP Guard Client plugin settings."
+          info="Copy this API key and paste it into plugin settings."
           doneCopied={handleOnResponse}
         />
       )}

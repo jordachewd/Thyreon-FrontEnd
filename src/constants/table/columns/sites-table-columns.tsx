@@ -1,23 +1,22 @@
 "use client";
 import Link from "next/link";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
-import { maskApiKey } from "@/lib/utils/maskApiKey";
 import { Chip, IconButton } from "@mui/material";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
+import getFormattedDate from "@/lib/utils/getFormattedDate";
+import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
 
 interface SitesTableColumnsProps {
   onEditSite: (siteData: Partial<GetSiteData>) => void;
   onDeleteSite: (siteData: Partial<GetSiteData>) => void;
-  onNewApiKey: (siteData: Partial<GetSiteData>) => void;
+  routePrefix?: "allsites" | "mysites";
 }
 
 export const sitesTableColumns = ({
   onEditSite,
   onDeleteSite,
-  onNewApiKey,
+  routePrefix = "allsites",
 }: SitesTableColumnsProps): GridColDef[] => [
   {
     field: "id",
@@ -34,68 +33,28 @@ export const sitesTableColumns = ({
     field: "siteName",
     headerName: "Site Name",
     display: "flex",
-    flex: 1.5,
+    flex: 1,
     renderCell: (params: GridRenderCellParams) => {
       return (
-        <Link
-          target="_blank"
-          rel="noopener noreferrer"
-          href={`https://${params.row.domain}`}
-        >
+        <Link href={`/${routePrefix}/${params.row.id}`}>
           {params.row.siteName}
         </Link>
       );
     },
   },
+
   {
-    field: "user",
-    headerName: "Owner",
+    field: "status",
+    headerName: "Status", 
     display: "flex",
-    flex: 1.5,
-    renderCell: (params: GridRenderCellParams) => {
-      const user = params.row.user;
-      return (
-        <UsersNameCell
-          href={`users/${user.id}`}
-          image={user.clerkImg}
-          username={user.username}
-          firstname={user.firstName}
-          lastname={user.lastName}
-          noImage
-        />
-      );
-    },
-  },
-  {
-    field: "apiKey",
-    headerName: "Api Key",
-    display: "flex",
-    flex: 4,
-    renderCell: (params: GridRenderCellParams) => {
-      const maskedKey = maskApiKey(params.row.apiKey, 0);
-      return (
-        <div className="flex w-full items-center gap-3">
-          <span className="text-xs">{maskedKey}</span>
-          <TooltipArrow title="Refresh API Key" placement="bottom">
-            <IconButton
-              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() =>
-                onNewApiKey({
-                  id: params.row.id,
-                  domain: params.row.domain,
-                })
-              }
-            >
-              <i className="bi bi-arrow-clockwise text-base"></i>
-            </IconButton>
-          </TooltipArrow>
-        </div>
-      );
+    flex: 2,
+    renderCell: () => {
+      return <Chip size="small" label="Disconnected" color="error" />;
     },
   },
   {
     field: "createdAt",
-    headerName: "Date",
+    headerName: "Registered",
     display: "flex",
     flex: 1,
     renderCell: (params: GridRenderCellParams) => {
@@ -113,16 +72,23 @@ export const sitesTableColumns = ({
       return <span className="text-xs">{lastSeen}</span>;
     },
   },
-
   {
-    field: "status",
-    headerName: "Status",
-    align: "center",
-    headerAlign: "center",
+    field: "user",
+    headerName: "Owner",
     display: "flex",
     flex: 1,
-    renderCell: () => {
-      return <Chip size="small" label="Disconnected" color="error" />;
+    renderCell: (params: GridRenderCellParams) => {
+      const user = params.row.user;
+      return (
+        <UsersNameCell
+          href={`users/${user.id}`}
+          image={user.clerkImg}
+          username={user.username}
+          firstname={user.firstName}
+          lastname={user.lastName}
+          noImage
+        />
+      );
     },
   },
   {

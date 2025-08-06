@@ -8,7 +8,7 @@ import { transactionsTableColumns as columns } from "@/constants/table/columns/t
 import { GET_TRANSACTIONS_QUERY } from "@/constants/graphql/transactions/get-transactions.const";
 import { useQuery } from "@apollo/client";
 
-export default function TransactionsTable() {
+export default function TransactionsPage() {
   const { data, loading, error } = useQuery<{ transactions: Transaction[] }>(
     GET_TRANSACTIONS_QUERY,
     {

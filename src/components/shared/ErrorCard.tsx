@@ -26,7 +26,7 @@ function ErrorCard({
   const router = useRouter();
 
   const miniExtraCss = onCloseMini ? "!pr-14" : "";
-  const bigCardCss = "w-full lg:max-w-1/3 !py-8 !px-12 gap-12 items-center";
+  const bigCardCss = "w-full lg:max-w-1/2 !py-8 !px-12 gap-10 items-center";
   const miniCardCss = `w-full !px-2 !py-1 !my-4 gap-3 items-center relative ${miniExtraCss}`;
 
   let cardColor = "bg-red-600";
@@ -91,10 +91,10 @@ function ErrorCard({
     <div className="flex flex-col items-center justify-center gap-6 w-full h-full">
       {title && <Typography variant="h3">{title}</Typography>}
       <div className={`flex rounded-md ${bigCardCss} ${cardColor}`}>
-        <i className={`bi ${cardIcon} text-7xl text-white leading-none`}></i>
+        <i className={`bi ${cardIcon} text-6xl text-white leading-none`}></i>
         <div className="flex flex-col gap-2">
           <Typography
-            variant="h4"
+            variant="h5"
             color="white"
             className="!wrap-break-word !leading-none"
           >

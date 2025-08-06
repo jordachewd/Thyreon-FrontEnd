@@ -9,6 +9,10 @@
   @apply w-full max-w-6xl mx-auto my-10 gap-3;
 }
 
+.head {
+  @apply flex flex-col justify-center items-center;
+}
+
 .switch {
   @apply flex gap-2 items-center font-semibold text-xs justify-center;
 }

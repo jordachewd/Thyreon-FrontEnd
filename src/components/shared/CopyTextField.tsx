@@ -43,7 +43,7 @@ export default function CopyTextField({
           endAdornment: (
             <InputAdornment position="end">
               <Tooltip title={copied ? "Copied!" : "Copy"}>
-                <IconButton onClick={handleCopy} edge="end">
+                <IconButton onClick={handleCopy}>
                   <i className="bi bi-copy text-base"></i>
                 </IconButton>
               </Tooltip>

@@ -5,7 +5,7 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import QuickEditUserDialog from "./dialogs/QuickEditUserDialog";
 import DeleteUserDialog from "./dialogs/DeleteUserDialog";
 import AllUsersTable from "./table/AllUsersTable";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { usersTableColumns } from "@/constants/table/columns/users-table-columns";
 import { GetUserData } from "@/types/users/get-user-data.d";
@@ -15,7 +15,7 @@ import { useUpdatedUserSocket } from "@/lib/hooks/sockets/useUpdatedUserSocket";
 import { useDeletedUserSocket } from "@/lib/hooks/sockets/useDeletedUserSocket";
 import { useUsersPageStore } from "@/lib/stores/users/useUsersPageStore";
 
-export default function AllUsersPage() {
+export default function UsersPage() {
   const { data, loading, error, refetch } = useQuery<{
     users: GetUserData[];
   }>(GET_USERS_QUERY, {
@@ -23,54 +23,40 @@ export default function AllUsersPage() {
     fetchPolicy: "cache-and-network",
   });
 
-  const users: GetUserData[] = data?.users || [];
+  const users = useMemo(() => data?.users ?? [], [data]);
   const { update, remove, setUpdate, setRemove } = useUsersPageStore();
 
-  const handleUpdate = useCallback((userData: GetUserData) => {
-    setUpdate(userData);
-  }, []);
+  const handleUpdate = useCallback(setUpdate, []);
+  const handleRemove = useCallback(setRemove, []);
+  const handleRefetch = useCallback(() => refetch(), [refetch]);
 
-  const handleRemove = useCallback((userData: GetUserData) => {
-    setRemove(userData);
-  }, []);
+  useNewUserSocket(handleRefetch);
+  useUpdatedUserSocket(handleRefetch);
+  useDeletedUserSocket(handleRefetch);
 
-  const tableColumns = usersTableColumns({
-    onEditUser: handleUpdate,
-    onDeleteUser: handleRemove,
-  });
-
-  useNewUserSocket(() => {
-    refetch();
-  });
-
-  useUpdatedUserSocket(() => {
-    refetch();
-  });
-
-  useDeletedUserSocket(() => {
-    refetch();
-  });
+  const tableColumns = useMemo(() => {
+    return usersTableColumns({
+      onEditUser: handleUpdate,
+      onDeleteUser: handleRemove,
+    });
+  }, [handleUpdate, handleRemove]);
 
   if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard title="Error!" error={error.message} />;
 
   return (
     <>
-      {update && (
-        <QuickEditUserDialog
-          data={update}
-          open={update !== undefined}
-          onClose={() => setUpdate(undefined)}
-        />
-      )}
+      <QuickEditUserDialog
+        data={update}
+        open={!!update}
+        onClose={() => setUpdate(undefined)}
+      />
 
-      {remove && (
-        <DeleteUserDialog
-          data={remove}
-          open={remove !== undefined}
-          onClose={() => setRemove(undefined)}
-        />
-      )}
+      <DeleteUserDialog
+        data={remove}
+        open={!!remove}
+        onClose={() => setRemove(undefined)}
+      />
 
       <AllUsersTable data={users} columns={tableColumns} />
     </>

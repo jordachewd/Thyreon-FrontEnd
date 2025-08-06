@@ -11,15 +11,13 @@ import ApiKeyResponse from "../forms/ApiKeyResponse";
 import { useMutation } from "@apollo/client";
 import { REGENERATE_API_KEY } from "@/constants/graphql/sites/new-site-api-key";
 import { useAdminContext } from "@/context/admin/AdminContext";
-import { usePathname } from "next/navigation";
-import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
+import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 
 interface ApiKeyDialogProps {
   open: boolean;
-  siteData: Partial<GetSiteData>;
+  siteData: Partial<GetSiteData> | undefined;
   onClose: () => void;
 }
 
@@ -40,21 +38,13 @@ export default function ApiKeyDialog({
     resetDialog,
   } = useApiKeyDialogStore();
 
-  const { alertCtx } = useAdminContext();
-  const { updateAlert } = alertCtx;
-
-  const pathname = usePathname();
   const closingAttemptedRef = useRef(false);
-  const isAdminPage = pathname.includes("/allsites");
-
-  const queriesToRefetch = isAdminPage
-    ? [GET_SITES_QUERY, "GetAllSites"]
-    : [GET_MY_SITES_QUERY, "GetMySites"];
+  const { updateAlert } = useAdminContext().alertCtx;
 
   const [regenerateApiKey, { loading, error }] = useMutation(
     REGENERATE_API_KEY,
     {
-      refetchQueries: queriesToRefetch,
+      refetchQueries: [GET_SITE_BY_ID, "GetSiteById"],
       awaitRefetchQueries: true,
       onCompleted: (data) => {
         const newData = data.regenerateApiKey;
@@ -71,7 +61,7 @@ export default function ApiKeyDialog({
     e.preventDefault();
 
     await regenerateApiKey({
-      variables: { siteId: Number(siteData.id) },
+      variables: { siteId: Number(siteData?.id) },
     });
   };
 
@@ -114,7 +104,7 @@ export default function ApiKeyDialog({
     >
       <DialogTitle id="regenerate-api-key-dialog-title" sx={{ zIndex: 0 }}>
         <DialogHeader
-          title={newKey ? "Next step ..." : "Regenerate API key"}
+          title={newKey ? "Next ..." : "Generate API key"}
           onClose={handleCloseDialog}
         />
       </DialogTitle>
@@ -123,8 +113,8 @@ export default function ApiKeyDialog({
         {error && <ErrorCard mini error={error.message} />}
         {!newKey && (
           <Typography variant="body1">
-            Are you sure you want to regenerate the API key for
-            <b> {siteData.domain}</b>?
+            Are you sure you want to generate a new API key for
+            <b> {siteData?.domain}</b>?
           </Typography>
         )}
         {newKey && (
