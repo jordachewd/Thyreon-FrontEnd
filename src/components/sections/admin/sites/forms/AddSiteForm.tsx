@@ -1,5 +1,5 @@
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
-import { defaultNewSiteFields as defaultFields } from "@/constants/sites/new-site-fields";
+import { defaultNewSiteFields as defaultFields } from "@/constants/sites/fields/new-site-fields";
 import TextField from "@mui/material/TextField";
 import { memo } from "react";
 

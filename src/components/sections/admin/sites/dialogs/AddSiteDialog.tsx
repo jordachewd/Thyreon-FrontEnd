@@ -19,6 +19,9 @@ import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const
 import { useAddSiteDialogStore } from "@/lib/stores/sites/useAddSiteDialogStore";
 
 export default function AddSiteDialog() {
+  const closingAttemptedRef = useRef(false);
+  const { updateAlert } = useAdminContext().alertCtx;
+
   const {
     open,
     formData,
@@ -35,9 +38,6 @@ export default function AddSiteDialog() {
     setShowCopyWarning,
     setAlertMsg,
   } = useAddSiteDialogStore();
-
-  const closingAttemptedRef = useRef(false);
-  const { updateAlert } = useAdminContext().alertCtx;
 
   const [createSite, { loading, error, reset }] = useMutation(
     CREATE_SITE_MUTATION,

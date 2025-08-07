@@ -19,6 +19,12 @@ export const GET_USER_BY_ID = gql`
         stripeId
         expiresAt
       }
+      sites {
+        id
+        siteName
+        domain
+        createdAt
+      }
       transactions {
         id
         plan

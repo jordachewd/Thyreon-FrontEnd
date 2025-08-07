@@ -1,4 +1,4 @@
-import { FormField } from "@/types/common/form-field.interface";
+import { FormField } from "@/types/common/form-field.d";
 
 export const defaultEditUserFields: FormField[] = [
   {

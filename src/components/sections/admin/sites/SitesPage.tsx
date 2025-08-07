@@ -4,7 +4,7 @@ import SitesTable from "./table/SitesTable";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
 import { useQuery } from "@apollo/client";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { sitesTableColumns } from "@/constants/table/columns/sites-table-columns";
@@ -26,21 +26,16 @@ export default function SitesPage() {
     fetchPolicy: "cache-and-network",
   });
 
-  const sites = useMemo(() => {
-    return (isAllSites ? data?.sites : data?.meSites) || [];
-  }, [data, isAllSites]);
-
-  const handleUpdate = useCallback(setUpdate, []);
-  const handleRemove = useCallback(setRemove, []);
+  const sites = (isAllSites ? data?.sites : data?.meSites) ?? [];
 
   const tableColumns = useMemo(
     () =>
       (isAllSites ? sitesTableColumns : mySitesTableColumns)({
-        onEditSite: handleUpdate,
-        onDeleteSite: handleRemove,
+        onEditSite: setUpdate,
+        onDeleteSite: setRemove,
         routePrefix: isAllSites ? "allsites" : "mysites",
       }),
-    [isAllSites, handleUpdate, handleRemove]
+    [isAllSites]
   );
 
   if (loading) return <LoadingBubbles />;
@@ -52,15 +47,17 @@ export default function SitesPage() {
         open={!!update}
         siteData={update}
         onClose={() => setUpdate(undefined)}
+        refetchQuery={[sitesQuery, isAllSites ? "GetAllSites" : "GetMySites"]}
       />
 
       <DeleteSiteDialog
         open={!!remove}
         siteData={remove}
         onClose={() => setRemove(undefined)}
+        refetchQuery={[sitesQuery, isAllSites ? "GetAllSites" : "GetMySites"]}
       />
 
-      <SitesTable sites={sites} tableCols={tableColumns} isLoading={loading} />
+      <SitesTable sites={sites} tableCols={tableColumns} />
     </>
   );
 }

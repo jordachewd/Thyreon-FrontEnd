@@ -9,11 +9,9 @@ import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import Dialog from "@mui/material/Dialog";
 import { useCallback } from "react";
-import { usePathname } from "next/navigation";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
-import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { useAdminContext } from "@/context/admin/AdminContext";
+import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client";
 import Checkbox from "@mui/material/Checkbox";
@@ -24,23 +22,19 @@ interface DeleteSiteDialogProps {
   siteData: Partial<GetSiteData> | undefined;
   open: boolean;
   onClose: () => void;
+  refetchQuery?: RefetchQueryType;
 }
 
 export default function DeleteSiteDialog({
   siteData,
   open,
   onClose,
+  refetchQuery = [],
 }: DeleteSiteDialogProps) {
-  const pathname = usePathname();
-  const isAdminPage = pathname.includes("/allsites");
   const { updateAlert } = useAdminContext().alertCtx;
 
-  const queriesToRefetch = isAdminPage
-    ? [GET_SITES_QUERY, "GetAllSites"]
-    : [GET_MY_SITES_QUERY, "GetMySites"];
-
   const [deleteSites, { loading, error }] = useMutation(DELETE_SITES, {
-    refetchQueries: queriesToRefetch,
+    refetchQueries: refetchQuery,
     awaitRefetchQueries: true,
     onCompleted: (data) => {
       updateAlert({

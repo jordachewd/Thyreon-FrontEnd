@@ -1,69 +1,39 @@
 "use client";
 
 import css from "@/styles/sections/admin/ProfileBilling.module.css";
+import { memo } from "react";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
-import { memo, useMemo } from "react";
-import ErrorCard from "@/components/shared/ErrorCard";
-import ProfileBillingWrapper from "./ProfileBillingWrapper";
 import Typography from "@mui/material/Typography";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { ProfileSectionType } from "@/types/profile/profile-section.d";
+import ProfileWrapper from "./ProfileWrapper";
+import { Transaction } from "@/types/transactions/transaction.d";
+import { ProfileBillingType } from "@/types/profile/profile-billing.d";
 
 function ProfileBilling({
   data,
-  loading,
-  error,
   title,
   alignTitle,
   titleSize,
-}: ProfileSectionType) {
-  if (loading)
+  currentPlan,
+}: ProfileBillingType) {
+  const transactions = data as Transaction[];
+
+  if (!transactions || transactions.length === 0) {
     return (
-      <ProfileBillingWrapper
+      <ProfileWrapper
         title={title}
         alignTitle={alignTitle}
-        size={titleSize}
+        titleSize={titleSize}
       >
-        <LoadingBubbles wrapped />
-      </ProfileBillingWrapper>
-    );
-
-  if (error)
-    return (
-      <ProfileBillingWrapper
-        title={title}
-        alignTitle={alignTitle}
-        size={titleSize}
-      >
-        <ErrorCard error={error.message} title="" backToUrl="" />
-      </ProfileBillingWrapper>
-    );
-
-  const { currentPlan, transactions } = data;
-  const allTxns = useMemo(() => transactions ?? [], [transactions]);
-  const hasTransactions = allTxns.length > 0;
-
-  if (!hasTransactions) {
-    return (
-      <ProfileBillingWrapper
-        title={title}
-        alignTitle={alignTitle}
-        size={titleSize}
-      >
-        <Typography variant="body2" className="text-center text-slate-600!">
+        <Typography variant="body2" className="text-slate-600!">
           No transactions yet.
         </Typography>
-      </ProfileBillingWrapper>
+      </ProfileWrapper>
     );
   }
 
   return (
-    <ProfileBillingWrapper
-      title={title}
-      alignTitle={alignTitle}
-      size={titleSize}
-    >
+    <ProfileWrapper title={title} alignTitle={alignTitle} titleSize={titleSize}>
       <div className={css.table}>
         <div className={css.tableHead}>
           <p className="flex-1">Plan</p>
@@ -79,8 +49,8 @@ function ProfileBilling({
           </TooltipArrow>
         </div>
 
-        {allTxns.map((txn) => {
-          const isActive = txn.stripeId === currentPlan?.stripeId;
+        {transactions.map((txn) => {
+          const isActive = txn.stripeId === currentPlan;
           const txnStatus = isActive ? "Active" : "Inactive";
           const txnColor = isActive ? css.active : css.inactive;
 
@@ -116,7 +86,7 @@ function ProfileBilling({
           );
         })}
       </div>
-    </ProfileBillingWrapper>
+    </ProfileWrapper>
   );
 }
 

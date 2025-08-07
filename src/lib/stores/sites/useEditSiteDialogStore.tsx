@@ -1,4 +1,4 @@
-import { defaultUpdateSiteValues as defaultVals } from "@/constants/sites/update-site-values";
+import { defaultUpdateSiteValues as defaultVals } from "@/constants/sites/defaults/update-site-values";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { create } from "zustand";
 

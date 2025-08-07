@@ -22,7 +22,7 @@ function PageHead({
 }: PageHeadProps) {
   return (
     <div className={css.section}>
-      <div className={css.title}>
+      <div className={`${css.title} ${!children ? "w-full" : ""}`}>
         <Typography variant={size} align={alignTitle}>
           {title}
         </Typography>

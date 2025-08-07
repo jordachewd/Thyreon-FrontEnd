@@ -3,46 +3,33 @@
 import css from "@/styles/sections/admin/ProfileHero.module.css";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import PlanPromo from "@/components/shared/PlanPromo";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import ProfileHeroWrapper from "./ProfileHeroWrapper";
-import ErrorCard from "@/components/shared/ErrorCard";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import { UserRole } from "@/types/users/user-role.d";
-
 import { memo, useMemo } from "react";
-import { ProfileSectionType } from "@/types/profile/profile-section.d";
+import { ProfileHeroType} from "@/types/profile/profile-hero.d";
+import ProfileWrapper from "./ProfileWrapper";
+import { GetUserData } from "@/types/users/get-user-data.d";
 
 function ProfileHero({
   data,
-  loading,
-  error,
   title,
   alignTitle,
   titleSize,
-}: ProfileSectionType) {
-  if (loading)
+}: ProfileHeroType) {
+  if (!data) {
     return (
-      <ProfileHeroWrapper
+      <ProfileWrapper
+        hero
         title={title}
         alignTitle={alignTitle}
-        size={titleSize}
+        titleSize={titleSize}
       >
-        <LoadingBubbles wrapped />
-      </ProfileHeroWrapper>
+        No data yet.
+      </ProfileWrapper>
     );
-
-  if (error)
-    return (
-      <ProfileHeroWrapper
-        title={title}
-        alignTitle={alignTitle}
-        size={titleSize}
-      >
-        <ErrorCard error={error.message} title="" backToUrl="" />
-      </ProfileHeroWrapper>
-    );
+  }
 
   const {
     username,
@@ -53,7 +40,7 @@ function ProfileHero({
     currentPlan,
     createdAt,
     updatedAt,
-  } = data;
+  } = data as GetUserData;
 
   const fullName = useMemo(
     () => `${firstName} ${lastName}`,
@@ -62,7 +49,7 @@ function ProfileHero({
   const isAdmin = role === "admin";
 
   return (
-    <ProfileHeroWrapper title={title} alignTitle={alignTitle} size={titleSize}>
+    <ProfileWrapper hero title={title} alignTitle={alignTitle} titleSize={titleSize}>
       <div className={css.heroImg}>
         <Avatar
           alt={username}
@@ -77,6 +64,8 @@ function ProfileHero({
       </div>
 
       <div className={css.heroContent}>
+        <Typography variant="h6">Details</Typography>
+
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Role:</span>
           <span className="capitalize leading-none">{role as UserRole}</span>
@@ -100,7 +89,7 @@ function ProfileHero({
       <div className={css.heroPlan}>
         <PlanPromo userPlan={currentPlan} userRole={role} isAdmin={isAdmin} />
       </div>
-    </ProfileHeroWrapper>
+    </ProfileWrapper>
   );
 }
 

@@ -1,14 +1,15 @@
-import { SiteBackupData } from "./site-backoup.d";
-import { SiteLogData } from "./site-log.d";
-import { SiteSettingsData } from "./site-settings-data.d";
+import { GetUserData } from "./users/get-user-data.d";
 
 export interface SiteData {
-  id?: number;
-  userId?: number;
-  domain?: string;
+  id: number;
+  domain: string;
+  siteName: string;
   apiKey?: string;
+  createdAt?: Date;
   lastSeen?: Date;
-  backups?: SiteBackupData[];
-  logs?: SiteLogData[];
-  settings?: SiteSettingsData;
+  user?: GetUserData; //
+  // userId?: number;
+  // backups?: SiteBackupData[];
+  // logs?: SiteLogData[];
+  // settings?: SiteSettingsData;
 }

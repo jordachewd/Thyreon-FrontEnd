@@ -7,6 +7,7 @@ type ExternalLinkIconType = {
   target?: string;
   rel?: string;
   tooltip: string;
+  iconSize?: string;
 };
 
 function ExternalLinkIcon({
@@ -14,13 +15,14 @@ function ExternalLinkIcon({
   target = "_self",
   rel = "",
   tooltip,
+  iconSize = "text-base",
 }: ExternalLinkIconType) {
   const icon = "bi bi-box-arrow-up-right";
   const linkCss = "flex items-center leading-none";
   return (
     <TooltipArrow title={tooltip} placement="bottom">
       <Link href={href} target={target} rel={rel} className={linkCss}>
-        <i className={`${icon} text-leaf-green-400 text-base`} />
+        <i className={`${icon} ${iconSize} text-leaf-green-400`} />
       </Link>
     </TooltipArrow>
   );

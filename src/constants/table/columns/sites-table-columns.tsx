@@ -1,11 +1,12 @@
 "use client";
-import Link from "next/link";
+
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { Chip, IconButton } from "@mui/material";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
+import SiteNameCell from "@/components/sections/admin/shared/table/SiteNameCell";
 
 interface SitesTableColumnsProps {
   onEditSite: (siteData: Partial<GetSiteData>) => void;
@@ -33,21 +34,23 @@ export const sitesTableColumns = ({
     field: "siteName",
     headerName: "Site Name",
     display: "flex",
-    flex: 1,
+    flex: 1.5,
     renderCell: (params: GridRenderCellParams) => {
       return (
-        <Link href={`/${routePrefix}/${params.row.id}`}>
-          {params.row.siteName}
-        </Link>
+        <SiteNameCell
+          href={`/${routePrefix}/${params.row.id}`}
+          name={params.row.siteName}
+          domain={params.row.domain}
+        />
       );
     },
   },
 
   {
     field: "status",
-    headerName: "Status", 
+    headerName: "Status",
     display: "flex",
-    flex: 2,
+    flex: 3,
     renderCell: () => {
       return <Chip size="small" label="Disconnected" color="error" />;
     },

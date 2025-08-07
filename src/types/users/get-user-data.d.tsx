@@ -11,15 +11,9 @@ export interface GetUserData {
   firstName?: string;
   lastName?: string;
   role: UserRole;
-
   transactions?: Transaction[];
   currentPlan?: Transaction;
-
   createdAt?: Date | string;
   updatedAt?: Date | string;
-
   sites?: SiteData[];
-
-  // error?: string;
-  // message?: string;
 }

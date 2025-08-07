@@ -1,12 +1,13 @@
-import { FormField } from "@/types/common/form-field.interface";
+import { FormField } from "@/types/common/form-field.d";
 
 export const defaultUpdateSiteFields: FormField[] = [
   {
     label: "Domain",
     name: "domain",
     type: "text",
-    info: "Must be a valid domain URL.",
+    info: "Domain cannot be changed after creation.",
     required: true,
+    disabled: true,
   },
   {
     label: "Site Name",

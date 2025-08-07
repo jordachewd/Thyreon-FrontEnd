@@ -13,35 +13,28 @@ import { useCallback, useEffect } from "react";
 import { UPDATE_SITE_MUTATION } from "@/constants/graphql/sites/update-site.const";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { usePathname } from "next/navigation";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { useEditSiteDialogStore } from "@/lib/stores/sites/useEditSiteDialogStore";
+import { RefetchQueryType } from "@/types/common/refetch-query.d";
 
 interface EditSiteDialogProps {
   siteData: Partial<GetSiteData> | undefined;
   open: boolean;
   onClose: () => void;
+  refetchQuery?: RefetchQueryType;
 }
 
 export default function EditSiteDialog({
   siteData,
   open,
   onClose,
+  refetchQuery = [],
 }: EditSiteDialogProps) {
+  const { updateAlert } = useAdminContext().alertCtx;
   const { formData, setField, setFormData, resetDialog } =
     useEditSiteDialogStore();
 
-  const pathname = usePathname();
-  const isAdminPage = pathname.includes("/allsites");
-  const { updateAlert } = useAdminContext().alertCtx;
-
-  const queriesToRefetch = isAdminPage
-    ? [GET_SITES_QUERY, "GetAllSites"]
-    : [GET_MY_SITES_QUERY, "GetMySites"];
-
   const [updateSite, { loading, error }] = useMutation(UPDATE_SITE_MUTATION, {
-    refetchQueries: queriesToRefetch,
+    refetchQueries: refetchQuery,
     awaitRefetchQueries: true,
     onCompleted: (data) => {
       updateAlert({
@@ -91,11 +84,7 @@ export default function EditSiteDialog({
       aria-labelledby="edit-site-dialog-title"
     >
       <DialogTitle id="edit-site-dialog-title" sx={{ zIndex: 0 }}>
-        <DialogHeader
-          must
-          title="Edit site details"
-          onClose={handleCloseDialog}
-        />
+        <DialogHeader must title="Edit details" onClose={handleCloseDialog} />
       </DialogTitle>
 
       <DialogContent sx={{ paddingTop: "1rem!important" }}>
@@ -106,7 +95,7 @@ export default function EditSiteDialog({
       <DialogActions>
         <DialogFooter
           loading={loading}
-          btnSubmitTxt="Update Site Details"
+          btnSubmitTxt="Update Site"
           onSubmit={handleSubmit}
         />
       </DialogActions>

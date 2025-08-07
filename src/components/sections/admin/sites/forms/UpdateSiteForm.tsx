@@ -1,4 +1,4 @@
-import { defaultUpdateSiteFields as defaultFields } from "@/constants/sites/update-site-fields";
+import { defaultUpdateSiteFields as defaultFields } from "@/constants/sites/fields/update-site-fields";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import TextField from "@mui/material/TextField";
 import { memo } from "react";

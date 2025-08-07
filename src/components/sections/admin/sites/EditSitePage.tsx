@@ -13,6 +13,8 @@ import AdminAddNewFab from "../shared/AdminAddNewFab";
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
 import { useCallback, useState } from "react";
 import ApiKeyDialog from "./dialogs/ApiKeyDialog";
+import Typography from "@mui/material/Typography";
+import EditSiteDialog from "./dialogs/EditSiteDialog";
 
 interface EditSiteProps {
   siteId: number;
@@ -29,10 +31,16 @@ export default function EditSitePage({ siteId }: EditSiteProps) {
   );
 
   const siteData = data?.siteById as GetSiteData;
+
   const [newKeyForSite, setNewKeyForSite] = useState<
     Partial<GetSiteData> | undefined
   >(undefined);
 
+  const [editSite, setEditSite] = useState<Partial<GetSiteData> | undefined>(
+    undefined
+  );
+
+  const handleEditSite = useCallback(setEditSite, [setEditSite]);
   const handleNewApiKey = useCallback(setNewKeyForSite, []);
 
   if (loading) return <LoadingBubbles />;
@@ -44,6 +52,13 @@ export default function EditSitePage({ siteId }: EditSiteProps) {
         open={!!newKeyForSite}
         siteData={newKeyForSite}
         onClose={() => setNewKeyForSite(undefined)}
+      />
+
+      <EditSiteDialog
+        open={!!editSite}
+        siteData={editSite}
+        onClose={() => setEditSite(undefined)}
+        refetchQuery={[GET_SITE_BY_ID, "GetSiteById"]}
       />
 
       <PageHead
@@ -80,43 +95,43 @@ export default function EditSitePage({ siteId }: EditSiteProps) {
               icon="bi-pen"
               tooltipTitle="Edit Details"
               tooltipPlacement="bottom"
-              execFn={() => console.log("Edit Site")}
+              execFn={() =>
+                handleEditSite({
+                  id: siteData.id,
+                  siteName: siteData.siteName,
+                  domain: siteData.domain,
+                })
+              }
             />
           </div>
         </div>
       </PageHead>
 
-      <div className="flex flex-col w-full gap-1 !py-8">
-        <p className="text-sm text-gray-500">
-          <b>Site ID:</b> {siteData.id}
-        </p>
-        <p className="text-sm text-gray-500">
-          <b>Site Name:</b> {siteData.siteName}
-        </p>
-        <p className="text-sm text-gray-500">
-          <b>Domain:</b> {siteData.domain}
-        </p>
-        <p className="text-sm text-gray-500">
-          <b>Api Key (hashed):</b> {siteData.apiKey}
-        </p>
-        <p className="text-sm text-gray-500">
-          <b>Created At:</b> {new Date(siteData.createdAt).toLocaleString()}
-        </p>
-        <p className="text-sm text-gray-500">
-          <b>Last Seen:</b> {new Date(siteData.lastSeen).toLocaleString()}
-        </p>
-        <br />
-        <br />
-        <br />
-        <p>
-          Here you can edit the site details, manage plugins, and view logs.
-        </p>
+      <div className="flex w-full gap-8 !mt-4">
+        <div className="flex flex-col w-1/6 bg-vanilla-200 gap-2">
+          <Typography variant="h6" className="!mb-4">
+            Navigation
+          </Typography>
+          <p>Overview</p>
+          <p>Site Info (Wordpress)</p>
+          <p>Health Status (Wordpress)</p>
+          <p>Reports (Logs)</p>
+          <p>Backups</p>
+          <p>Updates</p>
+          <p>Security</p>
+          <p>Settings</p>
+        </div>
+        <div className="flex flex-col flex-1 gap-2">
+          <p>
+            Here you can edit the site details, manage plugins, and view logs.
+          </p>
 
-        <p>
-          In the future, you will be able to manage the site settings and
-          perform actions like updating plugins or themes.
-        </p>
-        <p>#inprogress </p>
+          <p>
+            In the future, you will be able to manage the site settings and
+            perform actions like updating plugins or themes.
+          </p>
+          <p>#inprogress </p>
+        </div>
       </div>
     </>
   );
