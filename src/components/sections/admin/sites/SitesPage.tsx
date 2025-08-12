@@ -28,6 +28,8 @@ export default function SitesPage() {
 
   const sites = (isAllSites ? data?.sites : data?.meSites) ?? [];
 
+  console.log("Sites data:", sites);
+
   const tableColumns = useMemo(
     () =>
       (isAllSites ? sitesTableColumns : mySitesTableColumns)({
@@ -57,7 +59,11 @@ export default function SitesPage() {
         refetchQuery={[sitesQuery, isAllSites ? "GetAllSites" : "GetMySites"]}
       />
 
-      <SitesTable sites={sites} tableCols={tableColumns} />
+      <SitesTable
+        sites={sites}
+        tableCols={tableColumns}
+        isAllSites={isAllSites}
+      />
     </>
   );
 }

@@ -1,14 +1,13 @@
 "use client";
 
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
-import { Chip, IconButton } from "@mui/material";
+import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
+import { Chip } from "@mui/material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { UserRoleColors } from "@/types/users/user-role-colors.interface";
 import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
-import { TooltipArrow } from "@/components/shared/TooltipArrow";
-import Link from "next/link";
 import { GetUserData } from "@/types/users/get-user-data.d";
+import UserActionsCell from "@/components/sections/admin/shared/table/users/UserActionsCell";
 
 interface UsersTableColumnsProps {
   onEditUser: (userData: GetUserData) => void;
@@ -130,46 +129,12 @@ export const usersTableColumns = ({
     align: "center",
     headerAlign: "center",
     display: "flex",
-    renderCell: (params: GridRenderCellParams) => {
-      const isAdmin = params.row.role === "admin";
-      return (
-        <div className="flex gap-2 items-center">
-          <TooltipArrow title="View" placement="bottom">
-            <IconButton
-              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-            >
-              <Link href={`users/${params.row.id}`} className="flex">
-                <i className="bi bi-eye text-xs"></i>
-              </Link>
-            </IconButton>
-          </TooltipArrow>
-
-          <TooltipArrow title="Quick Edit" placement="bottom">
-            <IconButton
-              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() => onEditUser(params.row)}
-            >
-              <i className="bi bi-pen text-xs"></i>
-            </IconButton>
-          </TooltipArrow>
-
-          <TooltipArrow
-            title={isAdmin ? "Admin users cannot be deleted" : "Delete"}
-            placement="bottom"
-          >
-            {isAdmin ? (
-              <i className="bi bi-trash3 text-xs text-slate-400"></i>
-            ) : (
-              <IconButton
-                sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-                onClick={() => onDeleteUser(params.row)}
-              >
-                <i className="bi bi-trash3 text-xs"></i>
-              </IconButton>
-            )}
-          </TooltipArrow>
-        </div>
-      );
-    },
+    renderCell: (params: GridRenderCellParams) => (
+      <UserActionsCell
+        params={params}
+        onEdit={onEditUser}
+        onRemove={onDeleteUser}
+      />
+    ),
   },
 ];

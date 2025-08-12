@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const REGENERATE_API_KEY = gql`
-  mutation RegenerateApiKey($siteId: Int!) {
-    regenerateApiKey(siteId: $siteId) {
+  mutation RegenerateApiKey($id: Int!) {
+    regenerateApiKey(id: $id) {
       status
       message
       site {

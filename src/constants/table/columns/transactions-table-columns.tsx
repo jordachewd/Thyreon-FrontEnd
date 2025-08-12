@@ -2,7 +2,7 @@
 
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
+import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
 import { Chip } from "@mui/material";
 
 export const transactionsTableColumns: GridColDef[] = [

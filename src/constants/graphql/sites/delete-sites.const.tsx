@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const DELETE_SITES = gql`
-  mutation DeleteSites($siteIds: [Int!]!) {
-    deleteSites(siteIds: $siteIds) {
+  mutation DeleteSites($ids: [Int!]!) {
+    deleteSites(ids: $ids) {
       status
       message
     }

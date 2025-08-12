@@ -12,13 +12,13 @@ import Typography from "@mui/material/Typography";
 interface SitesTableProps {
   sites: GetSiteData[];
   tableCols: GridColDef[];
-  isLoading?: boolean;
+  isAllSites: boolean;
 }
 
 export default function SitesTable({
   sites,
   tableCols,
-  isLoading,
+  isAllSites,
 }: SitesTableProps) {
   const [selectedIds, setSelectedIds] = useState<ToolbarSelectedIds>({
     type: "include",
@@ -36,11 +36,12 @@ export default function SitesTable({
   );
 
   const handleToolbarContent = useCallback(() => {
+    if (!isAllSites) return null;
     if (selectedIds.ids.size > 0) {
       return <DeleteSiteBtn sites={selectedIds.ids} />;
     }
     return null;
-  }, [selectedIds]);
+  }, [isAllSites, selectedIds]);
 
   if (sites.length === 0)
     return (
@@ -53,7 +54,6 @@ export default function SitesTable({
     <div className="flex w-full">
       <DataGrid
         rows={sites}
-        loading={isLoading}
         columns={tableCols}
         disableColumnResize
         disableColumnSelector
@@ -69,7 +69,7 @@ export default function SitesTable({
           },
         }}
         showToolbar
-        checkboxSelection
+        checkboxSelection={isAllSites}
         onRowSelectionModelChange={handleSelectionChange}
         slots={{
           toolbar: () => (

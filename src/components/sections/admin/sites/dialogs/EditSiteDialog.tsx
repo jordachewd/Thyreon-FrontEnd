@@ -49,7 +49,10 @@ export default function EditSiteDialog({
     e.preventDefault();
 
     await updateSite({
-      variables: { input: { ...formData, id: Number(formData.id) } },
+      variables: {
+        id: Number(formData.id),
+        input: { ...formData, id: Number(formData.id) },
+      },
     });
   };
 

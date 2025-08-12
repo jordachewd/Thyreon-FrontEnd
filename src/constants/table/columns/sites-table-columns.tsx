@@ -1,12 +1,12 @@
 "use client";
 
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { Chip, IconButton } from "@mui/material";
-import { TooltipArrow } from "@/components/shared/TooltipArrow";
+import { Chip } from "@mui/material";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import UsersNameCell from "@/components/sections/admin/shared/table/UserNameCell";
-import SiteNameCell from "@/components/sections/admin/shared/table/SiteNameCell";
+import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
+import SiteNameCell from "@/components/sections/admin/shared/table/sites/SiteNameCell";
+import SiteActionCell from "@/components/sections/admin/shared/table/sites/SiteActionCell";
 
 interface SitesTableColumnsProps {
   onEditSite: (siteData: Partial<GetSiteData>) => void;
@@ -51,8 +51,11 @@ export const sitesTableColumns = ({
     headerName: "Status",
     display: "flex",
     flex: 3,
-    renderCell: () => {
-      return <Chip size="small" label="Disconnected" color="error" />;
+    renderCell: (params: GridRenderCellParams) => {
+      const status = params.row.status;
+      const statusColor = status === "active" ? "success" : "error";
+      const chipColor = status === "revoked" ? "primary" : statusColor;
+      return <Chip size="small" label={status} color={chipColor} />;
     },
   },
   {
@@ -103,39 +106,12 @@ export const sitesTableColumns = ({
     align: "center",
     headerAlign: "center",
     display: "flex",
-    renderCell: (params: GridRenderCellParams) => {
-      return (
-        <div className="flex gap-2 items-center">
-          <TooltipArrow title="Edit" placement="bottom">
-            <IconButton
-              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() =>
-                onEditSite({
-                  id: params.row.id,
-                  siteName: params.row.siteName,
-                  domain: params.row.domain,
-                })
-              }
-            >
-              <i className="bi bi-pen text-xs"></i>
-            </IconButton>
-          </TooltipArrow>
-
-          <TooltipArrow title="Delete" placement="bottom">
-            <IconButton
-              sx={{ p: 0.5, backgroundColor: "transparent!important" }}
-              onClick={() =>
-                onDeleteSite({
-                  id: params.row.id,
-                  domain: params.row.domain,
-                })
-              }
-            >
-              <i className="bi bi-trash3 text-xs"></i>
-            </IconButton>
-          </TooltipArrow>
-        </div>
-      );
-    },
+    renderCell: (params: GridRenderCellParams) => (
+      <SiteActionCell
+        params={params}
+        onEdit={onEditSite}
+        onRemove={onDeleteSite}
+      />
+    ),
   },
 ];

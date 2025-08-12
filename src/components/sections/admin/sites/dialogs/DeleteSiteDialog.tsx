@@ -49,7 +49,7 @@ export default function DeleteSiteDialog({
     e.preventDefault();
 
     await deleteSites({
-      variables: { siteIds: [Number(siteData?.id)] },
+      variables: { ids: [Number(siteData?.id)] },
     });
   };
 

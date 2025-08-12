@@ -1,5 +1,5 @@
 import Link from "next/link";
-import css from "./UserNameCell.module.css";
+import css from "./../users/UserNameCell.module.css";
 import { memo } from "react";
 
 interface SiteNameProps {

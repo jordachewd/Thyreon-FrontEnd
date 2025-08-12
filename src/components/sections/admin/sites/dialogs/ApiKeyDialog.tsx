@@ -9,7 +9,7 @@ import ErrorCard from "@/components/shared/ErrorCard";
 import Typography from "@mui/material/Typography";
 import ApiKeyResponse from "../forms/ApiKeyResponse";
 import { useMutation } from "@apollo/client";
-import { REGENERATE_API_KEY } from "@/constants/graphql/sites/new-site-api-key";
+import { REGENERATE_API_KEY } from "@/constants/graphql/sites/new-api-key";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
@@ -61,7 +61,7 @@ export default function ApiKeyDialog({
     e.preventDefault();
 
     await regenerateApiKey({
-      variables: { siteId: Number(siteData?.id) },
+      variables: { id: Number(siteData?.id) },
     });
   };
 

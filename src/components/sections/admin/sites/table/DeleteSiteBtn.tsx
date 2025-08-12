@@ -55,7 +55,7 @@ export default function DeleteSiteBtn({
     const siteIds = sites ? Array.from(sites).map((site) => Number(site)) : [];
 
     await deleteSites({
-      variables: { siteIds: siteIds },
+      variables: { ids: siteIds },
     });
   };
 
