@@ -1,10 +1,10 @@
 @reference "../../../app/globals.css";
 
 .section {
-  @apply flex w-full sticky top-0 left-0 right-0 p-4 z-20;
+  @apply flex w-full sticky top-0 left-0 right-0 px-4 z-20;
   @apply transition-all duration-500 ease-in-out border-b;
   @apply dark:border-midnight-600 border-vanilla-300;
-  @apply dark:bg-midnight-700 bg-vanilla-200;
+  @apply dark:bg-midnight-700 bg-vanilla-200 h-[60px];
 }
 
 .content {

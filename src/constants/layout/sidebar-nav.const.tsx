@@ -1,4 +1,4 @@
-import SidebarNavItem from "@/types/sidebar-nav.d";
+import SidebarNavItem from "@/types/layout/sidebar-nav.d";
 
 const sidebarNavItems: SidebarNavItem[] = [
   {
@@ -38,30 +38,9 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
   {
     id: 5,
-    href: "/allsites",
-    icon: "bi bi-window-stack",
-    label: "All Sites",
-    isAdmin: true, // Admin only
-  },
-  {
-    id: 6,
-    href: "/users",
-    icon: "bi bi-people",
-    label: "All Users",
-    isAdmin: true, // Admin only
-  },
-  {
-    id: 7,
-    href: "/transactions",
-    icon: "bi bi-coin",
-    label: "All Transactions",
-    isAdmin: true, // Admin only
-  },
-  {
-    id: 8,
-    href: "/settings",
-    icon: "bi bi-gear",
-    label: "App Settings",
+    href: "/admin",
+    icon: "bi bi-award",
+    label: "Admin",
     isAdmin: true, // Admin only
   },
 ];

@@ -1,11 +1,11 @@
 import css from "@/styles/layout/admin/AdminContent.module.css";
 import AdminHeader from "./AdminHeader";
 
-export default function AdminContent({
-  children,
-}: {
+type AdminContentProps = {
   children: React.ReactNode;
-}) {
+};
+
+export default function AdminContent({ children }: AdminContentProps) {
   return (
     <main id="AdminContent" className={css.wrapper}>
       <AdminHeader />

@@ -20,7 +20,7 @@ export default function TransactionsPage() {
   const transactions: Transaction[] = data?.transactions || [];
 
   if (loading) return <LoadingBubbles />;
-  if (error) return <ErrorCard title="Error!" error={error.message} />;
+  if (error) return <ErrorCard error={error.message} />;
 
   return (
     <div className="flex w-full">

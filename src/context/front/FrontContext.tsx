@@ -1,3 +1,0 @@
-/*
-  Context for Front application
-*/

@@ -1,7 +1,7 @@
 export default interface SidebarNavItem {
-  id: number;
+  id: number;  
   href: string;
   icon: string;
   label: string;
-  isAdmin: boolean; // Optional property
+  isAdmin: boolean;
 }

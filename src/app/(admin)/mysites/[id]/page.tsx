@@ -1,3 +1,4 @@
+import PageWrapper from "@/components/layout/common/PageWrapper";
 import EditSitePage from "@/components/sections/admin/sites/EditSitePage";
 
 interface SiteProfileProps {
@@ -6,5 +7,9 @@ interface SiteProfileProps {
 
 export default async function AdminMySiteProfile({ params }: SiteProfileProps) {
   const { id } = await params;
-  return <EditSitePage siteId={Number(id)} />;
+  return (
+    <PageWrapper>
+      <EditSitePage siteId={Number(id)} />
+    </PageWrapper>
+  );
 }

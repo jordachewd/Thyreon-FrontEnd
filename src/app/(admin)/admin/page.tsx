@@ -1,15 +1,13 @@
 import PageHead from "@/components/layout/common/PageHead";
-import PageWrapper from "@/components/layout/common/PageWrapper";
-import Typography from "@mui/material/Typography";
+import { Typography } from "@mui/material";
 
-export default async function AdminDashboard() {
+export default function AdminOverview() {
   return (
-    <PageWrapper>
-      <PageHead title="Dashboard" alignTitle="left" />
-
+    <>
+      <PageHead title="Overview" alignTitle="left" />
       <div className="grid grid-cols-3 gap-6">
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 01</Typography>
+          <Typography variant="h5">Admin Overview 01</Typography>
           <p>
             Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
             blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
@@ -20,7 +18,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 02</Typography>
+          <Typography variant="h5">Admin Overview 02</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
@@ -32,7 +30,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 03</Typography>
+          <Typography variant="h5">Admin Overview 03</Typography>
           <p>
             Sed dolor libero sit omnis veniam sed repellat omnis eos nisi
             temporibus est laudantium internos. Hic voluptatem cumque ad odio
@@ -43,7 +41,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 04</Typography>
+          <Typography variant="h5">Admin Overview 04</Typography>
           <p>
             Ut eveniet officia id officia impedit qui consequatur veritatis quo
             laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
@@ -54,7 +52,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 05</Typography>
+          <Typography variant="h5">Admin Overview 05</Typography>
           <p>
             Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
             blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
@@ -65,7 +63,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 06</Typography>
+          <Typography variant="h5">Admin Overview 06</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
@@ -77,7 +75,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 07</Typography>
+          <Typography variant="h5">Admin Overview 07</Typography>
           <p>
             Ut eveniet officia id officia impedit qui consequatur veritatis quo
             laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
@@ -88,7 +86,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 08</Typography>
+          <Typography variant="h5">Admin Overview 08</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
@@ -100,7 +98,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 09</Typography>
+          <Typography variant="h5">Admin Overview 09</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
@@ -112,7 +110,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 10</Typography>
+          <Typography variant="h5">Admin Overview 10</Typography>
           <p>
             Ut eveniet officia id officia impedit qui consequatur veritatis quo
             laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
@@ -123,7 +121,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 11</Typography>
+          <Typography variant="h5">Admin Overview 11</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
@@ -135,7 +133,7 @@ export default async function AdminDashboard() {
           </p>
         </div>
         <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Dashboard Overview 12</Typography>
+          <Typography variant="h5">Admin Overview 12</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
@@ -147,6 +145,6 @@ export default async function AdminDashboard() {
           </p>
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }

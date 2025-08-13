@@ -1,4 +1,4 @@
-import { SiteData } from "../site-data.d";
+import { SiteData } from "../sites/site-data.d";
 import { Transaction } from "../transactions/transaction.d";
 import { UserRole } from "./user-role.d";
 

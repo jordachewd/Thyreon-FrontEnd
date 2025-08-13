@@ -6,7 +6,7 @@ export const GET_SITE_BY_ID = gql`
       id
       siteName
       domain
-      apiKey
+      status
       createdAt
       lastSeen
     }

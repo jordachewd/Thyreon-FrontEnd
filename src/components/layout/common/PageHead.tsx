@@ -2,7 +2,7 @@
 
 import css from "@/styles/layout/shared/PageHead.module.css";
 import { Typography } from "@mui/material";
-import { memo } from "react";
+import { memo, ReactNode } from "react";
 
 interface PageHeadProps {
   title: string;
@@ -10,7 +10,7 @@ interface PageHeadProps {
   subtitle?: string;
   alignTitle?: "left" | "center" | "right";
   size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 function PageHead({

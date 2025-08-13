@@ -1,4 +1,4 @@
-import { GetUserData } from "./users/get-user-data.d";
+import { GetUserData } from "../users/get-user-data.d";
 
 export interface SiteData {
   id: number;

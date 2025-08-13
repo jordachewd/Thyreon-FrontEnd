@@ -11,13 +11,13 @@ import SiteActionCell from "@/components/sections/admin/shared/table/sites/SiteA
 interface SitesTableColumnsProps {
   onEditSite: (siteData: Partial<GetSiteData>) => void;
   onDeleteSite: (siteData: Partial<GetSiteData>) => void;
-  routePrefix?: "allsites" | "mysites";
+  routePrefix?: "admin/sites" | "mysites";
 }
 
 export const sitesTableColumns = ({
   onEditSite,
   onDeleteSite,
-  routePrefix = "allsites",
+  routePrefix = "admin/sites",
 }: SitesTableColumnsProps): GridColDef[] => [
   {
     field: "id",

@@ -2,10 +2,10 @@ import PageHead from "@/components/layout/common/PageHead";
 import AddUserDialog from "@/components/sections/admin/users/dialogs/AddUserDialog";
 import AllUsersPage from "@/components/sections/admin/users/UsersPage";
 
-export default function AdminUsers() {
+export default function AdminUsersPage() {
   return (
     <>
-      <PageHead title="All Users" alignTitle="left">
+      <PageHead title="Users" alignTitle="left">
         <AddUserDialog />
       </PageHead>
 

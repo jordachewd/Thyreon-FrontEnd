@@ -6,7 +6,7 @@ import getFormattedDate from "@/lib/utils/getFormattedDate";
 import ProfileWrapper from "./ProfileWrapper";
 import Link from "next/link";
 import { ProfileSitesType } from "@/types/profile/profile-sites.d";
-import { SiteData } from "@/types/site-data.d";
+import { SiteData } from "@/types/sites/site-data.d";
 import { memo } from "react";
 import { useAdminContext } from "@/context/admin/AdminContext";
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
