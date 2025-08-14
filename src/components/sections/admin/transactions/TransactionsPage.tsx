@@ -17,10 +17,10 @@ export default function TransactionsPage() {
     }
   );
 
-  const transactions: Transaction[] = data?.transactions || [];
-
-  if (loading) return <LoadingBubbles />;
+  if (loading) return <LoadingBubbles wrapped fullHeight />;
   if (error) return <ErrorCard error={error.message} />;
+
+  const transactions: Transaction[] = data?.transactions || [];
 
   return (
     <div className="flex w-full">

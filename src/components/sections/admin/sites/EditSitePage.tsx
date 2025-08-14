@@ -43,12 +43,12 @@ export default function EditSitePage({ siteId }: EditSiteProps) {
   const handleEditSite = useCallback(setEditSite, [setEditSite]);
   const handleNewApiKey = useCallback(setNewKeyForSite, []);
 
+  if (loading) return <LoadingBubbles wrapped fullHeight />;
+  if (error) return <ErrorCard title="Error!" error={error.message} />;
+
   const status = siteData.status;
   const statusColor = status === "active" ? "success" : "error";
   const chipColor = status === "revoked" ? "primary" : statusColor;
-
-  if (loading) return <LoadingBubbles />;
-  if (error) return <ErrorCard title="Error!" error={error.message} />;
 
   return (
     <>

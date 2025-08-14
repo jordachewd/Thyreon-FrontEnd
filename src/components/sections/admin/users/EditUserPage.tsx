@@ -9,11 +9,11 @@ import { Transaction } from "@/types/transactions/transaction.d";
 import { SiteData } from "@/types/sites/site-data.d";
 import PageHead from "@/components/layout/common/PageHead";
 import EditUserDialog from "./dialogs/EditUserDialog";
-import ProfileBilling from "../profile/ProfileBilling";
-import ProfileHero from "../profile/ProfileHero";
+import AccountBilling from "../account/AccountBilling";
+import AccountHero from "../account/AccountHero";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import ErrorCard from "@/components/shared/ErrorCard";
-import ProfileSites from "../profile/ProfileSites";
+import AccountSites from "../account/AccountSites";
 
 interface EditUserProps {
   userId: number;
@@ -45,7 +45,7 @@ export default function EditUserPage({ userId }: EditUserProps) {
   const handleRefetch = useCallback(() => refetch(), [refetch]);
   useUpdatedUserSocket(handleRefetch);
 
-  if (loading) return <LoadingBubbles wrapped />;
+  if (loading) return <LoadingBubbles wrapped fullHeight />;
   if (error)
     return (
       <ErrorCard
@@ -57,13 +57,13 @@ export default function EditUserPage({ userId }: EditUserProps) {
 
   return (
     <>
-      <PageHead title="User Info" alignTitle="left">
+      <PageHead title="Details" alignTitle="left">
         <EditUserDialog data={profileData} />
       </PageHead>
 
-      <ProfileHero data={profileData} />
+      <AccountHero data={profileData} />
 
-      <ProfileBilling
+      <AccountBilling
         title="Transactions"
         titleSize="h6"
         alignTitle="left"
@@ -71,7 +71,7 @@ export default function EditUserPage({ userId }: EditUserProps) {
         currentPlan={currentPlan}
       />
 
-      <ProfileSites
+      <AccountSites
         title="Sites"
         titleSize="h6"
         alignTitle="left"

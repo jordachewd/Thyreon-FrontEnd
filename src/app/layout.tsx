@@ -1,11 +1,11 @@
 import "@/app/globals.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import type { Metadata, Viewport } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import MainWrapper from "@/components/layout/common/MainWrapper";
 import WPGuardProvider from "@/components/layout/common/WPGuardProvider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { InitColorSchemeScript } from "@mui/material";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: "WPGuard | Maintenance & Monitoring",

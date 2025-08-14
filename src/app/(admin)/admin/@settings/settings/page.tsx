@@ -3,7 +3,7 @@ import PageHead from "@/components/layout/common/PageHead";
 export default function AdminSettingsPage() {
   return (
     <>
-      <PageHead title="Settings" alignTitle="left" size="h5" />
+      <PageHead title="Settings" alignTitle="left" />
 
       <p>
         Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut

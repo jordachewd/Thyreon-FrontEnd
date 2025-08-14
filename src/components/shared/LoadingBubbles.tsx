@@ -7,6 +7,7 @@ interface LoadingBubblesProps {
   className?: string;
   size?: BubbleSizes;
   wrapped?: boolean;
+  fullHeight?: boolean;
 }
 
 const sizeMappings = {
@@ -19,8 +20,10 @@ export default function LoadingBubbles({
   className,
   size = "medium",
   wrapped = false,
+  fullHeight = false,
 }: LoadingBubblesProps) {
   const bubbles = sizeMappings[size] || sizeMappings.medium;
+  const wrpHeight = fullHeight ? "h-dvh" : "h-20";
 
   const bubbleLoader = (
     <div className={classNames(css.wrapper, className)}>
@@ -38,7 +41,9 @@ export default function LoadingBubbles({
   );
 
   if (wrapped) {
-    return <div className={css.isWrapped}>{bubbleLoader}</div>;
+    return (
+      <div className={classNames(css.isWrapped, wrpHeight)}>{bubbleLoader}</div>
+    );
   }
 
   return bubbleLoader;

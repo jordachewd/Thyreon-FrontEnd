@@ -4,7 +4,7 @@ import TransactionsPage from "@/components/sections/admin/transactions/Transacti
 export default function AdminTransactionsPage() {
   return (
     <>
-      <PageHead title="Transactions" alignTitle="left" size="h5" />
+      <PageHead title="Transactions" alignTitle="left" />
       <TransactionsPage />
     </>
   );

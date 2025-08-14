@@ -7,6 +7,7 @@ import Link from "next/link";
 import { memo, useCallback } from "react";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import { usePathname } from "next/navigation";
+import { isSamePath } from "@/lib/utils/isSamePath";
 
 interface AdminSidebarNavProps {
   isNavOpen: boolean;
@@ -18,7 +19,7 @@ function AdminSidebarNav({ isNavOpen, isAdmin }: AdminSidebarNavProps) {
 
   const getNavItem = useCallback(
     (item: SidebarNavItem) => {
-      const isActive = pathname.includes(item.href);
+      const isActive = isSamePath(pathname, item.href);
       const activeCss = isActive ? css.linkActive : "";
 
       return (
@@ -44,25 +45,13 @@ function AdminSidebarNav({ isNavOpen, isAdmin }: AdminSidebarNavProps) {
   return (
     <nav className={css.navigation}>
       <div className={css.navTop}>
-        {isAdmin &&
-          sidebarNavItems.map((item) => {
-            if (!item.isAdmin) return null;
-            return getNavItem(item);
-          })}
         {sidebarNavItems.map((item) => {
-          if (item.isAdmin) return null;
+          if (!isAdmin && item.isAdmin) return null;
           return getNavItem(item);
         })}
       </div>
 
-      {/*       {isAdmin && (
-        <div className={css.navBottom}>
-          {sidebarNavItems.map((item) => {
-            if (!item.isAdmin) return null;
-            return getNavItem(item);
-          })}
-        </div>
-      )} */}
+      <div className={css.navBottom}>Nav Footer</div>
     </nav>
   );
 }

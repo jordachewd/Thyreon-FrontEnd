@@ -5,8 +5,8 @@ export const adminNavSlots = {
   settings: "settings",
 } as const;
 
-export type SlotKey = keyof typeof adminNavSlots;
-export type AdminNavItemType = { slug: SlotKey; label: string };
+export type AdminSlotKey = keyof typeof adminNavSlots;
+export type AdminNavItemType = { slug: AdminSlotKey; label: string };
 
 export const adminNavItems: ReadonlyArray<AdminNavItemType> = [
   { slug: "users", label: "Users" },

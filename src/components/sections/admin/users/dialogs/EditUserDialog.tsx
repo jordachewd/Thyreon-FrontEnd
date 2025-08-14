@@ -55,14 +55,14 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
   );
 
   const handleInitialFormData = useCallback(
-    (profile?: Partial<GetUserData>) => {
-      if (!profile) return;
+    (account?: Partial<GetUserData>) => {
+      if (!account) return;
       setFormData({
-        clerkId: profile.clerkId,
-        username: profile.username,
-        email: profile.email,
-        firstName: profile.firstName,
-        lastName: profile.lastName,
+        clerkId: account.clerkId,
+        username: account.username,
+        email: account.email,
+        firstName: account.firstName,
+        lastName: account.lastName,
       });
     },
     [setFormData]

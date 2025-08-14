@@ -50,9 +50,9 @@ function AdminHeaderMenu() {
           <span>Home</span>
         </MenuItem>
 
-        <MenuItem component={Link} href="/profile" onClick={handleCloseMenu}>
+        <MenuItem component={Link} href="/account" onClick={handleCloseMenu}>
           <i className="bi bi-person !mr-4"></i>
-          <span>Profile & Billing</span>
+          <span>Account & Billing</span>
         </MenuItem>
 
         <MenuItem component={Link} href="/plans" onClick={handleCloseMenu}>

@@ -1,15 +1,5 @@
-import AdminSidebar from "@/components/layout/admin/AdminSidebar";
-import AdminContent from "@/components/layout/admin/AdminContent";
-import AdminWrapper from "@/components/layout/admin/AdminWrapper";
-import { AdminContextProvider } from "@/context/admin/AdminContext";
+import AdminLayoutWrapper from "@/components/layout/admin/AdminLayoutWrapper";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <AdminContextProvider>
-      <AdminWrapper>
-        <AdminSidebar />
-        <AdminContent>{children}</AdminContent>
-      </AdminWrapper>
-    </AdminContextProvider>
-  );
+  return <AdminLayoutWrapper>{children}</AdminLayoutWrapper>;
 }

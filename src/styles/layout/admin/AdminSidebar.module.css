@@ -9,11 +9,11 @@
 }
 
 .navOpen {
-  @apply translate-x-0 lg:w-[58px];
+  @apply translate-x-0 lg:w-[73px];
 }
 
 .logo {
-  @apply flex px-4 items-center border-b w-full h-16;
+  @apply flex px-6 items-center border-b w-full h-16;
   @apply dark:bg-midnight-700 bg-vanilla-200;
   @apply border-vanilla-300 dark:border-midnight-600;
   @apply transition-all duration-500 ease-in-out relative;
@@ -24,7 +24,7 @@
 }
 
 .logoText {
-  @apply fixed left-12;
+  @apply fixed left-16;
 }
 
 .toggleButton {
@@ -36,7 +36,16 @@
 .linkItem {
   @apply flex items-center relative px-2 py-1.5 rounded-md;
   @apply transition-all duration-300 ease-in-out;
-  @apply hover:bg-slate-100 dark:hover:bg-midnight-600;
+  @apply text-midnight-300 hover:text-midnight-600;
+  @apply dark:text-vanilla-600 dark:hover:text-vanilla-400;
+  @apply hover:bg-vanilla-200 dark:hover:bg-midnight-600;
+}
+
+.linkActive {
+  @apply bg-midnight-400 hover:bg-midnight-400;
+  @apply text-vanilla-400 hover:text-vanilla-400;
+  @apply dark:bg-vanilla-400 dark:hover:bg-vanilla-400;
+  @apply dark:text-midnight-800 dark:hover:text-midnight-800;
 }
 
 .linkIcon {
@@ -46,11 +55,6 @@
 .linkLabel {
   @apply font-medium fixed ml-10;
   @apply transition-all duration-500 ease-in-out;
-}
-
-.linkActive {
-  @apply bg-midnight-400 hover:bg-midnight-400 text-white;
-  @apply dark:bg-vanilla-400 dark:hover:bg-vanilla-500 dark:text-midnight-800;
 }
 
 .search {

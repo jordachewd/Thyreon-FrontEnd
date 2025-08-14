@@ -1,147 +1,159 @@
 import PageHead from "@/components/layout/common/PageHead";
 import { Typography } from "@mui/material";
+import classNames from "classnames";
 
 export default function AdminOverview() {
+  const gridCss = "grid grid-cols-4 gap-6";
+  const cellBase = "flex flex-col p-8 rounded gap-4 border";
+  const cellBg = "bg-vanilla-100 dark:bg-midnight-800";
+  const cellBorder = "border-vanilla-200 dark:border-midnight-600";
+  const cellCss = classNames(cellBase, cellBg, cellBorder);
+
   return (
     <>
       <PageHead title="Overview" alignTitle="left" />
-      <div className="grid grid-cols-3 gap-6">
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 01</Typography>
+      <div className={gridCss}>
+        <div className={cellCss}>
+          <Typography variant="h5">Overview 01</Typography>
           <p>
             Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
-            blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
-            aperiam ea perferendis iure. Sit deleniti iusto et galisum modi eos
-            repellendus officiis et enim deserunt. Qui voluptate optio ab iusto
-            sint est inventore officiis. Et enim mollitia sed ducimus
-            consequatur qui veniam modi vel amet modi!
+            blanditiis quis 33 illum eaque.
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 02</Typography>
+        <div className={cellCss}>
+          <Typography variant="h5">Overview 02</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Hic voluptatem cumque ad odio impedit et quisquam
-            accusamus. Ut eveniet officia id officia impedit qui consequatur
-            veritatis quo laboriosam sequi et rerum quibusdam ea accusamus
-            molestiae quo explicabo ducimus.
+            dolores cupiditate.
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 03</Typography>
+        <div className={cellCss}>
+          <Typography variant="h5">Overview 03</Typography>
           <p>
             Sed dolor libero sit omnis veniam sed repellat omnis eos nisi
-            temporibus est laudantium internos. Hic voluptatem cumque ad odio
-            impedit et quisquam accusamus. Ut eveniet officia id officia impedit
-            qui consequatur veritatis quo laboriosam sequi et rerum quibusdam ea
-            accusamus molestiae quo explicabo ducimus. Lorem ipsum dolor sit
-            amet.
+            temporibus est laudantium.
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 04</Typography>
+        <div className={`${cellCss} row-span-2`}>
+          <Typography variant="h5">Overview 04</Typography>
           <p>
             Ut eveniet officia id officia impedit qui consequatur veritatis quo
             laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus. Lorem ipsum dolor sit amet. Ea itaque natus cum
-            ipsam eveniet aut blanditiis quis 33 illum eaque a voluptatem
-            cupiditate et excepturi aperiam ea perferendis iure. Sit deleniti
-            iusto et galisum modi eos repellendus officiis et enim deserunt.
+            explicabo ducimus. Lorem ipsum dolor sit amet.
+          </p>
+          <p>
+            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
+            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
+            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
+            internos. Lorem ipsum dolor sit amet.{" "}
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 05</Typography>
+        <div className={`${cellCss} row-span-2 col-span-3`}>
+          <Typography variant="h5">Overview 05</Typography>
           <p>
             Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
             blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
-            aperiam ea perferendis iure. Sit deleniti iusto et galisum modi eos
-            repellendus officiis et enim deserunt. Qui voluptate optio ab iusto
-            sint est inventore officiis. Et enim mollitia sed ducimus
-            consequatur qui veniam modi vel amet modi!
+            aperiam ea perferendis iure. Aut consequuntur omnis id accusantium
+            obcaecati cum velit saepe qui dolores cupiditate hic blanditiis
+            similique. Sed dolor libero sit omnis veniam sed repellat omnis eos
+            nisi temporibus est laudantium internos. Aut consequuntur omnis id
+            accusantium obcaecati cum velit saepe qui dolores cupiditate hic
+            blanditiis similique. Sed dolor libero sit omnis veniam sed repellat
+            omnis eos nisi temporibus est laudantium internos. Aut consequuntur
+            omnis id accusantium obcaecati cum velit saepe qui dolores
+            cupiditate hic blanditiis similique. Sed dolor libero sit omnis
+            veniam sed repellat omnis eos nisi temporibus est laudantium
+            internos.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
+            blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
+            aperiam ea perferendis iure. Aut consequuntur omnis id accusantium
+            obcaecati cum velit saepe qui dolores cupiditate hic blanditiis
+            similique. Sed dolor libero sit omnis veniam sed repellat omnis eos
+            nisi temporibus est laudantium internos. Aut consequuntur omnis id
+            accusantium obcaecati cum velit saepe qui dolores cupiditate hic
+            blanditiis similique. Sed dolor libero sit omnis veniam sed repellat
+            omnis eos nisi temporibus est laudantium internos. Aut consequuntur
+            omnis id accusantium obcaecati cum velit saepe qui dolores
+            cupiditate hic blanditiis similique. Sed dolor libero sit omnis
+            veniam sed repellat omnis eos nisi temporibus est laudantium
+            internos.
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 06</Typography>
+        <div className={cellCss}>
+          <Typography variant="h5">Overview 06</Typography>
+          <p>
+            Sed dolor libero sit omnis veniam sed repellat omnis eos nisi
+            temporibus est laudantium internos voluptatem cumque ad odio
+            impedit.
+          </p>
+        </div>
+        <div className={cellCss}>
+          <Typography variant="h5">Overview 07</Typography>
+          <p>
+            Ut eveniet officia id officia impedit qui consequatur veritatis quo
+            laboriosam sequi et rerum quibusdam ea accusamus molestiae.
+          </p>
+        </div>
+        <div className={cellCss}>
+          <Typography variant="h5">Overview 08</Typography>
+          <p>
+            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
+            dolores cupiditate hic blanditiis similique sed dolor libero sit
+            omnis.
+          </p>
+        </div>
+        <div className={`${cellCss} row-span-2 col-span-2`}>
+          <Typography variant="h5">Overview 09</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
             omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Hic voluptatem cumque ad odio impedit et quisquam
-            accusamus. Ut eveniet officia id officia impedit qui consequatur
-            veritatis quo laboriosam sequi et rerum quibusdam ea accusamus
-            molestiae quo explicabo ducimus.
+            internos.
           </p>
-        </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 07</Typography>
+          <p>
+            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
+            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
+            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
+            internos.
+          </p>
           <p>
             Ut eveniet officia id officia impedit qui consequatur veritatis quo
             laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus. Lorem ipsum dolor sit amet. Ea itaque natus cum
-            ipsam eveniet aut blanditiis quis 33 illum eaque a voluptatem
-            cupiditate et excepturi aperiam ea perferendis iure. Sit deleniti
-            iusto et galisum modi eos repellendus officiis et enim deserunt.
+            explicabo ducimus.
           </p>
-        </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 08</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Hic voluptatem cumque ad odio impedit et quisquam
-            accusamus. Ut eveniet officia id officia impedit qui consequatur
-            veritatis quo laboriosam sequi et rerum quibusdam ea accusamus
-            molestiae quo explicabo ducimus.
+            Ea itaque natus cum ipsam eveniet aut blanditiis quis 33 illum eaque
+            a voluptatem cupiditate et excepturi aperiam ea perferendis iure.
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 09</Typography>
-          <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Hic voluptatem cumque ad odio impedit et quisquam
-            accusamus. Ut eveniet officia id officia impedit qui consequatur
-            veritatis quo laboriosam sequi et rerum quibusdam ea accusamus
-            molestiae quo explicabo ducimus.
-          </p>
-        </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 10</Typography>
+        <div className={`${cellCss} col-span-2`}>
+          <Typography variant="h5">Overview 10</Typography>
           <p>
             Ut eveniet officia id officia impedit qui consequatur veritatis quo
             laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus. Lorem ipsum dolor sit amet. Ea itaque natus cum
-            ipsam eveniet aut blanditiis quis 33 illum eaque a voluptatem
-            cupiditate et excepturi aperiam ea perferendis iure. Sit deleniti
-            iusto et galisum modi eos repellendus officiis et enim deserunt.
+            explicabo ducimus. Ea itaque natus cum ipsam eveniet aut blanditiis
+            quis 33 illum eaque a voluptatem cupiditate et excepturi aperiam ea
+            perferendis iure.
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 11</Typography>
+        <div className={`${cellCss} col-span-2`}>
+          <Typography variant="h5">Overview 11</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
             omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Hic voluptatem cumque ad odio impedit et quisquam
-            accusamus. Ut eveniet officia id officia impedit qui consequatur
-            veritatis quo laboriosam sequi et rerum quibusdam ea accusamus
-            molestiae quo explicabo ducimus.
+            internos.
           </p>
         </div>
-        <div className="flex flex-col bg-vanilla-400 dark:bg-midnight-400 !p-8 rounded gap-4">
-          <Typography variant="h5">Admin Overview 12</Typography>
+        <div className={`${cellCss} col-span-2`}>
+          <Typography variant="h5">Overview 12</Typography>
           <p>
             Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
             dolores cupiditate hic blanditiis similique. Sed dolor libero sit
             omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Hic voluptatem cumque ad odio impedit et quisquam
-            accusamus. Ut eveniet officia id officia impedit qui consequatur
-            veritatis quo laboriosam sequi et rerum quibusdam ea accusamus
-            molestiae quo explicabo ducimus.
+            internos.
           </p>
         </div>
       </div>

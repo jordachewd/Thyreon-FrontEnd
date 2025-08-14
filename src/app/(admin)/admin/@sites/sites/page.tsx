@@ -1,11 +1,11 @@
 import PageHead from "@/components/layout/common/PageHead";
-import SitesPage from "@/components/sections/admin/sites/SitesPage";
+import Sites from "@/components/sections/admin/sites/Sites";
 
 export default function AdminSitesPage() {
   return (
     <>
       <PageHead title="Sites" alignTitle="left" />
-      <SitesPage isAdmin />
+      <Sites isAdmin />
     </>
   );
 }
