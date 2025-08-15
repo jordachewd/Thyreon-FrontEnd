@@ -41,7 +41,7 @@ export default function UsersPage() {
     });
   }, [handleUpdate, handleRemove]);
 
-  if (loading) return <LoadingBubbles wrapped fullHeight />;
+  if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard error={error.message} />;
 
   return (

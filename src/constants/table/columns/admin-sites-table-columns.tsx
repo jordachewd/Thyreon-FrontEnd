@@ -11,7 +11,7 @@ import SiteActionCell from "@/components/sections/admin/shared/table/sites/SiteA
 interface AdminSitesTableColumnsProps {
   onEditSite: (siteData: Partial<GetSiteData>) => void;
   onDeleteSite: (siteData: Partial<GetSiteData>) => void;
-  routePrefix?: "admin/sites" | "sites/registry";
+  routePrefix?: "admin/sites" | "sites";
 }
 
 export const adminSitesTableColumns = ({

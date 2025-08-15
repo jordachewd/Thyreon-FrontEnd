@@ -1,3 +1,3 @@
-export default function AdminTransactionsDefault() {
+export default function AdminSectionTransactionsDefault() {
   return null;
 }

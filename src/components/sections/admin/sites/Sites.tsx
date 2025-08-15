@@ -29,12 +29,12 @@ export default function Sites({ isAdmin = false }: { isAdmin?: boolean }) {
       (isAdmin ? adminSitesTableColumns : userSitesTableColumns)({
         onEditSite: setUpdate,
         onDeleteSite: setRemove,
-        routePrefix: isAdmin ? "admin/sites" : "sites/registry",
+        routePrefix: isAdmin ? "admin/sites" : "sites",
       }),
     [isAdmin]
   );
 
-  if (loading) return <LoadingBubbles wrapped fullHeight />;
+  if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard error={error.message} />;
 
   return (

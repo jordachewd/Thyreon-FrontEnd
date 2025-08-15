@@ -9,7 +9,7 @@ type AdminLayoutProps = {
   settings: React.ReactNode;
 };
 
-export default function AdminLayout(props: AdminLayoutProps) {
+export default function AdminSectionLayout(props: AdminLayoutProps) {
   const { children, ...slots } = props;
   return <AdminFrame tabs={adminNavItems} slots={slots} overview={children} />;
 }

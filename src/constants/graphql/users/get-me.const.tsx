@@ -17,6 +17,12 @@ export const GET_ME_QUERY = gql`
         stripeId
         expiresAt
       }
+      sites {
+        id
+        siteName
+        domain
+        createdAt
+      }
       transactions {
         id
         plan

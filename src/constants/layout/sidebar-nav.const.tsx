@@ -13,7 +13,7 @@ const sidebarNavItems: SidebarNavItem[] = [
     id: 1,
     href: "/sites",
     icon: "bi bi-window-stack",
-    label: "Sites",
+    label: "Websites",
     isAdmin: false,
   },
 

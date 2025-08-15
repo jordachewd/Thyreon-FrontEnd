@@ -2,6 +2,7 @@
 
 import css from "@/styles/layout/shared/PageHead.module.css";
 import { Typography } from "@mui/material";
+import classNames from "classnames";
 import { memo, ReactNode } from "react";
 
 interface PageHeadProps {
@@ -11,6 +12,7 @@ interface PageHeadProps {
   alignTitle?: "left" | "center" | "right";
   size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   children?: ReactNode;
+  className?: string;
 }
 
 function PageHead({
@@ -19,9 +21,12 @@ function PageHead({
   children,
   size = "h4",
   alignTitle = "center",
+  className: customCss = "",
 }: PageHeadProps) {
+  const sectionCss = classNames(css.section, customCss);
+
   return (
-    <div className={css.section}>
+    <div className={sectionCss}>
       <div className={`${css.title} ${!children ? "w-full" : ""}`}>
         <Typography variant={size} align={alignTitle}>
           {title}

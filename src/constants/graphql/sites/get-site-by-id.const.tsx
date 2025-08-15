@@ -7,8 +7,6 @@ export const GET_SITE_BY_ID = gql`
       siteName
       domain
       status
-      createdAt
-      lastSeen
     }
   }
 `;

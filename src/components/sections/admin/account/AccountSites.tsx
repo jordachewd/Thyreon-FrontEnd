@@ -30,8 +30,8 @@ function AccountSites({
         alignTitle={alignTitle}
         titleSize={titleSize}
       >
-        <Typography variant="body2" className="text-slate-600!">
-          No sites yet.
+        <Typography variant="body2" className="!text-slate-400 text-center">
+          No registered sites yet.
         </Typography>
       </ProfileWrapper>
     );

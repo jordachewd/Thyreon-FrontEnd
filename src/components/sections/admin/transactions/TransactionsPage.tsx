@@ -17,7 +17,7 @@ export default function TransactionsPage() {
     }
   );
 
-  if (loading) return <LoadingBubbles wrapped fullHeight />;
+  if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard error={error.message} />;
 
   const transactions: Transaction[] = data?.transactions || [];

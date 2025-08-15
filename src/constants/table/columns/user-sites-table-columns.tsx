@@ -10,6 +10,6 @@ interface UserSitesTableColumnsProps {
 export const userSitesTableColumns = (
   props: UserSitesTableColumnsProps
 ): GridColDef[] =>
-  adminSitesTableColumns({ ...props, routePrefix: "sites/registry" }).filter(
+  adminSitesTableColumns({ ...props, routePrefix: "sites" }).filter(
     (col) => col.field !== "user"
   );

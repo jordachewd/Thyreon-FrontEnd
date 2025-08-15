@@ -9,7 +9,7 @@ import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import { UserRole } from "@/types/users/user-role.d";
 import { memo, useMemo } from "react";
 import { AccountHeroType} from "@/types/account/account-hero.d";
-import ProfileWrapper from "./AccountWrapper";
+import AccountWrapper from "./AccountWrapper";
 import { GetUserData } from "@/types/users/get-user-data.d";
 
 function AccountHero({
@@ -20,14 +20,14 @@ function AccountHero({
 }: AccountHeroType) {
   if (!data) {
     return (
-      <ProfileWrapper
+      <AccountWrapper
         hero
         title={title}
         alignTitle={alignTitle}
         titleSize={titleSize}
       >
         No data yet.
-      </ProfileWrapper>
+      </AccountWrapper>
     );
   }
 
@@ -49,7 +49,7 @@ function AccountHero({
   const isAdmin = role === "admin";
 
   return (
-    <ProfileWrapper hero title={title} alignTitle={alignTitle} titleSize={titleSize}>
+    <AccountWrapper hero title={title} alignTitle={alignTitle} titleSize={titleSize}>
       <div className={css.heroImg}>
         <Avatar
           alt={username}
@@ -89,7 +89,7 @@ function AccountHero({
       <div className={css.heroPlan}>
         <PlanPromo userPlan={currentPlan} userRole={role} isAdmin={isAdmin} />
       </div>
-    </ProfileWrapper>
+    </AccountWrapper>
   );
 }
 

@@ -1,8 +1,9 @@
 import PageHead from "@/components/layout/common/PageHead";
+import PageWrapper from "@/components/layout/common/PageWrapper";
 import { Typography } from "@mui/material";
 import classNames from "classnames";
 
-export default function AdminOverview() {
+export default function AdminSectionOverview() {
   const gridCss = "grid grid-cols-4 gap-6";
   const cellBase = "flex flex-col p-8 rounded gap-4 border";
   const cellBg = "bg-vanilla-100 dark:bg-midnight-800";
@@ -10,153 +11,117 @@ export default function AdminOverview() {
   const cellCss = classNames(cellBase, cellBg, cellBorder);
 
   return (
-    <>
-      <PageHead title="Overview" alignTitle="left" />
+    <PageWrapper className="gap-8">
+      <PageHead title="Admin Overview" alignTitle="left" />
       <div className={gridCss}>
         <div className={cellCss}>
-          <Typography variant="h5">Overview 01</Typography>
+          <Typography variant="h6">Application Status</Typography>
           <p>
-            Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
-            blanditiis quis 33 illum eaque.
+            Current system status, active deployment version and recent deploy
+            timestamp. Use this to confirm the app is running and the latest
+            build is live.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 02</Typography>
+          <Typography variant="h6">Active Users (24h)</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate.
+            Number of unique users who interacted with the platform in the last
+            24 hours and short-term trend (increasing / decreasing).
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 03</Typography>
+          <Typography variant="h6">Registered Sites</Typography>
           <p>
-            Sed dolor libero sit omnis veniam sed repellat omnis eos nisi
-            temporibus est laudantium.
+            Total sites connected to WPGuard, plus pending approvals and recent
+            site onboarding activity.
           </p>
         </div>
+
         <div className={`${cellCss} row-span-2`}>
-          <Typography variant="h5">Overview 04</Typography>
+          <Typography variant="h6">Traffic Overview</Typography>
           <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus. Lorem ipsum dolor sit amet.
+            Recent traffic patterns: pageviews, peak hours and geographic
+            distribution to help identify load and user behaviour.
           </p>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Lorem ipsum dolor sit amet.{" "}
+            Includes brief signals for spikes, bot activity or referral
+            anomalies.
           </p>
         </div>
+
         <div className={`${cellCss} row-span-2 col-span-3`}>
-          <Typography variant="h5">Overview 05</Typography>
+          <Typography variant="h6">Transactions & Billing</Typography>
           <p>
-            Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
-            blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
-            aperiam ea perferendis iure. Aut consequuntur omnis id accusantium
-            obcaecati cum velit saepe qui dolores cupiditate hic blanditiis
-            similique. Sed dolor libero sit omnis veniam sed repellat omnis eos
-            nisi temporibus est laudantium internos. Aut consequuntur omnis id
-            accusantium obcaecati cum velit saepe qui dolores cupiditate hic
-            blanditiis similique. Sed dolor libero sit omnis veniam sed repellat
-            omnis eos nisi temporibus est laudantium internos. Aut consequuntur
-            omnis id accusantium obcaecati cum velit saepe qui dolores
-            cupiditate hic blanditiis similique. Sed dolor libero sit omnis
-            veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Summary of processed transactions, payment success rate and total
+            value for the selected period. Useful for spotting billing issues.
           </p>
           <p>
-            Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
-            blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
-            aperiam ea perferendis iure. Aut consequuntur omnis id accusantium
-            obcaecati cum velit saepe qui dolores cupiditate hic blanditiis
-            similique. Sed dolor libero sit omnis veniam sed repellat omnis eos
-            nisi temporibus est laudantium internos. Aut consequuntur omnis id
-            accusantium obcaecati cum velit saepe qui dolores cupiditate hic
-            blanditiis similique. Sed dolor libero sit omnis veniam sed repellat
-            omnis eos nisi temporibus est laudantium internos. Aut consequuntur
-            omnis id accusantium obcaecati cum velit saepe qui dolores
-            cupiditate hic blanditiis similique. Sed dolor libero sit omnis
-            veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Also highlights failed payments, chargebacks and pending invoices
+            requiring attention.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 06</Typography>
+          <Typography variant="h6">Monthly Revenue</Typography>
           <p>
-            Sed dolor libero sit omnis veniam sed repellat omnis eos nisi
-            temporibus est laudantium internos voluptatem cumque ad odio
-            impedit.
+            Recurring revenue metrics (MRR/ARR), month-over-month change and top
+            contributors to revenue growth.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 07</Typography>
+          <Typography variant="h6">Security Alerts</Typography>
           <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae.
+            Count and severity of recent security events, critical alerts and
+            recommended actions for incidents that need immediate review.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 08</Typography>
+          <Typography variant="h6">Storage & Bandwidth</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique sed dolor libero sit
-            omnis.
+            Current storage usage and bandwidth consumption versus limits, with
+            alerts for approaching quotas.
           </p>
         </div>
-        <div className={`${cellCss} row-span-2 col-span-2`}>
-          <Typography variant="h5">Overview 09</Typography>
+
+        <div className={cellCss}>
+          <Typography variant="h6">System Health</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Health indicators for core services (API, database, workers), uptime
+            percentages and recent error rates to monitor infrastructure
+            stability.
           </p>
+          <p>Quick links to logs and diagnostics for deeper investigation.</p>
+        </div>
+
+        <div className={cellCss}>
+          <Typography variant="h6">User Growth (30d)</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
-          </p>
-          <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus.
-          </p>
-          <p>
-            Ea itaque natus cum ipsam eveniet aut blanditiis quis 33 illum eaque
-            a voluptatem cupiditate et excepturi aperiam ea perferendis iure.
+            Signups, churn and percentage change over the last 30 days to track
+            adoption and retention trends.
           </p>
         </div>
+
         <div className={`${cellCss} col-span-2`}>
-          <Typography variant="h5">Overview 10</Typography>
+          <Typography variant="h6">Integrations & API</Typography>
           <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus. Ea itaque natus cum ipsam eveniet aut blanditiis
-            quis 33 illum eaque a voluptatem cupiditate et excepturi aperiam ea
-            perferendis iure.
+            Top used integrations, recent API calls and rate-limit status. Use
+            this to spot integration failures or unusually high API usage.
           </p>
         </div>
+
         <div className={`${cellCss} col-span-2`}>
-          <Typography variant="h5">Overview 11</Typography>
+          <Typography variant="h6">Support & Tasks</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
-          </p>
-        </div>
-        <div className={`${cellCss} col-span-2`}>
-          <Typography variant="h5">Overview 12</Typography>
-          <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Open support tickets, critical customer issues and outstanding admin
+            tasks that require follow-up to maintain SLA and customer
+            satisfaction.
           </p>
         </div>
       </div>
-    </>
+    </PageWrapper>
   );
 }

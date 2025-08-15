@@ -5,7 +5,7 @@ import { memo } from "react";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import Typography from "@mui/material/Typography";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import ProfileWrapper from "./AccountWrapper";
+import AccountWrapper from "./AccountWrapper";
 import { Transaction } from "@/types/transactions/transaction.d";
 import { AccountBillingType } from "@/types/account/account-billing.d";
 
@@ -20,7 +20,7 @@ function AccountBilling({
 
   if (!transactions || transactions.length === 0) {
     return (
-      <ProfileWrapper
+      <AccountWrapper
         title={title}
         alignTitle={alignTitle}
         titleSize={titleSize}
@@ -28,12 +28,12 @@ function AccountBilling({
         <Typography variant="body2" className="text-slate-600!">
           No transactions yet.
         </Typography>
-      </ProfileWrapper>
+      </AccountWrapper>
     );
   }
 
   return (
-    <ProfileWrapper title={title} alignTitle={alignTitle} titleSize={titleSize}>
+    <AccountWrapper title={title} alignTitle={alignTitle} titleSize={titleSize}>
       <div className={css.table}>
         <div className={css.tableHead}>
           <p className="flex-1">Plan</p>
@@ -86,7 +86,7 @@ function AccountBilling({
           );
         })}
       </div>
-    </ProfileWrapper>
+    </AccountWrapper>
   );
 }
 

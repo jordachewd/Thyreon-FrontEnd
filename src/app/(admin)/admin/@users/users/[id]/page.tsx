@@ -1,10 +1,17 @@
+import PageWrapper from "@/components/layout/common/PageWrapper";
 import EditUserProfile from "@/components/sections/admin/users/EditUserPage";
 
 interface UserProfileProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function AdminUserProfile({ params }: UserProfileProps) {
+export default async function AdminSectionUserPage({
+  params,
+}: UserProfileProps) {
   const { id } = await params;
-  return <EditUserProfile userId={Number(id)} />;
+  return (
+    <PageWrapper className="gap-8">
+      <EditUserProfile userId={Number(id)} />
+    </PageWrapper>
+  );
 }

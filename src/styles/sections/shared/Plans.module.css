@@ -1,12 +1,12 @@
 @reference "../../../app/globals.css";
 
 .section {
-  @apply flex flex-col w-full mx-auto p-4 gap-6;
+  @apply flex flex-col w-full mx-auto gap-6;
 }
 
 .content {
   @apply flex flex-col items-center justify-between;
-  @apply w-full max-w-6xl mx-auto my-10 gap-3;
+  @apply w-full max-w-6xl mx-auto gap-3;
 }
 
 .head {

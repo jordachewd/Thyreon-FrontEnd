@@ -1,19 +1,19 @@
 "use client";
 
-import { useQuery } from "@apollo/client";
-import { useCallback, useMemo } from "react";
-import { GetUserData } from "@/types/users/get-user-data.d";
+import PageHead from "@/components/layout/common/PageHead";
+import ErrorCard from "@/components/shared/ErrorCard";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { GET_USER_BY_ID } from "@/constants/graphql/users/get-user-by-id.const";
 import { useUpdatedUserSocket } from "@/lib/hooks/sockets/useUpdatedUserSocket";
-import { Transaction } from "@/types/transactions/transaction.d";
 import { SiteData } from "@/types/sites/site-data.d";
-import PageHead from "@/components/layout/common/PageHead";
-import EditUserDialog from "./dialogs/EditUserDialog";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { useQuery } from "@apollo/client";
+import { Transaction } from "@/types/transactions/transaction.d";
+import { useCallback } from "react";
 import AccountBilling from "../account/AccountBilling";
 import AccountHero from "../account/AccountHero";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import ErrorCard from "@/components/shared/ErrorCard";
 import AccountSites from "../account/AccountSites";
+import EditUserDialog from "./dialogs/EditUserDialog";
 
 interface EditUserProps {
   userId: number;
@@ -32,20 +32,13 @@ export default function EditUserPage({ userId }: EditUserProps) {
   const profileData = data?.userById as GetUserData;
   const currentPlan = profileData?.currentPlan?.stripeId as string;
 
-  const sites: SiteData[] = useMemo(
-    () => profileData?.sites || [],
-    [profileData]
-  );
-
-  const transactions: Transaction[] = useMemo(
-    () => profileData?.transactions || [],
-    [profileData]
-  );
+  const transactions: Transaction[] = profileData?.transactions || [];
+  const sites: SiteData[] = profileData?.sites || [];
 
   const handleRefetch = useCallback(() => refetch(), [refetch]);
   useUpdatedUserSocket(handleRefetch);
 
-  if (loading) return <LoadingBubbles wrapped fullHeight />;
+  if (loading) return <LoadingBubbles />;
   if (error)
     return (
       <ErrorCard
@@ -57,7 +50,7 @@ export default function EditUserPage({ userId }: EditUserProps) {
 
   return (
     <>
-      <PageHead title="Details" alignTitle="left">
+      <PageHead title="User Details" alignTitle="left">
         <EditUserDialog data={profileData} />
       </PageHead>
 

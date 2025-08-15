@@ -1,13 +1,14 @@
-import classNames from "classnames"; // Utility for managing class strings
+import classNames from "classnames";
 import css from "@/styles/shared/LoadingBubbles.module.css";
 
 type BubbleSizes = "small" | "medium" | "large";
+type wrappedAlign = "left" | "center" | "right";
 
 interface LoadingBubblesProps {
-  className?: string;
   size?: BubbleSizes;
   wrapped?: boolean;
   fullHeight?: boolean;
+  align?: wrappedAlign;
 }
 
 const sizeMappings = {
@@ -17,16 +18,22 @@ const sizeMappings = {
 };
 
 export default function LoadingBubbles({
-  className,
   size = "medium",
   wrapped = false,
   fullHeight = false,
+  align = "center",
 }: LoadingBubblesProps) {
   const bubbles = sizeMappings[size] || sizeMappings.medium;
   const wrpHeight = fullHeight ? "h-dvh" : "h-20";
+  const alignClass =
+    align === "center"
+      ? "justify-center"
+      : align === "right"
+      ? "justify-end"
+      : "";
 
   const bubbleLoader = (
-    <div className={classNames(css.wrapper, className)}>
+    <div className={classNames(css.wrapper, alignClass)}>
       {bubbles.map((bubbleSize, index) => (
         <div
           key={index}
@@ -42,7 +49,9 @@ export default function LoadingBubbles({
 
   if (wrapped) {
     return (
-      <div className={classNames(css.isWrapped, wrpHeight)}>{bubbleLoader}</div>
+      <div className={classNames(css.isWrapped, alignClass, wrpHeight)}>
+        {bubbleLoader}
+      </div>
     );
   }
 

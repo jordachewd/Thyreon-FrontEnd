@@ -11,151 +11,128 @@ export default async function AdminDashboard() {
   const cellCss = classNames(cellBase, cellBg, cellBorder);
 
   return (
-    <PageWrapper>
+    <PageWrapper className="gap-8">
       <PageHead title="Dashboard" alignTitle="left" />
 
       <div className={gridCss}>
         <div className={cellCss}>
-          <Typography variant="h5">Overview 01</Typography>
+          <Typography variant="h5">Welcome & Overview</Typography>
           <p>
-            Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
-            blanditiis quis 33 illum eaque.
+            This dashboard is the first screen you see after login. It provides
+            a concise summary of account status, monitored sites, and recent
+            activity so administrators and users can quickly assess priorities.
+          </p>
+          <p>
+            Use the boxes below to drill into health status, security alerts,
+            recent logins, subscription info, and quick remediation actions.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 02</Typography>
+          <Typography variant="h5">Activity Summary</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate.
+            Recent activity at a glance: total events in the last 24 hours,
+            recent scans completed, and the number of changes detected across
+            monitored sites.
+          </p>
+          <p>
+            This summary helps you spot spikes or unexpected operations that
+            may require further investigation.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 03</Typography>
+          <Typography variant="h5">Sites & Health</Typography>
           <p>
-            Sed dolor libero sit omnis veniam sed repellat omnis eos nisi
-            temporibus est laudantium.
+            High-level site metrics including total sites monitored, sites with
+            warnings, and sites in critical state. Click through to see per-site
+            health checks and uptime history.
           </p>
         </div>
+
         <div className={`${cellCss} row-span-2`}>
-          <Typography variant="h5">Overview 04</Typography>
+          <Typography variant="h5">Security & Vulnerabilities</Typography>
           <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus. Lorem ipsum dolor sit amet.
+            Current security posture: active alerts, top detected vulnerabilities,
+            and pending remediation tasks. Prioritize issues by severity to
+            reduce risk quickly.
           </p>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos. Lorem ipsum dolor sit amet.{" "}
+            Each finding links to recommended fixes and the affected site details.
           </p>
         </div>
+
         <div className={`${cellCss} row-span-2 col-span-3`}>
-          <Typography variant="h5">Overview 05</Typography>
+          <Typography variant="h5">Alerts & Notifications</Typography>
           <p>
-            Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
-            blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
-            aperiam ea perferendis iure. Aut consequuntur omnis id accusantium
-            obcaecati cum velit saepe qui dolores cupiditate hic blanditiis
-            similique. Sed dolor libero sit omnis veniam sed repellat omnis eos
-            nisi temporibus est laudantium internos. Aut consequuntur omnis id
-            accusantium obcaecati cum velit saepe qui dolores cupiditate hic
-            blanditiis similique. Sed dolor libero sit omnis veniam sed repellat
-            omnis eos nisi temporibus est laudantium internos. Aut consequuntur
-            omnis id accusantium obcaecati cum velit saepe qui dolores
-            cupiditate hic blanditiis similique. Sed dolor libero sit omnis
-            veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Latest alerts with severity and timestamps. Acknowledge, mute, or
+            investigate alerts directly from the dashboard to keep your incident
+            list tidy.
           </p>
           <p>
-            Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut
-            blanditiis quis 33 illum eaque a voluptatem cupiditate et excepturi
-            aperiam ea perferendis iure. Aut consequuntur omnis id accusantium
-            obcaecati cum velit saepe qui dolores cupiditate hic blanditiis
-            similique. Sed dolor libero sit omnis veniam sed repellat omnis eos
-            nisi temporibus est laudantium internos. Aut consequuntur omnis id
-            accusantium obcaecati cum velit saepe qui dolores cupiditate hic
-            blanditiis similique. Sed dolor libero sit omnis veniam sed repellat
-            omnis eos nisi temporibus est laudantium internos. Aut consequuntur
-            omnis id accusantium obcaecati cum velit saepe qui dolores
-            cupiditate hic blanditiis similique. Sed dolor libero sit omnis
-            veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Notification channels and rules are summarized so you can confirm
+            that critical alerts reach the right team members.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 06</Typography>
+          <Typography variant="h5">Recent Logins & Sessions</Typography>
           <p>
-            Sed dolor libero sit omnis veniam sed repellat omnis eos nisi
-            temporibus est laudantium internos voluptatem cumque ad odio
-            impedit.
+            Most recent sign-ins and active sessions for admin and user accounts,
+            including device and approximate location. Use this to detect unusual
+            access and terminate suspicious sessions.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 07</Typography>
+          <Typography variant="h5">Traffic & Performance</Typography>
           <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae.
+            Quick metrics on recent traffic, average response times, and error
+            rates. Identify sites experiencing load issues or increased latency.
           </p>
         </div>
+
         <div className={cellCss}>
-          <Typography variant="h5">Overview 08</Typography>
+          <Typography variant="h5">Scan History</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique sed dolor libero sit
-            omnis.
+            Recent scan results with counts of findings per scan. See when the
+            last full and incremental scans ran and which scans require review.
           </p>
         </div>
+
         <div className={`${cellCss} row-span-2 col-span-2`}>
-          <Typography variant="h5">Overview 09</Typography>
+          <Typography variant="h5">Account & Subscription</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Billing status, plan limits, and upcoming renewals. Monitor usage
+            against plan quotas to avoid service disruptions.
           </p>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
-          </p>
-          <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus.
-          </p>
-          <p>
-            Ea itaque natus cum ipsam eveniet aut blanditiis quis 33 illum eaque
-            a voluptatem cupiditate et excepturi aperiam ea perferendis iure.
+            Quick link to update billing details or upgrade the plan when needed.
           </p>
         </div>
+
         <div className={`${cellCss} col-span-2`}>
-          <Typography variant="h5">Overview 10</Typography>
+          <Typography variant="h5">Integrations</Typography>
           <p>
-            Ut eveniet officia id officia impedit qui consequatur veritatis quo
-            laboriosam sequi et rerum quibusdam ea accusamus molestiae quo
-            explicabo ducimus. Ea itaque natus cum ipsam eveniet aut blanditiis
-            quis 33 illum eaque a voluptatem cupiditate et excepturi aperiam ea
-            perferendis iure.
+            Status of connected integrations (e.g., Slack, email, ticketing).
+            Confirm that notifications and automated actions are flowing as
+            expected.
           </p>
         </div>
+
         <div className={`${cellCss} col-span-2`}>
-          <Typography variant="h5">Overview 11</Typography>
+          <Typography variant="h5">Pending Tasks</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Open remediation tasks, untriaged alerts, and administrative items
+            requiring attention. Use this as a personal or team action list.
           </p>
         </div>
+
         <div className={`${cellCss} col-span-2`}>
-          <Typography variant="h5">Overview 12</Typography>
+          <Typography variant="h5">System Status & Notices</Typography>
           <p>
-            Aut consequuntur omnis id accusantium obcaecati cum velit saepe qui
-            dolores cupiditate hic blanditiis similique. Sed dolor libero sit
-            omnis veniam sed repellat omnis eos nisi temporibus est laudantium
-            internos.
+            Platform status, scheduled maintenance, and service notices. Check
+            here first for announced interruptions that may affect monitoring.
           </p>
         </div>
       </div>
