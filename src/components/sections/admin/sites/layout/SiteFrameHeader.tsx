@@ -1,7 +1,7 @@
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
 import PageHead from "@/components/layout/common/PageHead";
 import ErrorCard from "@/components/shared/ErrorCard";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import Skeleton from "@mui/material/Skeleton";
 import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useQuery } from "@apollo/client";
@@ -28,7 +28,7 @@ export default function SiteFrameHeader({
   if (loading)
     return (
       <header className={style}>
-        <LoadingBubbles align="left" size="small" />
+        <Skeleton animation="wave" width={280} height={44} />
       </header>
     );
 

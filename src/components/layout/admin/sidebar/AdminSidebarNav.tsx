@@ -2,12 +2,14 @@
 
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import sidebarNavItems from "@/constants/layout/sidebar-nav.const";
+import { isSamePath } from "@/lib/utils/isSamePath";
 import SidebarNavItem from "@/types/layout/sidebar-nav.d";
 import Link from "next/link";
-import { memo, useCallback } from "react";
-import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import { usePathname } from "next/navigation";
-import { isSamePath } from "@/lib/utils/isSamePath";
+import { useCallback, memo } from "react";
+import css from "@/styles/layout/admin/AdminSidebar.module.css";
+import classNames from "classnames";
+import { Badge } from "@mui/material";
 
 interface AdminSidebarNavProps {
   isNavOpen: boolean;
@@ -22,20 +24,27 @@ function AdminSidebarNav({ isNavOpen, isAdmin }: AdminSidebarNavProps) {
       const isActive = isSamePath(pathname, item.href);
       const activeCss = isActive ? css.linkActive : "";
 
+      const linkCss = classNames(css.linkItem, activeCss);
+      const labelCss = classNames(css.linkLabel, {
+        [css.navItemOff]: isNavOpen,
+      });
+
       return (
-        <Link
-          key={item.id}
-          href={item.href}
-          className={`${css.linkItem} ${activeCss}`}
-        >
+        <Link key={item.id} href={item.href} className={linkCss}>
           <TooltipArrow title={item.label} placement="right">
-            <span className={css.linkIcon}>
-              <i className={item.icon}></i>
-            </span>
+            {item.slug === "notifications" ? (
+              <Badge badgeContent={4} color="warning">
+                <span className={css.linkIcon}>
+                  <i className={item.icon}></i>
+                </span>
+              </Badge>
+            ) : (
+              <span className={css.linkIcon}>
+                <i className={item.icon}></i>
+              </span>
+            )}
           </TooltipArrow>
-          <span className={`${css.linkLabel} ${isNavOpen && css.navItemOff}`}>
-            {item.label}
-          </span>
+          <span className={labelCss}>{item.label}</span>
         </Link>
       );
     },
@@ -44,14 +53,10 @@ function AdminSidebarNav({ isNavOpen, isAdmin }: AdminSidebarNavProps) {
 
   return (
     <nav className={css.navigation}>
-      <div className={css.navTop}>
-        {sidebarNavItems.map((item) => {
-          if (!isAdmin && item.isAdmin) return null;
-          return getNavItem(item);
-        })}
-      </div>
-
-      <div className={css.navBottom}>Nav Footer</div>
+      {sidebarNavItems.map((item) => {
+        if (!isAdmin && item.isAdmin) return null;
+        return getNavItem(item);
+      })}
     </nav>
   );
 }

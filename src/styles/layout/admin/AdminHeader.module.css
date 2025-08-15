@@ -17,14 +17,10 @@
   @apply flex items-center gap-4;
 }
 
+.right {
+  @apply gap-12;
+}
+
 .center {
   @apply lg:hidden;
-}
-
-.search {
-  @apply hidden lg:flex;
-}
-
-.utils {
-  @apply flex items-center gap-4;
 }

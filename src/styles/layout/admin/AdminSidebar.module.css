@@ -13,7 +13,7 @@
 }
 
 .logo {
-  @apply flex px-6 items-center border-b w-full h-16;
+  @apply flex px-6 items-center border-b w-full h-[60px];
   @apply dark:bg-midnight-700 bg-vanilla-200;
   @apply border-vanilla-300 dark:border-midnight-600;
   @apply transition-all duration-500 ease-in-out relative;
@@ -57,21 +57,8 @@
   @apply transition-all duration-500 ease-in-out;
 }
 
-.search {
-  @apply flex lg:hidden px-4;
-}
-
 .navigation {
-  @apply flex flex-col h-full overflow-y-auto justify-between;
-}
-
-.navTop,
-.navBottom {
-  @apply flex flex-col px-4 py-8 gap-4;
-}
-
-.navBottom {
-  @apply border-t dark:border-midnight-600 border-vanilla-300;
+  @apply flex flex-col flex-1 overflow-y-auto px-4 py-8 gap-4;
 }
 
 .navItemOff {
@@ -79,7 +66,7 @@
 }
 
 .footer {
-  @apply flex lg:hidden items-center justify-center mt-auto p-3;
+  @apply flex flex-col p-4 gap-4;
   @apply dark:bg-midnight-700 bg-vanilla-200;
   @apply border-t dark:border-midnight-600 border-vanilla-300;
 }

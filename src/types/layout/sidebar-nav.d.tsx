@@ -1,5 +1,6 @@
 export default interface SidebarNavItem {
-  id: number;  
+  id: number;
+  slug: string;
   href: string;
   icon: string;
   label: string;

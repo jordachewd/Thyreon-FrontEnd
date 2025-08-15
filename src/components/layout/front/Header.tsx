@@ -1,12 +1,13 @@
 "use client";
 
-import css from "@/styles/layout/front/Header.module.css";
-import { useEffect, useState } from "react";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { NODE_ENV } from "@/constants/api/node-env.const";
-import ToggleTheme from "@/components/shared/ToggleTheme";
 import Logo from "@/components/shared/Logo";
-import Button from "@mui/material/Button";
+import ToggleTheme from "@/components/shared/ToggleTheme";
+import { NODE_ENV } from "@/constants/api/node-env.const";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { Button } from "@mui/material";
+import { useState, useEffect } from "react";
+import css from "@/styles/layout/front/Header.module.css";
+import UserButtonMenu from "../common/UserButtonMenu";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -31,10 +32,7 @@ export default function Header() {
         </div>
         <div className={css.right}>
           <SignedIn>
-            <Button size="small" href="/dashboard">
-              Dashboard
-            </Button>
-            <UserButton />
+            <UserButtonMenu isFrontEnd />
           </SignedIn>
           <SignedOut>
             <Button

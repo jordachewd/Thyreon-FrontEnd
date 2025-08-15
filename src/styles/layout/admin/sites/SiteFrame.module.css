@@ -8,7 +8,7 @@
 
 .header {
   @apply border-b border-vanilla-200 dark:border-midnight-700;
-  @apply flex w-full col-span-2 px-6;
+  @apply flex w-full col-span-2 px-6 items-center;
 }
 
 .sidebar {

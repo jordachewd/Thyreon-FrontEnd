@@ -1,5 +1,6 @@
 import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
+
 import Typography from "@mui/material/Typography";
 import classNames from "classnames";
 
@@ -36,8 +37,8 @@ export default async function AdminDashboard() {
             monitored sites.
           </p>
           <p>
-            This summary helps you spot spikes or unexpected operations that
-            may require further investigation.
+            This summary helps you spot spikes or unexpected operations that may
+            require further investigation.
           </p>
         </div>
 
@@ -53,12 +54,13 @@ export default async function AdminDashboard() {
         <div className={`${cellCss} row-span-2`}>
           <Typography variant="h5">Security & Vulnerabilities</Typography>
           <p>
-            Current security posture: active alerts, top detected vulnerabilities,
-            and pending remediation tasks. Prioritize issues by severity to
-            reduce risk quickly.
+            Current security posture: active alerts, top detected
+            vulnerabilities, and pending remediation tasks. Prioritize issues by
+            severity to reduce risk quickly.
           </p>
           <p>
-            Each finding links to recommended fixes and the affected site details.
+            Each finding links to recommended fixes and the affected site
+            details.
           </p>
         </div>
 
@@ -78,9 +80,9 @@ export default async function AdminDashboard() {
         <div className={cellCss}>
           <Typography variant="h5">Recent Logins & Sessions</Typography>
           <p>
-            Most recent sign-ins and active sessions for admin and user accounts,
-            including device and approximate location. Use this to detect unusual
-            access and terminate suspicious sessions.
+            Most recent sign-ins and active sessions for admin and user
+            accounts, including device and approximate location. Use this to
+            detect unusual access and terminate suspicious sessions.
           </p>
         </div>
 
@@ -107,7 +109,8 @@ export default async function AdminDashboard() {
             against plan quotas to avoid service disruptions.
           </p>
           <p>
-            Quick link to update billing details or upgrade the plan when needed.
+            Quick link to update billing details or upgrade the plan when
+            needed.
           </p>
         </div>
 

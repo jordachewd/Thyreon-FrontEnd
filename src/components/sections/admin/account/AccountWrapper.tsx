@@ -13,7 +13,7 @@ function AccountWrapper({
   return (
     <section className={css.section}>
       {title && (
-        <PageHead title={title} alignTitle={alignTitle} size={titleSize} />
+        <PageHead title={title} alignTitle={alignTitle} size={titleSize} className="mb-4" />
       )}
       {hero ? <div className={css.hero}>{children}</div> : children}
     </section>
