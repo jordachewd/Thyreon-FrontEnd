@@ -1,17 +1,17 @@
 "use client";
 
+import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { UserRole } from "@/types/users/user-role.d";
 import {
-  DataGrid,
   GridColDef,
   GridRowParams,
   GridRowSelectionModel,
+  DataGrid,
 } from "@mui/x-data-grid";
-import { UserRole } from "@/types/users/user-role.d";
-import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
-import { GetUserData } from "@/types/users/get-user-data.d";
-import { useCallback, useState } from "react";
-import DeleteUserBtn from "./DeleteUserBtn";
+import { useState, useCallback } from "react";
 import TableToolbar from "../../shared/table/TableToolbar";
+import DeleteUserBtn from "./DeleteUserBtn";
 
 interface AllUsersTableProps {
   data: GetUserData[];

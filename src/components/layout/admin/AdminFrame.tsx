@@ -1,13 +1,17 @@
 "use client";
 
-import css from "../../../styles/layout/admin/AdminFrame.module.css";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { getActivePath } from "@/lib/utils/getActivePath";
-import { AdminNavItemType, AdminSlotKey } from "@/constants/layout/admin-nav.const";
-import { useAdminContext } from "@/context/admin/AdminContext";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import {
+  AdminNavItemType,
+  AdminSlotKey,
+} from "@/constants/layout/admin-nav.const";
+
+import { getActivePath } from "@/lib/utils/getActivePath";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import css from "@/styles/layout/admin/AdminFrame.module.css";
+import { useUserRole } from "@/lib/hooks/users/useUserRole";
 
 export default function AdminFrame({
   tabs,
@@ -18,17 +22,12 @@ export default function AdminFrame({
   slots: Record<AdminSlotKey, React.ReactNode>;
   overview: React.ReactNode;
 }) {
-  const { meCtx } = useAdminContext();
-  const { data, loading, error } = meCtx;
-
   const pathname = usePathname();
   const active = getActivePath(pathname);
 
+  const { isAdmin, loading, error } = useUserRole();
   if (loading) return <LoadingBubbles wrapped fullHeight />;
   if (error) return <ErrorCard error={error.message} />;
-
-  const isAdmin = data.me?.role === "admin";
-
   if (!isAdmin)
     return (
       <ErrorCard

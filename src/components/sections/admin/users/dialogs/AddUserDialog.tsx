@@ -1,20 +1,22 @@
 "use client";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import ErrorCard from "@/components/shared/ErrorCard";
-import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
-import AddUserForm from "../forms/AddUserForm";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import { useCallback } from "react";
-import { useMutation } from "@apollo/client";
-import { generatePassword } from "@/lib/utils/generate-password";
-import { useAdminContext } from "@/context/admin/AdminContext";
 import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
+import { useAdminContext } from "@/context/AdminContext";
 import { useAddUserDialogStore } from "@/lib/stores/users/useAddUserDialogStore";
+import { generatePassword } from "@/lib/utils/generate-password";
+import { useMutation } from "@apollo/client";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import { useCallback } from "react";
+import AdminAddNewFab from "../../shared/AdminAddNewFab";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import DialogHeader from "../../shared/dialog/DialogHeader";
+import AddUserForm from "../forms/AddUserForm";
 
 export default function AddUserDialog() {
   const { updateAlert } = useAdminContext().alertCtx;

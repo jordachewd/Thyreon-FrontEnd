@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@mui/material";
-import { useMutation } from "@apollo/client";
-import { useAdminContext } from "@/context/admin/AdminContext";
-import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
 import ErrorCard from "@/components/shared/ErrorCard";
+import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
+import { useAdminContext } from "@/context/AdminContext";
+import { useMutation } from "@apollo/client";
+import { Button } from "@mui/material";
 
 interface DeleteUserButtonProps {
   users: string[] | undefined;

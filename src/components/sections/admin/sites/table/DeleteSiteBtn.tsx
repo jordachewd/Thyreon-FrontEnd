@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@mui/material";
-import { usePathname } from "next/navigation";
-import { useMutation } from "@apollo/client";
-import { useAdminContext } from "@/context/admin/AdminContext";
+import ErrorCard from "@/components/shared/ErrorCard";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import ErrorCard from "@/components/shared/ErrorCard";
+import { useAdminContext } from "@/context/AdminContext";
+import { useMutation } from "@apollo/client";
+import { Button } from "@mui/material";
+import { usePathname } from "next/navigation";
 
 interface DeleteSiteBtnProps {
   sites: Set<string | number> | undefined;

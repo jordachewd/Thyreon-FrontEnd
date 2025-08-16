@@ -3,13 +3,13 @@
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { DataGrid } from "@mui/x-data-grid/DataGrid";
-import { Transaction } from "@/types/transactions/transaction.d";
+import { TransactionType } from "@/types/transactions/transaction.d";
 import { transactionsTableColumns as columns } from "@/constants/table/columns/transactions-table-columns";
 import { GET_TRANSACTIONS_QUERY } from "@/constants/graphql/transactions/get-transactions.const";
 import { useQuery } from "@apollo/client";
 
 export default function TransactionsPage() {
-  const { data, loading, error } = useQuery<{ transactions: Transaction[] }>(
+  const { data, loading, error } = useQuery<{ transactions: TransactionType[] }>(
     GET_TRANSACTIONS_QUERY,
     {
       notifyOnNetworkStatusChange: true,
@@ -20,7 +20,7 @@ export default function TransactionsPage() {
   if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard error={error.message} />;
 
-  const transactions: Transaction[] = data?.transactions || [];
+  const transactions: TransactionType[] = data?.transactions || [];
 
   return (
     <div className="flex w-full">

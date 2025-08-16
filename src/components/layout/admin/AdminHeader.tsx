@@ -2,7 +2,7 @@
 
 import SidebarToggle from "@/components/sections/admin/shared/SidebarToggle";
 import Logo from "@/components/shared/Logo";
-import { useAdminContext } from "@/context/admin/AdminContext";
+import { useAdminContext } from "@/context/AdminContext";
 import { memo } from "react";
 import css from "@/styles/layout/admin/AdminHeader.module.css";
 import UserButtonMenu from "../common/UserButtonMenu";

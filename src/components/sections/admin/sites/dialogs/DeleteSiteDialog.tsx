@@ -1,22 +1,24 @@
 "use client";
 
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Typography from "@mui/material/Typography";
 import ErrorCard from "@/components/shared/ErrorCard";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import Dialog from "@mui/material/Dialog";
-import { useCallback } from "react";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
-import { useAdminContext } from "@/context/admin/AdminContext";
+import { useAdminContext } from "@/context/AdminContext";
 import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  DialogActions,
+} from "@mui/material";
+import { useCallback } from "react";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import DialogHeader from "../../shared/dialog/DialogHeader";
 
 interface DeleteSiteDialogProps {
   siteData: Partial<GetSiteData> | undefined;

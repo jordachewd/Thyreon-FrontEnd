@@ -1,19 +1,23 @@
-import { useCallback, useEffect, useRef } from "react";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+"use client";
+
 import ErrorCard from "@/components/shared/ErrorCard";
-import Typography from "@mui/material/Typography";
-import ApiKeyResponse from "../forms/ApiKeyResponse";
-import { useMutation } from "@apollo/client";
+import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { REGENERATE_API_KEY } from "@/constants/graphql/sites/new-api-key";
-import { useAdminContext } from "@/context/admin/AdminContext";
+import { useAdminContext } from "@/context/AdminContext";
 import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
+import { useMutation } from "@apollo/client";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  DialogActions,
+} from "@mui/material";
+import { useRef, useCallback, useEffect } from "react";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import DialogHeader from "../../shared/dialog/DialogHeader";
+import ApiKeyResponse from "../forms/ApiKeyResponse";
 
 interface ApiKeyDialogProps {
   open: boolean;

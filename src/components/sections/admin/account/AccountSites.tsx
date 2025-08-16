@@ -1,15 +1,15 @@
 "use client";
 
-import css from "@/styles/sections/admin/AccountBilling.module.css";
-import Typography from "@mui/material/Typography";
-import getFormattedDate from "@/lib/utils/getFormattedDate";
-import ProfileWrapper from "./AccountWrapper";
-import Link from "next/link";
-import { AccountSitesType } from "@/types/account/account-sites.d";
-import { SiteData } from "@/types/sites/site-data.d";
-import { memo } from "react";
-import { useAdminContext } from "@/context/admin/AdminContext";
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
+import { useUserRole } from "@/lib/hooks/users/useUserRole";
+import getFormattedDate from "@/lib/utils/getFormattedDate";
+import { AccountSitesType } from "@/types/account/account-sites.d";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
+import { Typography } from "@mui/material";
+import Link from "next/link";
+import { memo } from "react";
+import css from "@/styles/sections/admin/AccountBilling.module.css";
+import AccountWrapper from "./AccountWrapper";
 
 function AccountSites({
   data,
@@ -17,15 +17,14 @@ function AccountSites({
   alignTitle,
   titleSize,
 }: AccountSitesType) {
-  const sites = data as SiteData[];
+  const sites = data as GetSiteData[];
 
-  const { data: currentUser } = useAdminContext().meCtx;
-  const isAdmin = currentUser?.me?.role === "admin";
+  const { isAdmin } = useUserRole();
   const urlPrefix = isAdmin ? "/admin/sites" : "/sites";
 
   if (!sites || sites.length === 0) {
     return (
-      <ProfileWrapper
+      <AccountWrapper
         title={title}
         alignTitle={alignTitle}
         titleSize={titleSize}
@@ -33,12 +32,12 @@ function AccountSites({
         <Typography variant="body2" className="!text-slate-400 text-center">
           No registered sites yet.
         </Typography>
-      </ProfileWrapper>
+      </AccountWrapper>
     );
   }
 
   return (
-    <ProfileWrapper title={title} alignTitle={alignTitle} titleSize={titleSize}>
+    <AccountWrapper title={title} alignTitle={alignTitle} titleSize={titleSize}>
       <div className={css.table}>
         <div className={css.tableHead}>
           <div className="flex-1">Site Name</div>
@@ -91,7 +90,7 @@ function AccountSites({
           );
         })}
       </div>
-    </ProfileWrapper>
+    </AccountWrapper>
   );
 }
 

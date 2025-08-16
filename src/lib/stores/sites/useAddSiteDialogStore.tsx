@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { defaultNewSiteValues as defaultVals } from "@/constants/sites/defaults/new-site-values";
-import { AlertMessageParams } from "@/context/admin/types/alert/alert-msg-params.interface";
+import { AlertMessageParams } from "@/context/types/alert-msg-params.d";
 
 type AddSiteDialogStore = {
   open: boolean;

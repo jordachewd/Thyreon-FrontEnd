@@ -1,13 +1,14 @@
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import css from "@/styles/shared/PlanPromo.module.css";
-import { Transaction } from "@/types/transactions/transaction.d";
+import { TransactionType } from "@/types/transactions/transaction.d";
 import { UserRole } from "@/types/users/user-role.d";
-import { Button, Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import { memo } from "react";
+import css from "@/styles/shared/PlanPromo.module.css";
+
 
 interface PlanPromoProps {
   userRole: UserRole | undefined;
-  userPlan: Transaction | undefined;
+  userPlan: TransactionType | undefined;
   isAdmin: boolean;
 }
 

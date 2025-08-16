@@ -1,20 +1,22 @@
 "use client";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import ErrorCard from "@/components/shared/ErrorCard";
-import AdminAddNewFab from "@/components/sections/admin/shared/AdminAddNewFab";
+import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
+import { useAdminContext } from "@/context/AdminContext";
+import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { useMutation } from "@apollo/client";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import { useCallback, useEffect } from "react";
+import AdminAddNewFab from "../../shared/AdminAddNewFab";
+import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import EditUserForm from "../forms/EditUserForm";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import { useEffect, useCallback } from "react";
-import { useAdminContext } from "@/context/admin/AdminContext";
-import { useMutation } from "@apollo/client";
-import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
-import { GetUserData } from "@/types/users/get-user-data.d";
-import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 
 interface EditUserDialogProps {
   data: Partial<GetUserData> | undefined;

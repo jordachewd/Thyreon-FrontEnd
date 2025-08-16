@@ -1,10 +1,11 @@
+"use client";
+
 import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
-
 import Typography from "@mui/material/Typography";
 import classNames from "classnames";
 
-export default async function AdminDashboard() {
+export default function AdminDashboard() {
   const gridCss = "grid grid-cols-4 gap-6";
   const cellBase = "flex flex-col p-8 rounded gap-4 border";
   const cellBg = "bg-vanilla-100 dark:bg-midnight-800";

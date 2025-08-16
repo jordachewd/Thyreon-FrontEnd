@@ -11,8 +11,8 @@ export default function LandingPage() {
       <Hero />
       <Features />
       <HowItWorks />
-      <Plans />
-      <Faqs />
+      <Plans className="py-14" />
+      <Faqs className="pb-14" />
     </section>
   );
 }

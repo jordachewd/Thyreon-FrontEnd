@@ -6,7 +6,7 @@ import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import Typography from "@mui/material/Typography";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import AccountWrapper from "./AccountWrapper";
-import { Transaction } from "@/types/transactions/transaction.d";
+import { TransactionType } from "@/types/transactions/transaction.d";
 import { AccountBillingType } from "@/types/account/account-billing.d";
 
 function AccountBilling({
@@ -16,7 +16,7 @@ function AccountBilling({
   titleSize,
   currentPlan,
 }: AccountBillingType) {
-  const transactions = data as Transaction[];
+  const transactions = data as TransactionType[];
 
   if (!transactions || transactions.length === 0) {
     return (

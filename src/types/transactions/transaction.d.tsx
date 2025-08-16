@@ -1,7 +1,7 @@
 import { PlanName } from "../plan/plan-name.d";
 import { BillingCycle } from "../plan/billing-cycle.d";
 
-export interface Transaction {
+export interface TransactionType {
   id: number;
   userId: number;
   plan: PlanName;

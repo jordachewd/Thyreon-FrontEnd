@@ -1,18 +1,20 @@
 "use client";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Typography from "@mui/material/Typography";
 import ErrorCard from "@/components/shared/ErrorCard";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import { useCallback } from "react";
-import { useMutation } from "@apollo/client";
-import { GetUserData } from "@/types/users/get-user-data.d";
-import { useAdminContext } from "@/context/admin/AdminContext";
 import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
+import { useAdminContext } from "@/context/AdminContext";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { useMutation } from "@apollo/client";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  DialogActions,
+} from "@mui/material";
+import { useCallback } from "react";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import DialogHeader from "../../shared/dialog/DialogHeader";
 
 interface DeleteUserDialog {
   data: GetUserData | undefined;

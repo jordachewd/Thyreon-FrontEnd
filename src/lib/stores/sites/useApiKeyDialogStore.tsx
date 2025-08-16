@@ -1,4 +1,4 @@
-import { AlertMessageParams } from "@/context/admin/types/alert/alert-msg-params.interface";
+import { AlertMessageParams } from "@/context/types/alert-msg-params.d";
 import { create } from "zustand";
 
 type ApiKeyDialogStore = {

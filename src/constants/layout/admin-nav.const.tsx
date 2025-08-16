@@ -1,9 +1,4 @@
-export const adminNavSlots = {
-  users: "users",
-  sites: "sites",
-  transactions: "transactions",
-  settings: "settings",
-} as const;
+import { adminNavSlots } from "./admin-nav-slots.const";
 
 export type AdminSlotKey = keyof typeof adminNavSlots;
 export type AdminNavItemType = { slug: AdminSlotKey; label: string };

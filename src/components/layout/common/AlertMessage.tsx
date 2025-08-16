@@ -1,16 +1,16 @@
 "use client";
 
+import { useAdminContext } from "@/context/AdminContext";
+import { alertDefaults } from "@/context/constants/alert-defaults.const";
+import { AlertMessageParams } from "@/context/types/alert-msg-params.d";
 import {
-  Alert,
-  Slide,
   SlideProps,
-  Snackbar,
+  Slide,
   SnackbarCloseReason,
+  Snackbar,
+  Alert,
 } from "@mui/material";
-import { memo, useEffect, useState } from "react";
-import { useAdminContext } from "@/context/admin/AdminContext";
-import { AlertMessageParams } from "@/context/admin/types/alert/alert-msg-params.interface";
-import { alertDefaults } from "@/context/admin/constants/alert-defaults.const";
+import { useState, useEffect, memo } from "react";
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction="left" />;

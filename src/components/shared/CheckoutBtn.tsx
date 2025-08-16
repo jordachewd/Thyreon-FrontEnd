@@ -1,9 +1,10 @@
 "use client";
-import { Button } from "@mui/material";
-import { PlanCheckout } from "@/types/plan/plan-checkout.d";
+
+import { useAdminContext } from "@/context/AdminContext";
 import checkoutPlan from "@/lib/actions/checkout/checkout-plan";
 import getStripe from "@/lib/actions/checkout/get-stripe";
-import { useAdminContext } from "@/context/admin/AdminContext";
+import { PlanCheckout } from "@/types/plan/plan-checkout.d";
+import { Button } from "@mui/material";
 import { memo } from "react";
 
 interface CheckoutProps {

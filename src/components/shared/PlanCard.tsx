@@ -4,9 +4,9 @@ import { Typography } from "@mui/material";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { PlanStatus } from "@/types/plan/plan-status.d";
 import { PlanCheckout } from "@/types/plan/plan-checkout.d";
-import { usePlanPrice } from "@/lib/hooks/usePlanPrice";
-import { usePlanStatus } from "@/lib/hooks/usePlanStatus";
-import { Transaction } from "@/types/transactions/transaction.d";
+import { usePlanPrice } from "@/lib/hooks/plans/usePlanPrice";
+import { usePlanStatus } from "@/lib/hooks/plans/usePlanStatus";
+import { TransactionType } from "@/types/transactions/transaction.d";
 import { memo } from "react";
 
 interface PlanCardProps {
@@ -14,7 +14,7 @@ interface PlanCardProps {
   plan: PlanCardInterface;
   isSignedIn?: boolean;
   isYearly?: boolean;
-  userPlan?: Transaction | undefined;
+  userPlan?: TransactionType | undefined;
 }
 
 function PlanCard({

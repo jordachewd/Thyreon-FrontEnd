@@ -1,7 +1,7 @@
-import { Transaction } from "../transactions/transaction.d"; 
+import { TransactionType } from "../transactions/transaction.d"; 
 import { AccountBaseType } from "./account-base.d";
 
 export interface AccountBillingType extends AccountBaseType {
-  data: Transaction[];
+  data: TransactionType[];
   currentPlan: string;
 }

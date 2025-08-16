@@ -1,4 +1,4 @@
-import { AdminContextProvider } from "@/context/admin/AdminContext";
+import { AdminContextProvider } from "@/context/AdminContext";
 import AdminMain from "./AdminMain";
 import AdminSidebar from "./AdminSidebar";
 import AdminWrapper from "./AdminWrapper";

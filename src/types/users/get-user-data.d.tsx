@@ -1,19 +1,19 @@
-import { SiteData } from "../sites/site-data.d";
-import { Transaction } from "../transactions/transaction.d";
+import { GetSiteData } from "../sites/get-site-data.d";
+import { TransactionType } from "../transactions/transaction.d";
 import { UserRole } from "./user-role.d";
 
 export interface GetUserData {
   id: number;
-  clerkId: string;
-  clerkImg?: string;
+  role: UserRole;
   email: string;
   username: string;
+  clerkId: string;
+  clerkImg?: string;
   firstName?: string;
   lastName?: string;
-  role: UserRole;
-  transactions?: Transaction[];
-  currentPlan?: Transaction;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  sites?: SiteData[];
+  transactions?: TransactionType[];
+  currentPlan?: TransactionType;
+  sites?: GetSiteData[];
 }

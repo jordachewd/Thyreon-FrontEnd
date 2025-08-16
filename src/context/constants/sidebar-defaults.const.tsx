@@ -1,4 +1,4 @@
-import { SidebarCtxParams } from "../types/sidebar/sidebar-ctx-params.interface";
+import { SidebarCtxParams } from "../types/sidebar-ctx-params.d";
 
 export const sidebarDefaults = {
   isNavOpen: false,

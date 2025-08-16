@@ -10,14 +10,15 @@ import { useCallback, memo } from "react";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import classNames from "classnames";
 import { Badge } from "@mui/material";
+import { useUserRole } from "@/lib/hooks/users/useUserRole";
 
 interface AdminSidebarNavProps {
   isNavOpen: boolean;
-  isAdmin: boolean;
 }
 
-function AdminSidebarNav({ isNavOpen, isAdmin }: AdminSidebarNavProps) {
+function AdminSidebarNav({ isNavOpen }: AdminSidebarNavProps) {
   const pathname = usePathname();
+  const { isAdmin } = useUserRole();
 
   const getNavItem = useCallback(
     (item: SidebarNavItem) => {

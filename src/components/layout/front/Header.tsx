@@ -32,7 +32,7 @@ export default function Header() {
         </div>
         <div className={css.right}>
           <SignedIn>
-            <UserButtonMenu isFrontEnd />
+            <UserButtonMenu isFrontEnd showName />
           </SignedIn>
           <SignedOut>
             <Button

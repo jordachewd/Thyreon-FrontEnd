@@ -1,4 +1,4 @@
-import { AlertCtxParams } from "../types/alert/alert-ctx-params.interface";
+import { AlertCtxParams } from "../types/alert-ctx-params.d";
 
 export const alertDefaults = {
   message: { text: "", severity: "info" },

@@ -1,19 +1,21 @@
 "use client";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import ErrorCard from "@/components/shared/ErrorCard";
-import EditUserForm from "../forms/EditUserForm";
-import DialogHeader from "../../shared/dialog/DialogHeader";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import { useCallback, useEffect } from "react";
-import { useAdminContext } from "@/context/admin/AdminContext";
-import { useMutation } from "@apollo/client";
-import { GetUserData } from "@/types/users/get-user-data.d";
 import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
+import { useAdminContext } from "@/context/AdminContext";
 import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
+import { GetUserData } from "@/types/users/get-user-data.d";
+import { useMutation } from "@apollo/client";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import { useCallback, useEffect } from "react";
+import DialogFooter from "../../shared/dialog/DialogFooter";
+import DialogHeader from "../../shared/dialog/DialogHeader";
+import EditUserForm from "../forms/EditUserForm";
 
 interface QuickEditUserProps {
   data: Partial<GetUserData> | undefined;

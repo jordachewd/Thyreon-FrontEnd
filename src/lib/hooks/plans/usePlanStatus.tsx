@@ -2,13 +2,13 @@ import { useMemo } from "react";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { PlanStatus } from "@/types/plan/plan-status.d";
 import { PlanName } from "@/types/plan/plan-name.d";
-import { Transaction } from "@/types/transactions/transaction.d";
+import { TransactionType } from "@/types/transactions/transaction.d";
 
 interface PlanStatusParams {
   isYearly: boolean;
   isSignedIn?: boolean;
   plan: PlanCardInterface;
-  userPlan: Transaction | undefined;
+  userPlan: TransactionType | undefined;
 }
 
 export function usePlanStatus({
