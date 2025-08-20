@@ -4,7 +4,7 @@ import ErrorCard from "@/components/shared/ErrorCard";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useMutation } from "@apollo/client";
 import { Button } from "@mui/material";
 import { usePathname } from "next/navigation";
@@ -21,7 +21,9 @@ export default function DeleteSiteBtn({
   onSuccess,
 }: DeleteSiteBtnProps) {
   const pathname = usePathname();
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
+
   const isAdminPage = pathname.includes("/allsites");
 
   const queriesToRefetch = isAdminPage

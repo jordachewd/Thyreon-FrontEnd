@@ -16,13 +16,21 @@ import DeleteUserBtn from "./DeleteUserBtn";
 interface AllUsersTableProps {
   data: GetUserData[];
   columns: GridColDef[];
+  loading?: boolean;
 }
 
-export default function AllUsersTable({ data, columns }: AllUsersTableProps) {
-  const [selectedIds, setSelectedIds] = useState<ToolbarSelectedIds>({
-    type: "include",
-    ids: new Set<string | number>(),
-  });
+const selectedIdsInit: ToolbarSelectedIds = {
+  type: "include",
+  ids: new Set<string | number>(),
+};
+
+export default function AllUsersTable({
+  data,
+  columns,
+  loading = true,
+}: AllUsersTableProps) {
+  const [selectedIds, setSelectedIds] =
+    useState<ToolbarSelectedIds>(selectedIdsInit);
 
   const selectedUsers: GetUserData[] = data.filter((user) =>
     selectedIds.ids.has(user.id as number)
@@ -52,6 +60,7 @@ export default function AllUsersTable({ data, columns }: AllUsersTableProps) {
     <div className="flex w-full">
       <DataGrid
         rows={data}
+        loading={loading}
         columns={columns}
         pagination
         showToolbar
@@ -72,6 +81,12 @@ export default function AllUsersTable({ data, columns }: AllUsersTableProps) {
         }}
         slots={{
           toolbar: () => <TableToolbar toolbarContent={handleToolbar()} />,
+        }}
+        slotProps={{
+          loadingOverlay: {
+            variant: "skeleton",
+            noRowsVariant: "skeleton",
+          },
         }}
       />
     </div>

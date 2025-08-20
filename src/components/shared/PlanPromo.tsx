@@ -4,49 +4,51 @@ import { UserRole } from "@/types/users/user-role.d";
 import { Typography, Button } from "@mui/material";
 import { memo } from "react";
 import css from "@/styles/shared/PlanPromo.module.css";
-
+import { useAdminAuth } from "@/context/AdminAuthContext";
 
 interface PlanPromoProps {
   userRole: UserRole | undefined;
   userPlan: TransactionType | undefined;
-  isAdmin: boolean;
 }
 
-function PlanPromo({ userRole, userPlan, isAdmin }: PlanPromoProps) {
+function PlanPromo({ userRole, userPlan }: PlanPromoProps) {
+  const { isAdmin: isAuthAdmin } = useAdminAuth();
   const { billing, expiresAt } = userPlan || {};
 
   const planUntil = expiresAt ? getFormattedDate(expiresAt) : "N/A";
 
+  const titleSx = {
+    color: "var(--mui-palette-tertiary-contrastText)",
+    textTransform: "capitalize",
+    alignItems: "center",
+    display: "flex",
+    gap: "1rem",
+  };
+
+  const showBadge = isAuthAdmin && userRole !== "admin" && billing;
+
   return (
     <div className={css.wrapper}>
       <div className={css.content}>
-        {userRole !== "admin" && billing && (
+        {showBadge && (
           <div className={css.badge}>
             <span className={css.badgeValue}>{billing}</span>
           </div>
         )}
 
-        <Typography
-          variant="h6"
-          sx={{
-            color: "var(--mui-palette-tertiary-contrastText)",
-            textTransform: "capitalize",
-            alignItems: "center",
-            display: "flex",
-            gap: "1rem",
-          }}
-        >
+        <Typography variant="h6" sx={titleSx}>
           {userRole}
         </Typography>
 
         <div className={css.details}>
           {userRole === "admin"
             ? "You have unrestricted access all-over."
-            : isAdmin
+            : isAuthAdmin
             ? "Until: " + planUntil
             : "Unlock premium features!"}
         </div>
-        {!isAdmin && (
+
+        {!isAuthAdmin && (
           <Button size="small" href="/plans" variant="contained">
             {userRole === "admin" ? "See plans" : "Upgrade plan"}
           </Button>

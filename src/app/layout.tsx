@@ -1,6 +1,6 @@
 import "@/app/globals.css";
-import MainWrapper from "@/components/layout/common/MainWrapper";
-import WPGuardProvider from "@/components/layout/common/WPGuardProvider";
+import MainWrapper from "@/components/layout/wrappers/MainWrapper";
+import WPGuardProvider from "@/components/layout/providers/WPGuardProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { InitColorSchemeScript } from "@mui/material";

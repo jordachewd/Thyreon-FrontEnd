@@ -1,24 +1,51 @@
 "use client";
 
-import css from "@/styles/sections/admin/AccountBilling.module.css";
-import { memo } from "react";
+import ErrorCard from "@/components/shared/ErrorCard";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
-import Typography from "@mui/material/Typography";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
-import AccountWrapper from "./AccountWrapper";
-import { TransactionType } from "@/types/transactions/transaction.d";
 import { AccountBillingType } from "@/types/account/account-billing.d";
+import { Typography } from "@mui/material";
+import { memo } from "react";
+import css from "@/styles/sections/admin/AccountBilling.module.css";
+import AccountWrapper from "./AccountWrapper";
 
-function AccountBilling({
-  data,
-  title,
-  alignTitle,
-  titleSize,
-  currentPlan,
-}: AccountBillingType) {
-  const transactions = data as TransactionType[];
+function AccountBilling(props: AccountBillingType) {
+  const {
+    transactions,
+    userPlanId,
+    title,
+    alignTitle,
+    titleSize,
+    loading,
+    error,
+  } = props;
 
-  if (!transactions || transactions.length === 0) {
+  if (loading) {
+    return (
+      <AccountWrapper
+        title={title}
+        alignTitle={alignTitle}
+        titleSize={titleSize}
+      >
+        <LoadingBubbles />
+      </AccountWrapper>
+    );
+  }
+
+  if (error) {
+    return (
+      <AccountWrapper
+        title={title}
+        alignTitle={alignTitle}
+        titleSize={titleSize}
+      >
+        <ErrorCard mini error={error.message} title="" />
+      </AccountWrapper>
+    );
+  }
+
+  if (!transactions) {
     return (
       <AccountWrapper
         title={title}
@@ -50,7 +77,7 @@ function AccountBilling({
         </div>
 
         {transactions.map((txn) => {
-          const isActive = txn.stripeId === currentPlan;
+          const isActive = txn.stripeId === userPlanId;
           const txnStatus = isActive ? "Active" : "Inactive";
           const txnColor = isActive ? css.active : css.inactive;
 

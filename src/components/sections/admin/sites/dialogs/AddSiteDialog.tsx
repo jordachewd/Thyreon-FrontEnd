@@ -3,7 +3,7 @@
 import ErrorCard from "@/components/shared/ErrorCard";
 import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useAddSiteDialogStore } from "@/lib/stores/sites/useAddSiteDialogStore";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { useMutation } from "@apollo/client";
@@ -22,7 +22,8 @@ import AddSiteResponse from "../forms/AddSiteResponse";
 
 export default function AddSiteDialog() {
   const closingAttemptedRef = useRef(false);
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
 
   const {
     open,

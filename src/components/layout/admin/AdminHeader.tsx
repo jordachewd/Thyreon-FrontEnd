@@ -2,13 +2,13 @@
 
 import SidebarToggle from "@/components/sections/admin/shared/SidebarToggle";
 import Logo from "@/components/shared/Logo";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { memo } from "react";
 import css from "@/styles/layout/admin/AdminHeader.module.css";
 import UserButtonMenu from "../common/UserButtonMenu";
 
 function AdminHeader() {
-  const { sidebarCtx } = useAdminContext();
+  const { sidebarCtx } = useAdminUi();
   const { isNavOpen, updateSb } = sidebarCtx;
 
   const toggleTitle = isNavOpen ? "Show menu" : "Hide menu";

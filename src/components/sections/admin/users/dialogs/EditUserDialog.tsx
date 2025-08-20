@@ -2,9 +2,9 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
-import { GetUserData } from "@/types/users/get-user-data.d";
+import { GetUserInfo } from "@/types/users/get-user-info.d";
 import { useMutation } from "@apollo/client";
 import {
   Dialog,
@@ -19,11 +19,12 @@ import DialogHeader from "../../shared/dialog/DialogHeader";
 import EditUserForm from "../forms/EditUserForm";
 
 interface EditUserDialogProps {
-  data: Partial<GetUserData> | undefined;
+  data: GetUserInfo;
 }
 
 export default function EditUserDialog({ data }: EditUserDialogProps) {
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
   const { open, formData, openDialog, closeDialog, setField, setFormData } =
     useEditUserDialogStore();
 
@@ -51,13 +52,13 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setField(name as keyof Partial<GetUserData>, value);
+      setField(name as keyof GetUserInfo, value);
     },
     [setField]
   );
 
   const handleInitialFormData = useCallback(
-    (account?: Partial<GetUserData>) => {
+    (account?: GetUserInfo) => {
       if (!account) return;
       setFormData({
         clerkId: account.clerkId,

@@ -8,17 +8,19 @@ import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNa
 import SiteNameCell from "@/components/sections/admin/shared/table/sites/SiteNameCell";
 import SiteActionCell from "@/components/sections/admin/shared/table/sites/SiteActionCell";
 
-interface AdminSitesTableColumnsProps {
+type SitesRoutePrefix = "admin/sites" | "sites";
+
+type AdminSitesTableColumnsType = {
   onEditSite: (siteData: Partial<GetSiteData>) => void;
   onDeleteSite: (siteData: Partial<GetSiteData>) => void;
-  routePrefix?: "admin/sites" | "sites";
-}
+  routePrefix?: SitesRoutePrefix;
+};
 
 export const adminSitesTableColumns = ({
   onEditSite,
   onDeleteSite,
   routePrefix = "admin/sites",
-}: AdminSitesTableColumnsProps): GridColDef[] => [
+}: AdminSitesTableColumnsType): GridColDef[] => [
   {
     field: "id",
     headerName: "ID",

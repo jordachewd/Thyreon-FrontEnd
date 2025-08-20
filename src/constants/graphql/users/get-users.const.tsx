@@ -12,15 +12,11 @@ export const GET_USERS_QUERY = gql`
       clerkId
       clerkImg
       createdAt
+      sitesCount
       currentPlan {
         id
         plan
         expiresAt
-      }
-      sites {
-        id
-        siteName
-        domain
       }
     }
   }

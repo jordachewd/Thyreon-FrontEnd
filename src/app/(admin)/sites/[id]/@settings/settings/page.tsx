@@ -1,10 +1,16 @@
 import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
+import Alert from "@mui/material/Alert";
 
-export default function SiteSettingsPage() {
+export default function UserSiteSettingsPage() {
   return (
     <PageWrapper className="gap-8">
       <PageHead title="Site Settings" alignTitle="left" size="h5" />
+
+      <Alert severity="warning">
+        This page is work in progress.
+        <strong> Site settings features are not yet implemented.</strong>
+      </Alert>
 
       <p>
         Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut

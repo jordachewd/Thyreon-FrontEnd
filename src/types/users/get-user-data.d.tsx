@@ -16,4 +16,5 @@ export interface GetUserData {
   transactions?: TransactionType[];
   currentPlan?: TransactionType;
   sites?: GetSiteData[];
+  sitesCount?: number;
 }

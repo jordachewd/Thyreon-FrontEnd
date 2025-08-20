@@ -1,12 +1,12 @@
 import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
-import Sites from "@/components/sections/admin/sites/Sites";
+import SitesPage from "@/components/sections/admin/sites/SitesPage";
 
 export default function AdminSectionSitesPage() {
   return (
     <PageWrapper className="gap-8">
       <PageHead title="All Sites" alignTitle="left" />
-      <Sites isAdmin />
+      <SitesPage isAdminPage />
     </PageWrapper>
   );
 }

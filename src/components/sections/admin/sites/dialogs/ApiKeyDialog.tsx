@@ -3,7 +3,7 @@
 import ErrorCard from "@/components/shared/ErrorCard";
 import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { REGENERATE_API_KEY } from "@/constants/graphql/sites/new-api-key";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client";
@@ -43,7 +43,8 @@ export default function ApiKeyDialog({
   } = useApiKeyDialogStore();
 
   const closingAttemptedRef = useRef(false);
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
 
   const [regenerateApiKey, { loading, error }] = useMutation(
     REGENERATE_API_KEY,

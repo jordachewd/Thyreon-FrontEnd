@@ -13,6 +13,7 @@ export const GET_ME_QUERY = gql`
       createdAt
       updatedAt
       currentPlan {
+        id
         plan
         billing
         stripeId

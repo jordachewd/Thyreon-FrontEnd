@@ -15,7 +15,7 @@ type SitesLayoutProps = {
   settings: React.ReactNode;
 };
 
-export default function SiteLayout(props: SitesLayoutProps) {
+export default function UserSiteLayout(props: SitesLayoutProps) {
   const { children, ...slots } = props;
   const { id } = useParams<{ id: string }>();
   return (

@@ -6,12 +6,11 @@ import {
   AdminNavItemType,
   AdminSlotKey,
 } from "@/constants/layout/admin-nav.const";
-
+import { useAdminAuth } from "@/context/AdminAuthContext";
 import { getActivePath } from "@/lib/utils/getActivePath";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import css from "@/styles/layout/admin/AdminFrame.module.css";
-import { useUserRole } from "@/lib/hooks/users/useUserRole";
 
 export default function AdminFrame({
   tabs,
@@ -25,9 +24,11 @@ export default function AdminFrame({
   const pathname = usePathname();
   const active = getActivePath(pathname);
 
-  const { isAdmin, loading, error } = useUserRole();
+  const { isAdmin, loading, error } = useAdminAuth();
+
   if (loading) return <LoadingBubbles wrapped fullHeight />;
   if (error) return <ErrorCard error={error.message} />;
+
   if (!isAdmin)
     return (
       <ErrorCard

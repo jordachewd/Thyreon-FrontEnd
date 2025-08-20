@@ -5,7 +5,7 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import PlanCard from "@/components/shared/PlanCard";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 import { plans } from "@/constants/plans.const";
-import { useUserPlan } from "@/lib/hooks/users/useUserPlan";
+import { useUserPlan } from "@/lib/hooks/users/single/useUserPlan";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { useUser } from "@clerk/nextjs";
 import { Switch, Button } from "@mui/material";
@@ -21,7 +21,7 @@ function Plans(props: PlansProps) {
   const { isSignedIn } = useUser();
   const [planType, setPlanType] = useState<boolean>(false);
 
-  const { currentPlan, loading, error } = useUserPlan();
+  const { loading, error, currentPlan } = useUserPlan();
   const billingType = currentPlan?.billing;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -34,14 +34,14 @@ function Plans(props: PlansProps) {
     setPlanType(setBilling);
   }, [isSignedIn, billingType]);
 
-  if (loading)
+  if (isSignedIn && loading)
     return (
       <PlansWrapper title="Loading plans...">
         <LoadingBubbles wrapped />
       </PlansWrapper>
     );
 
-  if (error)
+  if (isSignedIn && error)
     return (
       <PlansWrapper title="Error loading plans">
         <ErrorCard error={error.message} title="" backToUrl="" />

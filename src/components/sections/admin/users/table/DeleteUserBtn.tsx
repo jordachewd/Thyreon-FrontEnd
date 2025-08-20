@@ -2,9 +2,9 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useMutation } from "@apollo/client";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 
 interface DeleteUserButtonProps {
   users: string[] | undefined;
@@ -17,7 +17,8 @@ export default function DeleteUserBtn({
   disabled = false,
   onSuccess,
 }: DeleteUserButtonProps) {
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
 
   const isOne = users?.length === 1;
   const oneOrMany = isOne ? "user" : "users";

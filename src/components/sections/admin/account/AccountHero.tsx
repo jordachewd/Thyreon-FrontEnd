@@ -1,24 +1,26 @@
 "use client";
 
-import css from "@/styles/sections/admin/AccountHero.module.css";
-import getFormattedDate from "@/lib/utils/getFormattedDate";
-import PlanPromo from "@/components/shared/PlanPromo";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
+import ErrorCard from "@/components/shared/ErrorCard";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
+import getFormattedDate from "@/lib/utils/getFormattedDate";
+import { AccountHeroType } from "@/types/account/account-hero.d";
 import { UserRole } from "@/types/users/user-role.d";
-import { memo, useMemo } from "react";
-import { AccountHeroType} from "@/types/account/account-hero.d";
+import { Avatar, Typography } from "@mui/material";
+import { useMemo, memo } from "react";
+import css from "@/styles/sections/admin/AccountHero.module.css";
 import AccountWrapper from "./AccountWrapper";
-import { GetUserData } from "@/types/users/get-user-data.d";
+import dynamic from "next/dynamic";
 
-function AccountHero({
-  data,
-  title,
-  alignTitle,
-  titleSize,
-}: AccountHeroType) {
-  if (!data) {
+const PlanPromo = dynamic(() => import("@/components/shared/PlanPromo"), {
+  ssr: false,
+  loading: () => <LoadingBubbles size="small" />,
+});
+
+function AccountHero(props: AccountHeroType) {
+  const { userInfo, title, alignTitle, titleSize, loading, error } = props;
+
+  if (loading) {
     return (
       <AccountWrapper
         hero
@@ -26,7 +28,33 @@ function AccountHero({
         alignTitle={alignTitle}
         titleSize={titleSize}
       >
-        No data yet.
+        <LoadingBubbles />
+      </AccountWrapper>
+    );
+  }
+
+  if (error) {
+    return (
+      <AccountWrapper
+        hero
+        title={title}
+        alignTitle={alignTitle}
+        titleSize={titleSize}
+      >
+        <ErrorCard mini error={error.message} title="" />
+      </AccountWrapper>
+    );
+  }
+
+  if (!userInfo) {
+    return (
+      <AccountWrapper
+        hero
+        title={title}
+        alignTitle={alignTitle}
+        titleSize={titleSize}
+      >
+        <p>No data yet.</p>
       </AccountWrapper>
     );
   }
@@ -40,25 +68,39 @@ function AccountHero({
     currentPlan,
     createdAt,
     updatedAt,
-  } = data as GetUserData;
+  } = userInfo;
 
   const fullName = useMemo(
-    () => `${firstName} ${lastName}`,
+    () => `${firstName} ${lastName}`.trim(),
     [firstName, lastName]
   );
-  const isAdmin = role === "admin";
+  const createdAtText = useMemo(
+    () => getFormattedDate(new Date(createdAt as Date)),
+    [createdAt]
+  );
+  const updatedAtText = useMemo(
+    () => getFormattedDate(new Date(updatedAt as Date)),
+    [updatedAt]
+  );
+  const avatarFallback = useMemo(() => getAvatarInitials(fullName), [fullName]);
 
   return (
-    <AccountWrapper hero title={title} alignTitle={alignTitle} titleSize={titleSize}>
+    <AccountWrapper
+      hero
+      title={title}
+      alignTitle={alignTitle}
+      titleSize={titleSize}
+    >
       <div className={css.heroImg}>
         <Avatar
-          alt={username}
+          alt={username ?? fullName}
           src={clerkImg ?? undefined}
           sx={{ width: 80, height: 80 }}
-          {...getAvatarInitials(fullName)}
+          {...avatarFallback}
         />
+
         <div className={css.heroImgContent}>
-          <Typography variant="h4">{fullName}</Typography>
+          <Typography variant="h4">{`${firstName} ${lastName}`}</Typography>
           <Typography variant="body2">@{username}</Typography>
         </div>
       </div>
@@ -73,21 +115,17 @@ function AccountHero({
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Member since:</span>
-          <span className="textxxs leading-none">
-            {getFormattedDate(createdAt as Date)}
-          </span>
+          <span className="textxxs leading-none">{createdAtText}</span>
         </div>
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Last seen:</span>
-          <span className="textxxs leading-none">
-            {getFormattedDate(updatedAt as Date)}
-          </span>
+          <span className="textxxs leading-none">{updatedAtText}</span>
         </div>
       </div>
 
       <div className={css.heroPlan}>
-        <PlanPromo userPlan={currentPlan} userRole={role} isAdmin={isAdmin} />
+        <PlanPromo userPlan={currentPlan} userRole={role} />
       </div>
     </AccountWrapper>
   );

@@ -7,7 +7,7 @@ import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useQuery } from "@apollo/client";
-import { Chip, IconButton } from "@mui/material";
+import { Alert, Chip, IconButton } from "@mui/material";
 import { useState, useCallback } from "react";
 import AdminAddNewFab from "../shared/AdminAddNewFab";
 import ApiKeyDialog from "./dialogs/ApiKeyDialog";
@@ -23,8 +23,6 @@ export default function AdminSiteInfo({ siteId }: AdminSiteInfoProps) {
     GET_SITE_BY_ID,
     {
       variables: { id: Number(siteId) },
-      notifyOnNetworkStatusChange: true,
-      fetchPolicy: "cache-and-network",
     }
   );
 
@@ -50,6 +48,11 @@ export default function AdminSiteInfo({ siteId }: AdminSiteInfoProps) {
 
   return (
     <>
+      <Alert severity="warning">
+        This page is work in progress.
+        <strong> Site management features are not yet implemented.</strong>
+      </Alert>
+
       <ApiKeyDialog
         open={!!newKeyForSite}
         siteData={newKeyForSite}

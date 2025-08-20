@@ -2,7 +2,7 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { useMutation } from "@apollo/client";
@@ -28,7 +28,8 @@ export default function QuickEditUserDialog({
   open,
   onClose,
 }: QuickEditUserProps) {
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
   const { formData, setField, setFormData } = useEditUserDialogStore();
 
   const [updateUser, { loading, error, reset }] = useMutation(

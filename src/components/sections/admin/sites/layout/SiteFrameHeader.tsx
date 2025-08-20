@@ -20,8 +20,6 @@ export default function SiteFrameHeader({
     GET_SITE_BY_ID,
     {
       variables: { id: Number(siteId) },
-      notifyOnNetworkStatusChange: true,
-      fetchPolicy: "cache-and-network",
     }
   );
 

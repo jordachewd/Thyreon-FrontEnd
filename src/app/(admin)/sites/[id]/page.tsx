@@ -1,8 +1,8 @@
 import PageWrapper from "@/components/layout/common/PageWrapper";
-import { Typography } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 import classNames from "classnames";
 
-export default async function SitePage() {
+export default async function UserSitePage() {
   const gridCss = "grid grid-cols-4 gap-6";
   const cellBase = "flex flex-col p-8 rounded gap-4 border";
   const cellBg = "bg-vanilla-100 dark:bg-midnight-800";
@@ -11,6 +11,11 @@ export default async function SitePage() {
 
   return (
     <PageWrapper>
+      <Alert severity="warning">
+        This page is work in progress.
+        <strong> Site overview features are not yet implemented.</strong>
+      </Alert>
+      <br />
       <div className={gridCss}>
         <div className={cellCss}>
           <Typography variant="h6">Security Status</Typography>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import classNames from "classnames";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import AdminSidebarFooter from "./sidebar/AdminSidebarFooter";
@@ -8,7 +8,7 @@ import AdminSidebarHeader from "./sidebar/AdminSidebarHeader";
 import AdminSidebarNav from "./sidebar/AdminSidebarNav";
 
 export default function AdminSidebar() {
-  const { sidebarCtx } = useAdminContext();
+  const { sidebarCtx } = useAdminUi();
   const { isNavOpen, updateSb } = sidebarCtx;
 
   const style = isNavOpen ? css.navOpen : "";

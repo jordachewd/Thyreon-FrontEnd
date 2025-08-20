@@ -1,4 +1,4 @@
-import AdminWrapper from "@/components/layout/admin/AdminWrapper";
+import AdminWrapper from "@/components/layout/wrappers/AdminWrapper";
 import ErrorCard from "@/components/shared/ErrorCard";
 
 const UnauthorizedPage = () => {

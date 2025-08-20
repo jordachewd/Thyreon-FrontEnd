@@ -2,7 +2,7 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useAddUserDialogStore } from "@/lib/stores/users/useAddUserDialogStore";
 import { generatePassword } from "@/lib/utils/generate-password";
 import { useMutation } from "@apollo/client";
@@ -19,7 +19,8 @@ import DialogHeader from "../../shared/dialog/DialogHeader";
 import AddUserForm from "../forms/AddUserForm";
 
 export default function AddUserDialog() {
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
   const { open, formData, openDialog, closeDialog, setField } =
     useAddUserDialogStore();
 

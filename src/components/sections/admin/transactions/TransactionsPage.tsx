@@ -1,36 +1,26 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { DataGrid } from "@mui/x-data-grid/DataGrid";
-import { TransactionType } from "@/types/transactions/transaction.d";
+import useTransactionsTable from "@/lib/hooks/transactions/useTransactionsTable";
 import { transactionsTableColumns as columns } from "@/constants/table/columns/transactions-table-columns";
-import { GET_TRANSACTIONS_QUERY } from "@/constants/graphql/transactions/get-transactions.const";
-import { useQuery } from "@apollo/client";
+import { DataGrid } from "@mui/x-data-grid/DataGrid";
 
 export default function TransactionsPage() {
-  const { data, loading, error } = useQuery<{ transactions: TransactionType[] }>(
-    GET_TRANSACTIONS_QUERY,
-    {
-      notifyOnNetworkStatusChange: true,
-      fetchPolicy: "cache-and-network",
-    }
-  );
+  const { loading, error, transactions } = useTransactionsTable();
 
-  if (loading) return <LoadingBubbles />;
   if (error) return <ErrorCard error={error.message} />;
-
-  const transactions: TransactionType[] = data?.transactions || [];
 
   return (
     <div className="flex w-full">
       <DataGrid
+        loading={loading}
         rows={transactions}
         columns={columns}
         disableColumnResize
         disableColumnSelector
         disableRowSelectionOnClick
         disableColumnMenu
+        showToolbar
         pagination
         pageSizeOptions={[10, 20, 50]}
         initialState={{
@@ -40,7 +30,12 @@ export default function TransactionsPage() {
             },
           },
         }}
-        showToolbar
+        slotProps={{
+          loadingOverlay: {
+            variant: "skeleton",
+            noRowsVariant: "skeleton",
+          },
+        }}
       />
     </div>
   );

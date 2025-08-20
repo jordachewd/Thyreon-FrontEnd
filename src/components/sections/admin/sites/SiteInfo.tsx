@@ -7,7 +7,7 @@ import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useQuery } from "@apollo/client";
-import { IconButton } from "@mui/material";
+import { Alert, IconButton } from "@mui/material";
 import { useState, useCallback } from "react";
 import AdminAddNewFab from "../shared/AdminAddNewFab";
 import ApiKeyDialog from "./dialogs/ApiKeyDialog";
@@ -22,8 +22,6 @@ export default function SiteInfo({ siteId }: SiteInfoProps) {
     GET_SITE_BY_ID,
     {
       variables: { id: Number(siteId) },
-      notifyOnNetworkStatusChange: true,
-      fetchPolicy: "cache-and-network",
     }
   );
 
@@ -90,6 +88,11 @@ export default function SiteInfo({ siteId }: SiteInfoProps) {
         </div>
       </PageHead>
 
+      <Alert severity="warning">
+        This page is work in progress.
+        <strong> Site management features are not yet implemented.</strong>
+      </Alert>
+
       <div className="flex w-full gap-4 flex-col">
         <p>
           Here you can edit the site details, manage plugins, and view logs.
@@ -98,7 +101,6 @@ export default function SiteInfo({ siteId }: SiteInfoProps) {
           In the future, you will be able to manage the site settings and
           perform actions like updating plugins or themes.
         </p>
-        <p>#inprogress </p>
 
         <p>
           Lorem ipsum dolor sit amet. Ea itaque natus cum ipsam eveniet aut

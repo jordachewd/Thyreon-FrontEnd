@@ -1,41 +1,37 @@
 "use client";
 
-import ErrorCard from "@/components/shared/ErrorCard";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { TransactionType } from "@/types/transactions/transaction.d";
-import { GetUserData } from "@/types/users/get-user-data.d";
+import { useUserData } from "@/lib/hooks/users/single/useUserData";
 import AccountBilling from "./AccountBilling";
 import AccountHero from "./AccountHero";
 import AccountSites from "./AccountSites";
-import { GET_ME_QUERY } from "@/constants/graphql/users/get-me.const";
-import { useQuery } from "@apollo/client";
 
 export default function AccountPage() {
-  const { data, loading, error } = useQuery<{ me: GetUserData }>(GET_ME_QUERY, {
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: "cache-and-network",
-  });
+  const { loading, error, userTransactions, userSites, userInfo } =
+    useUserData();
 
-  if (loading) return <LoadingBubbles />;
-  if (error) return <ErrorCard error={error.message} title="" />;
-
-  const account = data?.me as GetUserData;
-  const currentPlan = account?.currentPlan?.stripeId as string;
-  const transactions: TransactionType[] = account?.transactions || [];
-  const sites: GetSiteData[] = account?.sites || [];
+  const userPlanId = userInfo?.currentPlan?.stripeId || "";
 
   return (
     <>
-      <AccountHero title="Account Overview" data={account} />
-
+      <AccountHero
+        title="Account Overview"
+        userInfo={userInfo}
+        loading={loading}
+        error={error}
+      />
       <AccountBilling
         title="Transaction History"
-        data={transactions}
-        currentPlan={currentPlan}
+        transactions={userTransactions}
+        userPlanId={userPlanId}
+        loading={loading}
+        error={error}
       />
-
-      <AccountSites title="Registered Websites" data={sites} />
+      <AccountSites
+        title="Registered Websites"
+        sites={userSites}
+        loading={loading}
+        error={error}
+      />
     </>
   );
 }

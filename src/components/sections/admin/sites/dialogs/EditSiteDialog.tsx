@@ -2,7 +2,7 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { UPDATE_SITE_MUTATION } from "@/constants/graphql/sites/update-site.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { useEditSiteDialogStore } from "@/lib/stores/sites/useEditSiteDialogStore";
 import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
@@ -31,7 +31,9 @@ export default function EditSiteDialog({
   onClose,
   refetchQuery = [],
 }: EditSiteDialogProps) {
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
+
   const { formData, setField, setFormData, resetDialog } =
     useEditSiteDialogStore();
 

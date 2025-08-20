@@ -2,7 +2,7 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client";
@@ -33,7 +33,8 @@ export default function DeleteSiteDialog({
   onClose,
   refetchQuery = [],
 }: DeleteSiteDialogProps) {
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
 
   const [deleteSites, { loading, error }] = useMutation(DELETE_SITES, {
     refetchQueries: refetchQuery,

@@ -1,10 +1,10 @@
 "use client";
 
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import checkoutPlan from "@/lib/actions/checkout/checkout-plan";
 import getStripe from "@/lib/actions/checkout/get-stripe";
 import { PlanCheckout } from "@/types/plan/plan-checkout.d";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import { memo } from "react";
 
 interface CheckoutProps {
@@ -13,7 +13,7 @@ interface CheckoutProps {
 }
 
 function CheckoutBtn({ plan, isCurrent = false }: CheckoutProps) {
-  const { alertCtx } = useAdminContext();
+  const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
 
   const handleCheckout = async () => {

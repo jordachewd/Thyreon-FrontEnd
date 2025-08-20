@@ -1,8 +1,8 @@
 "use client";
 
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { alertDefaults } from "@/context/constants/alert-defaults.const";
-import { AlertMessageParams } from "@/context/types/alert-msg-params.d";
+
 import {
   SlideProps,
   Slide,
@@ -10,16 +10,18 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useState, useEffect, memo } from "react";
+import { memo } from "react";
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction="left" />;
 }
 
 function AlertMessage() {
-  const { message, updateAlert } = useAdminContext().alertCtx;
-  const [openAlert, setOpenAlert] = useState(false);
-  const { text, severity } = message as AlertMessageParams;
+  const { alertCtx } = useAdminUi();
+  const { message, updateAlert } = alertCtx;
+  const { text, severity } = message;
+
+  const openAlert = text.length > 0;
   const clearAlert = alertDefaults.message;
 
   const handleClose = (
@@ -30,14 +32,7 @@ function AlertMessage() {
 
     if (reason === "clickaway") return;
     updateAlert(clearAlert);
-    setOpenAlert(false);
   };
-
-  useEffect(() => {
-    if (text && text.length > 0) {
-      setOpenAlert(true);
-    }
-  }, [text]);
 
   return (
     <Snackbar

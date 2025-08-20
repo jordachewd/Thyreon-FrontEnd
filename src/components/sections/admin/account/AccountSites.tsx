@@ -1,28 +1,51 @@
 "use client";
 
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
-import { useUserRole } from "@/lib/hooks/users/useUserRole";
+import ErrorCard from "@/components/shared/ErrorCard";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import { useAdminAuth } from "@/context/AdminAuthContext";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { AccountSitesType } from "@/types/account/account-sites.d";
-import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { Typography } from "@mui/material";
 import Link from "next/link";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import css from "@/styles/sections/admin/AccountBilling.module.css";
 import AccountWrapper from "./AccountWrapper";
+import classNames from "classnames";
 
 function AccountSites({
-  data,
+  sites,
   title,
   alignTitle,
   titleSize,
+  loading,
+  error,
 }: AccountSitesType) {
-  const sites = data as GetSiteData[];
+  if (loading) {
+    return (
+      <AccountWrapper
+        title={title}
+        alignTitle={alignTitle}
+        titleSize={titleSize}
+      >
+        <LoadingBubbles />
+      </AccountWrapper>
+    );
+  }
 
-  const { isAdmin } = useUserRole();
-  const urlPrefix = isAdmin ? "/admin/sites" : "/sites";
+  if (error) {
+    return (
+      <AccountWrapper
+        title={title}
+        alignTitle={alignTitle}
+        titleSize={titleSize}
+      >
+        <ErrorCard mini error={error.message} title="" />
+      </AccountWrapper>
+    );
+  }
 
-  if (!sites || sites.length === 0) {
+  if (!sites) {
     return (
       <AccountWrapper
         title={title}
@@ -35,6 +58,9 @@ function AccountSites({
       </AccountWrapper>
     );
   }
+
+  const { isAdmin } = useAdminAuth();
+  const urlPrefix = isAdmin ? "/admin/sites" : "/sites";
 
   return (
     <AccountWrapper title={title} alignTitle={alignTitle} titleSize={titleSize}>
@@ -51,14 +77,17 @@ function AccountSites({
           const txnStatus = isActive ? "Active" : "Inactive";
           const txnColor = isActive ? css.active : css.inactive;
 
+          const tableRowCss = classNames(css.tableRow, {
+            ["font-medium text-midnight-400! dark:text-vanilla-400!"]: isActive,
+          });
+
+          const createdAtText = useMemo(
+            () => getFormattedDate(new Date(site.createdAt as Date)),
+            [site.createdAt]
+          );
+
           return (
-            <div
-              key={site.id}
-              className={`${css.tableRow} ${
-                isActive &&
-                "font-medium text-midnight-400! dark:text-vanilla-400!"
-              }`}
-            >
+            <div key={site.id} className={tableRowCss}>
               <div className="flex-1">
                 <Link
                   href={`${urlPrefix}/${site.id}`}
@@ -79,9 +108,7 @@ function AccountSites({
                   iconSize="text-xs"
                 />
               </div>
-              <div className="flex-1 textxxs">
-                {getFormattedDate(site.createdAt as Date)}
-              </div>
+              <div className="flex-1 textxxs">{createdAtText}</div>
 
               <div className="min-w-14 textxxs text-center">
                 <span className={txnColor}>{txnStatus}</span>

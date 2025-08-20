@@ -81,10 +81,10 @@ export const usersTableColumns = ({
     display: "flex",
     flex: 1,
     renderCell: (params: GridRenderCellParams) => {
-      const sitesLength = params.row.sites?.length || 0;
+      const sitesCount = params.row.sitesCount;
       const role = params.row.role as keyof UserRoleColors;
       return (
-        <Chip size="small" label={sitesLength} color={userRolesColors[role]} />
+        <Chip size="small" label={sitesCount} color={userRolesColors[role]} />
       );
     },
   },

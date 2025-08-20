@@ -2,7 +2,7 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
-import { useAdminContext } from "@/context/AdminContext";
+import { useAdminUi } from "@/context/AdminUiContext";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { useMutation } from "@apollo/client";
 import {
@@ -27,7 +27,8 @@ export default function DeleteUserDialog({
   open,
   onClose,
 }: DeleteUserDialog) {
-  const { updateAlert } = useAdminContext().alertCtx;
+  const { alertCtx } = useAdminUi();
+  const { updateAlert } = alertCtx;
   const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
     onCompleted: (data) => {
       const response = data?.deleteUsers;
