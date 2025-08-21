@@ -4,7 +4,7 @@ import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import PlanCard from "@/components/shared/PlanCard";
 import { NODE_ENV } from "@/constants/api/node-env.const";
-import { plans } from "@/constants/plans.const";
+import { plans } from "@/constants/demo-data/plans.const";
 import { useUserPlan } from "@/lib/hooks/users/single/useUserPlan";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { useUser } from "@clerk/nextjs";

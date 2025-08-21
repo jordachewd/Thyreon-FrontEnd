@@ -1,5 +1,5 @@
 import PageHead from "@/components/layout/common/PageHead";
-import appFeatures from "@/constants/features.const";
+import appFeatures from "@/constants/demo-data/features.const";
 import css from "@/styles/sections/front/Features.module.css";
 import Typography from "@mui/material/Typography";
 import { memo } from "react";

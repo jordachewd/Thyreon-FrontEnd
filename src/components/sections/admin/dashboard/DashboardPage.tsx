@@ -9,6 +9,8 @@ import MuiPieChart from "../shared/charts/MuiPieChart";
 import MuiScatterChart from "../shared/charts/MuiScatterChart";
 import MuiSparkLineChart from "../shared/charts/MuiSparkLineChart";
 import MuiHalfPieChart from "../shared/charts/MuiHalfPieChart";
+import LoadingBubbles from "@/components/shared/LoadingBubbles";
+import { Suspense } from "react";
 
 export default function DashboardPage() {
   return (
@@ -21,7 +23,9 @@ export default function DashboardPage() {
           activity so administrators and users can quickly assess priorities.
         </p>
 
-        <MuiBarChart />
+        <Suspense fallback={<LoadingBubbles />}>
+          <MuiBarChart />
+        </Suspense>
       </div>
 
       <div className={css.cell}>

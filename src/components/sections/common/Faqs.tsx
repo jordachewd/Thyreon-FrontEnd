@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import css from "@/styles/sections/shared/Faqs.module.css";
-import { faqs } from "@/constants/faqs.const";
+import { faqs } from "@/constants/demo-data/faqs.const";
 import { memo } from "react";
 import PageHead from "@/components/layout/common/PageHead";
 import classNames from "classnames";

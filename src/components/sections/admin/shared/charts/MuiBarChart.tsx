@@ -10,6 +10,7 @@ export default function MuiBarChart() {
       width: 60,
     },
   ];
+  
   const seriesData = [
     { data: [8, 20, 46, 73, 84, 87, 122, 146], label: "Users" },
     { data: [12, 34, 62, 102, 136, 145, 218, 296], label: "Sites" },
