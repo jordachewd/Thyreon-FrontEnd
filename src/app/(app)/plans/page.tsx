@@ -1,10 +1,10 @@
 import PageWrapper from "@/components/layout/common/PageWrapper";
-import Faqs from "@/components/sections/common/Faqs";
+import Plans from "@/components/sections/common/Plans";
 
-export default function FaqsPage() {
+export default function AppPlans() {
   return (
     <PageWrapper className="gap-12 my-4">
-      <Faqs />
+      <Plans />
     </PageWrapper>
   );
 }

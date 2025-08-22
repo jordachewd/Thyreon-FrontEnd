@@ -88,7 +88,7 @@ function ErrorCard({
     );
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 w-full h-full">
+    <div className="flex flex-col items-center justify-center gap-8 w-full h-full">
       {title && <Typography variant="h3">{title}</Typography>}
       <div className={`flex rounded-md ${bigCardCss} ${cardColor}`}>
         <i className={`bi ${cardIcon} text-6xl text-white leading-none`}></i>

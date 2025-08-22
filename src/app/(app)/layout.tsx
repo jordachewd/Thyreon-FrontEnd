@@ -4,7 +4,7 @@ import AdminProvider from "@/components/layout/providers/AdminProvider";
 import AdminWrapper from "@/components/layout/wrappers/AdminWrapper"; 
 import { ReactNode } from "react";
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <AdminProvider>
       <AdminWrapper>

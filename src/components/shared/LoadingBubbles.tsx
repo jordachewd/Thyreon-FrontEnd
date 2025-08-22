@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import { memo } from "react";
 import css from "@/styles/shared/LoadingBubbles.module.css";
@@ -23,7 +25,7 @@ function LoadingBubbles(props: LoadingProps) {
     size = "medium",
     wrapped = false,
     fullHeight = false,
-    align = "left",
+    align = "center",
   } = props;
 
   const bubbles = sizeMappings[size] || sizeMappings.medium;
@@ -33,9 +35,9 @@ function LoadingBubbles(props: LoadingProps) {
       ? "justify-center"
       : align === "right"
       ? "justify-end"
-      : "";
+      : "justify-start";
 
-  const wrpHeight = fullHeight ? "h-full" : "h-20";
+  const wrpHeight = fullHeight ? "h-dvh" : "h-20";
 
   const loaderCss = classNames(css.wrapper, alignClass, wrpHeight);
   const wrpLoaderCss = classNames(css.isWrapped, alignClass, wrpHeight);

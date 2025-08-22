@@ -2,12 +2,9 @@
 
 import { AdminAuthProvider } from "@/context/AdminAuthContext";
 import { AdminUiProvider } from "@/context/AdminUiContext";
+import { ReactNode } from "react";
 
-type AdminProviderProps = {
-  children: React.ReactNode;
-};
-
-export default function AdminProvider({ children }: AdminProviderProps) {
+export default function AdminProvider({ children }: { children: ReactNode }) {
   return (
     <AdminAuthProvider>
       <AdminUiProvider>{children}</AdminUiProvider>

@@ -3,7 +3,7 @@ import PageWrapper from "@/components/layout/common/PageWrapper";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 
-export default function NotificationsPage() {
+export default function AppNotifications() {
   const demoNotifications = [
     {
       id: "1",

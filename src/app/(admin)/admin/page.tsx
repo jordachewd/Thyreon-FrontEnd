@@ -4,7 +4,7 @@ import DashboardPage from "@/components/sections/admin/dashboard/DashboardPage";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { Suspense } from "react";
 
-export default function AdminSectionOverview() {
+export default function AdminOverview() {
   return (
     <PageWrapper className="gap-8">
       <PageHead title="Admin Overview" alignTitle="left" />

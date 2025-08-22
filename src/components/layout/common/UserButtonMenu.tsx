@@ -29,22 +29,26 @@ function UserButtonMenu(props: UserButtonMenuProps) {
           labelIcon={<HomeIcon />}
           href={isFrontEnd ? "/dashboard" : "/"}
         />
-        <UserButton.Link
-          label="Account Overview"
-          labelIcon={<i className="bi bi-person-fill"></i>}
-          href="/account"
-        />
-        <UserButton.Action label="manageAccount" />
+
         <UserButton.Link
           label="Plans"
           labelIcon={<i className="bi bi-wallet-fill"></i>}
           href="/plans"
         />
+
         <UserButton.Link
           label="FAQs"
           labelIcon={<i className="bi bi-patch-question-fill"></i>}
           href="/faqs"
         />
+
+        <UserButton.Link
+          label="Account Overview"
+          labelIcon={<i className="bi bi-person-fill"></i>}
+          href="/account"
+        />
+
+        <UserButton.Action label="manageAccount" />
         <UserButton.Action label="signOut" />
       </UserButton.MenuItems>
     </UserButton>

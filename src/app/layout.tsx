@@ -1,11 +1,12 @@
 import "@/app/globals.css";
-import MainWrapper from "@/components/layout/wrappers/MainWrapper";
 import WPGuardProvider from "@/components/layout/providers/WPGuardProvider";
+import { clerkAppearance } from "@/constants/layout/clerk-appearance.const";
 import { ClerkProvider } from "@clerk/nextjs";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { InitColorSchemeScript } from "@mui/material";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import { Metadata, Viewport } from "next";
+import { ReactNode } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const metadata: Metadata = {
   title: "WPGuard | Maintenance & Monitoring",
@@ -23,31 +24,14 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <ClerkProvider
-      appearance={{
-        variables: {
-          colorPrimary: "#111627", // midnight-700
-        },
-        elements: {
-          formButtonPrimary: "bg-midnight-700 hover:bg-midnight-900",
-          footerActionLink: "text-leaf-green-500 hover:text-leaf-green-800",
-        },
-      }}
-      afterSignOutUrl="/"
-    >
+    <ClerkProvider appearance={clerkAppearance} afterSignOutUrl="/">
       <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
         <body>
           <AppRouterCacheProvider>
             <InitColorSchemeScript attribute="data-wpguard-theme" />
-            <WPGuardProvider>
-              <MainWrapper>{children}</MainWrapper>
-            </WPGuardProvider>
+            <WPGuardProvider>{children}</WPGuardProvider>
           </AppRouterCacheProvider>
         </body>
       </html>

@@ -1,11 +1,11 @@
 import css from "@/styles/layout/shared/MainWrapper.module.css";
 import { ReactNode } from "react";
 
-interface MainWrapperProps {
+interface WrapperProps {
   children: ReactNode;
 }
 
-export default function MainWrapper({ children }: MainWrapperProps) {
+export default function MainWrapper({ children }: WrapperProps) {
   return (
     <main id="MainWrapper" className={css.main}>
       {children}
