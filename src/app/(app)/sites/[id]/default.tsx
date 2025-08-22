@@ -1,3 +1,3 @@
-export default function UserSiteDefault() {
+export default function AppSiteDefault() {
   return null;
 }

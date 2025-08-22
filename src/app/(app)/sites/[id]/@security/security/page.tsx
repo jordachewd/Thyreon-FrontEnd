@@ -2,7 +2,7 @@ import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
 import Alert from "@mui/material/Alert";
 
-export default function UserSiteSecurityPage() {
+export default function AppSiteSecurity() {
   return (
     <PageWrapper className="gap-8">
       <PageHead title="Security" alignTitle="left" size="h5" />

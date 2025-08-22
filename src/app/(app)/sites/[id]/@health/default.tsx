@@ -1,3 +1,3 @@
-export default function SiteHealthDefault() {
+export default function AppSiteHealthDefault() {
   return null;
 }

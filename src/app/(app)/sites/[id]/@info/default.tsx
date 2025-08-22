@@ -1,3 +1,3 @@
-export default function SiteInfoDefault() {
+export default function AppSiteInfoDefault() {
   return null;
 }

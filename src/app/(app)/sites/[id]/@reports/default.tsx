@@ -1,3 +1,3 @@
-export default function SiteReportsDefault() {
+export default function AppSiteReportsDefault() {
   return null;
 }

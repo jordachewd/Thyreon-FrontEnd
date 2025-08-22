@@ -1,3 +1,3 @@
-export default function SiteSecurityDefault() {
+export default function AppSiteSecurityDefault() {
   return null;
 }

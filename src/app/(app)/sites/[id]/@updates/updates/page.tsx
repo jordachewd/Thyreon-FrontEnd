@@ -2,7 +2,7 @@ import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
 import Alert from "@mui/material/Alert";
 
-export default function UserSiteUpdatesPage() {
+export default function AppSiteUpdates() {
   return (
     <PageWrapper className="gap-8">
       <PageHead title="Updates" alignTitle="left" size="h5" />

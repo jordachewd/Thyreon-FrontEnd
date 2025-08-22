@@ -1,3 +1,3 @@
-export default function SiteUpdatesDefault() {
+export default function AppSiteUpdatesDefault() {
   return null;
 }

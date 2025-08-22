@@ -1,3 +1,3 @@
-export default function SiteSettingsDefault() {
+export default function AppSiteSettingsDefault() {
   return null;
 }
