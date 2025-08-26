@@ -3,12 +3,12 @@
 import css from "@/styles/sections/dashboard/Grid.module.css";
 import Typography from "@mui/material/Typography";
 import classNames from "classnames";
-import MuiBarChart from "../shared/charts/MuiBarChart";
-import MuiLineChart from "../shared/charts/MuiLineChart";
-import MuiPieChart from "../shared/charts/MuiPieChart";
-import MuiScatterChart from "../shared/charts/MuiScatterChart";
-import MuiSparkLineChart from "../shared/charts/MuiSparkLineChart";
-import MuiHalfPieChart from "../shared/charts/MuiHalfPieChart";
+import MuiBarChart from "../../admin/shared/charts/MuiBarChart";
+import MuiLineChart from "../../admin/shared/charts/MuiLineChart";
+import MuiPieChart from "../../admin/shared/charts/MuiPieChart";
+import MuiScatterChart from "../../admin/shared/charts/MuiScatterChart";
+import MuiSparkLineChart from "../../admin/shared/charts/MuiSparkLineChart";
+import MuiHalfPieChart from "../../admin/shared/charts/MuiHalfPieChart";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { Suspense } from "react";
 

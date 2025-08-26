@@ -1,11 +1,11 @@
-import Footer from "@/components/layout/front/Footer";
-import Header from "@/components/layout/front/Header";
+import Footer from "@/components/layout/public/Footer";
+import Header from "@/components/layout/public/Header";
 import Faqs from "@/components/sections/common/Faqs";
 import Plans from "@/components/sections/common/Plans";
-import Features from "@/components/sections/front/Features";
-import Hero from "@/components/sections/front/Hero";
-import HowItWorks from "@/components/sections/front/HowItWorks";
-import css from "@/styles/layout/front/LandingPage.module.css";
+import Features from "@/components/sections/public/Features";
+import Hero from "@/components/sections/public/Hero";
+import HowItWorks from "@/components/sections/public/HowItWorks";
+import css from "@/styles/layout/public/LandingPage.module.css";
 
 
 export default async function Home() {

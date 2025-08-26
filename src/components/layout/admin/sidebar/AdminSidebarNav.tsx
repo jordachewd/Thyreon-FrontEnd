@@ -17,7 +17,7 @@ interface AdminSidebarNavProps {
 }
 
 function AdminSidebarNav({ isNavOpen }: AdminSidebarNavProps) {
-  const { isAdmin } = useAdminAuth();
+  const { isAdmin: isAuthAdmin } = useAdminAuth();
   const pathname = usePathname();
 
   const getNavItem = useCallback(
@@ -55,7 +55,7 @@ function AdminSidebarNav({ isNavOpen }: AdminSidebarNavProps) {
   return (
     <nav className={css.navigation}>
       {sidebarNavItems.map((item) => {
-        if (!isAdmin && item.isAdmin) return null;
+        if (!isAuthAdmin && item.isAdmin) return null;
         return getNavItem(item);
       })}
     </nav>

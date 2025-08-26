@@ -11,7 +11,7 @@ import { useUser } from "@clerk/nextjs";
 import { Switch, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import css from "@/styles/sections/shared/Plans.module.css";
-import PlansWrapper from "../admin/plans/PlansWrapper";
+import PlansWrapper from "../app/plans/PlansWrapper";
 
 type PlansProps = {
   className?: string;

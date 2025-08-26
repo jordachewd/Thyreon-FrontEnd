@@ -5,8 +5,8 @@ import { Chip } from "@mui/material";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
-import SiteNameCell from "@/components/sections/admin/shared/table/sites/SiteNameCell";
-import SiteActionCell from "@/components/sections/admin/shared/table/sites/SiteActionCell";
+import SiteNameCell from "@/components/sections/app/sites/table/SiteNameCell";
+import SiteActionCell from "@/components/sections/app/sites/table/SiteActionCell";
 
 type SitesRoutePrefix = "admin/sites" | "sites";
 

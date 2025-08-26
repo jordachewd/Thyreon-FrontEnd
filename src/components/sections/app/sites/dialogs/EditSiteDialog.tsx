@@ -14,8 +14,8 @@ import {
   DialogActions,
 } from "@mui/material";
 import { useCallback, useEffect } from "react";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import DialogHeader from "../../shared/dialog/DialogHeader";
+import DialogFooter from "../../../admin/shared/dialog/DialogFooter";
+import DialogHeader from "../../../admin/shared/dialog/DialogHeader";
 import UpdateSiteForm from "../forms/UpdateSiteForm";
 
 interface EditSiteDialogProps {

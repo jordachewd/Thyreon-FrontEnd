@@ -17,8 +17,8 @@ import {
   DialogActions,
 } from "@mui/material";
 import { useCallback } from "react";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import DialogHeader from "../../shared/dialog/DialogHeader";
+import DialogFooter from "../../../admin/shared/dialog/DialogFooter";
+import DialogHeader from "../../../admin/shared/dialog/DialogHeader";
 
 interface DeleteSiteDialogProps {
   siteData: Partial<GetSiteData> | undefined;

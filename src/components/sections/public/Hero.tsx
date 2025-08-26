@@ -1,4 +1,4 @@
-import css from "@/styles/sections/front/Hero.module.css";
+import css from "@/styles/sections/public/Hero.module.css";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 import { Typography, Button } from "@mui/material";
 import { memo } from "react";

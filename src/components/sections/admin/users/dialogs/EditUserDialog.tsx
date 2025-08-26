@@ -62,6 +62,7 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
       if (!account) return;
       setFormData({
         clerkId: account.clerkId,
+        role: account.role,
         username: account.username,
         email: account.email,
         firstName: account.firstName,

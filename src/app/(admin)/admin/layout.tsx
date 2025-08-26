@@ -1,12 +1,13 @@
 import AdminFrame from "@/components/layout/admin/AdminFrame";
 import { adminNavItems } from "@/constants/layout/admin-nav.const";
+import { ReactNode } from "react";
 
 type AdminLayoutProps = {
-  children: React.ReactNode;
-  users: React.ReactNode;
-  sites: React.ReactNode;
-  transactions: React.ReactNode;
-  settings: React.ReactNode;
+  children: ReactNode;
+  users: ReactNode;
+  sites: ReactNode;
+  transactions: ReactNode;
+  settings: ReactNode;
 };
 
 export default function AdminSectionLayout(props: AdminLayoutProps) {

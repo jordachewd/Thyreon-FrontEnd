@@ -10,12 +10,7 @@ import { Avatar, Typography } from "@mui/material";
 import { useMemo, memo } from "react";
 import css from "@/styles/sections/admin/AccountHero.module.css";
 import AccountWrapper from "./AccountWrapper";
-import dynamic from "next/dynamic";
-
-const PlanPromo = dynamic(() => import("@/components/shared/PlanPromo"), {
-  ssr: false,
-  loading: () => <LoadingBubbles size="small" />,
-});
+import Promo from "@/components/shared/promo/Promo";
 
 function AccountHero(props: AccountHeroType) {
   const { userInfo, title, alignTitle, titleSize, loading, error } = props;
@@ -65,7 +60,6 @@ function AccountHero(props: AccountHeroType) {
     lastName,
     clerkImg,
     role,
-    currentPlan,
     createdAt,
     updatedAt,
   } = userInfo;
@@ -125,7 +119,7 @@ function AccountHero(props: AccountHeroType) {
       </div>
 
       <div className={css.heroPlan}>
-        <PlanPromo userPlan={currentPlan} userRole={role} />
+        <Promo />
       </div>
     </AccountWrapper>
   );

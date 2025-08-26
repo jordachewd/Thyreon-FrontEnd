@@ -14,9 +14,9 @@ import {
   DialogActions,
 } from "@mui/material";
 import { useRef, useCallback, useEffect } from "react";
-import AdminAddNewFab from "../../shared/AdminAddNewFab";
-import DialogFooter from "../../shared/dialog/DialogFooter";
-import DialogHeader from "../../shared/dialog/DialogHeader";
+import AdminAddNewFab from "../../../admin/shared/AdminAddNewFab";
+import DialogFooter from "../../../admin/shared/dialog/DialogFooter";
+import DialogHeader from "../../../admin/shared/dialog/DialogHeader";
 import AddSiteForm from "../forms/AddSiteForm";
 import AddSiteResponse from "../forms/AddSiteResponse";
 

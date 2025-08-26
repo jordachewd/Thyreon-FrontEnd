@@ -6,7 +6,7 @@ import { NODE_ENV } from "@/constants/api/node-env.const";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
-import css from "@/styles/layout/front/Header.module.css";
+import css from "@/styles/layout/public/Header.module.css";
 import UserButtonMenu from "../common/UserButtonMenu";
 
 export default function Header() {

@@ -10,8 +10,8 @@ import { useQuery } from "@apollo/client";
 import { Alert, Chip, IconButton } from "@mui/material";
 import { useState, useCallback } from "react";
 import AdminAddNewFab from "../shared/AdminAddNewFab";
-import ApiKeyDialog from "./dialogs/ApiKeyDialog";
-import EditSiteDialog from "./dialogs/EditSiteDialog";
+import ApiKeyDialog from "../../app/sites/dialogs/ApiKeyDialog";
+import EditSiteDialog from "../../app/sites/dialogs/EditSiteDialog";
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
 
 interface AdminSiteInfoProps {

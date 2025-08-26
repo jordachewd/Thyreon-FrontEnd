@@ -31,15 +31,9 @@ function UserButtonMenu(props: UserButtonMenuProps) {
         />
 
         <UserButton.Link
-          label="Plans"
-          labelIcon={<i className="bi bi-wallet-fill"></i>}
+          label="Upgrade Plan"
+          labelIcon={<i className="bi bi-stars"></i>}
           href="/plans"
-        />
-
-        <UserButton.Link
-          label="FAQs"
-          labelIcon={<i className="bi bi-patch-question-fill"></i>}
-          href="/faqs"
         />
 
         <UserButton.Link

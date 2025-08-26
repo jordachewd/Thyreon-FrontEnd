@@ -2,13 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
+const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   try {
-    const { userId } = await auth();
+    const { userId, sessionClaims } = await auth();
 
     if (!userId && !isPublicRoute(req)) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
+    }
+
+    if (isAdminRoute(req)) {
+      const isAdmin = sessionClaims?.role === "admin";
+      if (!isAdmin) {
+        return NextResponse.redirect(new URL("/401", req.url));
+      }
     }
   } catch (error) {
     console.error("Error in middleware:", error);

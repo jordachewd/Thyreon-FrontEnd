@@ -1,5 +1,5 @@
 import Link from "next/link";
-import css from "./UserNameCell.module.css";
+import css from "@/styles/layout/admin/users/UserNameCell.module.css";
 import Avatar from "@mui/material/Avatar";
 import { memo } from "react";
 

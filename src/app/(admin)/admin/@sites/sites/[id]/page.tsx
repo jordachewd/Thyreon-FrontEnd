@@ -1,13 +1,11 @@
 import PageWrapper from "@/components/layout/common/PageWrapper";
 import AdminSiteInfo from "@/components/sections/admin/sites/AdminSiteInfo";
 
-interface SiteProfileProps {
+interface SitePageProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function AdminSectionSitePage({
-  params,
-}: SiteProfileProps) {
+export default async function AdminSectionSitePage({ params }: SitePageProps) {
   const { id } = await params;
   return (
     <PageWrapper className="gap-8">

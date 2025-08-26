@@ -4,9 +4,9 @@ import PageHead from "@/components/layout/common/PageHead";
 import { useUpdatedUserSocket } from "@/lib/hooks/sockets/useUpdatedUserSocket";
 import { useUserData } from "@/lib/hooks/users/single/useUserData";
 import { useCallback } from "react";
-import AccountBilling from "../account/AccountBilling";
-import AccountHero from "../account/AccountHero";
-import AccountSites from "../account/AccountSites";
+import AccountBilling from "../../app/account/AccountBilling";
+import AccountHero from "../../app/account/AccountHero";
+import AccountSites from "../../app/account/AccountSites";
 import EditUserDialog from "./dialogs/EditUserDialog";
 
 export default function UserPage({ userId }: { userId: number }) {
@@ -14,6 +14,7 @@ export default function UserPage({ userId }: { userId: number }) {
     useUserData({ userId });
 
   const userPlanId = userInfo?.currentPlan?.stripeId || "";
+
   const handleRefetch = useCallback(() => refetch(), [refetch]);
   useUpdatedUserSocket(handleRefetch);
 

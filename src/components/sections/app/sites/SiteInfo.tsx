@@ -9,7 +9,7 @@ import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useQuery } from "@apollo/client";
 import { Alert, IconButton } from "@mui/material";
 import { useState, useCallback } from "react";
-import AdminAddNewFab from "../shared/AdminAddNewFab";
+import AdminAddNewFab from "../../admin/shared/AdminAddNewFab";
 import ApiKeyDialog from "./dialogs/ApiKeyDialog";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 

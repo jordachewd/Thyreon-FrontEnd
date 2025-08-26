@@ -3,6 +3,15 @@ import SidebarNavItem from "@/types/layout/sidebar-nav.d";
 const sidebarNavItems: SidebarNavItem[] = [
   {
     id: 0,
+    slug: "admin",
+    href: "/admin",
+    icon: "bi bi-award",
+    label: "Admin",
+    isAdmin: true, // Admin only
+  },
+
+  {
+    id: 1,
     slug: "dashboard",
     href: "/dashboard",
     icon: "bi bi-grid",
@@ -11,7 +20,7 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
 
   {
-    id: 1,
+    id: 2,
     slug: "sites",
     href: "/sites",
     icon: "bi bi-window-stack",
@@ -20,7 +29,7 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
 
   {
-    id: 2,
+    id: 3,
     slug: "notifications",
     href: "/notifications",
     icon: "bi bi-bell",
@@ -29,7 +38,7 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
 
   {
-    id: 3,
+    id: 4,
     slug: "account",
     href: "/faqs",
     icon: "bi bi-patch-question",
@@ -38,12 +47,12 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
 
   {
-    id: 999,
-    slug: "admin",
-    href: "/admin",
-    icon: "bi bi-award",
-    label: "Admin",
-    isAdmin: true, // Admin only
+    id: 5,
+    slug: "settings",
+    href: "/settings",
+    icon: "bi bi-sliders",
+    label: "Settings",
+    isAdmin: false,
   },
 ];
 

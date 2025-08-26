@@ -1,5 +1,5 @@
 import PageHead from "@/components/layout/common/PageHead";
-import css from "@/styles/sections/front/HowItWorks.module.css";
+import css from "@/styles/sections/public/HowItWorks.module.css";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { memo } from "react";

@@ -19,6 +19,7 @@ export default function AccountPage() {
         loading={loading}
         error={error}
       />
+
       <AccountBilling
         title="Transaction History"
         transactions={userTransactions}
@@ -26,6 +27,7 @@ export default function AccountPage() {
         loading={loading}
         error={error}
       />
+
       <AccountSites
         title="Registered Websites"
         sites={userSites}

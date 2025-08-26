@@ -1,6 +1,6 @@
 "use client";
 
-import SiteFrame from "@/components/sections/admin/sites/layout/SiteFrame";
+import SiteFrame from "@/components/sections/app/sites/layout/SiteFrame";
 import { sitesNavItems } from "@/constants/layout/sites-nav.const";
 import { useParams } from "next/navigation";
 

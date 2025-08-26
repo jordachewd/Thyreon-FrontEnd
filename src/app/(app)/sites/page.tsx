@@ -1,7 +1,7 @@
 import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
-import AddSiteDialog from "@/components/sections/admin/sites/dialogs/AddSiteDialog";
-import SitesPage from "@/components/sections/admin/sites/SitesPage";
+import AddSiteDialog from "@/components/sections/app/sites/dialogs/AddSiteDialog";
+import SitesPage from "@/components/sections/app/sites/SitesPage";
 
 export default function AppSites() {
   return (
