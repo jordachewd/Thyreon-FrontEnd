@@ -1,9 +1,12 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { DELETE_USERS } from "@/constants/graphql/users/delete-users.const";
+import {
+  DELETE_USERS,
+  DeleteUsersMutationResponse,
+} from "@/constants/graphql/users/delete-users.const";
 import { useAdminUi } from "@/context/AdminUiContext";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import Button from "@mui/material/Button";
 
 interface DeleteUserButtonProps {
@@ -25,10 +28,10 @@ export default function DeleteUserBtn({
 
   const [deleteUsers, { loading, error, reset }] = useMutation(DELETE_USERS, {
     onCompleted: (data) => {
-      const response = data?.deleteUsers;
+      const { deleteUsers } = data as DeleteUsersMutationResponse;
       updateAlert({
-        text: response.message,
-        severity: response.status,
+        text: deleteUsers.message,
+        severity: deleteUsers.status,
       });
 
       if (onSuccess) onSuccess();

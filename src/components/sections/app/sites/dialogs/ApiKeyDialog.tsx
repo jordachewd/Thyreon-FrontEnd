@@ -2,11 +2,14 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
-import { REGENERATE_API_KEY } from "@/constants/graphql/sites/new-api-key";
+import {
+  REGENERATE_API_KEY,
+  RegenerateApiKeyMutationResponse,
+} from "@/constants/graphql/sites/new-api-key";
 import { useAdminUi } from "@/context/AdminUiContext";
 import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
   DialogTitle,
@@ -52,11 +55,11 @@ export default function ApiKeyDialog({
       refetchQueries: [GET_SITE_BY_ID, "GetSiteById"],
       awaitRefetchQueries: true,
       onCompleted: (data) => {
-        const newData = data.regenerateApiKey;
-        setNewKey(newData.site.apiKey);
+        const { regenerateApiKey } = data as RegenerateApiKeyMutationResponse;
+        setNewKey(regenerateApiKey.site.apiKey);
         setAlertMsg({
-          text: newData.message,
-          severity: newData.status,
+          text: regenerateApiKey.message,
+          severity: regenerateApiKey.status,
         });
       },
     }

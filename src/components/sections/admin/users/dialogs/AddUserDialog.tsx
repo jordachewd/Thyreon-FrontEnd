@@ -1,11 +1,14 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { CREATE_USER_MUTATION } from "@/constants/graphql/users/create-user.const";
+import {
+  CREATE_USER_MUTATION,
+  CreateUserMutationResponse,
+} from "@/constants/graphql/users/create-user.const";
 import { useAdminUi } from "@/context/AdminUiContext";
 import { useAddUserDialogStore } from "@/lib/stores/users/useAddUserDialogStore";
 import { generatePassword } from "@/lib/utils/generate-password";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
   DialogTitle,
@@ -28,10 +31,11 @@ export default function AddUserDialog() {
     CREATE_USER_MUTATION,
     {
       onCompleted: (data) => {
-        const response = data?.createUser;
+        const { createUser } = data as CreateUserMutationResponse;
+
         updateAlert({
-          text: response.message,
-          severity: response.status,
+          text: createUser.message,
+          severity: createUser.status,
         });
 
         closeDialog();

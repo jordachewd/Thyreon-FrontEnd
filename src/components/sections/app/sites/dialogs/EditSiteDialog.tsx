@@ -1,12 +1,15 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { UPDATE_SITE_MUTATION } from "@/constants/graphql/sites/update-site.const";
+import {
+  UPDATE_SITE_MUTATION,
+  UpdateSiteMutationResponse,
+} from "@/constants/graphql/sites/update-site.const";
 import { useAdminUi } from "@/context/AdminUiContext";
 import { useEditSiteDialogStore } from "@/lib/stores/sites/useEditSiteDialogStore";
 import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
   DialogTitle,
@@ -41,9 +44,10 @@ export default function EditSiteDialog({
     refetchQueries: refetchQuery,
     awaitRefetchQueries: true,
     onCompleted: (data) => {
+      const { updateSite } = data as UpdateSiteMutationResponse;
       updateAlert({
-        text: data?.updateSite.message,
-        severity: data?.updateSite.status,
+        text: updateSite.message,
+        severity: updateSite.status,
       });
       handleCloseDialog();
     },

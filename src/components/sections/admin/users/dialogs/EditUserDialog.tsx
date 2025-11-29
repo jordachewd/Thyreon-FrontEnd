@@ -1,11 +1,14 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
+import {
+  UPDATE_USER_MUTATION,
+  UpdateUserMutationResponse,
+} from "@/constants/graphql/users/update-user.const";
 import { useAdminUi } from "@/context/AdminUiContext";
 import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 import { GetUserInfo } from "@/types/users/get-user-info.d";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
   DialogTitle,
@@ -32,9 +35,10 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
     UPDATE_USER_MUTATION,
     {
       onCompleted: (data) => {
+        const { updateUser } = data as UpdateUserMutationResponse;
         updateAlert({
-          text: data?.updateUser.message,
-          severity: data?.updateUser.status,
+          text: updateUser.message,
+          severity: updateUser.status,
         });
         closeDialog();
       },

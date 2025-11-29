@@ -1,11 +1,14 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { DELETE_SITES } from "@/constants/graphql/sites/delete-sites.const";
+import {
+  DELETE_SITES,
+  DeleteSitesMutationResponse,
+} from "@/constants/graphql/sites/delete-sites.const";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { useAdminUi } from "@/context/AdminUiContext";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { Button } from "@mui/material";
 import { usePathname } from "next/navigation";
 
@@ -34,11 +37,11 @@ export default function DeleteSiteBtn({
     refetchQueries: queriesToRefetch,
     awaitRefetchQueries: true,
     onCompleted: (data) => {
-      const response = data?.deleteSites;
+      const { deleteSites } = data as DeleteSitesMutationResponse;
 
       updateAlert({
-        text: response.message,
-        severity: response.status,
+        text: deleteSites.message,
+        severity: deleteSites.status,
       });
 
       if (onSuccess) onSuccess();
