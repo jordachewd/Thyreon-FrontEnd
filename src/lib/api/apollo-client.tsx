@@ -1,17 +1,24 @@
 "use client";
 
 import { GRAPHQL_API_URL } from "@/constants/api/graphql-api-url.const";
-import { setContext } from "@apollo/client/link/context";
-import { onError } from "@apollo/client/link/error";
-import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
+import { SetContextLink } from "@apollo/client/link/context";
+import { ErrorLink } from "@apollo/client/link/error";
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  from,
+  CombinedGraphQLErrors,
+  CombinedProtocolErrors,
+} from "@apollo/client";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useMemo, useRef } from "react";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 
 export function useApolloClient() {
   const { getToken } = useAuth();
-
   const getTokenRef = useRef(getToken);
+
   useEffect(() => {
     getTokenRef.current = getToken;
   }, [getToken]);
@@ -21,26 +28,34 @@ export function useApolloClient() {
       uri: GRAPHQL_API_URL,
     });
 
-    const authLink = setContext(async (_, { headers }) => {
+    const authLink = new SetContextLink(async (prevContext) => {
       const token = await getTokenRef.current?.();
+
       return {
         headers: {
-          ...headers,
+          ...prevContext.headers,
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       };
     });
 
-    const errorLink = onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors) {
-        for (const err of graphQLErrors) {
-          if (NODE_ENV !== "production") {
-            console.warn("[GraphQL error]", err);
-          }
-        }
-      }
-      if (networkError && NODE_ENV !== "production") {
-        console.warn("[Network error]", networkError);
+    const errorLink = new ErrorLink(({ error }) => {
+      if (CombinedGraphQLErrors.is(error)) {
+        error.errors.forEach(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          )
+        );
+      } else if (CombinedProtocolErrors.is(error)) {
+        error.errors.forEach(({ message, extensions }) =>
+          console.log(
+            `[Protocol error]: Message: ${message}, Extensions: ${JSON.stringify(
+              extensions
+            )}`
+          )
+        );
+      } else {
+        console.error(`[Network error]: ${error}`);
       }
     });
 
@@ -48,7 +63,7 @@ export function useApolloClient() {
       link: from([errorLink, authLink, httpLink]),
       cache: new InMemoryCache(),
       queryDeduplication: true,
-      connectToDevTools: NODE_ENV !== "production",
+      devtools: { enabled: NODE_ENV !== "production" },
       defaultOptions: {
         watchQuery: {
           fetchPolicy: "cache-and-network",

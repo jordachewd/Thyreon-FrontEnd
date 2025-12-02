@@ -54,11 +54,7 @@ function ErrorCard({
       <div className={`flex rounded-md ${miniCardCss} ${cardColor}`}>
         <i className={`bi ${cardIcon} text-2xl text-white leading-none`}></i>
         <div className="flex flex-col">
-          <Typography
-            variant="body2"
-            color="white"
-            className="!font-semibold !wrap-break-word"
-          >
+          <Typography variant="body2" color="white">
             {title ? title + ": " : ""}
             {error}
           </Typography>
@@ -93,11 +89,7 @@ function ErrorCard({
       <div className={`flex rounded-md ${bigCardCss} ${cardColor}`}>
         <i className={`bi ${cardIcon} text-6xl text-white leading-none`}></i>
         <div className="flex flex-col gap-2">
-          <Typography
-            variant="h5"
-            color="white"
-            className="!wrap-break-word !leading-none"
-          >
+          <Typography variant="h5" color="white">
             {error}
           </Typography>
           {message && (

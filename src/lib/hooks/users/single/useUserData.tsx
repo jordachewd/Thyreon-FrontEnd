@@ -6,8 +6,9 @@ import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { TransactionType } from "@/types/transactions/transaction.d";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { GetUserInfo } from "@/types/users/get-user-info.d";
+import { ErrorLike } from "@apollo/client";
 
-import { ApolloError, ApolloQueryResult, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { useMemo } from "react";
 
 type MeResp = { me: GetUserData | undefined };
@@ -15,8 +16,8 @@ type ByIdResp = { userById: GetUserData | undefined };
 
 type UsersDataReturn = {
   loading: boolean;
-  error: ApolloError | undefined;
-  refetch: () => Promise<ApolloQueryResult<MeResp | ByIdResp>>;
+  error: ErrorLike | undefined;
+  refetch: () => Promise<unknown>;
   userPlan: TransactionType;
   userTransactions: TransactionType[];
   userSites: GetSiteData[];

@@ -2,7 +2,6 @@
 
 import { useAdminUi } from "@/context/AdminUiContext";
 import checkoutPlan from "@/lib/actions/checkout/checkout-plan";
-import getStripe from "@/lib/actions/checkout/get-stripe";
 import { PlanCheckout } from "@/types/plan/plan-checkout.d";
 import Button from "@mui/material/Button";
 import { memo } from "react";
@@ -28,8 +27,15 @@ function CheckoutBtn({ plan, isCurrent = false }: CheckoutProps) {
         return;
       }
 
-      const stripe = await getStripe();
-      await stripe?.redirectToCheckout({ sessionId: session.id });
+      if (!session?.url) {
+        updateAlert({
+          text: "Checkout session missing URL. Try again.",
+          severity: "error",
+        });
+        return;
+      }
+
+      window.location.href = session.url;
     } catch (error) {
       console.error("Checkout error:", error);
       updateAlert({

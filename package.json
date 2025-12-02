@@ -45,6 +45,7 @@
     "@next/eslint-plugin-next": "^16.0.5",
     "@types/classnames": "^2.3.0",
     "@types/node": "^24.0.14",
+    "baseline-browser-mapping": "^2.8.32",
     "eslint": "^9.31.0",
     "globals": "^16.3.0",
     "knip": "^5.61.3",

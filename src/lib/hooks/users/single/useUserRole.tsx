@@ -2,7 +2,7 @@
 
 import { USER_ROLE_QUERY } from "@/constants/graphql/users/get-user-role.const";
 import { UserRole } from "@/types/users/user-role.d";
-import { ApolloError, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 
 type UserRoleQueryResp = {
   me: { role: UserRole } | undefined;
@@ -10,7 +10,7 @@ type UserRoleQueryResp = {
 
 type UserRoleReturn = {
   loading: boolean;
-  error: ApolloError | undefined;
+  error: unknown;
   role: UserRole;
   isLite: boolean;
   isPro: boolean;
