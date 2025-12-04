@@ -1,4 +1,5 @@
 "use client";
+
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
@@ -31,6 +32,7 @@ function ErrorCard({
 
   let cardColor = "bg-red-600";
   let cardIcon = " bi-patch-exclamation";
+
   switch (color) {
     case "warning":
       cardColor = "bg-orange-600";
@@ -54,11 +56,7 @@ function ErrorCard({
       <div className={`flex rounded-md ${miniCardCss} ${cardColor}`}>
         <i className={`bi ${cardIcon} text-2xl text-white leading-none`}></i>
         <div className="flex flex-col">
-          <Typography
-            variant="body2"
-            color="white"
-            className="!font-semibold !wrap-break-word"
-          >
+          <Typography variant="body2" color="white">
             {title ? title + ": " : ""}
             {error}
           </Typography>
@@ -67,6 +65,7 @@ function ErrorCard({
             <span className="text-white italic text-xs">{message}</span>
           )}
         </div>
+        
         {onCloseMini && (
           <Button
             size="small"
@@ -93,11 +92,7 @@ function ErrorCard({
       <div className={`flex rounded-md ${bigCardCss} ${cardColor}`}>
         <i className={`bi ${cardIcon} text-6xl text-white leading-none`}></i>
         <div className="flex flex-col gap-2">
-          <Typography
-            variant="h5"
-            color="white"
-            className="!wrap-break-word !leading-none"
-          >
+          <Typography variant="h5" color="white">
             {error}
           </Typography>
           {message && (

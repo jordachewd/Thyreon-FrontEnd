@@ -1,19 +1,12 @@
-import "@/app/globals.css";
 import WPGuardProvider from "@/components/layout/providers/WPGuardProvider";
 import { clerkAppearance } from "@/constants/layout/clerk-appearance.const";
 import { ClerkProvider } from "@clerk/nextjs";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { InitColorSchemeScript } from "@mui/material";
-import { Metadata, Viewport } from "next";
-import { ReactNode } from "react";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
+import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-
-export const metadata: Metadata = {
-  title: "WPGuard | Maintenance & Monitoring",
-  description:
-    "Keep your WordPress website fast, secure, and up-to-date with WPGuard. " +
-    "Automated checks, smart alerts, and effortless fixes—so your site runs smooth, always.",
-};
 
 export const viewport: Viewport = {
   themeColor: "dark",
@@ -22,6 +15,13 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+};
+
+export const metadata: Metadata = {
+  title: "WPGuard | Maintenance & Monitoring",
+  description:
+    "Keep your WordPress website fast, secure, and up-to-date with WPGuard. " +
+    "Automated checks, smart alerts, and effortless fixes—so your site runs smooth, always.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

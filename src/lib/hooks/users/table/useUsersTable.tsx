@@ -2,7 +2,8 @@
 
 import { GET_USERS_QUERY } from "@/constants/graphql/users/get-users.const";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import { ApolloError, ApolloQueryResult, useQuery } from "@apollo/client";
+import { ErrorLike } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 
 type UsersQueryResp = {
   users: GetUserData[] | undefined;
@@ -10,8 +11,8 @@ type UsersQueryResp = {
 
 type UsersTableDataReturn = {
   loading: boolean;
-  error: ApolloError | undefined;
-  refetch: () => Promise<ApolloQueryResult<UsersQueryResp>>;
+  error: ErrorLike | undefined
+  refetch: () => Promise<unknown>;
   users: GetUserData[];
 };
 

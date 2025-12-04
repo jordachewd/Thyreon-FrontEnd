@@ -1,4 +1,5 @@
 "use client";
+
 import { useColorScheme } from "@mui/material/styles";
 import css from "@/styles/layout/public/Footer.module.css";
 import lightLogo from "../../../../public/images/jwd_light.png";

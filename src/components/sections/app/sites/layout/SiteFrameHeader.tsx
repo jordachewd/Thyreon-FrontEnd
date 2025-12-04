@@ -4,7 +4,7 @@ import ErrorCard from "@/components/shared/ErrorCard";
 import Skeleton from "@mui/material/Skeleton";
 import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Chip } from "@mui/material";
 
 type SiteFrameHeaderProps = {

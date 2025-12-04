@@ -1,18 +1,21 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { UPDATE_USER_MUTATION } from "@/constants/graphql/users/update-user.const";
+import {
+  UPDATE_USER_MUTATION,
+  UpdateUserMutationResponse,
+} from "@/constants/graphql/users/update-user.const";
 import { useAdminUi } from "@/context/AdminUiContext";
 import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 import { GetUserInfo } from "@/types/users/get-user-info.d";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
 import AdminAddNewFab from "../../shared/AdminAddNewFab";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
@@ -22,7 +25,7 @@ interface EditUserDialogProps {
   data: GetUserInfo;
 }
 
-export default function EditUserDialog({ data }: EditUserDialogProps) {
+function EditUserDialog({ data }: EditUserDialogProps) {
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
   const { open, formData, openDialog, closeDialog, setField, setFormData } =
@@ -32,22 +35,26 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
     UPDATE_USER_MUTATION,
     {
       onCompleted: (data) => {
+        const { updateUser } = data as UpdateUserMutationResponse;
         updateAlert({
-          text: data?.updateUser.message,
-          severity: data?.updateUser.status,
+          text: updateUser.message,
+          severity: updateUser.status,
         });
         closeDialog();
       },
     }
   );
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    await updateUser({
-      variables: { input: formData },
-    });
-  };
+      await updateUser({
+        variables: { input: formData },
+      });
+    },
+    [updateUser, formData]
+  );
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,3 +135,5 @@ export default function EditUserDialog({ data }: EditUserDialogProps) {
     </>
   );
 }
+
+export default memo(EditUserDialog);

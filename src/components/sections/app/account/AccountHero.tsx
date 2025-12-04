@@ -12,9 +12,14 @@ import css from "@/styles/sections/admin/AccountHero.module.css";
 import AccountWrapper from "./AccountWrapper";
 import Promo from "@/components/shared/promo/Promo";
 
-function AccountHero(props: AccountHeroType) {
-  const { userInfo, title, alignTitle, titleSize, loading, error } = props;
-
+function AccountHero({
+  userInfo,
+  title,
+  alignTitle,
+  titleSize,
+  loading,
+  error,
+}: AccountHeroType) {
   if (loading) {
     return (
       <AccountWrapper

@@ -1,12 +1,8 @@
 {
-  "ignore": ["src/middleware.tsx"],
+  "ignore": ["src/proxy.tsx"],
   "ignoreDependencies": [
     "@apollo/client-integration-nextjs",
     "@typescript-eslint/eslint-plugin",
-    "@typescript-eslint/parser",
-    "styled-components",
-    "@mui/styled-engine-sc",
-    "@mui/styles",
-    "tailwindcss"
+    "@typescript-eslint/parser"
   ]
 }

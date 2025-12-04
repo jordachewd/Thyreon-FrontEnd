@@ -2,7 +2,8 @@
 
 import { USER_PLAN_QUERY } from "@/constants/graphql/users/get-user-plan.const";
 import { TransactionType } from "@/types/transactions/transaction.d";
-import { ApolloError, useQuery } from "@apollo/client";
+import { ErrorLike } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 
 type UserPlanQueryResp = {
   me: { currentPlan: TransactionType } | undefined;
@@ -10,11 +11,11 @@ type UserPlanQueryResp = {
 
 type UserPlanReturn = {
   loading: boolean;
-  error: ApolloError | undefined;
+  error: ErrorLike | undefined;
   currentPlan: TransactionType;
 };
 
-export function useUserPlan(): UserPlanReturn {
+export function getUserPlan(): UserPlanReturn {
   const { data, loading, error } = useQuery<UserPlanQueryResp>(USER_PLAN_QUERY);
   const currentPlan = data?.me?.currentPlan ?? ({} as TransactionType);
 

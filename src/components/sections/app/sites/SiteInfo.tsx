@@ -6,7 +6,7 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Alert, IconButton } from "@mui/material";
 import { useState, useCallback } from "react";
 import AdminAddNewFab from "../../admin/shared/AdminAddNewFab";

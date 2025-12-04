@@ -1,9 +1,7 @@
-"use client";
-
 import css from "@/styles/layout/shared/PageHead.module.css";
 import { Typography } from "@mui/material";
 import classNames from "classnames";
-import { memo, ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface PageHeadProps {
   title: string;
@@ -15,7 +13,7 @@ interface PageHeadProps {
   className?: string;
 }
 
-function PageHead({
+export default function PageHead({
   title,
   subtitle,
   children,
@@ -42,5 +40,3 @@ function PageHead({
     </div>
   );
 }
-
-export default memo(PageHead);

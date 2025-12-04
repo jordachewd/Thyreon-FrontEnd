@@ -1,6 +1,5 @@
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import Fab from "@mui/material/Fab";
-import { memo } from "react";
 
 interface AdminAddNewFabProps {
   execFn: () => void;
@@ -11,7 +10,7 @@ interface AdminAddNewFabProps {
   tooltipPlacement?: "top" | "bottom" | "left" | "right";
 }
 
-function AdminAddNewFab({
+export default function AdminAddNewFab({
   execFn,
   color = "primary",
   size = "small",
@@ -27,4 +26,3 @@ function AdminAddNewFab({
     </TooltipArrow>
   );
 }
-export default memo(AdminAddNewFab);

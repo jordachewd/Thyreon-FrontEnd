@@ -1,3 +1,5 @@
+"use client";
+
 import muiBase from "./muiBase";
 import { createTheme } from "@mui/material/styles";
 import { muiComponents } from "./muiComponents";

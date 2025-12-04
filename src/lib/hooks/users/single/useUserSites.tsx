@@ -2,7 +2,8 @@
 
 import { USER_SITES_QUERY } from "@/constants/graphql/users/get-user-sites.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { ApolloError, useQuery } from "@apollo/client";
+import { ErrorLike } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 
 type UserSitesQueryResp = {
   me: { sites: GetSiteData[] } | undefined;
@@ -10,7 +11,7 @@ type UserSitesQueryResp = {
 
 type UserSitesReturn = {
   loading: boolean;
-  error: ApolloError | undefined;
+  error: ErrorLike | undefined;
   sites: GetSiteData[];
 };
 

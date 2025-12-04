@@ -1,12 +1,15 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { CREATE_SITE_MUTATION } from "@/constants/graphql/sites/create-site.const";
+import {
+  CREATE_SITE_MUTATION,
+  CreateSiteMutationResponse,
+} from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { useAdminUi } from "@/context/AdminUiContext";
 import { useAddSiteDialogStore } from "@/lib/stores/sites/useAddSiteDialogStore";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
   DialogTitle,
@@ -48,11 +51,11 @@ export default function AddSiteDialog() {
       refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
       awaitRefetchQueries: true,
       onCompleted: (data) => {
-        const response = data?.createSite;
-        setSiteKey(response.site.apiKey);
+        const { createSite } = data as CreateSiteMutationResponse;
+        setSiteKey(createSite.site.apiKey);
         setAlertMsg({
-          text: response.message,
-          severity: response.status,
+          text: createSite.message,
+          severity: createSite.status,
         });
       },
     }

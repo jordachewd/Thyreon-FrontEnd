@@ -4,10 +4,9 @@ import { Typography } from "@mui/material";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { PlanStatus } from "@/types/plan/plan-status.d";
 import { PlanCheckout } from "@/types/plan/plan-checkout.d";
-import { usePlanPrice } from "@/lib/hooks/plans/usePlanPrice";
-import { usePlanStatus } from "@/lib/hooks/plans/usePlanStatus";
+import { getPlanPrice } from "@/lib/hooks/plans/get-plan-price";
+import { getPlanStatus } from "@/lib/hooks/plans/get-plan-status";
 import { TransactionType } from "@/types/transactions/transaction.d";
-import { memo } from "react";
 
 interface PlanCardProps {
   save: number;
@@ -17,16 +16,15 @@ interface PlanCardProps {
   userPlan?: TransactionType | undefined;
 }
 
-function PlanCard({
+export default function PlanCard({
   save,
   plan,
   isSignedIn = false,
   isYearly = false,
   userPlan = undefined,
 }: PlanCardProps) {
-  const planPrice = usePlanPrice({ price: plan.price || 0, isYearly, save });
-
-  const planStatus = usePlanStatus({
+  const planPrice = getPlanPrice({ price: plan.price || 0, isYearly, save });
+  const planStatus = getPlanStatus({
     plan,
     isYearly,
     userPlan,
@@ -64,6 +62,7 @@ function PlanCard({
               </span>
             )}
           </Typography>
+
           {save > 0 && isYearly && plan.price !== 0 && (
             <span className="flex line-through opacity-70">
               €{plan.price * 12} /Yr
@@ -71,8 +70,10 @@ function PlanCard({
           )}
         </div>
       </div>
+
       <div className={css.features}>
         <p className="flex font-bold mb-2">What is included:</p>
+        
         {plan.features.map((feature) => (
           <div key={plan.name + feature.label} className={css.feature}>
             <i
@@ -106,5 +107,3 @@ function PlanCard({
     </div>
   );
 }
-
-export default memo(PlanCard);

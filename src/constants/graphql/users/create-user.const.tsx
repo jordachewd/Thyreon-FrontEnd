@@ -1,6 +1,14 @@
-import { gql } from "@apollo/client";
+import { AlertSeverity } from "@/context/types/alert-msg-params.d";
+import { TypedDocumentNode, gql } from "@apollo/client";
 
-export const CREATE_USER_MUTATION = gql`
+export interface CreateUserMutationResponse {
+  createUser: {
+    status: AlertSeverity;
+    message: string;
+  };
+}
+
+export const CREATE_USER_MUTATION: TypedDocumentNode<CreateUserMutationResponse> = gql`
   mutation CreateUser($input: GqlCreateUserInput!) {
     createUser(input: $input) {
       status
