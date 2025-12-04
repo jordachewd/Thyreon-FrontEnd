@@ -1,5 +1,3 @@
-"use client";
-
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
@@ -8,12 +6,12 @@ import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { AccountSitesType } from "@/types/account/account-sites.d";
 import { Typography } from "@mui/material";
 import Link from "next/link";
-import { memo, useMemo } from "react";
+
 import css from "@/styles/sections/admin/AccountBilling.module.css";
 import AccountWrapper from "./AccountWrapper";
 import classNames from "classnames";
 
-function AccountSites({
+export default function AccountSites({
   sites,
   title,
   alignTitle,
@@ -52,7 +50,7 @@ function AccountSites({
         alignTitle={alignTitle}
         titleSize={titleSize}
       >
-        <Typography variant="body2" className="!text-slate-400 text-center">
+        <Typography variant="body2" className="text-slate-400! text-center">
           No registered sites yet.
         </Typography>
       </AccountWrapper>
@@ -81,9 +79,8 @@ function AccountSites({
             ["font-medium text-midnight-400! dark:text-vanilla-400!"]: isActive,
           });
 
-          const createdAtText = useMemo(
-            () => getFormattedDate(new Date(site.createdAt as Date)),
-            [site.createdAt]
+          const createdAtText = getFormattedDate(
+            new Date(site.createdAt as Date)
           );
 
           return (
@@ -120,5 +117,3 @@ function AccountSites({
     </AccountWrapper>
   );
 }
-
-export default memo(AccountSites);

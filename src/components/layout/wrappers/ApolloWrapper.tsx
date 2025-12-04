@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { useApolloClient } from "@/lib/api/apollo-client";
 import { ApolloProvider } from "@apollo/client/react";

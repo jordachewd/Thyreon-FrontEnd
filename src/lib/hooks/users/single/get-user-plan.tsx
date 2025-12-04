@@ -15,7 +15,7 @@ type UserPlanReturn = {
   currentPlan: TransactionType;
 };
 
-export function useUserPlan(): UserPlanReturn {
+export function getUserPlan(): UserPlanReturn {
   const { data, loading, error } = useQuery<UserPlanQueryResp>(USER_PLAN_QUERY);
   const currentPlan = data?.me?.currentPlan ?? ({} as TransactionType);
 

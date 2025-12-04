@@ -43,13 +43,16 @@ export default function AddUserDialog() {
     }
   );
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    await createUser({
-      variables: { input: formData },
-    });
-  };
+      await createUser({
+        variables: { input: formData },
+      });
+    },
+    [createUser, formData]
+  );
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

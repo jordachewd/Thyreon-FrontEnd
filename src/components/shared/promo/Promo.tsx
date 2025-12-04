@@ -2,7 +2,6 @@ import { useAdminAuth } from "@/context/AdminAuthContext";
 import { useUserData } from "@/lib/hooks/users/single/useUserData";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { Typography, Button } from "@mui/material";
-import { memo } from "react";
 import css from "@/styles/shared/PlanPromo.module.css";
 import ErrorCard from "../ErrorCard";
 import LoadingBubbles from "../LoadingBubbles";
@@ -16,7 +15,7 @@ const TITLE_SX = {
   gap: "1rem",
 };
 
-function Promo() {
+export default function Promo() {
   const { isAdmin: isAuthAdmin } = useAdminAuth();
   const { loading, error, userInfo } = useUserData();
 
@@ -68,5 +67,3 @@ function Promo() {
     </PromoWrapper>
   );
 }
-
-export default memo(Promo);

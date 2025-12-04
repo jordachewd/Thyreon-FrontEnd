@@ -7,9 +7,9 @@ import {
   ApolloClient,
   InMemoryCache,
   HttpLink,
-  from,
   CombinedGraphQLErrors,
   CombinedProtocolErrors,
+  ApolloLink,
 } from "@apollo/client";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useMemo, useRef } from "react";
@@ -60,7 +60,7 @@ export function useApolloClient() {
     });
 
     return new ApolloClient({
-      link: from([errorLink, authLink, httpLink]),
+      link: ApolloLink.from([errorLink, authLink, httpLink]),
       cache: new InMemoryCache(),
       queryDeduplication: true,
       devtools: { enabled: NODE_ENV !== "production" },

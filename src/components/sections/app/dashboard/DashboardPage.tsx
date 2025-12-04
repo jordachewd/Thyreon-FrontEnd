@@ -1,5 +1,3 @@
-"use client";
-
 import css from "@/styles/sections/dashboard/Grid.module.css";
 import Typography from "@mui/material/Typography";
 import classNames from "classnames";

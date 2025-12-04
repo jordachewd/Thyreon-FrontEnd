@@ -1,7 +1,4 @@
-"use client";
-
 import classNames from "classnames";
-import { memo } from "react";
 import css from "@/styles/shared/LoadingBubbles.module.css";
 
 type BubbleSizes = "small" | "medium" | "large";
@@ -20,14 +17,12 @@ const sizeMappings = {
   large: ["w-2 h-2", "w-2.5 h-2.5", "w-3 h-3"],
 };
 
-function LoadingBubbles(props: LoadingProps) {
-  const {
-    size = "medium",
-    wrapped = false,
-    fullHeight = false,
-    align = "center",
-  } = props;
-
+export default function LoadingBubbles({
+  size = "medium",
+  wrapped = false,
+  fullHeight = false,
+  align = "center",
+}: LoadingProps) {
   const bubbles = sizeMappings[size] || sizeMappings.medium;
 
   const alignClass =
@@ -38,7 +33,6 @@ function LoadingBubbles(props: LoadingProps) {
       : "justify-start";
 
   const wrpHeight = fullHeight ? "h-dvh" : "h-20";
-
   const loaderCss = classNames(css.wrapper, alignClass, wrpHeight);
   const wrpLoaderCss = classNames(css.isWrapped, alignClass, wrpHeight);
 
@@ -63,5 +57,3 @@ function LoadingBubbles(props: LoadingProps) {
 
   return bubbleLoader;
 }
-
-export default memo(LoadingBubbles);

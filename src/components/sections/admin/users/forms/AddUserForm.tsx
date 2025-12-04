@@ -2,7 +2,6 @@ import { defaultNewUserFields as defaultFields } from "@/constants/users/fields/
 import { CreateUserData } from "@/types/users/create-user-data.d";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { memo } from "react";
 
 interface AddUserFormProps {
   data: CreateUserData;
@@ -10,7 +9,11 @@ interface AddUserFormProps {
   genPassword: () => void;
 }
 
-function AddUserForm({ data, onChange, genPassword }: AddUserFormProps) {
+export default function AddUserForm({
+  data,
+  onChange,
+  genPassword,
+}: AddUserFormProps) {
   return (
     <form className="flex flex-col w-full gap-3">
       {defaultFields.map(({ label, name, type, info }) => {
@@ -34,7 +37,7 @@ function AddUserForm({ data, onChange, genPassword }: AddUserFormProps) {
                   size="small"
                   startIcon={<i className="bi bi-stars"></i>}
                   onClick={genPassword}
-                  className="!mt-3"
+                  className="mt-3!"
                 >
                   Generate
                 </Button>
@@ -57,5 +60,3 @@ function AddUserForm({ data, onChange, genPassword }: AddUserFormProps) {
     </form>
   );
 }
-
-export default memo(AddUserForm);

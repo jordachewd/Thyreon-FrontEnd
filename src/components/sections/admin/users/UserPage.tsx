@@ -15,7 +15,7 @@ export default function UserPage({ userId }: { userId: number }) {
 
   const userPlanId = userInfo?.currentPlan?.stripeId || "";
 
-  const handleRefetch = useCallback(() => refetch(), [refetch]);
+  const handleRefetch = useCallback(() => refetch(), [refetch]);  
   useUpdatedUserSocket(handleRefetch);
 
   return (

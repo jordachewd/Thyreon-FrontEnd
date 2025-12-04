@@ -1,10 +1,9 @@
 import PageHead from "@/components/layout/common/PageHead";
-import css from "@/styles/sections/public/HowItWorks.module.css";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import { memo } from "react";
+import css from "@/styles/sections/public/HowItWorks.module.css";
 
-function HowItWorks() {
+export default function HowItWorks() {
   return (
     <div className={css.section}>
       <div className={css.content}>
@@ -28,6 +27,7 @@ function HowItWorks() {
                 </Typography>
               </div>
             </div>
+
             <div className={css.step}>
               <div className={css.icon}>
                 <i className="bi bi-gear"></i>
@@ -40,6 +40,7 @@ function HowItWorks() {
                 </Typography>
               </div>
             </div>
+            
             <div className={css.step}>
               <div className={css.icon}>
                 <i className="bi bi-emoji-smile"></i>
@@ -69,5 +70,3 @@ function HowItWorks() {
     </div>
   );
 }
-
-export default memo(HowItWorks);

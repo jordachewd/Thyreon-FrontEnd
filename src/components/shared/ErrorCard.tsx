@@ -1,4 +1,5 @@
 "use client";
+
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
@@ -31,6 +32,7 @@ function ErrorCard({
 
   let cardColor = "bg-red-600";
   let cardIcon = " bi-patch-exclamation";
+
   switch (color) {
     case "warning":
       cardColor = "bg-orange-600";
@@ -63,6 +65,7 @@ function ErrorCard({
             <span className="text-white italic text-xs">{message}</span>
           )}
         </div>
+        
         {onCloseMini && (
           <Button
             size="small"

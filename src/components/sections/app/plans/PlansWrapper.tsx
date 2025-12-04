@@ -2,9 +2,8 @@ import PageHead from "@/components/layout/common/PageHead";
 import css from "@/styles/sections/shared/Plans.module.css";
 import { PlansWrapperType } from "@/types/plan/plan-wrapper.d";
 import classNames from "classnames";
-import { memo } from "react";
 
-function PlansWrapper(props: PlansWrapperType) {
+export default function PlansWrapper(props: PlansWrapperType) {
   const { title, subtitle, className, children } = props;
   const sectionCss = classNames(css.section, className);
 
@@ -21,4 +20,3 @@ function PlansWrapper(props: PlansWrapperType) {
     </div>
   );
 }
-export default memo(PlansWrapper);
