@@ -5,11 +5,11 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import PlanCard from "@/components/shared/PlanCard";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 import { plans } from "@/constants/demo-data/plans.const";
-import { useUserPlan } from "@/lib/hooks/users/single/useUserPlan";
+import { getUserPlan } from "@/lib/hooks/users/single/get-user-plan";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { useUser } from "@clerk/nextjs";
 import { Switch, Button } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo, useCallback } from "react";
 import css from "@/styles/sections/shared/Plans.module.css";
 import PlansWrapper from "../app/plans/PlansWrapper";
 
@@ -21,12 +21,15 @@ function Plans(props: PlansProps) {
   const { isSignedIn } = useUser();
   const [planType, setPlanType] = useState<boolean>(false);
 
-  const { loading, error, currentPlan } = useUserPlan();
+  const { loading, error, currentPlan } = getUserPlan();
   const billingType = currentPlan?.billing;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setPlanType(event.target.checked);
-  };
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setPlanType(event.target.checked);
+    },
+    [setPlanType]
+  );
 
   useEffect(() => {
     if (!isSignedIn && !billingType) return;
@@ -109,4 +112,4 @@ function Plans(props: PlansProps) {
   );
 }
 
-export default Plans;
+export default memo(Plans);

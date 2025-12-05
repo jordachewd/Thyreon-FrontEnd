@@ -5,11 +5,11 @@ import ToggleTheme from "@/components/shared/ToggleTheme";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import css from "@/styles/layout/public/Header.module.css";
 import UserButtonMenu from "../common/UserButtonMenu";
 
-export default function Header() {
+function Header() {
   const [scrolled, setScrolled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -49,3 +49,4 @@ export default function Header() {
     </section>
   );
 }
+export default memo(Header);

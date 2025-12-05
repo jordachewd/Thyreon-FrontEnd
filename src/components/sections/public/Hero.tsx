@@ -1,10 +1,9 @@
 import css from "@/styles/sections/public/Hero.module.css";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 import { Typography, Button } from "@mui/material";
-import { memo } from "react";
 import Image from "next/image";
 
-function Hero() {
+export default function Hero() {
   return (
     <div className={css.section}>
       <div className={css.content}>
@@ -43,4 +42,3 @@ function Hero() {
     </div>
   );
 }
-export default memo(Hero);

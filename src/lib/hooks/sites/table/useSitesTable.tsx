@@ -4,7 +4,8 @@ import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { ApolloError, ApolloQueryResult, useQuery } from "@apollo/client";
+import { ErrorLike } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { useMemo } from "react";
 
 type SitesQueryResp = { sites: GetSiteData[] | undefined };
@@ -12,13 +13,15 @@ type MeSitesQueryResp = { meSites: GetSiteData[] | undefined };
 
 type SitesTableDataReturn = {
   loading: boolean;
-  error: ApolloError | undefined;
-  refetch: () => Promise<ApolloQueryResult<SitesQueryResp | MeSitesQueryResp>>;
+  error: ErrorLike | undefined;
+  refetch: () => Promise<unknown>;
   refetchQuery: RefetchQueryType;
   sites: GetSiteData[];
 };
 
-export function useSitesData(opts?: { isAdminPage?: boolean }): SitesTableDataReturn {
+export function useSitesData(opts?: {
+  isAdminPage?: boolean;
+}): SitesTableDataReturn {
   const isAdmin = !!opts?.isAdminPage;
 
   const meSitesQ = useQuery<MeSitesQueryResp>(GET_MY_SITES_QUERY, {

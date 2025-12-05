@@ -1,16 +1,13 @@
-"use client";
-
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { AccountBillingType } from "@/types/account/account-billing.d";
 import { Typography } from "@mui/material";
-import { memo } from "react";
-import css from "@/styles/sections/admin/AccountBilling.module.css";
 import AccountWrapper from "./AccountWrapper";
+import css from "@/styles/sections/admin/AccountBilling.module.css";
 
-function AccountBilling(props: AccountBillingType) {
+export default function AccountBilling(props: AccountBillingType) {
   const {
     transactions,
     userPlanId,
@@ -70,7 +67,6 @@ function AccountBilling(props: AccountBillingType) {
           <p className="hidden md:flex flex-1 text-center">Expires</p>
           <p className="min-w-14 text-center">Status</p>
 
-          {/* Invoices to be developed !!! */}
           <TooltipArrow title="Available soon" placement="top">
             <i className="bi bi-cloud-download ml-4 text-base text-red-500"></i>
           </TooltipArrow>
@@ -80,6 +76,8 @@ function AccountBilling(props: AccountBillingType) {
           const isActive = txn.stripeId === userPlanId;
           const txnStatus = isActive ? "Active" : "Inactive";
           const txnColor = isActive ? css.active : css.inactive;
+          const createdAt = getFormattedDate(txn.createdAt);
+          const expiresAt = getFormattedDate(txn.expiresAt);
 
           return (
             <div
@@ -97,10 +95,10 @@ function AccountBilling(props: AccountBillingType) {
                 {txn.billing}
               </p>
               <p className="hidden md:flex flex-1 textxxs text-center">
-                {getFormattedDate(txn.createdAt)}
+                {createdAt}
               </p>
               <p className="hidden md:flex flex-1 textxxs text-center">
-                {getFormattedDate(txn.expiresAt)}
+                {expiresAt}
               </p>
               <p className="min-w-14 textxxs text-center">
                 <span className={txnColor}>{txnStatus}</span>
@@ -116,5 +114,3 @@ function AccountBilling(props: AccountBillingType) {
     </AccountWrapper>
   );
 }
-
-export default memo(AccountBilling);

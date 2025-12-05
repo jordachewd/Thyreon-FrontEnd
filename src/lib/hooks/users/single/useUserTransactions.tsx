@@ -2,7 +2,8 @@
 
 import { USER_TRANSACTIONS_QUERY } from "@/constants/graphql/users/get-user-transactions.const";
 import { TransactionType } from "@/types/transactions/transaction.d";
-import { ApolloError, useQuery } from "@apollo/client";
+import { ErrorLike } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 
 type UserTsxQueryResp = {
   me: { transactions: TransactionType[] } | undefined;
@@ -10,7 +11,7 @@ type UserTsxQueryResp = {
 
 type UserTsxReturn = {
   loading: boolean;
-  error: ApolloError | undefined;
+  error: ErrorLike | undefined;
   transactions: TransactionType[];
 };
 
