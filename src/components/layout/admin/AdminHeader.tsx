@@ -1,27 +1,14 @@
-"use client";
-
 import SidebarToggle from "@/components/sections/admin/shared/SidebarToggle";
 import Logo from "@/components/shared/Logo";
-import { useAdminUi } from "@/context/AdminUiContext";
-import { memo } from "react";
-import css from "@/styles/layout/admin/AdminHeader.module.css";
 import UserButtonMenu from "../common/UserButtonMenu";
+import css from "@/styles/layout/admin/AdminHeader.module.css";
 
-function AdminHeader() {
-  const { sidebarCtx } = useAdminUi();
-  const { isNavOpen, updateSb } = sidebarCtx;
-
-  const toggleTitle = isNavOpen ? "Show menu" : "Hide menu";
-
+export default function AdminHeader() {
   return (
     <header id="AdminHeader" className={css.section}>
       <div className={css.content}>
         <div className={css.left}>
-          <SidebarToggle
-            icon="bi-layout-sidebar"
-            title={toggleTitle}
-            toggleSidebar={updateSb}
-          />
+          <SidebarToggle icon="bi-layout-sidebar" />
         </div>
 
         <div className={css.center}>
@@ -35,5 +22,3 @@ function AdminHeader() {
     </header>
   );
 }
-
-export default memo(AdminHeader);

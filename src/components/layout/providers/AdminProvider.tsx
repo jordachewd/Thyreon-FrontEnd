@@ -1,5 +1,3 @@
-"use client";
-
 import { AdminAuthProvider } from "@/context/AdminAuthContext";
 import { AdminUiProvider } from "@/context/AdminUiContext";
 import { ReactNode } from "react";

@@ -10,7 +10,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction="left" />;
@@ -24,16 +24,17 @@ function AlertMessage() {
   const openAlert = text.length > 0;
   const clearAlert = alertDefaults.message;
 
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: SnackbarCloseReason
-  ) => {
-    event?.preventDefault();
+  const handleClose = useCallback(
+    (event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
+      event?.preventDefault();
 
-    if (reason === "clickaway") return;
-    updateAlert(clearAlert);
-  };
+      if (reason === "clickaway") return;
+      updateAlert(clearAlert);
+    },
+    [updateAlert, clearAlert]
+  );
 
+  
   return (
     <Snackbar
       open={openAlert}

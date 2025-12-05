@@ -1,20 +1,25 @@
+"use client";
+
 import { IconButton } from "@mui/material";
 import { TooltipArrow } from "../../../shared/TooltipArrow";
-import { memo } from "react";
+import { useAdminUi } from "@/context/AdminUiContext";
+import { useCallback } from "react";
 
 interface SidebarToggleProps {
-  title?: string | null;
   show?: boolean;
   icon: string;
-  toggleSidebar: () => void;
 }
 
-function SidebarToggle({
-  title = null,
+export default function SidebarToggle({
   show = true,
   icon,
-  toggleSidebar,
 }: SidebarToggleProps) {
+  const { sidebarCtx } = useAdminUi();
+  const { isNavOpen, updateSb } = sidebarCtx;
+
+  const title = isNavOpen ? "Show menu" : "Hide menu";
+  const handleUpdateSb = useCallback(updateSb, []);
+
   return show ? (
     <TooltipArrow
       placement="right"
@@ -23,7 +28,7 @@ function SidebarToggle({
     >
       <IconButton
         size="small"
-        onClick={() => toggleSidebar()}
+        onClick={handleUpdateSb}
         sx={{
           padding: "4px 7px",
           borderRadius: "8px!important",
@@ -35,5 +40,3 @@ function SidebarToggle({
     </TooltipArrow>
   ) : null;
 }
-
-export default memo(SidebarToggle);

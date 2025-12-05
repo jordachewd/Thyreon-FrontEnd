@@ -1,16 +1,14 @@
-"use client";
-
-import { memo } from "react";
 import Logo from "@/components/shared/Logo";
 import SidebarToggle from "@/components/sections/admin/shared/SidebarToggle";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 
 interface AdminSidebarHeaderProps {
   isNavOpen: boolean;
-  updateSb: () => void;
 }
 
-function AdminSidebarHeader({ isNavOpen, updateSb }: AdminSidebarHeaderProps) {
+export default function AdminSidebarHeader({
+  isNavOpen,
+}: AdminSidebarHeaderProps) {
   return (
     <div className={css.logo}>
       <div className={css.logoSymbol}>
@@ -20,14 +18,8 @@ function AdminSidebarHeader({ isNavOpen, updateSb }: AdminSidebarHeaderProps) {
         <Logo href="/dashboard" className={`${isNavOpen && css.navItemOff}`} />
       </div>
       <div className={css.toggleButton}>
-        <SidebarToggle
-          icon="bi-x-lg"
-          title={`${isNavOpen ? "Show menu" : "Hide menu"}`}
-          toggleSidebar={updateSb}
-        />
+        <SidebarToggle icon="bi-x-lg" />
       </div>
     </div>
   );
 }
-
-export default memo(AdminSidebarHeader);
