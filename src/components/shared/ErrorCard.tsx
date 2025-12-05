@@ -26,6 +26,7 @@ export default function ErrorCard({
   let cardColor = "bg-red-600";
   let cardIcon = " bi-patch-exclamation";
 
+
   switch (color) {
     case "warning":
       cardColor = "bg-orange-600";
