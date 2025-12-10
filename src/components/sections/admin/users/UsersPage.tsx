@@ -15,6 +15,7 @@ import AllUsersTable from "./table/AllUsersTable";
 export default function UsersPage() {
   const { loading, error, refetch, users } = useUsersTable();
   const { update, remove, setUpdate, setRemove } = useUsersPageStore();
+  
 
   const handleUpdate = useCallback(setUpdate, []);
   const handleRemove = useCallback(setRemove, []);

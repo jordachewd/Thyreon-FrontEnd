@@ -47,7 +47,7 @@ function Plans(props: PlansProps) {
   if (isSignedIn && error)
     return (
       <PlansWrapper title="Error loading plans">
-        <ErrorCard error={error.message} title="" backToUrl="" />
+        <ErrorCard error={error.message} />
       </PlansWrapper>
     );
 

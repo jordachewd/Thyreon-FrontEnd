@@ -1,37 +1,31 @@
-"use client";
-
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useRouter } from "next/navigation";
-import { memo, useCallback } from "react";
 
 interface ErrorCardProps {
   error: string;
   title?: string;
   message?: string;
-  backToUrl?: string;
+
   mini?: boolean;
   onCloseMini?: () => void;
   color?: "error" | "warning" | "info";
 }
 
-function ErrorCard({
+export default function ErrorCard({
   error,
   title,
   message = "Please contact your administrator if you believe this is unusual.",
-  backToUrl = "dashboard",
   mini = false,
   onCloseMini,
   color = "error",
 }: ErrorCardProps) {
-  const router = useRouter();
-
   const miniExtraCss = onCloseMini ? "!pr-14" : "";
   const bigCardCss = "w-full lg:max-w-1/2 !py-8 !px-12 gap-10 items-center";
   const miniCardCss = `w-full !px-2 !py-1 !my-4 gap-3 items-center relative ${miniExtraCss}`;
 
   let cardColor = "bg-red-600";
   let cardIcon = " bi-patch-exclamation";
+
 
   switch (color) {
     case "warning":
@@ -42,14 +36,6 @@ function ErrorCard({
       cardIcon = "bi-info-circle";
       break;
   }
-
-  const handleRouterPush = useCallback(
-    (url: string) => {
-      if (!url) return;
-      router.push(`/${url}`);
-    },
-    [router]
-  );
 
   if (mini)
     return (
@@ -65,7 +51,7 @@ function ErrorCard({
             <span className="text-white italic text-xs">{message}</span>
           )}
         </div>
-        
+
         {onCloseMini && (
           <Button
             size="small"
@@ -102,18 +88,6 @@ function ErrorCard({
           )}
         </div>
       </div>
-      {backToUrl && (
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() => handleRouterPush(backToUrl)}
-          startIcon={<i className="bi bi-arrow-90deg-left text-xs"></i>}
-        >
-          Back to {backToUrl}
-        </Button>
-      )}
     </div>
   );
 }
-
-export default memo(ErrorCard);

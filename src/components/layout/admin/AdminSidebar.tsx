@@ -6,19 +6,22 @@ import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import AdminSidebarFooter from "./sidebar/AdminSidebarFooter";
 import AdminSidebarHeader from "./sidebar/AdminSidebarHeader";
 import AdminSidebarNav from "./sidebar/AdminSidebarNav";
+import { memo } from "react";
 
-export default function AdminSidebar() {
+function AdminSidebar() {
   const { sidebarCtx } = useAdminUi();
-  const { isNavOpen, updateSb } = sidebarCtx;
+  const { isNavOpen } = sidebarCtx;
 
   const style = isNavOpen ? css.navOpen : "";
   const wrapperCss = classNames(css.wrapper, style);
 
   return (
     <aside id="AdminSidebar" className={wrapperCss}>
-      <AdminSidebarHeader isNavOpen={isNavOpen} updateSb={updateSb} />
+      <AdminSidebarHeader isNavOpen={isNavOpen} />
       <AdminSidebarNav isNavOpen={isNavOpen} />
       <AdminSidebarFooter />
     </aside>
   );
 }
+
+export default memo(AdminSidebar);

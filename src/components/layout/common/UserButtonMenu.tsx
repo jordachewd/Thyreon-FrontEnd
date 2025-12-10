@@ -1,22 +1,18 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { memo, useCallback } from "react";
 import UserSkeleton from "./UserSkeleton";
 
-type UserButtonMenuProps = {
+type ClerkUserButton = {
   isFrontEnd?: boolean;
   showName?: boolean;
 };
 
-function UserButtonMenu(props: UserButtonMenuProps) {
-  const { isFrontEnd = false, showName = false } = props;
-
-  const HomeIcon = useCallback(() => {
-    return (
-      <i className={`bi ${isFrontEnd ? "bi-grid-fill" : "bi-house-fill"}`}></i>
-    );
-  }, [isFrontEnd]);
+export default function UserButtonMenu({
+  isFrontEnd,
+  showName,
+}: ClerkUserButton) {
+  const homeIcon = isFrontEnd ? "bi-grid-fill" : "bi-house-fill";
 
   return (
     <UserButton
@@ -26,7 +22,7 @@ function UserButtonMenu(props: UserButtonMenuProps) {
       <UserButton.MenuItems>
         <UserButton.Link
           label={isFrontEnd ? "Dashboard" : "Home"}
-          labelIcon={<HomeIcon />}
+          labelIcon={<i className={`bi ${homeIcon}`}></i>}
           href={isFrontEnd ? "/dashboard" : "/"}
         />
 
@@ -41,12 +37,8 @@ function UserButtonMenu(props: UserButtonMenuProps) {
           labelIcon={<i className="bi bi-person-fill"></i>}
           href="/account"
         />
-
         <UserButton.Action label="manageAccount" />
-        <UserButton.Action label="signOut" />
       </UserButton.MenuItems>
     </UserButton>
   );
 }
-
-export default memo(UserButtonMenu);
