@@ -2,13 +2,13 @@
 
 import { GRAPHQL_API_URL } from "@/constants/api/graphql-api-url.const";
 import { SetContextLink } from "@apollo/client/link/context";
-import { ErrorLink } from "@apollo/client/link/error";
+// import { ErrorLink } from "@apollo/client/link/error";
 import {
   ApolloClient,
   InMemoryCache,
   HttpLink,
-  CombinedGraphQLErrors,
-  CombinedProtocolErrors,
+ // CombinedGraphQLErrors,
+ // CombinedProtocolErrors,
   ApolloLink,
 } from "@apollo/client";
 import { useAuth } from "@clerk/nextjs";
@@ -39,7 +39,7 @@ export function useApolloClient() {
       };
     });
 
-    const errorLink = new ErrorLink(({ error }) => {
+    /*     const errorLink = new ErrorLink(({ error }) => {
       if (CombinedGraphQLErrors.is(error)) {
         error.errors.forEach(({ message, locations, path }) =>
           console.log(
@@ -55,12 +55,13 @@ export function useApolloClient() {
           )
         );
       } else {
-        console.error(`[Network error]: ${error}`);
+        console.log(`[Network error]: ${error}`);
       }
-    });
+    }); */
 
     return new ApolloClient({
-      link: ApolloLink.from([errorLink, authLink, httpLink]),
+      //  link: ApolloLink.from([errorLink, authLink, httpLink]),
+      link: ApolloLink.from([authLink, httpLink]),
       cache: new InMemoryCache(),
       queryDeduplication: true,
       devtools: { enabled: NODE_ENV !== "production" },

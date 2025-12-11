@@ -6,7 +6,7 @@ import { userSitesTableColumns } from "@/constants/table/columns/user-sites-tabl
 import { useSitesData } from "@/lib/hooks/sites/table/useSitesTable";
 import { useSitesPageStore } from "@/lib/stores/sites/useSitesPageStore";
 import { SitesRoutePrefix } from "@/types/sites/sites-route-prefix.d";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import DeleteSiteDialog from "./dialogs/DeleteSiteDialog";
 import EditSiteDialog from "./dialogs/EditSiteDialog";
 import SitesTable from "./table/SitesTable";
@@ -16,7 +16,7 @@ type SitesPageProps = {
   isAdminPage?: boolean;
 };
 
-export default function SitesPage({ isAdminPage = false }: SitesPageProps) {
+function SitesPage({ isAdminPage = false }: SitesPageProps) {
   const { loading, error, refetchQuery, sites } = useSitesData({ isAdminPage });
   const { update, remove, setUpdate, setRemove } = useSitesPageStore();
   const routePrefix: SitesRoutePrefix = isAdminPage ? "admin/sites" : "sites";
@@ -59,3 +59,5 @@ export default function SitesPage({ isAdminPage = false }: SitesPageProps) {
     </>
   );
 }
+
+export default memo(SitesPage);

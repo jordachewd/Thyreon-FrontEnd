@@ -19,7 +19,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       }
     }
   } catch (error) {
-    console.error("Error in middleware:", error);
+    console.error("Error in proxy middleware:", error);
     if (error instanceof Error && "digest" in error) {
       console.error("Error digest:", error.digest);
     }

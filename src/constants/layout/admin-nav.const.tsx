@@ -7,5 +7,4 @@ export const adminNavItems: ReadonlyArray<AdminNavItemType> = [
   { slug: "users", label: "Users" },
   { slug: "sites", label: "Sites" },
   { slug: "transactions", label: "Transactions" },
-  { slug: "settings", label: "Settings" },
 ] as const;
