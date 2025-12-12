@@ -2,28 +2,22 @@
 
 import ErrorCard from "@/components/shared/ErrorCard";
 import { usersTableColumns } from "@/constants/table/columns/users-table-columns";
-import { useDeletedUserSocket } from "@/lib/hooks/sockets/useDeletedUserSocket";
-import { useNewUserSocket } from "@/lib/hooks/sockets/useNewUserSocket";
-import { useUpdatedUserSocket } from "@/lib/hooks/sockets/useUpdatedUserSocket";
-import useUsersTable from "@/lib/hooks/users/table/useUsersTable";
 import { useUsersPageStore } from "@/lib/stores/users/useUsersPageStore";
 import { useCallback, useMemo } from "react";
 import DeleteUserDialog from "./dialogs/DeleteUserDialog";
 import QuickEditUserDialog from "./dialogs/QuickEditUserDialog";
 import AllUsersTable from "./table/AllUsersTable";
+import { GetUserData } from "@/types/users/get-user-data.d";
 
-export default function UsersPage() {
-  const { loading, error, refetch, users } = useUsersTable();
+type UsersPageProps = {
+  users: GetUserData[];
+};
+
+export default function UsersPage({ users }: UsersPageProps) {
   const { update, remove, setUpdate, setRemove } = useUsersPageStore();
-  
 
   const handleUpdate = useCallback(setUpdate, []);
   const handleRemove = useCallback(setRemove, []);
-  const handleRefetch = useCallback(() => refetch(), [refetch]);
-
-  useNewUserSocket(handleRefetch);
-  useUpdatedUserSocket(handleRefetch);
-  useDeletedUserSocket(handleRefetch);
 
   const tableColumns = useMemo(() => {
     return usersTableColumns({
@@ -32,7 +26,8 @@ export default function UsersPage() {
     });
   }, [handleUpdate, handleRemove]);
 
-  if (error) return <ErrorCard error={error.message} />;
+  if (!users || users.length === 0)
+    return <ErrorCard error="No users found." />;
 
   return (
     <>
@@ -48,7 +43,7 @@ export default function UsersPage() {
         onClose={() => setRemove(undefined)}
       />
 
-      <AllUsersTable data={users} columns={tableColumns} loading={loading} />
+      <AllUsersTable data={users} columns={tableColumns} />
     </>
   );
 }

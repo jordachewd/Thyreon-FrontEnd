@@ -15,21 +15,17 @@ import {
   Typography,
   DialogActions,
 } from "@mui/material";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 
-interface DeleteUserDialog {
+type DeleteUserDialog = {
   data: GetUserData | undefined;
   open: boolean;
   onClose: () => void;
-}
+};
 
-export default function DeleteUserDialog({
-  data,
-  open,
-  onClose,
-}: DeleteUserDialog) {
+function DeleteUserDialog({ data, open, onClose }: DeleteUserDialog) {
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
   const [deleteUsers, { loading, error }] = useMutation(DELETE_USERS, {
@@ -96,3 +92,5 @@ export default function DeleteUserDialog({
     </Dialog>
   );
 }
+
+export default memo(DeleteUserDialog);

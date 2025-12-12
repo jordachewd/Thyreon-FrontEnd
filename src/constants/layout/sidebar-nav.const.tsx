@@ -30,6 +30,15 @@ const sidebarNavItems: SidebarNavItem[] = [
 
   {
     id: 3,
+    slug: "users",
+    href: "/users",
+    icon: "bi bi-people",
+    label: "Users",
+    isAdmin: true,
+  },
+
+  {
+    id: 4,
     slug: "notifications",
     href: "/notifications",
     icon: "bi bi-bell",
@@ -38,7 +47,7 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
 
   {
-    id: 4,
+    id: 5,
     slug: "account",
     href: "/faqs",
     icon: "bi bi-patch-question",
@@ -47,7 +56,7 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
 
   {
-    id: 5,
+    id: 6,
     slug: "settings",
     href: "/settings",
     icon: "bi bi-sliders",

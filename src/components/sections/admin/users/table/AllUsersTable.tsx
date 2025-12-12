@@ -13,22 +13,17 @@ import { useState, useCallback } from "react";
 import TableToolbar from "../../shared/table/TableToolbar";
 import DeleteUserBtn from "./DeleteUserBtn";
 
-interface AllUsersTableProps {
+type AllUsersTableProps = {
   data: GetUserData[];
   columns: GridColDef[];
-  loading?: boolean;
-}
+};
 
 const selectedIdsInit: ToolbarSelectedIds = {
   type: "include",
   ids: new Set<string | number>(),
 };
 
-export default function AllUsersTable({
-  data,
-  columns,
-  loading = true,
-}: AllUsersTableProps) {
+export default function AllUsersTable({ data, columns }: AllUsersTableProps) {
   const [selectedIds, setSelectedIds] =
     useState<ToolbarSelectedIds>(selectedIdsInit);
 
@@ -48,19 +43,18 @@ export default function AllUsersTable({
     });
   }, []);
 
-  const handleToolbar = useCallback(() => {
-    if (selectedUsers.length > 0) {
-      const clerkIds: string[] = selectedUsers.map((user) => user.clerkId);
-      return <DeleteUserBtn users={clerkIds} />;
-    }
-    return null;
+  const ToolbarComponent = useCallback(() => {
+    const clerkIds: string[] = selectedUsers.map((user) => user.clerkId);
+    const toolbarContent =
+      selectedUsers.length > 0 ? <DeleteUserBtn users={clerkIds} /> : null;
+
+    return <TableToolbar toolbarContent={toolbarContent} />;
   }, [selectedUsers]);
 
   return (
     <div className="flex w-full">
       <DataGrid
         rows={data}
-        loading={loading}
         columns={columns}
         pagination
         showToolbar
@@ -80,7 +74,7 @@ export default function AllUsersTable({
           },
         }}
         slots={{
-          toolbar: () => <TableToolbar toolbarContent={handleToolbar()} />,
+          toolbar: ToolbarComponent,
         }}
         slotProps={{
           loadingOverlay: {

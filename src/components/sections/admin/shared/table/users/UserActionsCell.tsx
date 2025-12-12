@@ -3,7 +3,6 @@ import { GetUserData } from "@/types/users/get-user-data.d";
 import IconButton from "@mui/material/IconButton";
 import { GridRenderCellParams } from "@mui/x-data-grid";
 import Link from "next/link";
-import { memo } from "react";
 
 type UserActionsCellProps = {
   params: GridRenderCellParams;
@@ -11,8 +10,13 @@ type UserActionsCellProps = {
   onRemove: (userData: GetUserData) => void;
 };
 
-function UserActionsCell({ params, onEdit, onRemove }: UserActionsCellProps) {
+export default function UserActionsCell({
+  params,
+  onEdit,
+  onRemove,
+}: UserActionsCellProps) {
   const isAdmin = params.row.role === "admin";
+  
   return (
     <div className="flex gap-2 items-center">
       <TooltipArrow title="View" placement="bottom">
@@ -50,5 +54,3 @@ function UserActionsCell({ params, onEdit, onRemove }: UserActionsCellProps) {
     </div>
   );
 }
-
-export default memo(UserActionsCell);

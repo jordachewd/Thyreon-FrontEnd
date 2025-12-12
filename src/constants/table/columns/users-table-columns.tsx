@@ -9,10 +9,10 @@ import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
 import { GetUserData } from "@/types/users/get-user-data.d";
 import UserActionsCell from "@/components/sections/admin/shared/table/users/UserActionsCell";
 
-interface UsersTableColumnsProps {
+type UsersTableColumnsProps = {
   onEditUser: (userData: GetUserData) => void;
   onDeleteUser: (userData: GetUserData) => void;
-}
+};
 
 export const usersTableColumns = ({
   onEditUser,
