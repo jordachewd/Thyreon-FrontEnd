@@ -20,11 +20,5 @@ export const getClerkAuthHeaders = async (isFormData: boolean = false) => {
     ][]
   );
 
-  if (!token) {
-    console.warn(
-      "No Clerk session token found on server-side request. Request will be unauthenticated."
-    );
-  }
-
   return filteredHeaders;
 };

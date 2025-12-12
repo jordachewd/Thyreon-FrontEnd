@@ -7,7 +7,6 @@ type AdminLayoutProps = {
   users: ReactNode;
   sites: ReactNode;
   transactions: ReactNode;
-  settings: ReactNode;
 };
 
 export default function AdminSectionLayout(props: AdminLayoutProps) {
