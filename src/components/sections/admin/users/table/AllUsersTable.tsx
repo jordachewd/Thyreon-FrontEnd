@@ -4,7 +4,6 @@ import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-i
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { UserRole } from "@/types/users/user-role.d";
 import {
-  GridColDef,
   GridRowParams,
   GridRowSelectionModel,
   DataGrid,
@@ -12,10 +11,10 @@ import {
 import { useState, useCallback } from "react";
 import TableToolbar from "../../shared/table/TableToolbar";
 import DeleteUserBtn from "./DeleteUserBtn";
+import { usersTableColumns } from "@/constants/table/columns/users-table-columns";
 
-type AllUsersTableProps = {
+type UsersTable = {
   data: GetUserData[];
-  columns: GridColDef[];
 };
 
 const selectedIdsInit: ToolbarSelectedIds = {
@@ -23,7 +22,9 @@ const selectedIdsInit: ToolbarSelectedIds = {
   ids: new Set<string | number>(),
 };
 
-export default function AllUsersTable({ data, columns }: AllUsersTableProps) {
+export default function AllUsersTable({ data }: UsersTable) {
+  const columns = usersTableColumns();
+  
   const [selectedIds, setSelectedIds] =
     useState<ToolbarSelectedIds>(selectedIdsInit);
 

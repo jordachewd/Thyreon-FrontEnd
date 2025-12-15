@@ -7,7 +7,7 @@ import getAllUsers from "@/lib/actions/users/get-all-users";
 export const dynamic = "force-dynamic"; // Ensure the page is always server-side rendered
 
 export default async function AppUsers() {
-  const usersObj = await getAllUsers();
+  const users = await getAllUsers();
 
   return (
     <PageWrapper className="gap-8">
@@ -15,7 +15,7 @@ export default async function AppUsers() {
         <AddUserDialog />
       </PageHead>
 
-      <UsersPage users={usersObj.success ? usersObj.users : []} />
+      <UsersPage users={users.success ? users.users : []} />
     </PageWrapper>
   );
 }

@@ -10,6 +10,6 @@ type UserSitesTableColumnsProps = {
 export const userSitesTableColumns = (
   props: UserSitesTableColumnsProps
 ): GridColDef[] =>
-  adminSitesTableColumns({ ...props, routePrefix: "sites" }).filter(
+  adminSitesTableColumns({ ...props }).filter(
     (col) => col.field !== "user"
   );

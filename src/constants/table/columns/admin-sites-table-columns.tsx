@@ -8,18 +8,14 @@ import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNa
 import SiteNameCell from "@/components/sections/app/sites/table/SiteNameCell";
 import SiteActionCell from "@/components/sections/app/sites/table/SiteActionCell";
 
-type SitesRoutePrefix = "admin/sites" | "sites";
-
 type AdminSitesTableColumnsType = {
   onEditSite: (siteData: Partial<GetSiteData>) => void;
   onDeleteSite: (siteData: Partial<GetSiteData>) => void;
-  routePrefix?: SitesRoutePrefix;
 };
 
 export const adminSitesTableColumns = ({
   onEditSite,
   onDeleteSite,
-  routePrefix = "admin/sites",
 }: AdminSitesTableColumnsType): GridColDef[] => [
   {
     field: "id",
@@ -40,7 +36,7 @@ export const adminSitesTableColumns = ({
     renderCell: (params: GridRenderCellParams) => {
       return (
         <SiteNameCell
-          href={`/${routePrefix}/${params.row.id}`}
+          href={`/sites/${params.row.id}`}
           name={params.row.siteName}
           domain={params.row.domain}
         />
