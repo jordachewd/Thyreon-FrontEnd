@@ -1,4 +1,4 @@
-# 🛡️ WPGuard Frontend – WordPress Maintenance Dashboard
+# 🛡️ WPGuard Frontend
 
 **WPGuard Frontend** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
 
@@ -23,8 +23,8 @@ This is the frontend application for the WPGuard platform, providing:
 
 ### Related Repositories
 
-- **Backend API** – NestJS server with GraphQL, PostgreSQL, and Prisma (separate repository)
-- **WordPress Plugin** – Client plugin for WordPress sites (separate repository)
+- **[Backend API](https://github.com/jordachewd/WPGuard-BackEnd)** – NestJS server with GraphQL, PostgreSQL, and Prisma
+- **[WordPress Plugin](https://github.com/jordachewd/WPGuard-Client)** – Client plugin for WordPress sites
 
 ---
 
@@ -43,8 +43,8 @@ This is the frontend application for the WPGuard platform, providing:
 | **Real-time**      | Socket.IO Client                              |
 | **Forms**          | React Hook Form / Native                      |
 
-**Backend:** NestJS with GraphQL, PostgreSQL, and Prisma (separate repository)  
-**WordPress Plugin:** PHP client plugin for site integration (separate repository)
+**[Backend:](https://github.com/jordachewd/WPGuard-BackEnd)** NestJS with GraphQL, PostgreSQL, and Prisma  
+**[WordPress Plugin:](https://github.com/jordachewd/WPGuard-Client)** PHP client plugin for site integration 
 
 ---
 
