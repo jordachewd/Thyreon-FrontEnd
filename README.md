@@ -105,4 +105,4 @@ See [LICENSE](LICENSE) for more information.
 
 ---
 
-**Built with ❤️ by JordacheWD**
+**Built with ❤️ by [JordacheWD](https://jordachewd.com)**
