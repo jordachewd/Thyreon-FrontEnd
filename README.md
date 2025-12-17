@@ -96,13 +96,4 @@ See [LICENSE](LICENSE) for more information.
 
 ---
 
-## 👨‍💻 Author
-
-**JWD (Jordache Web Development)**
-
-- Website: [https://jordachewd.com](https://jordachewd.com)
-- GitHub: [@jordachewd](https://github.com/jordachewd)
-
----
-
 **Built with ❤️ by [JordacheWD](https://jordachewd.com)**
