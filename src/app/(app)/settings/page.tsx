@@ -3,6 +3,8 @@ import PageWrapper from "@/components/layout/common/PageWrapper";
 import ToggleTheme from "@/components/shared/ToggleTheme";
 import { Alert, Typography } from "@mui/material";
 
+export const dynamic = "force-dynamic";
+
 export default function AppSettings() {
   return (
     <PageWrapper className="gap-8">

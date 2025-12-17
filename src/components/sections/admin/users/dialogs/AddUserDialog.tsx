@@ -5,7 +5,7 @@ import {
   CREATE_USER_MUTATION,
   CreateUserMutationResponse,
 } from "@/constants/graphql/users/create-user.const";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useAddUserDialogStore } from "@/lib/stores/users/useAddUserDialogStore";
 import { generatePassword } from "@/lib/utils/generate-password";
 import { useMutation } from "@apollo/client/react";

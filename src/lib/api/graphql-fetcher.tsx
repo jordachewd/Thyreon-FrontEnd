@@ -22,7 +22,14 @@ export async function gqlFetch<T>(
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.error("GraphQL HTTP Error:", {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText,
+        query: query.substring(0, 200),
+      });
+      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
     }
 
     const result: GqlFetchResponse<T> = await response.json();

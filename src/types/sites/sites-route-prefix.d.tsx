@@ -1,1 +1,0 @@
-export type SitesRoutePrefix = "admin/sites" | "sites";

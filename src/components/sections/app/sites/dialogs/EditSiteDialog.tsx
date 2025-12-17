@@ -5,7 +5,7 @@ import {
   UPDATE_SITE_MUTATION,
   UpdateSiteMutationResponse,
 } from "@/constants/graphql/sites/update-site.const";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useEditSiteDialogStore } from "@/lib/stores/sites/useEditSiteDialogStore";
 import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";

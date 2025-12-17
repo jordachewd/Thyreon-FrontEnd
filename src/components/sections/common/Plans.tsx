@@ -1,12 +1,11 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import PlanCard from "@/components/shared/PlanCard";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 import { plans } from "@/constants/demo-data/plans.const";
-import { getUserPlan } from "@/lib/hooks/users/single/get-user-plan";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
+import { TransactionType } from "@/types/transactions/transaction.d";
 import { useUser } from "@clerk/nextjs";
 import { Switch, Button } from "@mui/material";
 import { useState, useEffect, memo, useCallback } from "react";
@@ -15,13 +14,14 @@ import PlansWrapper from "../app/plans/PlansWrapper";
 
 type PlansProps = {
   className?: string;
+  currentPlan?: TransactionType;
+  error?: string;
 };
 
-function Plans(props: PlansProps) {
+function Plans({ className, currentPlan, error }: PlansProps) {
   const { isSignedIn } = useUser();
   const [planType, setPlanType] = useState<boolean>(false);
 
-  const { loading, error, currentPlan } = getUserPlan();
   const billingType = currentPlan?.billing;
 
   const handleChange = useCallback(
@@ -37,21 +37,14 @@ function Plans(props: PlansProps) {
     setPlanType(setBilling);
   }, [isSignedIn, billingType]);
 
-  if (isSignedIn && loading)
-    return (
-      <PlansWrapper title="Loading plans...">
-        <LoadingBubbles wrapped />
-      </PlansWrapper>
-    );
-
   if (isSignedIn && error)
     return (
       <PlansWrapper title="Error loading plans">
-        <ErrorCard error={error.message} />
+        <ErrorCard error={error} />
       </PlansWrapper>
     );
 
-  const wrapperCss = props.className;
+  const wrapperCss = className;
   const cssMonthly = !planType ? css.switched : "";
   const cssYearly = planType ? css.switched : "";
   const save: number = 0.3; // Save 30% on Yearly plans

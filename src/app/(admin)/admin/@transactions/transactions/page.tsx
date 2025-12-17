@@ -2,6 +2,8 @@ import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
 import TransactionsPage from "@/components/sections/admin/transactions/TransactionsPage";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminSectionTransactionsPage() {
   return (
     <PageWrapper className="gap-8">

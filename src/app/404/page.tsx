@@ -3,7 +3,7 @@ import ErrorCard from "@/components/shared/ErrorCard";
 
 export default function PageNotFound() {
   return (
-    <AdminWrapper>
+    <AdminWrapper role="lite">
       <ErrorCard
         title="404 Not Found"
         error="The page you are looking for does not exist."

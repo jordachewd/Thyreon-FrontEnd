@@ -3,6 +3,8 @@ import PageWrapper from "@/components/layout/common/PageWrapper";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 
+export const dynamic = "force-dynamic";
+
 export default function AppNotifications() {
   const demoNotifications = [
     {

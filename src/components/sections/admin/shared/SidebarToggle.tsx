@@ -2,7 +2,7 @@
 
 import { IconButton } from "@mui/material";
 import { TooltipArrow } from "../../../shared/TooltipArrow";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useCallback } from "react";
 
 interface SidebarToggleProps {

@@ -1,15 +1,19 @@
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
 import ErrorCard from "@/components/shared/ErrorCard";
 import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { useAdminAuth } from "@/context/AdminAuthContext";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { AccountSitesType } from "@/types/account/account-sites.d";
+import { UserRole } from "@/types/users/user-role.d";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 
 import css from "@/styles/sections/admin/AccountBilling.module.css";
 import AccountWrapper from "./AccountWrapper";
 import classNames from "classnames";
+
+type AccountSitesProps = AccountSitesType & {
+  role: UserRole;
+};
 
 export default function AccountSites({
   sites,
@@ -18,7 +22,8 @@ export default function AccountSites({
   titleSize,
   loading,
   error,
-}: AccountSitesType) {
+  role,
+}: AccountSitesProps) {
   if (loading) {
     return (
       <AccountWrapper
@@ -57,7 +62,7 @@ export default function AccountSites({
     );
   }
 
-  const { isAdmin } = useAdminAuth();
+  const isAdmin = role === "admin";
   const urlPrefix = isAdmin ? "/admin/sites" : "/sites";
 
   return (

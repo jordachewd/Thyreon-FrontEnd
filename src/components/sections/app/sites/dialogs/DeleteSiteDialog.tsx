@@ -5,7 +5,7 @@ import {
   DELETE_SITES,
   DeleteSitesMutationResponse,
 } from "@/constants/graphql/sites/delete-sites.const";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client/react";

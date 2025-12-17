@@ -1,7 +1,6 @@
 "use client";
 
-import { useAdminUi } from "@/context/AdminUiContext";
-import { alertDefaults } from "@/context/constants/alert-defaults.const";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 
 import {
   SlideProps,
@@ -22,7 +21,7 @@ function AlertMessage() {
   const { text, severity } = message;
 
   const openAlert = text.length > 0;
-  const clearAlert = alertDefaults.message;
+  const clearAlert = { text: "", severity: "info" as const };
 
   const handleClose = useCallback(
     (event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {

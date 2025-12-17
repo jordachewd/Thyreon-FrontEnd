@@ -5,7 +5,7 @@ import {
   DELETE_USERS,
   DeleteUsersMutationResponse,
 } from "@/constants/graphql/users/delete-users.const";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useMutation } from "@apollo/client/react";
 import Button from "@mui/material/Button";
 

@@ -6,7 +6,7 @@ import {
   REGENERATE_API_KEY,
   RegenerateApiKeyMutationResponse,
 } from "@/constants/graphql/sites/new-api-key";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useMutation } from "@apollo/client/react";

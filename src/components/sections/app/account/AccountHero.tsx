@@ -12,6 +12,10 @@ import css from "@/styles/sections/admin/AccountHero.module.css";
 import AccountWrapper from "./AccountWrapper";
 import Promo from "@/components/shared/promo/Promo";
 
+type AccountHeroProps = AccountHeroType & {
+  role: UserRole;
+};
+
 function AccountHero({
   userInfo,
   title,
@@ -19,7 +23,8 @@ function AccountHero({
   titleSize,
   loading,
   error,
-}: AccountHeroType) {
+  role,
+}: AccountHeroProps) {
   if (loading) {
     return (
       <AccountWrapper
@@ -64,7 +69,7 @@ function AccountHero({
     firstName,
     lastName,
     clerkImg,
-    role,
+    role: userRole,
     createdAt,
     updatedAt,
   } = userInfo;
@@ -109,7 +114,7 @@ function AccountHero({
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Role:</span>
-          <span className="capitalize leading-none">{role as UserRole}</span>
+          <span className="capitalize leading-none">{userRole as UserRole}</span>
         </div>
 
         <div className="flex gap-2 items-center">
@@ -124,7 +129,7 @@ function AccountHero({
       </div>
 
       <div className={css.heroPlan}>
-        <Promo />
+        <Promo role={role} userInfo={userInfo} />
       </div>
     </AccountWrapper>
   );

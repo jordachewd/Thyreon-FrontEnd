@@ -1,6 +1,6 @@
 "use client";
 
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import checkoutPlan from "@/lib/actions/checkout/checkout-plan";
 import { PlanCheckout } from "@/types/plan/plan-checkout.d";
 import Button from "@mui/material/Button";

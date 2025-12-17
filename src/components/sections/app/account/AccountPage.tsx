@@ -1,23 +1,40 @@
 "use client";
 
-import { useUserData } from "@/lib/hooks/users/single/useUserData";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
+import { TransactionType } from "@/types/transactions/transaction.d";
+import { GetUserInfo } from "@/types/users/get-user-info.d";
+import { UserRole } from "@/types/users/user-role.d";
 import AccountBilling from "./AccountBilling";
 import AccountHero from "./AccountHero";
 import AccountSites from "./AccountSites";
 
-export default function AccountPage() {
-  const { loading, error, userTransactions, userSites, userInfo } =
-    useUserData();
+type AccountPageProps = {
+  userInfo: GetUserInfo;
+  userTransactions: TransactionType[];
+  userSites: GetSiteData[];
+  role: UserRole;
+  error?: string;
+};
 
+export default function AccountPage({
+  userInfo,
+  userTransactions,
+  userSites,
+  role,
+  error,
+}: AccountPageProps) {
   const userPlanId = userInfo?.currentPlan?.stripeId || "";
+  const loading = false;
+  const errorObj = error ? { name: "Error", message: error } : undefined;
 
   return (
     <>
       <AccountHero
         title="Account Overview"
         userInfo={userInfo}
+        role={role}
         loading={loading}
-        error={error}
+        error={errorObj}
       />
 
       <AccountBilling
@@ -25,14 +42,15 @@ export default function AccountPage() {
         transactions={userTransactions}
         userPlanId={userPlanId}
         loading={loading}
-        error={error}
+        error={errorObj}
       />
 
       <AccountSites
         title="Registered Websites"
         sites={userSites}
+        role={role}
         loading={loading}
-        error={error}
+        error={errorObj}
       />
     </>
   );

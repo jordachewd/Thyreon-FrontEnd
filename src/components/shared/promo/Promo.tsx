@@ -1,10 +1,8 @@
-import { useAdminAuth } from "@/context/AdminAuthContext";
-import { useUserData } from "@/lib/hooks/users/single/useUserData";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
+import { GetUserInfo } from "@/types/users/get-user-info.d";
+import { UserRole } from "@/types/users/user-role.d";
 import { Typography, Button } from "@mui/material";
 import css from "@/styles/shared/PlanPromo.module.css";
-import ErrorCard from "../ErrorCard";
-import LoadingBubbles from "../LoadingBubbles";
 import PromoWrapper from "./PromoWrapper";
 
 const TITLE_SX = {
@@ -15,28 +13,17 @@ const TITLE_SX = {
   gap: "1rem",
 };
 
-export default function Promo() {
-  const { isAdmin: isAuthAdmin } = useAdminAuth();
-  const { loading, error, userInfo } = useUserData();
+type PromoProps = {
+  role: UserRole;
+  userInfo: GetUserInfo;
+};
 
-  if (loading)
-    return (
-      <PromoWrapper>
-        <LoadingBubbles size="small" />
-      </PromoWrapper>
-    );
-
-  if (error)
-    return (
-      <PromoWrapper>
-        <ErrorCard mini error={error.message} />
-      </PromoWrapper>
-    );
-
+export default function Promo({ role, userInfo }: PromoProps) {
   const { role: userRole, currentPlan: userPlan } = userInfo;
   const { billing, expiresAt } = userPlan || {};
 
   const planUntil = expiresAt ? getFormattedDate(expiresAt) : "N/A";
+  const isAuthAdmin = role === "admin";
   const showBadge = !isAuthAdmin && userRole !== "admin" && billing;
 
   return (

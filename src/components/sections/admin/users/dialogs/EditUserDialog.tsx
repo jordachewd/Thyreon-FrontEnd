@@ -5,7 +5,7 @@ import {
   UPDATE_USER_MUTATION,
   UpdateUserMutationResponse,
 } from "@/constants/graphql/users/update-user.const";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useEditUserDialogStore } from "@/lib/stores/users/useEditUserDialogStore";
 import { GetUserInfo } from "@/types/users/get-user-info.d";
 import { useMutation } from "@apollo/client/react";

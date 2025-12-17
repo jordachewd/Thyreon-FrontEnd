@@ -7,7 +7,7 @@ import {
 } from "@/constants/graphql/sites/delete-sites.const";
 import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useMutation } from "@apollo/client/react";
 import { Button } from "@mui/material";
 import { usePathname } from "next/navigation";

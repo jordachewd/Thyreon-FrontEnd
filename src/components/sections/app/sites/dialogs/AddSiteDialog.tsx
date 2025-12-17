@@ -6,7 +6,7 @@ import {
   CreateSiteMutationResponse,
 } from "@/constants/graphql/sites/create-site.const";
 import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { useAdminUi } from "@/context/AdminUiContext";
+import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useAddSiteDialogStore } from "@/lib/stores/sites/useAddSiteDialogStore";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { useMutation } from "@apollo/client/react";

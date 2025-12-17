@@ -2,10 +2,10 @@
 
 import { TooltipArrow } from "@/components/shared/TooltipArrow";
 import sidebarNavItems from "@/constants/layout/sidebar-nav.const";
-import { useAdminAuth } from "@/context/AdminAuthContext";
 import { isSamePath } from "@/lib/utils/isSamePath";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import SidebarNavItem from "@/types/layout/sidebar-nav.d";
+import { UserRole } from "@/types/users/user-role.d";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,10 +13,11 @@ import { useCallback, memo } from "react";
 
 interface AdminSidebarNavProps {
   isNavOpen: boolean;
+  role: UserRole;
 }
 
-function AdminSidebarNav({ isNavOpen }: AdminSidebarNavProps) {
-  const { isAdmin: isAuthAdmin } = useAdminAuth();
+function AdminSidebarNav({ isNavOpen, role }: AdminSidebarNavProps) {
+  const isAuthAdmin = role === "admin";
   const pathname = usePathname();
 
   const getNavItem = useCallback(
