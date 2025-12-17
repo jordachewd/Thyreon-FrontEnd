@@ -6,7 +6,6 @@ import { useAdminAuth } from "@/context/AdminAuthContext";
 import { isSamePath } from "@/lib/utils/isSamePath";
 import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import SidebarNavItem from "@/types/layout/sidebar-nav.d";
-import { Badge } from "@mui/material";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -23,9 +22,8 @@ function AdminSidebarNav({ isNavOpen }: AdminSidebarNavProps) {
   const getNavItem = useCallback(
     (item: SidebarNavItem) => {
       const isActive = isSamePath(pathname, item.href);
-      const activeCss = isActive ? css.linkActive : "";
 
-      const linkCss = classNames(css.linkItem, activeCss);
+      const linkCss = classNames(css.linkItem, { [css.linkActive]: isActive });
       const labelCss = classNames(css.linkLabel, {
         [css.navItemOff]: isNavOpen,
       });
@@ -33,17 +31,9 @@ function AdminSidebarNav({ isNavOpen }: AdminSidebarNavProps) {
       return (
         <Link key={item.id} href={item.href} className={linkCss}>
           <TooltipArrow title={item.label} placement="right">
-            {item.slug === "notifications" ? (
-              <Badge badgeContent={4} color="warning">
-                <span className={css.linkIcon}>
-                  <i className={item.icon}></i>
-                </span>
-              </Badge>
-            ) : (
-              <span className={css.linkIcon}>
-                <i className={item.icon}></i>
-              </span>
-            )}
+            <span className={css.linkIcon}>
+              <i className={item.icon}></i>
+            </span>
           </TooltipArrow>
           <span className={labelCss}>{item.label}</span>
         </Link>

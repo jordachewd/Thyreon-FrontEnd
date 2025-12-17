@@ -1,18 +1,17 @@
 import Link from "next/link";
-import css from "@/styles/layout/admin/users/UserNameCell.module.css";
 import Avatar from "@mui/material/Avatar";
-import { memo } from "react";
+import css from "@/styles/layout/admin/users/UserNameCell.module.css";
 
-interface UserNameProps {
+type UserNameProps = {
   href: string;
   image: string;
   username: string;
   firstname: string;
   lastname?: string;
   noImage?: boolean;
-}
+};
 
-function UserNameCell({
+export default function UserNameCell({
   href,
   image,
   username,
@@ -45,5 +44,3 @@ function UserNameCell({
     </div>
   );
 }
-
-export default memo(UserNameCell);

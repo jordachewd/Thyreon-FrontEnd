@@ -4,7 +4,6 @@ import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-i
 import { GetUserData } from "@/types/users/get-user-data.d";
 import { UserRole } from "@/types/users/user-role.d";
 import {
-  GridColDef,
   GridRowParams,
   GridRowSelectionModel,
   DataGrid,
@@ -12,23 +11,20 @@ import {
 import { useState, useCallback } from "react";
 import TableToolbar from "../../shared/table/TableToolbar";
 import DeleteUserBtn from "./DeleteUserBtn";
+import { usersTableColumns } from "@/constants/table/columns/users-table-columns";
 
-interface AllUsersTableProps {
+type UsersTable = {
   data: GetUserData[];
-  columns: GridColDef[];
-  loading?: boolean;
-}
+};
 
 const selectedIdsInit: ToolbarSelectedIds = {
   type: "include",
   ids: new Set<string | number>(),
 };
 
-export default function AllUsersTable({
-  data,
-  columns,
-  loading = true,
-}: AllUsersTableProps) {
+export default function AllUsersTable({ data }: UsersTable) {
+  const columns = usersTableColumns();
+  
   const [selectedIds, setSelectedIds] =
     useState<ToolbarSelectedIds>(selectedIdsInit);
 
@@ -48,19 +44,18 @@ export default function AllUsersTable({
     });
   }, []);
 
-  const handleToolbar = useCallback(() => {
-    if (selectedUsers.length > 0) {
-      const clerkIds: string[] = selectedUsers.map((user) => user.clerkId);
-      return <DeleteUserBtn users={clerkIds} />;
-    }
-    return null;
+  const ToolbarComponent = useCallback(() => {
+    const clerkIds: string[] = selectedUsers.map((user) => user.clerkId);
+    const toolbarContent =
+      selectedUsers.length > 0 ? <DeleteUserBtn users={clerkIds} /> : null;
+
+    return <TableToolbar toolbarContent={toolbarContent} />;
   }, [selectedUsers]);
 
   return (
     <div className="flex w-full">
       <DataGrid
         rows={data}
-        loading={loading}
         columns={columns}
         pagination
         showToolbar
@@ -80,7 +75,7 @@ export default function AllUsersTable({
           },
         }}
         slots={{
-          toolbar: () => <TableToolbar toolbarContent={handleToolbar()} />,
+          toolbar: ToolbarComponent,
         }}
         slotProps={{
           loadingOverlay: {

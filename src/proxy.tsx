@@ -1,28 +1,35 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(["/", "/404", "/sign-in(.*)", "/sign-up(.*)"]);
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/401",
+  "/404",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+]);
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   try {
     const { userId, sessionClaims } = await auth();
+    const isAdmin = sessionClaims?.role === "admin";
 
-    if (!userId && !isPublicRoute(req)) {
+    if (!isPublicRoute(req) && !userId) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
     }
 
-    if (isAdminRoute(req)) {
-      const isAdmin = sessionClaims?.role === "admin";
-      if (!isAdmin) {
-        return NextResponse.redirect(new URL("/401", req.url));
-      }
+    if (isAdminRoute(req) && !isAdmin) {
+      return NextResponse.redirect(new URL("/401", req.url));
     }
   } catch (error) {
     console.error("Error in proxy middleware:", error);
+
     if (error instanceof Error && "digest" in error) {
       console.error("Error digest:", error.digest);
     }
+
+    return NextResponse.redirect(new URL("/404", req.url));
   }
 });
 

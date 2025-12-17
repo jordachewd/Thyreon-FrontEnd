@@ -15,22 +15,18 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
 import EditUserForm from "../forms/EditUserForm";
 
-interface QuickEditUserProps {
+type QuickEditUserProps = {
   data: Partial<GetUserData> | undefined;
   open: boolean;
   onClose: () => void;
-}
+};
 
-export default function QuickEditUserDialog({
-  data,
-  open,
-  onClose,
-}: QuickEditUserProps) {
+function QuickEditUserDialog({ data, open, onClose }: QuickEditUserProps) {
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
   const { formData, setField, setFormData } = useEditUserDialogStore();
@@ -116,3 +112,5 @@ export default function QuickEditUserDialog({
     </Dialog>
   );
 }
+
+export default memo(QuickEditUserDialog);

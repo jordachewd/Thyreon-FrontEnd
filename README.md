@@ -1,41 +1,99 @@
-# 🛡️ WP Guard – WordPress Maintenance Made Easy
+# 🛡️ WPGuard Frontend
 
-**WP Guard** is a full-stack SaaS platform that simplifies WordPress site management. Designed for freelancers, agencies, and site owners, it offers a centralized dashboard to monitor, maintain, and secure your WordPress sites — with real-time updates, billing integration, and user management powered by Clerk.
+**WPGuard Frontend** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
 
 ---
 
 ## 🌐 Live Demo
 
-> [wpguard.vercel.app](https://wpguard.vercel.app/)
+> **[wpguard.vercel.app](https://wpguard.vercel.app/)**
+
+---
+
+## 🎯 Overview
+
+This is the frontend application for the WPGuard platform, providing:
+
+- **User Interface** for managing multiple WordPress sites
+- **Dashboard** with real-time monitoring and analytics
+- **Authentication** via Clerk (OAuth, magic links, email/password)
+- **Role-Based Access Control** (Admin, Premium, Pro, Lite)
+- **Subscription Management** with Stripe integration
+- **GraphQL Integration** with the WPGuard backend API
+
+### Related Repositories
+
+- **[Backend API](https://github.com/jordachewd/WPGuard-BackEnd)** – NestJS server with GraphQL, PostgreSQL, and Prisma
+- **[WordPress Plugin](https://github.com/jordachewd/WPGuard-Client)** – Client plugin for WordPress sites
 
 ---
 
 ## 📦 Tech Stack
 
-### ⚛️ Frontend – Next.js 15+ (App Router)
+| Category           | Technology                                    |
+|--------------------|-----------------------------------------------|
+| **Framework**      | Next.js 16 (App Router)                       |
+| **Language**       | TypeScript 5.7+                               |
+| **Authentication** | Clerk (JWT sessions, RBAC)                    |
+| **GraphQL Client** | Apollo Client 4.0                             |
+| **UI Framework**   | Material-UI (MUI) 7.2                         |
+| **Styling**        | Tailwind CSS 4.1 + Emotion + Styled Components|
+| **Icons**          | Bootstrap Icons                               |
+| **State**          | Zustand + Apollo Cache                        |
+| **Real-time**      | Socket.IO Client                              |
+| **Forms**          | React Hook Form / Native                      |
 
-| Category            | Technology/Library                          |
-|---------------------|---------------------------------------------|
-| Framework           | [Next.js](https://nextjs.org/) App Router   |
-| Language            | TypeScript                                  |
-| Authentication      | [@clerk/nextjs](https://clerk.dev/)         |
-| GraphQL Client      | [Apollo Client](https://www.apollographql.com/docs/react/) |
-| UI Library          | [MUI (Material UI)](https://mui.com/)       |
-| State Management    | Apollo Client cache + React Hooks           |
-| Data Fetching       | Fetch API + FormData support                |
-| Forms               | React Hook Form / Native                    |
-| Env Management      | `.env.local`, `.env.production`             |
+**[Backend:](https://github.com/jordachewd/WPGuard-BackEnd)** NestJS with GraphQL, PostgreSQL, and Prisma  
+**[WordPress Plugin:](https://github.com/jordachewd/WPGuard-Client)** PHP client plugin for site integration 
 
 ---
 
-## 🚧 Features (in progress)
+## ✨ Features
 
-- 🔐 Auth via Clerk (JWT, sessions, RBAC)
-- 📊 GraphQL API with `@nestjs/graphql`
-- 🧾 Stripe-powered billing & subscriptions
-- 🔄 Clerk webhooks for user sync
-- 💼 Admin dashboard for user/site management
-- 🗃️ Transaction logs
-- 🔧 Static & dynamic health checks
-- 🧪 Full unit + integration test setup (planned)
+### User Interface
 
+- 🏠 **Landing Page** – Public-facing homepage with product information
+- 🔐 **Authentication** – Secure login via Clerk (OAuth, magic links, email/password)
+- 📊 **Admin Dashboard** – User and site management interface
+- 👤 **User Dashboard** – Personal dashboard with site overview and management
+- 💳 **Subscription Management** – Plan selection and Stripe checkout integration
+- 📱 **Responsive Design** – Mobile-first, fully responsive UI
+
+### Dashboard Features
+
+**Admin Panel:**
+- User management (view, create, update, delete)
+- Site management and monitoring
+- Transaction history and analytics
+- API key regeneration
+- Charts and visualizations (MUI X-Charts)
+
+**User Panel:**
+- Personal site overview
+- Site settings and configuration
+- Notifications and alerts
+- Account settings
+- Subscription and billing management
+- FAQs and support resources
+
+### Technical Features
+
+- ✅ **Server-Side Rendering** – Next.js App Router with SSR/SSG
+- ✅ **Type-Safe GraphQL** – Apollo Client with code generation
+- ✅ **Real-Time Updates** – Socket.IO integration
+- ✅ **Theme Support** – Light/dark mode with MUI theming
+- ✅ **Form Validation** – Client-side validation with React Hook Form
+- ✅ **Error Handling** – Comprehensive error boundaries and user feedback
+- ✅ **SEO Optimized** – Meta tags, Open Graph, and structured data
+
+---
+
+## 📝 License
+
+This project is licensed under the **GNU General Public License v3.0 or later**.
+
+See [LICENSE](LICENSE) for more information.
+
+---
+
+**Built with ❤️ by [JordacheWD](https://jordachewd.com)**

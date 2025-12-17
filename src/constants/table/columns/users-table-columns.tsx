@@ -1,23 +1,11 @@
-"use client";
-
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
 import { Chip } from "@mui/material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { UserRoleColors } from "@/types/users/user-role-colors.interface";
 import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
-import { GetUserData } from "@/types/users/get-user-data.d";
-import UserActionsCell from "@/components/sections/admin/shared/table/users/UserActionsCell";
 
-interface UsersTableColumnsProps {
-  onEditUser: (userData: GetUserData) => void;
-  onDeleteUser: (userData: GetUserData) => void;
-}
-
-export const usersTableColumns = ({
-  onEditUser,
-  onDeleteUser,
-}: UsersTableColumnsProps): GridColDef[] => [
+export const usersTableColumns = (): GridColDef[] => [
   {
     field: "id",
     headerName: "ID",
@@ -119,22 +107,5 @@ export const usersTableColumns = ({
       const role = params.row.role as keyof UserRoleColors;
       return <Chip size="small" label={role} color={userRolesColors[role]} />;
     },
-  },
-  {
-    field: "actions",
-    headerName: "Actions",
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
-    align: "center",
-    headerAlign: "center",
-    display: "flex",
-    renderCell: (params: GridRenderCellParams) => (
-      <UserActionsCell
-        params={params}
-        onEdit={onEditUser}
-        onRemove={onDeleteUser}
-      />
-    ),
   },
 ];

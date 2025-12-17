@@ -4,8 +4,6 @@ import { ReactNode } from "react";
 
 type AdminLayoutProps = {
   children: ReactNode;
-  users: ReactNode;
-  sites: ReactNode;
   transactions: ReactNode;
 };
 
