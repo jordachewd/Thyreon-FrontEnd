@@ -24,7 +24,7 @@ const selectedIdsInit: ToolbarSelectedIds = {
 
 function AllUsersTable({ data }: UsersTable) {
   const columns = usersTableColumns();
-  
+
   const [selectedIds, setSelectedIds] =
     useState<ToolbarSelectedIds>(selectedIdsInit);
 
@@ -38,9 +38,13 @@ function AllUsersTable({ data }: UsersTable) {
   );
 
   const handleSelection = useCallback((newSelection: GridRowSelectionModel) => {
+    const selectionArray = Array.isArray(newSelection)
+      ? newSelection
+      : Object.values(newSelection);
+
     setSelectedIds({
-      type: newSelection.type,
-      ids: new Set(newSelection.ids),
+      type: "include",
+      ids: new Set(selectionArray),
     });
   }, []);
 

@@ -81,6 +81,8 @@ export const adminSitesTableColumns = ({
     flex: 1,
     renderCell: (params: GridRenderCellParams) => {
       const user = params.row.user;
+      if (!user) return null;
+      
       return (
         <UsersNameCell
           href={`users/${user.id}`}

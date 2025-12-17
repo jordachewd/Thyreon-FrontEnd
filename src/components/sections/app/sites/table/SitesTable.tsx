@@ -31,9 +31,13 @@ function SitesTable({
 
   const handleSelectionChange = useCallback(
     (newSelection: GridRowSelectionModel) => {
+      const selectionArray = Array.isArray(newSelection) 
+        ? newSelection 
+        : Object.values(newSelection);
+      
       setSelectedIds({
-        type: newSelection.type,
-        ids: new Set(newSelection.ids),
+        type: "include",
+        ids: new Set(selectionArray),
       });
     },
     []
@@ -45,7 +49,12 @@ function SitesTable({
       return <DeleteSiteBtn sites={selectedIds.ids} />;
     }
     return null;
-  }, [isAdmin, selectedIds]);
+  }, [isAdmin, selectedIds.ids]);
+
+  const ToolbarComponent = useCallback(
+    () => <TableToolbar toolbarContent={handleToolbarContent()} />,
+    [handleToolbarContent]
+  );
 
   return (
     <div className="flex w-full">
@@ -70,9 +79,7 @@ function SitesTable({
           },
         }}
         slots={{
-          toolbar: () => (
-            <TableToolbar toolbarContent={handleToolbarContent()} />
-          ),
+          toolbar: ToolbarComponent,
         }}
         slotProps={{
           loadingOverlay: {

@@ -11,10 +11,11 @@ const USER_PLAN_QUERY = `
         userId
         stripeId
         amount
-        status
+        plan
         billing
         createdAt
         updatedAt
+        expiresAt
       }
     }
   }

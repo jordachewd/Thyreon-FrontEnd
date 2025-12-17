@@ -9,18 +9,9 @@ const sidebarNavItems: SidebarNavItem[] = [
     label: "Dashboard",
     isAdmin: false,
   },
-  
-  {
-    id: 1,
-    slug: "admin",
-    href: "/admin",
-    icon: "bi bi-award",
-    label: "Admin",
-    isAdmin: true,
-  },
 
   {
-    id: 2,
+    id: 1,
     slug: "sites",
     href: "/sites",
     icon: "bi bi-window-stack",
@@ -29,11 +20,20 @@ const sidebarNavItems: SidebarNavItem[] = [
   },
 
   {
-    id: 3,
+    id: 2,
     slug: "users",
     href: "/users",
     icon: "bi bi-people",
     label: "Users",
+    isAdmin: true,
+  },
+
+  {
+    id: 3,
+    slug: "transactions",
+    href: "/transactions",
+    icon: "bi bi-receipt",
+    label: "Transactions",
     isAdmin: true,
   },
 
