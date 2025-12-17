@@ -10,20 +10,6 @@
 
 ---
 
-## 📖 Table of Contents
-
-- [Overview](#-overview)
-- [Tech Stack](#-tech-stack)
-- [Features](#-features)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [Development](#-development)
-- [Testing](#-testing)
-- [Deployment](#-deployment)
-- [License](#-license)
-
----
-
 ## 🎯 Overview
 
 This is the frontend application for the WPGuard platform, providing:
