@@ -1,17 +1,11 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
-import {
-  DELETE_SITES,
-  DeleteSitesMutationResponse,
-} from "@/constants/graphql/sites/delete-sites.const";
-import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
-import { useMutation } from "@apollo/client/react";
-import { Button } from "@mui/material";
-import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui";
+
+import { deleteSites } from "@/app/actions/sites";
 
 interface DeleteSiteBtnProps {
   sites: Set<string | number> | undefined;
@@ -24,30 +18,13 @@ function DeleteSiteBtn({
   disabled = false,
   onSuccess,
 }: DeleteSiteBtnProps) {
-  const pathname = usePathname();
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
 
-  const isAdminPage = pathname.includes("/allsites");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const queriesToRefetch = isAdminPage
-    ? [GET_SITES_QUERY, "GetAllSites"]
-    : [GET_MY_SITES_QUERY, "GetMySites"];
-
-  const [deleteSites, { loading, error, reset }] = useMutation(DELETE_SITES, {
-    refetchQueries: queriesToRefetch,
-    awaitRefetchQueries: true,
-    onCompleted: (data) => {
-      const { deleteSites } = data as DeleteSitesMutationResponse;
-
-      updateAlert({
-        text: deleteSites.message,
-        severity: deleteSites.status,
-      });
-
-      if (onSuccess) onSuccess();
-    },
-  });
+  const reset = () => setError(null);
 
   const oneOrMany = sites?.size === 1 ? "site" : "sites";
 
@@ -60,28 +37,33 @@ function DeleteSiteBtn({
 
     const siteIds = sites ? Array.from(sites).map((site) => Number(site)) : [];
 
-    await deleteSites({
-      variables: { ids: siteIds },
-    });
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await deleteSites(siteIds);
+      updateAlert({
+        text: result.message,
+        severity: result.status,
+      });
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       {error ? (
-        <ErrorCard mini error={error.message} onCloseMini={reset} />
+        <ErrorCard mini error={error} onCloseMini={reset} />
       ) : (
         <Button
           size="small"
           color="error"
-          variant="outlined"
           disabled={disabled || loading}
           onClick={handleDelete}
-          sx={{
-            fontSize: "0.675rem",
-            color: "error.main",
-            borderColor: "error.main",
-            backgroundColor: "transparent",
-          }}
         >
           {loading ? "Deleting ..." : `Delete ${oneOrMany}`}
         </Button>

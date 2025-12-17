@@ -11,10 +11,6 @@ import SitesTable from "./table/SitesTable";
 const EditSiteDialog = dynamic(() => import("./dialogs/EditSiteDialog"), { ssr: false });
 const DeleteSiteDialog = dynamic(() => import("./dialogs/DeleteSiteDialog"), { ssr: false });
 
-import { GET_SITES_QUERY } from "@/constants/graphql/sites/get-all-sites.const";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
-import { RefetchQueryType } from "@/types/common/refetch-query.d";
-
 type SitesPageClientProps = {
   sites: GetSiteData[];
   isAdminPage: boolean;
@@ -34,11 +30,6 @@ function SitesPageClient({ sites, isAdminPage, error }: SitesPageClientProps) {
     [isAdminPage]
   );
 
-  const refetchQuery: RefetchQueryType = [
-    isAdminPage ? GET_SITES_QUERY : GET_MY_SITES_QUERY,
-    isAdminPage ? "GetAllSites" : "GetMySites",
-  ];
-
   const handleCloseEdit = useCallback(() => setUpdateSite(undefined), []);
   const handleCloseDelete = useCallback(() => setRemoveSite(undefined), []);
 
@@ -51,7 +42,6 @@ function SitesPageClient({ sites, isAdminPage, error }: SitesPageClientProps) {
           open={!!updateSite}
           siteData={updateSite}
           onClose={handleCloseEdit}
-          refetchQuery={refetchQuery}
         />
       </Suspense>
 
@@ -60,7 +50,6 @@ function SitesPageClient({ sites, isAdminPage, error }: SitesPageClientProps) {
           open={!!removeSite}
           siteData={removeSite}
           onClose={handleCloseDelete}
-          refetchQuery={refetchQuery}
         />
       </Suspense>
 

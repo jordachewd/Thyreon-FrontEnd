@@ -7,9 +7,9 @@ import { plans } from "@/constants/demo-data/plans.const";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { TransactionType } from "@/types/transactions/transaction.d";
 import { useUser } from "@clerk/nextjs";
-import { Switch, Button } from "@mui/material";
+import { Switch, Button } from "@/components/ui";
 import { useState, useEffect, memo, useCallback } from "react";
-import css from "@/styles/sections/shared/Plans.module.css";
+import Link from "next/link";
 import PlansWrapper from "../app/plans/PlansWrapper";
 
 type PlansProps = {
@@ -45,8 +45,8 @@ function Plans({ className, currentPlan, error }: PlansProps) {
     );
 
   const wrapperCss = className;
-  const cssMonthly = !planType ? css.switched : "";
-  const cssYearly = planType ? css.switched : "";
+  const cssMonthly = !planType ? "plans-switched" : "";
+  const cssYearly = planType ? "plans-switched" : "";
   const save: number = 0.3; // Save 30% on Yearly plans
   const pageTitle = isSignedIn ? "Upgrade your plan" : "Choose your plan";
   const pageSubtitle = "Select the plan that suits your needs.";
@@ -57,23 +57,19 @@ function Plans({ className, currentPlan, error }: PlansProps) {
       subtitle={pageSubtitle}
       className={wrapperCss}
     >
-      <div className={css.switch}>
+      <div className="plans-switch">
         <p className={cssMonthly}>Monthly</p>
         <Switch
           size="small"
           checked={planType}
           onChange={handleChange}
-          slotProps={{
-            input: {
-              "aria-label": "controlled",
-            },
-          }}
+          aria-label="Toggle plan billing type"
         />
         <p className={cssYearly}>Yearly</p>
-        {save > 0 && <span className={css.bubble}>Save {save * 100}%</span>}
+        {save > 0 && <span className="plans-bubble">Save {save * 100}%</span>}
       </div>
 
-      <div className={css.plans}>
+      <div className="plans-list">
         {plans.map((plan: PlanCardInterface) => {
           return (
             <PlanCard
@@ -89,16 +85,16 @@ function Plans({ className, currentPlan, error }: PlansProps) {
       </div>
 
       {!isSignedIn && (
-        <div className={css.planActions}>
-          <Button
-            size="large"
-            variant="contained"
-            href="/sign-up"
-            sx={{ minWidth: 280, marginTop: "1rem" }}
-            disabled={NODE_ENV !== "development"}
-          >
-            Get Started
-          </Button>
+        <div className="plans-actions">
+          <Link href="/sign-up">
+            <Button
+              size="large"
+              variant="primary"
+              disabled={NODE_ENV !== "development"}
+            >
+              Get Started
+            </Button>
+          </Link>
         </div>
       )}
     </PlansWrapper>

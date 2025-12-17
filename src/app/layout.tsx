@@ -1,8 +1,6 @@
 import WPGuardProvider from "@/components/layout/providers/WPGuardProvider";
 import { clerkAppearance } from "@/constants/layout/clerk-appearance.const";
 import { ClerkProvider } from "@clerk/nextjs";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { InitColorSchemeScript } from "@mui/material";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
@@ -29,10 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <ClerkProvider appearance={clerkAppearance} afterSignOutUrl="/">
       <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
         <body>
-          <AppRouterCacheProvider>
-            <InitColorSchemeScript attribute="data-wpguard-theme" />
-            <WPGuardProvider>{children}</WPGuardProvider>
-          </AppRouterCacheProvider>
+          <WPGuardProvider>{children}</WPGuardProvider>
         </body>
       </html>
     </ClerkProvider>

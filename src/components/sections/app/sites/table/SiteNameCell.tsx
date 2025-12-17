@@ -1,5 +1,4 @@
 import Link from "next/link";
-import css from "@/styles/layout/admin/users/UserNameCell.module.css";
 import { memo } from "react";
 
 interface SiteNameProps {
@@ -10,11 +9,11 @@ interface SiteNameProps {
 
 function SiteNameCell({ href, name, domain }: SiteNameProps) {
   return (
-    <div className={css.wrapper}>
-      <Link href={href} className={css.link}>
-        <div className={css.text}>
-          <span className={css.name}>{name}</span>
-          <span className={css.username}>@{domain}</span>
+    <div className="site-name-wrapper">
+      <Link href={href} className="site-name-link">
+        <div className="site-name-text">
+          <span className="site-name">{name}</span>
+          <span className="site-username">@{domain}</span>
         </div>
       </Link>
     </div>

@@ -4,10 +4,8 @@ import LoadingBubbles from "@/components/shared/LoadingBubbles";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { AccountSitesType } from "@/types/account/account-sites.d";
 import { UserRole } from "@/types/users/user-role.d";
-import { Typography } from "@mui/material";
+import { Typography } from "@/components/ui";
 import Link from "next/link";
-
-import css from "@/styles/sections/admin/AccountBilling.module.css";
 import AccountWrapper from "./AccountWrapper";
 import classNames from "classnames";
 
@@ -67,8 +65,8 @@ export default function AccountSites({
 
   return (
     <AccountWrapper title={title} alignTitle={alignTitle} titleSize={titleSize}>
-      <div className={css.table}>
-        <div className={css.tableHead}>
+      <div className="account-table">
+        <div className="account-table-head">
           <div className="flex-1">Site Name</div>
           <div className="flex-1">Domain</div>
           <div className="flex-1">Registered</div>
@@ -78,9 +76,9 @@ export default function AccountSites({
         {sites.map((site, index) => {
           const isActive = index === 0;
           const txnStatus = isActive ? "Active" : "Inactive";
-          const txnColor = isActive ? css.active : css.inactive;
+          const txnColor = isActive ? "account-active" : "account-inactive";
 
-          const tableRowCss = classNames(css.tableRow, {
+          const tableRowCss = classNames("account-table-row", {
             ["font-medium text-midnight-400! dark:text-vanilla-400!"]: isActive,
           });
 

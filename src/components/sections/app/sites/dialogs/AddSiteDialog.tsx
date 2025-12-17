@@ -1,22 +1,12 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import {
-  CREATE_SITE_MUTATION,
-  CreateSiteMutationResponse,
-} from "@/constants/graphql/sites/create-site.const";
-import { GET_MY_SITES_QUERY } from "@/constants/graphql/sites/get-me-sites.const";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useAddSiteDialogStore } from "@/lib/stores/sites/useAddSiteDialogStore";
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
-import { useMutation } from "@apollo/client/react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
-import { useRef, useCallback, useEffect } from "react";
+import { Dialog, DialogActions, DialogContent } from "@/components/ui";
+import { useRef, useCallback, useEffect, useState } from "react";
+import { createSite } from "@/app/actions/sites";
 import AdminAddNewFab from "../../../admin/shared/AdminAddNewFab";
 import DialogFooter from "../../../admin/shared/dialog/DialogFooter";
 import DialogHeader from "../../../admin/shared/dialog/DialogHeader";
@@ -45,27 +35,37 @@ export default function AddSiteDialog() {
     setAlertMsg,
   } = useAddSiteDialogStore();
 
-  const [createSite, { loading, error, reset }] = useMutation(
-    CREATE_SITE_MUTATION,
-    {
-      refetchQueries: [GET_MY_SITES_QUERY, "GetMySites"],
-      awaitRefetchQueries: true,
-      onCompleted: (data) => {
-        const { createSite } = data as CreateSiteMutationResponse;
-        setSiteKey(createSite.site.apiKey);
-        setAlertMsg({
-          text: createSite.message,
-          severity: createSite.status,
-        });
-      },
-    }
-  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const reset = () => setError(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createSite({
-      variables: { input: formData },
-    });
+
+    if (!formData.domain) {
+      setError("Domain is required");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await createSite({
+        domain: formData.domain,
+        siteName: formData.siteName,
+      });
+      setSiteKey(result.site?.apiKey || '');
+      setAlertMsg({
+        text: result.message,
+        severity: result.status,
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = useCallback(
@@ -118,17 +118,15 @@ export default function AddSiteDialog() {
         onClose={() => handleCloseDialog()}
         aria-labelledby="add-new-site-dialog-title"
       >
-        <DialogTitle id="add-new-site-dialog-title" sx={{ zIndex: 0 }}>
-          <DialogHeader
-            must={!siteKey}
-            title={siteKey ? "Next step ..." : "Add new site"}
-            onClose={handleCloseDialog}
-          />
-        </DialogTitle>
+        <DialogHeader
+          must={!siteKey}
+          title={siteKey ? "Next step ..." : "Add new site"}
+          onClose={handleCloseDialog}
+        />
 
-        <DialogContent sx={{ paddingTop: "1rem!important" }}>
+        <DialogContent>
           {error && (
-            <ErrorCard mini error={error.message} onCloseMini={reset} />
+            <ErrorCard mini error={error} onCloseMini={reset} />
           )}
           {!siteKey && (
             <AddSiteForm data={formData} onChange={handleInputChange} />

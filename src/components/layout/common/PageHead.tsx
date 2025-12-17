@@ -1,5 +1,4 @@
-import css from "@/styles/layout/shared/PageHead.module.css";
-import { Typography } from "@mui/material";
+import { Typography } from "@/components/ui";
 import classNames from "classnames";
 import { ReactNode } from "react";
 
@@ -21,17 +20,17 @@ export default function PageHead({
   alignTitle = "center",
   className: customCss = "",
 }: PageHeadProps) {
-  const sectionCss = classNames(css.section, customCss);
+  const sectionCss = classNames("page-head-section", customCss);
 
   return (
     <div className={sectionCss}>
-      <div className={`${css.title} ${!children ? "w-full" : ""}`}>
-        <Typography variant={size} align={alignTitle}>
+      <div className={`page-head-title ${!children ? "w-full" : ""}`} style={{ textAlign: alignTitle }}>
+        <Typography variant={size}>
           {title}
         </Typography>
 
         {subtitle && (
-          <Typography variant="body1" align={alignTitle}>
+          <Typography variant="body1">
             {subtitle}
           </Typography>
         )}

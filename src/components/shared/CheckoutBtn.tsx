@@ -3,7 +3,7 @@
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import checkoutPlan from "@/lib/actions/checkout/checkout-plan";
 import { PlanCheckout } from "@/types/plan/plan-checkout.d";
-import Button from "@mui/material/Button";
+import { Button } from "@/components/ui";
 import { memo } from "react";
 
 interface CheckoutProps {
@@ -49,11 +49,8 @@ function CheckoutBtn({ plan, isCurrent = false }: CheckoutProps) {
     <Button
       onClick={handleCheckout}
       disabled={isCurrent}
-      sx={{
-        paddingLeft: "3rem",
-        paddingRight: "3rem",
-      }}
-      variant="outlined"
+      className="px-12"
+      variant="outline"
     >
       {(isCurrent && "Current") || "Subscribe"}
     </Button>

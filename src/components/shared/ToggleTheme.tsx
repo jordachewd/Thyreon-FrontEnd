@@ -1,64 +1,56 @@
 "use client";
 
-import { useColorScheme } from "@mui/material/styles";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
-import { TooltipArrow } from "./TooltipArrow";
-import { memo, useEffect } from "react";
+import { Tooltip, Button } from "@/components/ui";
+import { memo, useEffect, useState } from "react";
 
 type ColorSchemes = "system" | "light" | "dark";
 
 function ToggleTheme() {
-  const { mode, setMode } = useColorScheme();
+  const [mode, setMode] = useState<ColorSchemes>("system");
 
   useEffect(() => {
-    if (mode === "system") {
-      const defaultMode = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-
-      if (defaultMode) {
-        setMode("dark" as ColorSchemes);
-      } else {
-        setMode("light" as ColorSchemes);
-      }
+    // Read theme from localStorage or system preference
+    const savedTheme = localStorage.getItem("theme") as ColorSchemes;
+    if (savedTheme) {
+      setMode(savedTheme);
+      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    } else {
+      const defaultMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const theme = defaultMode ? "dark" : "light";
+      setMode(theme);
+      document.documentElement.classList.toggle("dark", defaultMode);
     }
-  }, [mode, setMode]);
+  }, []);
+
+  const handleSetMode = (newMode: ColorSchemes) => {
+    setMode(newMode);
+    localStorage.setItem("theme", newMode);
+    document.documentElement.classList.toggle("dark", newMode === "dark");
+  };
 
   return (
-    <ButtonGroup aria-label="theme-toggle">
-      <TooltipArrow title="Light" placement="bottom">
+    <div className="flex gap-1" role="group" aria-label="theme-toggle">
+      <Tooltip title="Light" placement="bottom">
         <Button
           size="small"
-          onClick={() => setMode("light" as ColorSchemes)}
-          variant={mode === "light" ? "contained" : "outlined"}
-          sx={{
-            border: "none",
-            padding: "4px 7px",
-            marginRight: "0.25rem",
-            minWidth: "0!important",
-            borderRadius: "8px!important",
-          }}
+          onClick={() => handleSetMode("light")}
+          variant={mode === "light" ? "primary" : "outline"}
+          className="min-w-0 px-2 py-1 rounded-lg border-0"
         >
           <i className="bi bi-sun text-sm"></i>
         </Button>
-      </TooltipArrow>
-      <TooltipArrow title="Dark" placement="bottom">
+      </Tooltip>
+      <Tooltip title="Dark" placement="bottom">
         <Button
           size="small"
-          onClick={() => setMode("dark" as ColorSchemes)}
-          variant={mode === "dark" ? "contained" : "outlined"}
-          sx={{
-            border: "none",
-            padding: "4px 7px",
-            minWidth: "0!important",
-            borderRadius: "8px!important",
-          }}
+          onClick={() => handleSetMode("dark")}
+          variant={mode === "dark" ? "primary" : "outline"}
+          className="min-w-0 px-2 py-1 rounded-lg border-0"
         >
           <i className="bi bi-moon-stars text-sm"></i>
         </Button>
-      </TooltipArrow>
-    </ButtonGroup>
+      </Tooltip>
+    </div>
   );
 }
 

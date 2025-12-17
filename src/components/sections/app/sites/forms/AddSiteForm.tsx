@@ -1,6 +1,6 @@
 import { CreateSiteData } from "@/types/sites/create-site-data.d";
 import { defaultNewSiteFields as defaultFields } from "@/constants/sites/fields/new-site-fields";
-import TextField from "@mui/material/TextField";
+import { TextField } from "@/components/ui";
 import { memo } from "react";
 
 interface AddSiteFormProps {

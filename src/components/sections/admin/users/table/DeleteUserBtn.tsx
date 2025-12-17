@@ -1,14 +1,10 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
-import {
-  DELETE_USERS,
-  DeleteUsersMutationResponse,
-} from "@/constants/graphql/users/delete-users.const";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
-import { useMutation } from "@apollo/client/react";
-import Button from "@mui/material/Button";
+import { Button } from "@/components/ui";
+import { deleteUsers } from "@/app/actions/users";
 
 interface DeleteUserButtonProps {
   users: string[] | undefined;
@@ -24,20 +20,11 @@ function DeleteUserBtn({
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const isOne = users?.length === 1;
   const oneOrMany = isOne ? "user" : "users";
-
-  const [deleteUsers, { loading, error, reset }] = useMutation(DELETE_USERS, {
-    onCompleted: (data) => {
-      const { deleteUsers } = data as DeleteUsersMutationResponse;
-      updateAlert({
-        text: deleteUsers.message,
-        severity: deleteUsers.status,
-      });
-
-      if (onSuccess) onSuccess();
-    },
-  });
 
   const handleDelete = async () => {
     const introMsg = "Are you sure you want to delete";
@@ -46,27 +33,33 @@ function DeleteUserBtn({
 
     if (!confirm(confirmMsg + endMsg)) return;
 
-    await deleteUsers({
-      variables: { clerkIds: users },
-    });
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await deleteUsers(users || []);
+      updateAlert({
+        text: result.message,
+        severity: result.status,
+      });
+
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete users");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <>
       {error ? (
-        <ErrorCard mini error={error.message} onCloseMini={reset} />
+        <ErrorCard mini error={error} onCloseMini={() => setError(null)} />
       ) : (
         <Button
           size="small"
           color="error"
-          variant="outlined"
           disabled={disabled || loading}
           onClick={handleDelete}
-          sx={{
-            fontSize: "0.675rem",
-            color: "error.main",
-            borderColor: "error.main",
-            backgroundColor: "transparent",
-          }}
         >
           {loading ? "Deleting ..." : `Delete ${oneOrMany}`}
         </Button>

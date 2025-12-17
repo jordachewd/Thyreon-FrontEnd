@@ -1,6 +1,6 @@
 import { defaultUpdateSiteFields as defaultFields } from "@/constants/sites/fields/update-site-fields";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import TextField from "@mui/material/TextField";
+import { TextField } from "@/components/ui";
 import { memo } from "react";
 
 interface UpdateSiteFormProps {
@@ -12,7 +12,11 @@ function UpdateSiteForm({ data, onChange }: UpdateSiteFormProps) {
   return (
     <form className="flex flex-col w-full gap-3">
       {defaultFields.map(({ label, name, type, required, info, disabled }) => {
-        const fdValue = data[name as keyof Partial<GetSiteData>] ?? "";
+        const rawValue = data[name as keyof Partial<GetSiteData>] ?? "";
+        const fdValue =
+          typeof rawValue === "object"
+            ? JSON.stringify(rawValue)
+            : String(rawValue);
 
         return (
           <div key={name} className="flex flex-col w-full">

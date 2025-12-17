@@ -1,5 +1,4 @@
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { Button, Typography } from "@/components/ui";
 
 interface ErrorCardProps {
   error: string;
@@ -42,7 +41,7 @@ export default function ErrorCard({
       <div className={`flex rounded-md ${miniCardCss} ${cardColor}`}>
         <i className={`bi ${cardIcon} text-2xl text-white leading-none`}></i>
         <div className="flex flex-col">
-          <Typography variant="body2" color="white">
+          <Typography variant="body2" className="text-white">
             {title ? title + ": " : ""}
             {error}
           </Typography>
@@ -57,14 +56,7 @@ export default function ErrorCard({
             size="small"
             variant="text"
             onClick={onCloseMini}
-            sx={{
-              minWidth: "unset",
-              position: "absolute",
-              top: "50%",
-              right: 0,
-              transform: "translateY(-50%)",
-              lineHeight: 0,
-            }}
+            className="absolute top-1/2 right-0 -translate-y-1/2 min-w-0 leading-none"
           >
             <i className="bi bi-x text-lg text-white"></i>
           </Button>
@@ -78,11 +70,11 @@ export default function ErrorCard({
       <div className={`flex rounded-md ${bigCardCss} ${cardColor}`}>
         <i className={`bi ${cardIcon} text-6xl text-white leading-none`}></i>
         <div className="flex flex-col gap-2">
-          <Typography variant="h5" color="white">
+          <Typography variant="h5" className="text-white">
             {error}
           </Typography>
           {message && (
-            <Typography variant="body2" color="white" className="italic">
+            <Typography variant="body2" className="text-white italic">
               {message}
             </Typography>
           )}

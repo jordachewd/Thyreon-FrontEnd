@@ -1,7 +1,6 @@
 import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
-import Alert from "@mui/material/Alert";
-import Typography from "@mui/material/Typography";
+import { Alert, Typography } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 

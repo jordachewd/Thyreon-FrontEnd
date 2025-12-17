@@ -1,9 +1,8 @@
 "use client";
 
-import { TooltipArrow } from "@/components/shared/TooltipArrow";
+import { Tooltip } from "@/components/ui";
 import sidebarNavItems from "@/constants/layout/sidebar-nav.const";
 import { isSamePath } from "@/lib/utils/isSamePath";
-import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import SidebarNavItem from "@/types/layout/sidebar-nav.d";
 import { UserRole } from "@/types/users/user-role.d";
 import classNames from "classnames";
@@ -24,18 +23,18 @@ function AdminSidebarNav({ isNavOpen, role }: AdminSidebarNavProps) {
     (item: SidebarNavItem) => {
       const isActive = isSamePath(pathname, item.href);
 
-      const linkCss = classNames(css.linkItem, { [css.linkActive]: isActive });
-      const labelCss = classNames(css.linkLabel, {
-        [css.navItemOff]: isNavOpen,
+      const linkCss = classNames("admin-sidebar-link-item", { "admin-sidebar-link-active": isActive });
+      const labelCss = classNames("admin-sidebar-link-label", {
+        "admin-sidebar-nav-item-off": isNavOpen,
       });
 
       return (
         <Link key={item.id} href={item.href} className={linkCss}>
-          <TooltipArrow title={item.label} placement="right">
-            <span className={css.linkIcon}>
+          <Tooltip title={item.label}>
+            <span className="admin-sidebar-link-icon">
               <i className={item.icon}></i>
             </span>
-          </TooltipArrow>
+          </Tooltip>
           <span className={labelCss}>{item.label}</span>
         </Link>
       );
@@ -44,7 +43,7 @@ function AdminSidebarNav({ isNavOpen, role }: AdminSidebarNavProps) {
   );
 
   return (
-    <nav className={css.navigation}>
+    <nav className="admin-sidebar-navigation">
       {sidebarNavItems.map((item) => {
         if (!isAuthAdmin && item.isAdmin) return null;
         return getNavItem(item);

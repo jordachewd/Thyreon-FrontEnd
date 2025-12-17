@@ -1,7 +1,6 @@
 import { defaultNewUserFields as defaultFields } from "@/constants/users/fields/new-user-fields";
 import { CreateUserData } from "@/types/users/create-user-data.d";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import { Button, TextField } from "@/components/ui";
 
 interface AddUserFormProps {
   data: CreateUserData;

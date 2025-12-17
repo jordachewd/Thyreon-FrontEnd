@@ -4,7 +4,6 @@ import {
   SiteNavItemType,
 } from "@/constants/layout/sites-nav.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import css from "@/styles/layout/admin/sites/SiteFrame.module.css";
 import { usePathname } from "next/navigation";
 import { ReactNode, memo } from "react";
 import SiteFrameHeader from "./SiteFrameHeader";
@@ -27,16 +26,16 @@ function SiteFrameClient({
   const pagePath = `/sites/${siteId}`;
 
   return (
-    <div className={css.wrapper}>
-      <SiteFrameHeader site={site} siteId={siteId} className={css.header} />
+    <div className="site-frame-wrapper">
+      <SiteFrameHeader site={site} siteId={siteId} className="site-frame-header" />
       <SiteFrameSidebar
-        className={css.sidebar}
+        className="site-frame-sidebar"
         tabs={tabs}
         active={active}
         pagePath={pagePath}
       />
 
-      <main className={css.content}>
+      <main className="site-frame-content">
         {children}
       </main>
     </div>

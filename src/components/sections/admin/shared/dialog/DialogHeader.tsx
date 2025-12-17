@@ -1,5 +1,4 @@
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { Button, Typography } from "@/components/ui";
 import { memo } from "react";
 
 interface DialogHeadProps {

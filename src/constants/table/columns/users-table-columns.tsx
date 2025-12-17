@@ -1,55 +1,50 @@
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
-import { Chip } from "@mui/material";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { Chip, Column } from "@/components/ui";
 import { UserRoleColors } from "@/types/users/user-role-colors.interface";
 import { userRolesColors } from "@/constants/users/defaults/user-roles-colors";
 
-export const usersTableColumns = (): GridColDef[] => [
+export const usersTableColumns = (): Column[] => [
   {
     field: "id",
     headerName: "ID",
-    headerAlign: "center",
-    display: "flex",
-    align: "center",
-    flex: 0.25,
-    renderCell: (params: GridRenderCellParams) => {
-      return <span className="text-xs">{params.row.id}</span>;
+    minWidth: 80,
+    renderCell: ({ value }) => {
+      return <span className="text-xs">{value}</span>;
     },
   },
   {
     field: "username",
     headerName: "Account",
-    flex: 1.5,
-    display: "flex",
-
-    renderCell: (params: GridRenderCellParams) => (
+    flex: 1,
+    minWidth: 200,
+    renderCell: ({ row }) => (
       <UsersNameCell
-        href={`users/${params.row.id}`}
-        image={params.row.clerkImg}
-        username={params.row.username}
-        firstname={params.row.firstName}
-        lastname={params.row.lastName}
+        href={`users/${row.id}`}
+        image={row.clerkImg}
+        username={row.username}
+        firstname={row.firstName}
+        lastname={row.lastName}
       />
     ),
   },
-
   {
     field: "email",
     headerName: "Email",
-    flex: 1.5,
-    display: "flex",
-    renderCell: (params: GridRenderCellParams) => {
-      return <span className="text-sm">{params.row.email}</span>;
+    flex: 1,
+    minWidth: 200,
+    renderCell: ({ value }) => {
+      return <span className="text-sm">{value}</span>;
     },
   },
   {
     field: "plan",
     headerName: "Plan",
-    flex: 2,
-    display: "flex",
-    renderCell: (params: GridRenderCellParams) => {
-      const currentPlan = params.row.currentPlan;
+    flex: 1,
+    minWidth: 180,
+    valueGetter: (row) => row.currentPlan?.plan || "Lite",
+    renderCell: ({ row }) => {
+      const currentPlan = row.currentPlan;
       const planName = currentPlan?.plan || "Lite";
       const expiresAt = currentPlan?.expiresAt;
       const planUntil = expiresAt
@@ -66,45 +61,39 @@ export const usersTableColumns = (): GridColDef[] => [
   {
     field: "sites",
     headerName: "Sites",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      const sitesCount = params.row.sitesCount;
-      const role = params.row.role as keyof UserRoleColors;
+    minWidth: 100,
+    valueGetter: (row) => row.sitesCount,
+    renderCell: ({ row }) => {
+      const sitesCount = row.sitesCount;
+      const role = row.role as keyof UserRoleColors;
       return (
-        <Chip size="small" label={sitesCount} color={userRolesColors[role]} />
+        <Chip size="small" label={sitesCount.toString()} color={userRolesColors[role]} />
       );
     },
   },
-
   {
     field: "state",
     headerName: "State",
-    display: "flex",
-    flex: 1,
+    minWidth: 150,
     renderCell: () => {
-      return <span className="textxxs">Active / Logged Out</span>;
+      return <span className="text-xs">Active / Logged Out</span>;
     },
   },
-
   {
     field: "createdAt",
     headerName: "Member Since",
-    flex: 1,
-    display: "flex",
-    renderCell: (params: GridRenderCellParams) => {
-      const createdAt = getFormattedDate(params.row.createdAt);
+    minWidth: 150,
+    renderCell: ({ value }) => {
+      const createdAt = getFormattedDate(value);
       return <span className="text-xs">{createdAt}</span>;
     },
   },
   {
     field: "role",
     headerName: "Role",
-    align: "center",
-    headerAlign: "center",
-    display: "flex",
-    renderCell: (params: GridRenderCellParams) => {
-      const role = params.row.role as keyof UserRoleColors;
+    minWidth: 100,
+    renderCell: ({ row }) => {
+      const role = row.role as keyof UserRoleColors;
       return <Chip size="small" label={role} color={userRolesColors[role]} />;
     },
   },

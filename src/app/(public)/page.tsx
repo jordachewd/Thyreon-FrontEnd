@@ -5,13 +5,12 @@ import Plans from "@/components/sections/common/Plans";
 import Features from "@/components/sections/public/Features";
 import Hero from "@/components/sections/public/Hero";
 import HowItWorks from "@/components/sections/public/HowItWorks";
-import css from "@/styles/layout/public/LandingPage.module.css";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <section className={css.wrapper}>
+      <section className="landing-wrapper">
         <Hero />
         <Features />
         <HowItWorks />

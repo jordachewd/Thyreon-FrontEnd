@@ -1,17 +1,16 @@
 import PageHead from "@/components/layout/common/PageHead";
-import css from "@/styles/sections/shared/Plans.module.css";
 import { PlansWrapperType } from "@/types/plan/plan-wrapper.d";
 import classNames from "classnames";
 
 export default function PlansWrapper(props: PlansWrapperType) {
   const { title, subtitle, className, children } = props;
-  const sectionCss = classNames(css.section, className);
+  const sectionCss = classNames("plans-section", className);
 
   return (
     <div className={sectionCss}>
-      <div className={css.content}>
+      <div className="plans-content">
         {title && (
-          <div className={css.head}>
+          <div className="plans-head">
             <PageHead title={title} subtitle={subtitle} />
           </div>
         )}

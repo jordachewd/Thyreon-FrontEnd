@@ -1,4 +1,4 @@
-import Skeleton from "@mui/material/Skeleton";
+import { Skeleton } from "@/components/ui";
 import { memo } from "react";
 
 type UserSkeletonProps = {
@@ -8,8 +8,8 @@ type UserSkeletonProps = {
 function UserSkeleton({ showName = false }: UserSkeletonProps) {
   return (
     <div className="flex items-center gap-2">
-      {showName && <Skeleton animation="wave" width={100} height={16} />}
-      <Skeleton animation="wave" variant="circular" width={28} height={28} />
+      {showName && <Skeleton width={100} height={16} />}
+      <Skeleton variant="circular" width={28} height={28} />
     </div>
   );
 }

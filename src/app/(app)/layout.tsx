@@ -1,7 +1,6 @@
 import AdminMain from "@/components/layout/admin/AdminMain";
 import AdminSidebar from "@/components/layout/admin/AdminSidebar";
 import AdminUiProvider from "@/components/layout/providers/AdminUiProvider";
-import ClientApolloProvider from "@/components/layout/providers/ClientApolloProvider";
 import AdminWrapper from "@/components/layout/wrappers/AdminWrapper";
 import getCurrentUser from "@/lib/actions/users/get-current-user";
 import getUserData from "@/lib/actions/users/get-user-data";
@@ -14,13 +13,11 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   const userData = await getUserData();
 
   return (
-    <ClientApolloProvider>
-      <AdminUiProvider>
-        <AdminWrapper role={role}>
-          <AdminSidebar role={role} userInfo={userData.userInfo} />
-          <AdminMain>{children}</AdminMain>
-        </AdminWrapper>
-      </AdminUiProvider>
-    </ClientApolloProvider>
+    <AdminUiProvider>
+      <AdminWrapper role={role}>
+        <AdminSidebar role={role} userInfo={userData.userInfo} />
+        <AdminMain>{children}</AdminMain>
+      </AdminWrapper>
+    </AdminUiProvider>
   );
 }

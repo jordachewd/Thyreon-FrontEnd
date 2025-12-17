@@ -1,6 +1,6 @@
 import PageHead from "@/components/layout/common/PageHead";
 import PageWrapper from "@/components/layout/common/PageWrapper";
-import Alert from "@mui/material/Alert";
+import { Alert } from "@/components/ui";
 
 export default function SiteBackupsPage() {
   return (

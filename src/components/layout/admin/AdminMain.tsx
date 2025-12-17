@@ -1,4 +1,3 @@
-import css from "@/styles/layout/admin/AdminMain.module.css";
 import AdminHeader from "./AdminHeader";
 
 type AdminMainProps = {
@@ -7,9 +6,9 @@ type AdminMainProps = {
 
 export default function AdminMain({ children }: AdminMainProps) {
   return (
-    <main id="AdminMain" className={css.wrapper}>
+    <main id="AdminMain" className="admin-main-wrapper">
       <AdminHeader />
-      <section id="AdminMainSection" className={css.section}>
+      <section id="AdminMainSection" className="admin-main-section">
         {children}
       </section>
     </main>

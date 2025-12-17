@@ -1,4 +1,3 @@
-import css from "@/styles/sections/admin/AccountWrapper.module.css";
 import PageHead from "@/components/layout/common/PageHead";
 import { AccountWrapperType } from "@/types/account/account-wrapper.d";
 
@@ -10,7 +9,7 @@ export default function AccountWrapper({
   hero,
 }: AccountWrapperType) {
   return (
-    <section className={css.section}>
+    <section className="account-section">
       {title && (
         <PageHead
           title={title}
@@ -19,7 +18,7 @@ export default function AccountWrapper({
           className="mb-4"
         />
       )}
-      {hero ? <div className={css.hero}>{children}</div> : children}
+      {hero ? <div className="account-hero">{children}</div> : children}
     </section>
   );
 }

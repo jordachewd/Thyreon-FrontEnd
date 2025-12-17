@@ -1,22 +1,12 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import {
-  UPDATE_SITE_MUTATION,
-  UpdateSiteMutationResponse,
-} from "@/constants/graphql/sites/update-site.const";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useEditSiteDialogStore } from "@/lib/stores/sites/useEditSiteDialogStore";
-import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useMutation } from "@apollo/client/react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { Dialog, DialogActions, DialogContent } from "@/components/ui";
+import { useCallback, useEffect, useState } from "react";
+import { updateSite } from "@/app/actions/sites";
 import DialogFooter from "../../../admin/shared/dialog/DialogFooter";
 import DialogHeader from "../../../admin/shared/dialog/DialogHeader";
 import UpdateSiteForm from "../forms/UpdateSiteForm";
@@ -25,14 +15,12 @@ interface EditSiteDialogProps {
   siteData: Partial<GetSiteData> | undefined;
   open: boolean;
   onClose: () => void;
-  refetchQuery?: RefetchQueryType;
 }
 
 export default function EditSiteDialog({
   siteData,
   open,
   onClose,
-  refetchQuery = [],
 }: EditSiteDialogProps) {
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
@@ -40,28 +28,35 @@ export default function EditSiteDialog({
   const { formData, setField, setFormData, resetDialog } =
     useEditSiteDialogStore();
 
-  const [updateSite, { loading, error }] = useMutation(UPDATE_SITE_MUTATION, {
-    refetchQueries: refetchQuery,
-    awaitRefetchQueries: true,
-    onCompleted: (data) => {
-      const { updateSite } = data as UpdateSiteMutationResponse;
-      updateAlert({
-        text: updateSite.message,
-        severity: updateSite.status,
-      });
-      handleCloseDialog();
-    },
-  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await updateSite({
-      variables: {
-        id: Number(formData.id),
-        input: { ...formData, id: Number(formData.id) },
-      },
-    });
+    if (!formData.id) {
+      setError("Site ID is required");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await updateSite(Number(formData.id), {
+        siteName: formData.siteName,
+        domain: formData.domain,
+      });
+      updateAlert({
+        text: result.message,
+        severity: result.status,
+      });
+      handleCloseDialog();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = useCallback(
@@ -78,7 +73,7 @@ export default function EditSiteDialog({
       onClose();
       resetDialog();
     },
-    [onClose, updateAlert]
+    [onClose, resetDialog]
   );
 
   useEffect(() => {
@@ -94,12 +89,10 @@ export default function EditSiteDialog({
       onClose={() => handleCloseDialog()}
       aria-labelledby="edit-site-dialog-title"
     >
-      <DialogTitle id="edit-site-dialog-title" sx={{ zIndex: 0 }}>
-        <DialogHeader must title="Edit details" onClose={handleCloseDialog} />
-      </DialogTitle>
+      <DialogHeader must title="Edit details" onClose={handleCloseDialog} />
 
-      <DialogContent sx={{ paddingTop: "1rem!important" }}>
-        {error && <ErrorCard mini error={error.message} />}
+      <DialogContent>
+        {error && <ErrorCard mini error={error} />}
         <UpdateSiteForm data={formData} onChange={handleInputChange} />
       </DialogContent>
 

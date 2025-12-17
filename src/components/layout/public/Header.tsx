@@ -4,9 +4,9 @@ import Logo from "@/components/shared/Logo";
 import ToggleTheme from "@/components/shared/ToggleTheme";
 import { NODE_ENV } from "@/constants/api/node-env.const";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { Button } from "@mui/material";
+import { Button } from "@/components/ui";
 import { useState, useEffect, memo } from "react";
-import css from "@/styles/layout/public/Header.module.css";
+import Link from "next/link";
 import UserButtonMenu from "../common/UserButtonMenu";
 
 function Header() {
@@ -25,23 +25,24 @@ function Header() {
   }, []);
 
   return (
-    <section className={`${css.section} ${scrolled && css.scrolled}`}>
-      <div className={css.content}>
-        <div className={css.left}>
-          <Logo fullLogo />
+    <section className={`header-section ${scrolled && "header-scrolled"}`}>
+      <div className="header-content">
+        <div className="header-left">
+          <Logo href="/" />
         </div>
-        <div className={css.right}>
+        <div className="header-right">
           <SignedIn>
             <UserButtonMenu isFrontEnd showName />
           </SignedIn>
           <SignedOut>
-            <Button
-              size="small"
-              href="/sign-in"
-              disabled={NODE_ENV !== "development"}
-            >
-              login
-            </Button>
+            <Link href="/sign-in">
+              <Button
+                size="small"
+                disabled={NODE_ENV !== "development"}
+              >
+                login
+              </Button>
+            </Link>
           </SignedOut>
           <ToggleTheme />
         </div>

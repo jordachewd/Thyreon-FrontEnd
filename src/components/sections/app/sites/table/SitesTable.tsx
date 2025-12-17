@@ -1,55 +1,37 @@
 "use client";
 
-import { DataGrid } from "@mui/x-data-grid/DataGrid";
+import { DataGrid, Column } from "@/components/ui";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { useCallback, useState, memo } from "react";
-import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
 import TableToolbar from "@/components/sections/admin/shared/table/TableToolbar";
 import DeleteSiteBtn from "./DeleteSiteBtn";
 
 type SitesTableProps = {
   sites: GetSiteData[];
-  tableCols: GridColDef[];
+  tableCols: Column[];
   isAdmin: boolean;
   loading?: boolean;
-};
-
-const selectedIdsInit: ToolbarSelectedIds = {
-  type: "include",
-  ids: new Set<string | number>(),
 };
 
 function SitesTable({
   sites,
   tableCols,
   isAdmin,
-  loading = true,
+  loading = false,
 }: SitesTableProps) {
-  const [selectedIds, setSelectedIds] =
-    useState<ToolbarSelectedIds>(selectedIdsInit);
+  const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
 
-  const handleSelectionChange = useCallback(
-    (newSelection: GridRowSelectionModel) => {
-      const selectionArray = Array.isArray(newSelection) 
-        ? newSelection 
-        : Object.values(newSelection);
-      
-      setSelectedIds({
-        type: "include",
-        ids: new Set(selectionArray),
-      });
-    },
-    []
-  );
+  const handleSelectionChange = useCallback((newSelection: (string | number)[]) => {
+    setSelectedIds(newSelection);
+  }, []);
 
   const handleToolbarContent = useCallback(() => {
     if (!isAdmin) return null;
-    if (selectedIds.ids.size > 0) {
-      return <DeleteSiteBtn sites={selectedIds.ids} />;
+    if (selectedIds.length > 0) {
+      return <DeleteSiteBtn sites={new Set(selectedIds)} />;
     }
     return null;
-  }, [isAdmin, selectedIds.ids]);
+  }, [isAdmin, selectedIds]);
 
   const ToolbarComponent = useCallback(
     () => <TableToolbar toolbarContent={handleToolbarContent()} />,
@@ -62,30 +44,12 @@ function SitesTable({
         rows={sites}
         loading={loading}
         columns={tableCols}
-        disableColumnResize
-        disableColumnSelector
-        disableRowSelectionOnClick
-        disableColumnMenu
-        pagination
-        showToolbar
         checkboxSelection={isAdmin}
         onRowSelectionModelChange={handleSelectionChange}
+        pageSize={10}
         pageSizeOptions={[10, 20, 50]}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-            },
-          },
-        }}
         slots={{
           toolbar: ToolbarComponent,
-        }}
-        slotProps={{
-          loadingOverlay: {
-            variant: "skeleton",
-            noRowsVariant: "skeleton",
-          },
         }}
       />
     </div>

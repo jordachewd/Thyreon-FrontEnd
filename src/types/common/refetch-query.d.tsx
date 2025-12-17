@@ -1,3 +1,3 @@
-import { DocumentNode } from "@apollo/client";
-
-export type RefetchQueryType = Array<DocumentNode | string>;
+// Deprecated: RefetchQuery no longer needed with server actions
+// Server actions use revalidatePath() instead
+export type RefetchQueryType = string[];

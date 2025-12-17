@@ -1,5 +1,4 @@
 import { SiteNavItemType } from "@/constants/layout/sites-nav.const";
-import css from "@/styles/layout/admin/sites/SiteFrameNav.module.css";
 import Link from "next/link";
 
 type SiteFrameSidebarProps = {
@@ -13,11 +12,11 @@ export default function SiteFrameSidebar(props: SiteFrameSidebarProps) {
   const { className: style, tabs, active, pagePath } = props;
   return (
     <aside className={style}>
-      <nav className={css.nav}>
+      <nav className="site-frame-nav">
         <Link
           prefetch={false}
           href={pagePath}
-          className={!active ? css.activeTab : ""}
+          className={!active ? "site-frame-active-tab" : ""}
         >
           <span>Overview</span>
           {!active && <i className="bi bi-arrow-right"></i>}
@@ -28,7 +27,7 @@ export default function SiteFrameSidebar(props: SiteFrameSidebarProps) {
             key={tab.slug}
             href={`${pagePath}/${tab.slug}`}
             prefetch={false}
-            className={active === tab.slug ? css.activeTab : ""}
+            className={active === tab.slug ? "site-frame-active-tab" : ""}
           >
             <span> {tab.label}</span>
             {active === tab.slug && <i className="bi bi-arrow-right"></i>}

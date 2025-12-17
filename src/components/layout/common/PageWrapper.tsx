@@ -1,4 +1,3 @@
-import css from "@/styles/layout/shared/PageWrapper.module.css";
 import classNames from "classnames";
 import { ReactNode } from "react";
 
@@ -11,6 +10,6 @@ export default function PageWrapper({
   children,
   className: style,
 }: PageWrapperProps) {
-  const wrapperCss = classNames(css.wrapper, style);
+  const wrapperCss = classNames("page-wrapper", style);
   return <div className={wrapperCss}>{children}</div>;
 }

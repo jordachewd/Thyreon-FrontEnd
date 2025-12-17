@@ -1,9 +1,0 @@
-@reference "../../../app/globals.css";
-
-.section {
-  @apply flex justify-between items-center gap-4 w-full;
-}
-
-.title {
-  @apply flex flex-col gap-2;
-}

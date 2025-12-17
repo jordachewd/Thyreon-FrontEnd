@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import css from "@/styles/shared/LoadingBubbles.module.css";
 
 type BubbleSizes = "small" | "medium" | "large";
 type wrappedAlign = "left" | "center" | "right";
@@ -33,15 +32,19 @@ export default function LoadingBubbles({
       : "justify-start";
 
   const wrpHeight = fullHeight ? "h-dvh" : "h-20";
-  const loaderCss = classNames(css.wrapper, alignClass, wrpHeight);
-  const wrpLoaderCss = classNames(css.isWrapped, alignClass, wrpHeight);
+  const loaderCss = classNames("flex items-center gap-1 w-full", alignClass, wrpHeight);
+  const wrpLoaderCss = classNames("flex items-center w-full", alignClass, wrpHeight);
 
   const bubbleLoader = (
     <div className={loaderCss}>
       {bubbles.map((bubbleSize, index) => {
+        const animationClass = 
+          index === 0 ? "animate-bounce-slow" :
+          index === 1 ? "animate-bounce" : 
+          "animate-bounce-fast";
         const bubbleClass = classNames(
-          css.bubble,
-          css[`bubble${index + 1}`],
+          "flex rounded-full -mb-0.5 bg-leaf-green-400",
+          animationClass,
           bubbleSize
         );
         return <div key={index} className={bubbleClass} />;

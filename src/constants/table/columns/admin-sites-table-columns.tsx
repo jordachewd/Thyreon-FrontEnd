@@ -1,5 +1,5 @@
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { Chip } from "@mui/material";
+import { Column } from "@/components/ui";
+import { Chip } from "@/components/ui";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
@@ -14,41 +14,36 @@ type AdminSitesTableColumnsType = {
 export const adminSitesTableColumns = ({
   onEditSite,
   onDeleteSite,
-}: AdminSitesTableColumnsType): GridColDef[] => [
+}: AdminSitesTableColumnsType): Column[] => [
   {
     field: "id",
     headerName: "ID",
-    headerAlign: "center",
-    display: "flex",
-    align: "center",
-    flex: 0.25,
-    renderCell: (params: GridRenderCellParams) => {
-      return <span className="text-xs">{params.row.id}</span>;
+    minWidth: 80,
+    renderCell: ({ value }) => {
+      return <span className="text-xs">{value}</span>;
     },
   },
   {
     field: "siteName",
     headerName: "Site Name",
-    display: "flex",
-    flex: 1.5,
-    renderCell: (params: GridRenderCellParams) => {
+    flex: 1,
+    minWidth: 200,
+    renderCell: ({ row }) => {
       return (
         <SiteNameCell
-          href={`/sites/${params.row.id}`}
-          name={params.row.siteName}
-          domain={params.row.domain}
+          href={`/sites/${row.id}`}
+          name={row.siteName}
+          domain={row.domain}
         />
       );
     },
   },
-
   {
     field: "status",
     headerName: "Status",
-    display: "flex",
-    flex: 3,
-    renderCell: (params: GridRenderCellParams) => {
-      const status = params.row.status;
+    minWidth: 120,
+    renderCell: ({ value }) => {
+      const status = value;
       const statusColor = status === "active" ? "success" : "error";
       const chipColor = status === "revoked" ? "primary" : statusColor;
       return <Chip size="small" label={status} color={chipColor} />;
@@ -57,30 +52,27 @@ export const adminSitesTableColumns = ({
   {
     field: "createdAt",
     headerName: "Registered",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      const createdAt = getFormattedDate(params.row.createdAt);
+    minWidth: 150,
+    renderCell: ({ value }) => {
+      const createdAt = getFormattedDate(value);
       return <span className="text-xs">{createdAt}</span>;
     },
   },
   {
     field: "lastSeen",
     headerName: "Last Seen",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      const lastSeen = getFormattedDate(params.row.lastSeen);
+    minWidth: 150,
+    renderCell: ({ value }) => {
+      const lastSeen = getFormattedDate(value);
       return <span className="text-xs">{lastSeen}</span>;
     },
   },
   {
     field: "user",
     headerName: "Owner",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      const user = params.row.user;
+    minWidth: 180,
+    renderCell: ({ row }) => {
+      const user = row.user;
       if (!user) return null;
       
       return (
@@ -99,14 +91,10 @@ export const adminSitesTableColumns = ({
     field: "actions",
     headerName: "Actions",
     sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
-    align: "center",
-    headerAlign: "center",
-    display: "flex",
-    renderCell: (params: GridRenderCellParams) => (
+    minWidth: 100,
+    renderCell: ({ row }) => (
       <SiteActionCell
-        params={params}
+        params={{ row, value: null }}
         onEdit={onEditSite}
         onRemove={onDeleteSite}
       />

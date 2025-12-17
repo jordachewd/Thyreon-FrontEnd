@@ -1,22 +1,27 @@
 "use client";
 
-import { useColorScheme } from "@mui/material/styles";
-import css from "@/styles/layout/public/Footer.module.css";
 import lightLogo from "../../../../public/images/jwd_light.png";
 import darkLogo from "../../../../public/images/jwd_dark.png";
 import Image from "next/image";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
  function Footer() {
-  const { mode } = useColorScheme();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check for dark mode from localStorage or system preference
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setIsDark(savedTheme === "dark" || (!savedTheme && prefersDark));
+  }, []);
 
   return (
-    <section className={css.section}>
-      <div className={css.content}>
-        <div className={css.left}>
-          <div className={css.jwdlogo}>
+    <section className="footer-section">
+      <div className="footer-content">
+        <div className="footer-left">
+          <div className="footer-jwd-logo">
             <Image
-              src={mode !== "dark" ? darkLogo : lightLogo}
+              src={isDark ? lightLogo : darkLogo}
               alt="JWD"
               width={32}
               height={32}
@@ -25,12 +30,12 @@ import { memo } from "react";
             />
           </div>
 
-          <div className={css.jwdinfo}>
+          <div className="footer-jwd-info">
             <span>© {new Date().getFullYear()} JordacheWD.</span>
             <span>All rights reserved.</span>
           </div>
         </div>
-        <div className={css.right}>
+        <div className="footer-right">
           <span>Privacy & Cookie Policy</span>
           <span>Terms & Conditions</span>
         </div>

@@ -1,23 +1,17 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
-import {
-  REGENERATE_API_KEY,
-  RegenerateApiKeyMutationResponse,
-} from "@/constants/graphql/sites/new-api-key";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useApiKeyDialogStore } from "@/lib/stores/sites/useApiKeyDialogStore";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   Typography,
-  DialogActions,
-} from "@mui/material";
-import { useRef, useCallback, useEffect } from "react";
+} from "@/components/ui";
+import { useRef, useCallback, useEffect, useState } from "react";
+import { regenerateApiKey } from "@/app/actions/sites";
 import DialogFooter from "../../../admin/shared/dialog/DialogFooter";
 import DialogHeader from "../../../admin/shared/dialog/DialogHeader";
 import ApiKeyResponse from "../forms/ApiKeyResponse";
@@ -49,28 +43,32 @@ export default function ApiKeyDialog({
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
 
-  const [regenerateApiKey, { loading, error }] = useMutation(
-    REGENERATE_API_KEY,
-    {
-      refetchQueries: [GET_SITE_BY_ID, "GetSiteById"],
-      awaitRefetchQueries: true,
-      onCompleted: (data) => {
-        const { regenerateApiKey } = data as RegenerateApiKeyMutationResponse;
-        setNewKey(regenerateApiKey.site.apiKey);
-        setAlertMsg({
-          text: regenerateApiKey.message,
-          severity: regenerateApiKey.status,
-        });
-      },
-    }
-  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await regenerateApiKey({
-      variables: { id: Number(siteData?.id) },
-    });
+    if (!siteData?.id) {
+      setError("Site ID is required");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await regenerateApiKey(Number(siteData.id));
+      setNewKey(result.site?.apiKey || '');
+      setAlertMsg({
+        text: result.message,
+        severity: result.status,
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCloseDialog = useCallback(
@@ -110,15 +108,13 @@ export default function ApiKeyDialog({
       onClose={() => handleCloseDialog()}
       aria-labelledby="regenerate-api-key-dialog-title"
     >
-      <DialogTitle id="regenerate-api-key-dialog-title" sx={{ zIndex: 0 }}>
-        <DialogHeader
-          title={newKey ? "Next ..." : "Generate API key"}
-          onClose={handleCloseDialog}
-        />
-      </DialogTitle>
+      <DialogHeader
+        title={newKey ? "Next ..." : "Generate API key"}
+        onClose={handleCloseDialog}
+      />
 
-      <DialogContent sx={{ paddingTop: "1rem!important" }}>
-        {error && <ErrorCard mini error={error.message} />}
+      <DialogContent>
+        {error && <ErrorCard mini error={error} />}
         {!newKey && (
           <Typography variant="body1">
             Are you sure you want to generate a new API key for

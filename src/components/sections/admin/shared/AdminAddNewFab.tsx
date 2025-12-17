@@ -1,5 +1,5 @@
-import { TooltipArrow } from "@/components/shared/TooltipArrow";
-import Fab from "@mui/material/Fab";
+import { Tooltip } from "@/components/ui";
+import { Button } from "@/components/ui";
 
 interface AdminAddNewFabProps {
   execFn: () => void;
@@ -12,17 +12,22 @@ interface AdminAddNewFabProps {
 
 export default function AdminAddNewFab({
   execFn,
-  color = "primary",
   size = "small",
   icon = "bi-plus-lg",
   tooltipTitle = "Add New",
   tooltipPlacement = "left",
 }: AdminAddNewFabProps) {
   return (
-    <TooltipArrow title={tooltipTitle} placement={tooltipPlacement}>
-      <Fab onClick={execFn} color={color} size={size} aria-label={tooltipTitle}>
+    <Tooltip title={tooltipTitle} placement={tooltipPlacement}>
+      <Button
+        onClick={execFn}
+        variant="primary"
+        size={size}
+        aria-label={tooltipTitle}
+        className="rounded-full w-10 h-10 min-w-0 p-0 fixed bottom-6 right-6 shadow-lg z-50"
+      >
         <i className={`bi ${icon} text-base`}></i>
-      </Fab>
-    </TooltipArrow>
+      </Button>
+    </Tooltip>
   );
 }

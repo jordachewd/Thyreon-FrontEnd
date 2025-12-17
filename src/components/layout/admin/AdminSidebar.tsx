@@ -2,7 +2,6 @@
 
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import classNames from "classnames";
-import css from "@/styles/layout/admin/AdminSidebar.module.css";
 import AdminSidebarFooter from "./sidebar/AdminSidebarFooter";
 import AdminSidebarHeader from "./sidebar/AdminSidebarHeader";
 import AdminSidebarNav from "./sidebar/AdminSidebarNav";
@@ -19,8 +18,8 @@ function AdminSidebar({ role, userInfo }: AdminSidebarProps) {
   const { sidebarCtx } = useAdminUi();
   const { isNavOpen } = sidebarCtx;
 
-  const style = isNavOpen ? css.navOpen : "";
-  const wrapperCss = classNames(css.wrapper, style);
+  const style = isNavOpen ? "admin-sidebar-nav-open" : "";
+  const wrapperCss = classNames("admin-sidebar-wrapper", style);
 
   return (
     <aside id="AdminSidebar" className={wrapperCss}>

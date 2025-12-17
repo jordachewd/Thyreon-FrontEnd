@@ -1,57 +1,50 @@
 "use client";
 
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
-
-import {
-  SlideProps,
-  Slide,
-  SnackbarCloseReason,
-  Snackbar,
-  Alert,
-} from "@mui/material";
-import { memo, useCallback } from "react";
-
-function SlideTransition(props: SlideProps) {
-  return <Slide {...props} direction="left" />;
-}
+import { Alert } from "@/components/ui";
+import { memo, useCallback, useEffect, useState } from "react";
 
 function AlertMessage() {
   const { alertCtx } = useAdminUi();
   const { message, updateAlert } = alertCtx;
   const { text, severity } = message;
+  const [isVisible, setIsVisible] = useState(false);
 
   const openAlert = text.length > 0;
   const clearAlert = { text: "", severity: "info" as const };
 
-  const handleClose = useCallback(
-    (event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
-      event?.preventDefault();
+  useEffect(() => {
+    if (openAlert) {
+      setIsVisible(true);
+      const timer = setTimeout(() => {
+        handleClose();
+      }, 7000);
+      return () => clearTimeout(timer);
+    } else {
+      setIsVisible(false);
+    }
+  }, [openAlert]);
 
-      if (reason === "clickaway") return;
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
       updateAlert(clearAlert);
-    },
-    [updateAlert, clearAlert]
-  );
+    }, 300); // Wait for animation
+  }, [updateAlert]);
 
-  
+  if (!openAlert && !isVisible) return null;
+
   return (
-    <Snackbar
-      open={openAlert}
-      onClose={handleClose}
-      autoHideDuration={7000}
-      slots={{ transition: SlideTransition }}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      sx={{ zIndex: 999999999 }}
+    <div
+      className={`fixed top-4 right-4 z-999999 transition-all duration-300 ${
+        isVisible ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+      }`}
+      style={{ maxWidth: "400px" }}
     >
-      <Alert
-        variant="filled"
-        onClose={handleClose}
-        severity={severity}
-        sx={{ width: "100%" }}
-      >
+      <Alert severity={severity} onClose={handleClose}>
         {text.charAt(0).toUpperCase() + text.slice(1)}
       </Alert>
-    </Snackbar>
+    </div>
   );
 }
 

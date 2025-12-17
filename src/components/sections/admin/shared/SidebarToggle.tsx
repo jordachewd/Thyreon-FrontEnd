@@ -1,7 +1,6 @@
 "use client";
 
-import { IconButton } from "@mui/material";
-import { TooltipArrow } from "../../../shared/TooltipArrow";
+import { IconButton, Tooltip } from "@/components/ui";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useCallback } from "react";
 
@@ -21,22 +20,14 @@ export default function SidebarToggle({
   const handleUpdateSb = useCallback(updateSb, []);
 
   return show ? (
-    <TooltipArrow
-      placement="right"
-      title={show ? title : null}
-      className="transition-all!"
-    >
+    <Tooltip placement="right" title={show ? title : ""}>
       <IconButton
         size="small"
         onClick={handleUpdateSb}
-        sx={{
-          padding: "4px 7px",
-          borderRadius: "8px!important",
-          lineHeight: 1,
-        }}
+        className="px-2 py-1 rounded-lg leading-none"
       >
         <i className={`bi ${icon}`}></i>
       </IconButton>
-    </TooltipArrow>
+    </Tooltip>
   ) : null;
 }

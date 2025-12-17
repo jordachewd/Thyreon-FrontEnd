@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Avatar from "@mui/material/Avatar";
-import css from "@/styles/layout/admin/users/UserNameCell.module.css";
+import { Avatar } from "@/components/ui";
 
 type UserNameProps = {
   href: string;
@@ -20,25 +19,15 @@ export default function UserNameCell({
   noImage = false,
 }: UserNameProps) {
   return (
-    <div className={css.wrapper}>
-      <Link href={href} className={css.link}>
-        {!noImage && (
-          <Avatar
-            alt={username}
-            src={image}
-            sx={{
-              width: 32,
-              height: 32,
-              boxShadow: 0,
-            }}
-          />
-        )}
+    <div className="user-name-wrapper">
+      <Link href={href} className="user-name-link">
+        {!noImage && <Avatar alt={username} src={image} />}
 
-        <div className={css.text}>
-          <span className={css.name}>
+        <div className="user-name-text">
+          <span className="user-name">
             {firstname} {lastname}
           </span>
-          <span className={css.username}>@{username}</span>
+          <span className="user-username">@{username}</span>
         </div>
       </Link>
     </div>

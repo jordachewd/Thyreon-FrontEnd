@@ -1,5 +1,5 @@
 import CopyTextField from "@/components/shared/CopyTextField";
-import Typography from "@mui/material/Typography";
+import { Typography } from "@/components/ui";
 import { memo, useCallback } from "react";
 
 type AddSiteResponseProps = {

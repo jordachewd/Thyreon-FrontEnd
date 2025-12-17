@@ -1,25 +1,17 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import {
-  DELETE_SITES,
-  DeleteSitesMutationResponse,
-} from "@/constants/graphql/sites/delete-sites.const";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
-import { RefetchQueryType } from "@/types/common/refetch-query.d";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useMutation } from "@apollo/client/react";
 import {
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   Typography,
-  FormGroup,
-  FormControlLabel,
   Checkbox,
-  DialogActions,
-} from "@mui/material";
-import { useCallback } from "react";
+} from "@/components/ui";
+import { useCallback, useState } from "react";
+import { deleteSites } from "@/app/actions/sites";
 import DialogFooter from "../../../admin/shared/dialog/DialogFooter";
 import DialogHeader from "../../../admin/shared/dialog/DialogHeader";
 
@@ -27,37 +19,42 @@ interface DeleteSiteDialogProps {
   siteData: Partial<GetSiteData> | undefined;
   open: boolean;
   onClose: () => void;
-  refetchQuery?: RefetchQueryType;
 }
 
 export default function DeleteSiteDialog({
   siteData,
   open,
   onClose,
-  refetchQuery = [],
 }: DeleteSiteDialogProps) {
   const { alertCtx } = useAdminUi();
   const { updateAlert } = alertCtx;
 
-  const [deleteSites, { loading, error }] = useMutation(DELETE_SITES, {
-    refetchQueries: refetchQuery,
-    awaitRefetchQueries: true,
-    onCompleted: (data) => {
-      const { deleteSites } = data as DeleteSitesMutationResponse;
-      updateAlert({
-        text: deleteSites.message,
-        severity: deleteSites.status,
-      });
-      handleCloseDialog();
-    },
-  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await deleteSites({
-      variables: { ids: [Number(siteData?.id)] },
-    });
+    if (!siteData?.id) {
+      setError("Site ID is required");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await deleteSites([Number(siteData.id)]);
+      updateAlert({
+        text: result.message,
+        severity: result.status,
+      });
+      handleCloseDialog();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCloseDialog = useCallback(
@@ -65,7 +62,7 @@ export default function DeleteSiteDialog({
       if (e) e.preventDefault();
       onClose();
     },
-    []
+    [onClose]
   );
 
   return (
@@ -76,34 +73,23 @@ export default function DeleteSiteDialog({
       onClose={() => handleCloseDialog()}
       aria-labelledby="delete-site-dialog-title"
     >
-      <DialogTitle id="delete-site-dialog-title" sx={{ zIndex: 0 }}>
-        <DialogHeader title="Remove site" onClose={handleCloseDialog} />
-      </DialogTitle>
+      <DialogHeader title="Remove site" onClose={handleCloseDialog} />
 
-      <DialogContent sx={{ paddingTop: "1rem!important" }}>
-        {error && <ErrorCard mini error={error.message} />}
+      <DialogContent>
+        {error && <ErrorCard mini error={error} />}
         <Typography variant="body1">
           Are you sure you want to delete <b>{siteData?.domain}</b>?
         </Typography>
 
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox defaultChecked size="small" />}
-            label="Automatically uninstall WP Guard Client plugin from my site."
-            sx={{
-              "& .MuiFormControlLabel-label": {
-                fontSize: "0.875rem;",
-                fontStyle: "italic",
-              },
-            }}
-          />
-        </FormGroup>
+        <Checkbox
+          defaultChecked
+          label="Automatically uninstall WP Guard Client plugin from my site."
+        />
       </DialogContent>
 
       <DialogActions>
         <DialogFooter
           loading={loading}
-          btnColor="error"
           btnSubmitTxt="Delete Site"
           onSubmit={handleSubmit}
         >

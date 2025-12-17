@@ -1,29 +1,42 @@
 "use client";
 
-import css from "@/styles/sections/dashboard/Grid.module.css";
-import Typography from "@mui/material/Typography";
+import { Typography } from "@/components/ui";
+import { BarChart, LineChart, PieChart, SparkLine } from "@/components/ui/charts";
 import classNames from "classnames";
-import dynamic from "next/dynamic";
-import MuiBarChart from "../../admin/shared/charts/MuiBarChart";
-import MuiLineChart from "../../admin/shared/charts/MuiLineChart";
-import MuiPieChart from "../../admin/shared/charts/MuiPieChart";
-import MuiScatterChart from "../../admin/shared/charts/MuiScatterChart";
-import MuiHalfPieChart from "../../admin/shared/charts/MuiHalfPieChart";
-import LoadingBubbles from "@/components/shared/LoadingBubbles";
-import { Suspense } from "react";
 
-const MuiSparkLineChart = dynamic(
-  () => import("../../admin/shared/charts/MuiSparkLineChart"),
-  { 
-    ssr: false,
-    loading: () => <LoadingBubbles />
-  }
-);
+// Demo data for charts
+const barData = [
+  { label: "Mon", value: 12 },
+  { label: "Tue", value: 19 },
+  { label: "Wed", value: 15 },
+  { label: "Thu", value: 25 },
+  { label: "Fri", value: 22 },
+  { label: "Sat", value: 18 },
+  { label: "Sun", value: 14 },
+];
+
+const lineData = [
+  { label: "Jan", value: 65 },
+  { label: "Feb", value: 78 },
+  { label: "Mar", value: 90 },
+  { label: "Apr", value: 81 },
+  { label: "May", value: 95 },
+  { label: "Jun", value: 110 },
+];
+
+const pieData = [
+  { label: "Critical", value: 5, color: "#ef4444" },
+  { label: "High", value: 12, color: "#f59e0b" },
+  { label: "Medium", value: 23, color: "#eab308" },
+  { label: "Low", value: 45, color: "#10b981" },
+];
+
+const sparkData = [12, 19, 15, 25, 22, 30, 28, 35, 32, 38, 42, 45, 40, 48, 52];
 
 export default function DashboardPage() {
   return (
-    <div className={css.grid}>
-      <div className={classNames(css.cell, "lg:col-span-3")}>
+    <div className="dashboard-grid">
+      <div className={classNames("dashboard-grid-cell", "lg:col-span-3")}>
         <Typography variant="h5">Welcome & Overview</Typography>
         <p>
           This dashboard is the first screen you see after login. It provides a
@@ -31,12 +44,10 @@ export default function DashboardPage() {
           activity so administrators and users can quickly assess priorities.
         </p>
 
-        <Suspense fallback={<LoadingBubbles />}>
-          <MuiBarChart />
-        </Suspense>
+        <BarChart data={barData} height={250} />
       </div>
 
-      <div className={css.cell}>
+      <div className="dashboard-grid-cell">
         <Typography variant="h5">Security & Vulnerabilities</Typography>
         <p>
           Current security posture: active alerts, top detected vulnerabilities,
@@ -44,30 +55,30 @@ export default function DashboardPage() {
           risk quickly.
         </p>
 
-        <MuiPieChart />
+        <PieChart data={pieData} height={250} />
       </div>
 
-      <div className={css.cell}>
+      <div className="dashboard-grid-cell">
         <Typography variant="h5">Sites & Health</Typography>
-        <MuiSparkLineChart />
+        <SparkLine data={sparkData} height={80} label="Active Sites" value="24" />
       </div>
 
-      <div className={css.cell}>
+      <div className="dashboard-grid-cell">
         <Typography variant="h5">Integrations</Typography>
-        <MuiSparkLineChart />
+        <SparkLine data={sparkData} height={80} label="API Calls" value="1.2K" color="#8b5cf6" />
       </div>
 
-      <div className={css.cell}>
+      <div className="dashboard-grid-cell">
         <Typography variant="h5">Traffic & Performance</Typography>
-        <MuiSparkLineChart />
+        <SparkLine data={sparkData} height={80} label="Avg Response" value="180ms" color="#10b981" />
       </div>
 
-      <div className={css.cell}>
+      <div className="dashboard-grid-cell">
         <Typography variant="h5">Scan History</Typography>
-        <MuiSparkLineChart />
+        <SparkLine data={sparkData} height={80} label="Scans Today" value="48" color="#f59e0b" />
       </div>
 
-      <div className={classNames(css.cell, "lg:col-span-2")}>
+      <div className={classNames("dashboard-grid-cell", "lg:col-span-2")}>
         <Typography variant="h5">Activity Summary</Typography>
         <p>
           Recent activity at a glance: total events in the last 24 hours, recent
@@ -79,20 +90,22 @@ export default function DashboardPage() {
           require further investigation.
         </p>
 
-        <MuiLineChart />
+        <LineChart data={lineData} height={250} />
       </div>
 
-      <div className={classNames(css.cell, "lg:col-span-2")}>
+      <div className={classNames("dashboard-grid-cell", "lg:col-span-2")}>
         <Typography variant="h5">Attendance Report</Typography>
         <p>
           Most recent sign-ins and active sessions for admin and user accounts,
           including device and approximate location. Use this to detect unusual
           access and terminate suspicious sessions.
         </p>
-        <MuiScatterChart />
+        <div className="h-64 flex items-center justify-center text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-900 rounded-lg">
+          Scatter Chart - Demo Placeholder
+        </div>
       </div>
 
-      <div className={classNames(css.cell, "lg:col-span-2")}>
+      <div className={classNames("dashboard-grid-cell", "lg:col-span-2")}>
         <div className="flex justify-between gap-8">
           <div className="flex-col flex gap-4 w-[60%]">
             <Typography variant="h5">Pending Tasks</Typography>
@@ -105,13 +118,19 @@ export default function DashboardPage() {
               escalated for urgent attention.
             </p>
           </div>
-          <div className="flex-1">
-            <MuiHalfPieChart />
+          <div className="flex-1 flex items-center justify-center">
+            <PieChart
+              data={[
+                { label: "Pending", value: 12, color: "#f59e0b" },
+                { label: "Complete", value: 28, color: "#10b981" },
+              ]}
+              height={200}
+            />
           </div>
         </div>
       </div>
 
-      <div className={css.cell}>
+      <div className="dashboard-grid-cell">
         <Typography variant="h5">System Status & Notices</Typography>
         <p>
           Platform status, scheduled maintenance, and service notices. Check
@@ -119,7 +138,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <div className={css.cell}>
+      <div className="dashboard-grid-cell">
         <Typography variant="h5">Alerts & Notifications</Typography>
         <p>
           Latest alerts with severity and timestamps. Acknowledge, mute, or

@@ -1,7 +1,4 @@
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
-import Tooltip from "@mui/material/Tooltip";
+import { IconButton, TextField, Tooltip } from "@/components/ui";
 import { useState } from "react";
 
 interface CopyTextFieldProps {
@@ -36,21 +33,14 @@ export default function CopyTextField({
       label={label}
       value={value}
       helperText={info}
-      variant="outlined"
-      slotProps={{
-        input: {
-          readOnly: true,
-          endAdornment: (
-            <InputAdornment position="end">
-              <Tooltip title={copied ? "Copied!" : "Copy"}>
-                <IconButton onClick={handleCopy}>
-                  <i className="bi bi-copy text-base"></i>
-                </IconButton>
-              </Tooltip>
-            </InputAdornment>
-          ),
-        },
-      }}
+      readOnly
+      endAdornment={
+        <Tooltip title={copied ? "Copied!" : "Copy"}>
+          <IconButton onClick={handleCopy}>
+            <i className="bi bi-copy text-base"></i>
+          </IconButton>
+        </Tooltip>
+      }
     />
   );
 }

@@ -1,27 +1,24 @@
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { Column } from "@/components/ui";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import UsersNameCell from "@/components/sections/admin/shared/table/users/UserNameCell";
-import { Chip } from "@mui/material";
+import { Chip } from "@/components/ui";
 
-export const transactionsTableColumns: GridColDef[] = [
+export const transactionsTableColumns: Column[] = [
   {
     field: "id",
     headerName: "ID",
-    headerAlign: "center",
-    display: "flex",
-    align: "center",
-    flex: 0.25,
-    renderCell: (params: GridRenderCellParams) => {
-      return <span className="text-xs">{params.row.id}</span>;
+    minWidth: 80,
+    renderCell: ({ value }) => {
+      return <span className="text-xs">{value}</span>;
     },
   },
   {
     field: "user",
     headerName: "Account",
-    display: "flex",
     flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      const user = params.row.user;
+    minWidth: 200,
+    renderCell: ({ row }) => {
+      const user = row.user;
       return (
         <UsersNameCell
           href={`users/${user.id}`}
@@ -36,59 +33,49 @@ export const transactionsTableColumns: GridColDef[] = [
   {
     field: "plan",
     headerName: "Plan",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      return <span className="capitalize">{params.row.plan}</span>;
+    minWidth: 120,
+    renderCell: ({ value }) => {
+      return <span className="capitalize">{value}</span>;
     },
   },
-
   {
     field: "amount",
     headerName: "Amount(€)",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      return <span>€{params.row.amount}</span>;
+    minWidth: 120,
+    renderCell: ({ value }) => {
+      return <span>€{value}</span>;
     },
   },
-
   {
     field: "billing",
     headerName: "Paying",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      return <span className="capitalize">{params.row.billing}</span>;
+    minWidth: 120,
+    renderCell: ({ value }) => {
+      return <span className="capitalize">{value}</span>;
     },
   },
   {
     field: "createdAt",
     headerName: "Date",
-    display: "flex",
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => {
-      const createdAt = getFormattedDate(params.row.createdAt);
+    minWidth: 150,
+    renderCell: ({ value }) => {
+      const createdAt = getFormattedDate(value);
       return <span className="text-xs">{createdAt}</span>;
     },
   },
   {
     field: "expiresAt",
     headerName: "Expires",
-    display: "flex",
-    flex: 1.5,
-    renderCell: (params: GridRenderCellParams) => {
-      const expiresAt = getFormattedDate(params.row.expiresAt);
+    minWidth: 150,
+    renderCell: ({ value }) => {
+      const expiresAt = getFormattedDate(value);
       return <span className="text-xs">{expiresAt}</span>;
     },
   },
-
   {
     field: "status",
     headerName: "Status",
-    align: "center",
-    headerAlign: "center",
-    display: "flex",
+    minWidth: 100,
     renderCell: () => {
       return <Chip size="small" label="Paid" color="success" />;
     },

@@ -1,6 +1,3 @@
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import muiTheme from "@/themes/muiTheme";
 import { ReactNode } from "react";
 
 interface ThemeProps {
@@ -8,10 +5,5 @@ interface ThemeProps {
 }
 
 export default function WPGuardProvider({ children }: ThemeProps) {
-  return (
-    <ThemeProvider theme={muiTheme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
-  );
+  return <>{children}</>;
 }

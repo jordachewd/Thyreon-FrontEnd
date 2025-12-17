@@ -1,6 +1,5 @@
-import css from "@/styles/shared/PlanCard.module.css";
 import CheckoutBtn from "./CheckoutBtn";
-import { Typography } from "@mui/material";
+import { Typography } from "@/components/ui";
 import { PlanCardInterface } from "@/types/plan/plan-card.d";
 import { PlanStatus } from "@/types/plan/plan-status.d";
 import { PlanCheckout } from "@/types/plan/plan-checkout.d";
@@ -32,26 +31,37 @@ export default function PlanCard({
   });
 
   const { isCurrent, isPopular } = planStatus as PlanStatus;
-  const planType = isCurrent ? css.current : isPopular && css.popular;
   const planBadge = isCurrent ? "Current" : "Popular";
+  
+  const wrapperClass = `flex flex-col w-full rounded-lg shadow-xl ease-in-out relative overflow-hidden px-4 lg:px-8 py-10 gap-4 bg-vanilla-200 dark:bg-midnight-700 transition-all duration-300 font-medium ${
+    isCurrent ? 'bg-vanilla-400 dark:bg-midnight-400' : 
+    isPopular ? 'text-vanilla-100 dark:text-midnight-800 bg-midnight-400 dark:bg-vanilla-400' : ''
+  }`;
+  
+  const titleClass = isPopular ? 'flex w-full capitalize text-vanilla-100 dark:text-midnight-800' : 'flex w-full capitalize';
+  const subtitleClass = isPopular ? 'flex w-full !text-xs pl-0.5 min-h-12 opacity-80 text-vanilla-100 dark:text-midnight-800' : 'flex w-full !text-xs pl-0.5 min-h-12 opacity-80';
+  const priceClass = isPopular ? 'flex !leading-none text-vanilla-100 dark:text-midnight-800' : 'flex !leading-none';
+  const badgeClass = `flex leading-none shadow-md uppercase text-[8px] font-bold absolute top-3.5 -left-8 p-1.5 px-8 -rotate-45 tracking-widest ${
+    isCurrent ? 'bg-leaf-green-400 text-white' : 'bg-orange-600 text-white'
+  }`;
 
   return (
-    <div className={`${css.wrapper} ${planType}`}>
+    <div className={wrapperClass}>
       {(isPopular || isCurrent) && (
-        <div className={css.planBadge}>{planBadge}</div>
+        <div className={badgeClass}>{planBadge}</div>
       )}
 
-      <div className={css.head}>
-        <Typography variant="h5" className={css.title}>
+      <div className="flex flex-col justify-between items-center gap-1">
+        <Typography variant="h5" className={titleClass}>
           {plan.name}
         </Typography>
 
-        <Typography variant="body1" className={css.subtitle}>
+        <Typography variant="body1" className={subtitleClass}>
           {plan.desc}
         </Typography>
 
-        <div className={css.priceBox}>
-          <Typography variant="h3" className={css.price}>
+        <div className="flex w-full gap-6 items-end my-4">
+          <Typography variant="h3" className={priceClass}>
             <span className="flex">
               {plan.price !== 0 ? "€" + planPrice : "Free"}
             </span>
@@ -71,11 +81,11 @@ export default function PlanCard({
         </div>
       </div>
 
-      <div className={css.features}>
+      <div className="flex flex-col gap-2.5 w-full">
         <p className="flex font-bold mb-2">What is included:</p>
         
         {plan.features.map((feature) => (
-          <div key={plan.name + feature.label} className={css.feature}>
+          <div key={plan.name + feature.label} className="flex items-center gap-4 text-xs">
             <i
               className={`bi ${
                 feature.isIncluded
@@ -91,7 +101,7 @@ export default function PlanCard({
       </div>
 
       {isSignedIn && (
-        <div className={css.actions}>
+        <div className="flex justify-center items-center mt-6">
           <CheckoutBtn
             isCurrent={isCurrent}
             plan={

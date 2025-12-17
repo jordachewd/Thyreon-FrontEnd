@@ -1,5 +1,0 @@
-@reference "../../../app/globals.css";
-
-.wrapper {
-  @apply flex flex-col w-full p-10;
-}

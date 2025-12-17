@@ -1,10 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from "@mui/material";
-import css from "@/styles/sections/shared/Faqs.module.css";
+import { Accordion, Typography } from "@/components/ui";
 import { faqs } from "@/constants/demo-data/faqs.const";
 import PageHead from "@/components/layout/common/PageHead";
 import classNames from "classnames";
@@ -14,32 +8,21 @@ type FaqsProps = {
 };
 
 export default function Faqs(props: FaqsProps) {
-  const sectionCss = classNames(css.section, props.className);
+  const sectionCss = classNames("faqs-section", props.className);
 
   return (
     <div className={sectionCss}>
-      <div className={css.content}>
-        <div className={css.head}>
+      <div className="faqs-content">
+        <div className="faqs-head">
           <PageHead
             title="Frequently Asked Questions"
             subtitle="Find answers to the most frequently asked questions below."
           />
         </div>
-        <div className={css.faqs}>
+        <div className="faqs-list">
           {faqs.map((faq) => (
-            <Accordion key={faq.id}>
-              <AccordionSummary
-                expandIcon={<i className="bi bi-arrow-down-short text-xl"></i>}
-                aria-controls={`panel${faq.id}-content`}
-                id={`panel${faq.id}-header`}
-              >
-                <Typography component="span" variant="h6">
-                  {faq.question}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="body2">{faq.answer}</Typography>
-              </AccordionDetails>
+            <Accordion key={faq.id} title={faq.question}>
+              <Typography variant="body2">{faq.answer}</Typography>
             </Accordion>
           ))}
         </div>

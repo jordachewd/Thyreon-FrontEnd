@@ -1,5 +1,5 @@
 import PageWrapper from "@/components/layout/common/PageWrapper";
-import { Alert, Typography } from "@mui/material";
+import { Alert, Typography } from "@/components/ui";
 import classNames from "classnames";
 
 export default async function AppSite() {

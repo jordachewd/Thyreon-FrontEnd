@@ -1,6 +1,6 @@
 import { defaultEditUserFields as defaultFields } from "@/constants/users/fields/edit-user-fields";
 import { GetUserData } from "@/types/users/get-user-data.d";
-import TextField from "@mui/material/TextField";
+import { TextField } from "@/components/ui";
 import { memo } from "react";
 
 interface EditUserFormProps {
@@ -12,7 +12,11 @@ function EditUserForm({ data, onChange }: EditUserFormProps) {
   return (
     <form className="flex flex-col w-full gap-3">
       {defaultFields.map(({ label, name, type, required, info, disabled }) => {
-        const fdValue = data[name as keyof Partial<GetUserData>] ?? "";
+        const rawValue = data[name as keyof Partial<GetUserData>] ?? "";
+        const fdValue =
+          typeof rawValue === "string" || typeof rawValue === "number"
+            ? rawValue
+            : "";
 
         return (
           <div key={name} className="flex flex-col w-full">

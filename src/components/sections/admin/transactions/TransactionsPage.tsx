@@ -1,15 +1,36 @@
 "use client";
 
-import { memo } from "react";
+import { useEffect, useState } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
-import useTransactionsTable from "@/lib/hooks/transactions/useTransactionsTable";
 import { transactionsTableColumns as columns } from "@/constants/table/columns/transactions-table-columns";
-import { DataGrid } from "@mui/x-data-grid/DataGrid";
+import { DataGrid } from "@/components/ui";
+import { TransactionType } from "@/types/transactions/transaction.d";
+import { getTransactions } from "@/lib/actions/transactions/get-transactions";
 
-function TransactionsPage() {
-  const { loading, error, transactions } = useTransactionsTable();
+export default function TransactionsPage() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [transactions, setTransactions] = useState<TransactionType[]>([]);
 
-  if (error) return <ErrorCard error={error.message} />;
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const result = await getTransactions();
+      
+      if (result.success) {
+        setTransactions(result.transactions);
+        setError(null);
+      } else {
+        setError(result.error);
+      }
+      
+      setLoading(false);
+    }
+    
+    fetchData();
+  }, []);
+
+  if (error) return <ErrorCard error={error} />;
 
   return (
     <div className="flex w-full">
@@ -17,29 +38,9 @@ function TransactionsPage() {
         loading={loading}
         rows={transactions}
         columns={columns}
-        disableColumnResize
-        disableColumnSelector
-        disableRowSelectionOnClick
-        disableColumnMenu
-        showToolbar
-        pagination
+        pageSize={10}
         pageSizeOptions={[10, 20, 50]}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-            },
-          },
-        }}
-        slotProps={{
-          loadingOverlay: {
-            variant: "skeleton",
-            noRowsVariant: "skeleton",
-          },
-        }}
       />
     </div>
   );
 }
-
-export default memo(TransactionsPage);

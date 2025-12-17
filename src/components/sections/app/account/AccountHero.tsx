@@ -6,9 +6,8 @@ import { getAvatarInitials } from "@/lib/utils/getAvatarInitials";
 import getFormattedDate from "@/lib/utils/getFormattedDate";
 import { AccountHeroType } from "@/types/account/account-hero.d";
 import { UserRole } from "@/types/users/user-role.d";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Typography } from "@/components/ui";
 import { useMemo, memo } from "react";
-import css from "@/styles/sections/admin/AccountHero.module.css";
 import AccountWrapper from "./AccountWrapper";
 import Promo from "@/components/shared/promo/Promo";
 
@@ -95,26 +94,27 @@ function AccountHero({
       alignTitle={alignTitle}
       titleSize={titleSize}
     >
-      <div className={css.heroImg}>
+      <div className="account-hero-img">
         <Avatar
           alt={username ?? fullName}
           src={clerkImg ?? undefined}
-          sx={{ width: 80, height: 80 }}
           {...avatarFallback}
         />
 
-        <div className={css.heroImgContent}>
+        <div className="account-hero-img-content">
           <Typography variant="h4">{`${firstName} ${lastName}`}</Typography>
           <Typography variant="body2">@{username}</Typography>
         </div>
       </div>
 
-      <div className={css.heroContent}>
+      <div className="account-hero-content">
         <Typography variant="h6">Details</Typography>
 
         <div className="flex gap-2 items-center">
           <span className="font-semibold leading-none">Role:</span>
-          <span className="capitalize leading-none">{userRole as UserRole}</span>
+          <span className="capitalize leading-none">
+            {userRole as UserRole}
+          </span>
         </div>
 
         <div className="flex gap-2 items-center">
@@ -128,7 +128,7 @@ function AccountHero({
         </div>
       </div>
 
-      <div className={css.heroPlan}>
+      <div className="account-hero-plan">
         <Promo role={role} userInfo={userInfo} />
       </div>
     </AccountWrapper>

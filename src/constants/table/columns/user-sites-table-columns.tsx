@@ -1,4 +1,4 @@
-import { GridColDef } from "@mui/x-data-grid";
+import { Column } from "@/components/ui";
 import { adminSitesTableColumns } from "./admin-sites-table-columns";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 
@@ -9,7 +9,7 @@ type UserSitesTableColumnsProps = {
 
 export const userSitesTableColumns = (
   props: UserSitesTableColumnsProps
-): GridColDef[] =>
+): Column[] =>
   adminSitesTableColumns({ ...props }).filter(
     (col) => col.field !== "user"
   );

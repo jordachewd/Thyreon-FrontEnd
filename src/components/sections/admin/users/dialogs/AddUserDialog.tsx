@@ -1,21 +1,12 @@
 "use client";
 
 import ErrorCard from "@/components/shared/ErrorCard";
-import {
-  CREATE_USER_MUTATION,
-  CreateUserMutationResponse,
-} from "@/constants/graphql/users/create-user.const";
 import { useAdminUi } from "@/components/layout/providers/AdminUiProvider";
 import { useAddUserDialogStore } from "@/lib/stores/users/useAddUserDialogStore";
 import { generatePassword } from "@/lib/utils/generate-password";
-import { useMutation } from "@apollo/client/react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
-import { useCallback } from "react";
+import { Dialog, DialogActions, DialogContent } from "@/components/ui";
+import { useCallback, useState } from "react";
+import { createUser } from "@/app/actions/users";
 import AdminAddNewFab from "../../shared/AdminAddNewFab";
 import DialogFooter from "../../shared/dialog/DialogFooter";
 import DialogHeader from "../../shared/dialog/DialogHeader";
@@ -27,31 +18,42 @@ export default function AddUserDialog() {
   const { open, formData, openDialog, closeDialog, setField } =
     useAddUserDialogStore();
 
-  const [createUser, { loading, error, reset }] = useMutation(
-    CREATE_USER_MUTATION,
-    {
-      onCompleted: (data) => {
-        const { createUser } = data as CreateUserMutationResponse;
-
-        updateAlert({
-          text: createUser.message,
-          severity: createUser.status,
-        });
-
-        closeDialog();
-      },
-    }
-  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
 
-      await createUser({
-        variables: { input: formData },
-      });
+      if (!formData.email || !formData.password) {
+        setError("Email and password are required");
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        const result = await createUser({
+          email: formData.email,
+          password: formData.password,
+          username: formData.username,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          role: formData.role,
+        });
+        updateAlert({
+          text: result.message,
+          severity: result.status,
+        });
+        closeDialog();
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to create user");
+      } finally {
+        setLoading(false);
+      }
     },
-    [createUser, formData]
+    [formData, updateAlert, closeDialog]
   );
 
   const handleInputChange = useCallback(
@@ -65,10 +67,10 @@ export default function AddUserDialog() {
   const handleCloseDialog = useCallback(
     (e?: React.MouseEvent | React.SyntheticEvent) => {
       if (e) e.preventDefault();
-      reset();
+      setError(null);
       closeDialog();
     },
-    [reset, closeDialog]
+    [closeDialog]
   );
 
   const handlePasswordGenerate = useCallback(() => {
@@ -80,18 +82,12 @@ export default function AddUserDialog() {
     <>
       <AdminAddNewFab execFn={openDialog} />
       <Dialog
-        maxWidth="sm"
-        fullWidth={true}
         open={open}
         onClose={() => handleCloseDialog()}
-        aria-labelledby="add-new-user-dialog-title"
       >
-        <DialogTitle id="add-new-user-dialog-title" sx={{ zIndex: 0 }}>
+        <DialogContent>
           <DialogHeader title="Add new user" onClose={handleCloseDialog} must />
-        </DialogTitle>
-
-        <DialogContent sx={{ paddingTop: "1rem!important" }}>
-          {error && <ErrorCard mini error={error.message} />}
+          {error && <ErrorCard mini error={error} onCloseMini={() => setError(null)} />}
           <AddUserForm
             data={formData}
             onChange={handleInputChange}
