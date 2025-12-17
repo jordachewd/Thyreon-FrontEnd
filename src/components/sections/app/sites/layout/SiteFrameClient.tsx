@@ -2,36 +2,33 @@
 
 import {
   SiteNavItemType,
-  SiteSlotKey,
 } from "@/constants/layout/sites-nav.const";
+import { GetSiteData } from "@/types/sites/get-site-data.d";
 import css from "@/styles/layout/admin/sites/SiteFrame.module.css";
 import { usePathname } from "next/navigation";
-import { useCallback } from "react";
+import { ReactNode, memo } from "react";
 import SiteFrameHeader from "./SiteFrameHeader";
 import SiteFrameSidebar from "./SiteFrameSidebar";
 
-export default function SiteFrame({
+function SiteFrameClient({
   tabs,
-  slots,
-  overview,
-  pageId,
+  site,
+  siteId,
+  children,
 }: {
   tabs: ReadonlyArray<SiteNavItemType>;
-  slots: Record<SiteSlotKey, React.ReactNode>;
-  overview: React.ReactNode;
-  pageId: string;
+  site: GetSiteData;
+  siteId: number;
+  children: ReactNode;
 }) {
   const pathname = usePathname();
-  const active = useCallback(() => {
-    const parts = pathname.replace(/\/+$/, "").split("/");
-    return parts[3] ?? null;
-  }, [pathname])();
-
-  const pagePath = `/sites/${pageId}`;
+  const parts = pathname.replace(/\/+$/, "").split("/");
+  const active = parts[3] ?? null;
+  const pagePath = `/sites/${siteId}`;
 
   return (
     <div className={css.wrapper}>
-      <SiteFrameHeader siteId={Number(pageId)} className={css.header} />
+      <SiteFrameHeader site={site} siteId={siteId} className={css.header} />
       <SiteFrameSidebar
         className={css.sidebar}
         tabs={tabs}
@@ -40,8 +37,10 @@ export default function SiteFrame({
       />
 
       <main className={css.content}>
-        {!active ? overview : slots[active as SiteSlotKey]}
+        {children}
       </main>
     </div>
   );
 }
+
+export default memo(SiteFrameClient);

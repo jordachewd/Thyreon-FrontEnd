@@ -2,12 +2,10 @@ import AdminFrame from "@/components/layout/admin/AdminFrame";
 import { adminNavItems } from "@/constants/layout/admin-nav.const";
 import { ReactNode } from "react";
 
-type AdminLayoutProps = {
+export default function AdminSectionLayout({
+  children,
+}: {
   children: ReactNode;
-  transactions: ReactNode;
-};
-
-export default function AdminSectionLayout(props: AdminLayoutProps) {
-  const { children, ...slots } = props;
-  return <AdminFrame tabs={adminNavItems} slots={slots} overview={children} />;
+}) {
+  return <AdminFrame tabs={adminNavItems}>{children}</AdminFrame>;
 }

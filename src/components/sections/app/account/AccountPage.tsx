@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { TransactionType } from "@/types/transactions/transaction.d";
 import { GetUserInfo } from "@/types/users/get-user-info.d";
@@ -16,7 +17,7 @@ type AccountPageProps = {
   error?: string;
 };
 
-export default function AccountPage({
+function AccountPage({
   userInfo,
   userTransactions,
   userSites,
@@ -55,3 +56,5 @@ export default function AccountPage({
     </>
   );
 }
+
+export default memo(AccountPage);

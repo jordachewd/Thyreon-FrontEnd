@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
 import {
   DELETE_SITES,
@@ -18,7 +19,7 @@ interface DeleteSiteBtnProps {
   onSuccess?: () => void;
 }
 
-export default function DeleteSiteBtn({
+function DeleteSiteBtn({
   sites,
   disabled = false,
   onSuccess,
@@ -88,3 +89,5 @@ export default function DeleteSiteBtn({
     </>
   );
 }
+
+export default memo(DeleteSiteBtn);

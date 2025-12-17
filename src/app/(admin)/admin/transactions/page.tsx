@@ -4,7 +4,7 @@ import TransactionsPage from "@/components/sections/admin/transactions/Transacti
 
 export const dynamic = "force-dynamic";
 
-export default function AdminSectionTransactionsPage() {
+export default function AdminTransactionsPage() {
   return (
     <PageWrapper className="gap-8">
       <PageHead title="All Transactions" alignTitle="left" />

@@ -1,5 +1,3 @@
-"use client";
-
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { Chip } from "@mui/material";
 import { GetSiteData } from "@/types/sites/get-site-data.d";

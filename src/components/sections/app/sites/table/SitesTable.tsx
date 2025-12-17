@@ -3,7 +3,7 @@
 import { DataGrid } from "@mui/x-data-grid/DataGrid";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
-import { useCallback, useState } from "react";
+import { useCallback, useState, memo } from "react";
 import { ToolbarSelectedIds } from "@/constants/table/toolbar/toolbar-selected-ids.const";
 import TableToolbar from "@/components/sections/admin/shared/table/TableToolbar";
 import DeleteSiteBtn from "./DeleteSiteBtn";
@@ -20,7 +20,7 @@ const selectedIdsInit: ToolbarSelectedIds = {
   ids: new Set<string | number>(),
 };
 
-export default function SitesTable({
+function SitesTable({
   sites,
   tableCols,
   isAdmin,
@@ -84,3 +84,5 @@ export default function SitesTable({
     </div>
   );
 }
+
+export default memo(SitesTable);

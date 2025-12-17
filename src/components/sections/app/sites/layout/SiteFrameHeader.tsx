@@ -1,59 +1,34 @@
 import ExternalLinkIcon from "@/components/layout/common/ExternalLinkIcon";
 import PageHead from "@/components/layout/common/PageHead";
-import ErrorCard from "@/components/shared/ErrorCard";
-import Skeleton from "@mui/material/Skeleton";
-import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
-import { useQuery } from "@apollo/client/react";
 import { Chip } from "@mui/material";
 
 type SiteFrameHeaderProps = {
+  site: GetSiteData;
   siteId: number;
   className?: string;
 };
 
 export default function SiteFrameHeader({
-  siteId,
+  site,
   className: style,
 }: SiteFrameHeaderProps) {
-  const { data, loading, error } = useQuery<{ siteById: GetSiteData }>(
-    GET_SITE_BY_ID,
-    {
-      variables: { id: Number(siteId) },
-    }
-  );
-
-  if (loading)
-    return (
-      <header className={style}>
-        <Skeleton animation="wave" width={280} height={44} />
-      </header>
-    );
-
-  if (error)
-    return (
-      <header className={style}>
-        <ErrorCard mini error={error.message} />
-      </header>
-    );
-
-  const siteData = data?.siteById as GetSiteData;
-  const status = siteData.status;
+  const status = site.status;
   const statusColor = status === "active" ? "success" : "error";
   const chipColor = status === "revoked" ? "primary" : statusColor;
 
   return (
     <header className={style}>
       <PageHead
-        title={siteData.siteName}
-        titleLink={siteData.domain}
+        title={site.siteName}
+        titleLink={site.domain}
         alignTitle="left"
       >
         <div className="flex flex-1 items-center gap-4">
           <Chip size="small" label={status} color={chipColor} />
           <ExternalLinkIcon
-            href={`https://${siteData.domain}`}
-            tooltip={`Go to ${siteData.domain}`}
+            href={`https://${site.domain}`}
+            tooltip={`Go to ${site.domain}`}
             rel="noopener noreferrer"
             target="_blank"
           />

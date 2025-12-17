@@ -1,5 +1,7 @@
 "use client";
 
+import { memo, Suspense } from "react";
+import dynamic from "next/dynamic";
 import PageHead from "@/components/layout/common/PageHead";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { TransactionType } from "@/types/transactions/transaction.d";
@@ -8,7 +10,11 @@ import { UserRole } from "@/types/users/user-role.d";
 import AccountBilling from "../../app/account/AccountBilling";
 import AccountHero from "../../app/account/AccountHero";
 import AccountSites from "../../app/account/AccountSites";
-import EditUserDialog from "./dialogs/EditUserDialog";
+
+const EditUserDialog = dynamic(
+  () => import("./dialogs/EditUserDialog"),
+  { ssr: false }
+);
 
 type UserPageProps = {
   userInfo: GetUserInfo;
@@ -18,7 +24,7 @@ type UserPageProps = {
   error?: string;
 };
 
-export default function UserPage({
+function UserPage({
   userInfo,
   userTransactions,
   userSites,
@@ -32,7 +38,9 @@ export default function UserPage({
   return (
     <>
       <PageHead title="User Details" alignTitle="left">
-        <EditUserDialog data={userInfo} />
+        <Suspense fallback={null}>
+          <EditUserDialog data={userInfo} />
+        </Suspense>
       </PageHead>
 
       <AccountHero
@@ -64,3 +72,5 @@ export default function UserPage({
     </>
   );
 }
+
+export default memo(UserPage);

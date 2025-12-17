@@ -1,6 +1,6 @@
 import { sitesNavSlots } from "./sites-nav-slots.const";
 
-export type SiteSlotKey = keyof typeof sitesNavSlots;
+type SiteSlotKey = keyof typeof sitesNavSlots;
 export type SiteNavItemType = { slug: SiteSlotKey; label: string };
 
 export const sitesNavItems: ReadonlyArray<SiteNavItemType> = [

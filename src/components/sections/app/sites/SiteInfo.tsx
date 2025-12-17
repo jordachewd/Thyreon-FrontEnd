@@ -8,10 +8,12 @@ import { GET_SITE_BY_ID } from "@/constants/graphql/sites/get-site-by-id.const";
 import { GetSiteData } from "@/types/sites/get-site-data.d";
 import { useQuery } from "@apollo/client/react";
 import { Alert, IconButton } from "@mui/material";
-import { useState, useCallback } from "react";
+import { useState, useCallback, Suspense } from "react";
+import dynamic from "next/dynamic";
 import AdminAddNewFab from "../../admin/shared/AdminAddNewFab";
-import ApiKeyDialog from "./dialogs/ApiKeyDialog";
-import EditSiteDialog from "./dialogs/EditSiteDialog";
+
+const ApiKeyDialog = dynamic(() => import("./dialogs/ApiKeyDialog"), { ssr: false });
+const EditSiteDialog = dynamic(() => import("./dialogs/EditSiteDialog"), { ssr: false });
 
 interface SiteInfoProps {
   siteId: number;
@@ -43,18 +45,22 @@ export default function SiteInfo({ siteId }: SiteInfoProps) {
 
   return (
     <>
-      <ApiKeyDialog
-        open={!!newKeyForSite}
-        siteData={newKeyForSite}
-        onClose={() => setNewKeyForSite(undefined)}
-      />
+      <Suspense fallback={null}>
+        <ApiKeyDialog
+          open={!!newKeyForSite}
+          siteData={newKeyForSite}
+          onClose={() => setNewKeyForSite(undefined)}
+        />
+      </Suspense>
 
-      <EditSiteDialog
-        open={!!editSite}
-        siteData={editSite}
-        onClose={() => setEditSite(undefined)}
-        refetchQuery={[GET_SITE_BY_ID, "GetSiteById"]}
-      />
+      <Suspense fallback={null}>
+        <EditSiteDialog
+          open={!!editSite}
+          siteData={editSite}
+          onClose={() => setEditSite(undefined)}
+          refetchQuery={[GET_SITE_BY_ID, "GetSiteById"]}
+        />
+      </Suspense>
 
       <PageHead title="Site Info" alignTitle="left" size="h5">
         <div className="flex flex-1 justify-end items-center gap-4">

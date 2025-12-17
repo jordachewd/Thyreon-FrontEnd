@@ -8,7 +8,7 @@ import {
   GridRowSelectionModel,
   DataGrid,
 } from "@mui/x-data-grid";
-import { useState, useCallback } from "react";
+import { useState, useCallback, memo } from "react";
 import TableToolbar from "../../shared/table/TableToolbar";
 import DeleteUserBtn from "./DeleteUserBtn";
 import { usersTableColumns } from "@/constants/table/columns/users-table-columns";
@@ -22,7 +22,7 @@ const selectedIdsInit: ToolbarSelectedIds = {
   ids: new Set<string | number>(),
 };
 
-export default function AllUsersTable({ data }: UsersTable) {
+function AllUsersTable({ data }: UsersTable) {
   const columns = usersTableColumns();
   
   const [selectedIds, setSelectedIds] =
@@ -87,3 +87,5 @@ export default function AllUsersTable({ data }: UsersTable) {
     </div>
   );
 }
+
+export default memo(AllUsersTable);

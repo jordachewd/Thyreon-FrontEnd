@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
 import {
   DELETE_USERS,
@@ -15,7 +16,7 @@ interface DeleteUserButtonProps {
   onSuccess?: () => void;
 }
 
-export default function DeleteUserBtn({
+function DeleteUserBtn({
   users,
   disabled = false,
   onSuccess,
@@ -73,3 +74,5 @@ export default function DeleteUserBtn({
     </>
   );
 }
+
+export default memo(DeleteUserBtn);

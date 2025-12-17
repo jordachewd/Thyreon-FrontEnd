@@ -1,11 +1,12 @@
 "use client";
 
+import { memo } from "react";
 import ErrorCard from "@/components/shared/ErrorCard";
 import useTransactionsTable from "@/lib/hooks/transactions/useTransactionsTable";
 import { transactionsTableColumns as columns } from "@/constants/table/columns/transactions-table-columns";
 import { DataGrid } from "@mui/x-data-grid/DataGrid";
 
-export default function TransactionsPage() {
+function TransactionsPage() {
   const { loading, error, transactions } = useTransactionsTable();
 
   if (error) return <ErrorCard error={error.message} />;
@@ -40,3 +41,5 @@ export default function TransactionsPage() {
     </div>
   );
 }
+
+export default memo(TransactionsPage);

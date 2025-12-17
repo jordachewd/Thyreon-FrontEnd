@@ -2,7 +2,6 @@
 
 import {
   AdminNavItemType,
-  AdminSlotKey,
 } from "@/constants/layout/admin-nav.const";
 import { getActivePath } from "@/lib/utils/getActivePath";
 import Link from "next/link";
@@ -12,12 +11,10 @@ import { ReactNode } from "react";
 
 export default function AdminFrame({
   tabs,
-  slots,
-  overview,
+  children,
 }: {
   tabs: ReadonlyArray<AdminNavItemType>;
-  slots: Record<AdminSlotKey, ReactNode>;
-  overview: ReactNode;
+  children: ReactNode;
 }) {
   const pathname = usePathname();
   const active = getActivePath(pathname);
@@ -50,7 +47,7 @@ export default function AdminFrame({
       </aside>
 
       <main className={css.content}>
-        {!active ? overview : slots[active as AdminSlotKey]}
+        {children}
       </main>
     </div>
   );

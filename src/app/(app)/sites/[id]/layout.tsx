@@ -1,29 +1,32 @@
-"use client";
-
-import SiteFrame from "@/components/sections/app/sites/layout/SiteFrame";
+import SiteFrameClient from "@/components/sections/app/sites/layout/SiteFrameClient";
 import { sitesNavItems } from "@/constants/layout/sites-nav.const";
-import { useParams } from "next/navigation";
+import getSiteById from "@/lib/actions/sites/get-site-by-id";
+import { ReactNode } from "react";
+import { notFound } from "next/navigation";
 
-type SitesLayoutProps = {
-  children: React.ReactNode;
-  info: React.ReactNode;
-  health: React.ReactNode;
-  reports: React.ReactNode;
-  backups: React.ReactNode;
-  security: React.ReactNode;
-  updates: React.ReactNode;
-  settings: React.ReactNode;
-};
+export default async function SiteLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const siteId = Number(id);
 
-export default function AppSiteLayout(props: SitesLayoutProps) {
-  const { children, ...slots } = props;
-  const { id } = useParams<{ id: string }>();
+  if (isNaN(siteId)) {
+    notFound();
+  }
+
+  const { success, site } = await getSiteById(siteId);
+
+  if (!success || !site) {
+    notFound();
+  }
+
   return (
-    <SiteFrame
-      tabs={sitesNavItems}
-      slots={slots}
-      overview={children}
-      pageId={id}
-    />
+    <SiteFrameClient tabs={sitesNavItems} site={site} siteId={siteId}>
+      {children}
+    </SiteFrameClient>
   );
 }
