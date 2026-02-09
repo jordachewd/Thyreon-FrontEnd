@@ -88,6 +88,39 @@ This is the frontend application for the WPGuard platform, providing:
 
 ---
 
+## ⚙️ Environment Variables
+
+Create a `.env.local` file in the project root with the following variables:
+
+```env
+# App
+NODE_ENV=development
+
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CLERK_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+# Backend API
+NEXT_PUBLIC_BACKEND_URL=http://localhost:3001
+NEXT_PUBLIC_GRAPHQL_API_URL=http://localhost:3001/graphql
+```
+
+| Variable | Description |
+|----------|-------------|
+| `NODE_ENV` | Application environment (`development`, `production`) |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk publishable key (from [Clerk Dashboard](https://dashboard.clerk.com)) |
+| `CLERK_SECRET_KEY` | Clerk secret key (server-side only) |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_URL` | Sign-in page route |
+| `NEXT_PUBLIC_CLERK_SIGN_UP_URL` | Sign-up page route |
+| `NEXT_PUBLIC_BACKEND_URL` | WPGuard backend REST API base URL |
+| `NEXT_PUBLIC_GRAPHQL_API_URL` | WPGuard backend GraphQL endpoint |
+
+> ⚠️ Never commit `.env.local` to version control. The `.gitignore` should already exclude it.
+
+---
+
 ## 📝 License
 
 This project is licensed under the **GNU General Public License v3.0 or later**.
