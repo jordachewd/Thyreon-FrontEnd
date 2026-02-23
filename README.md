@@ -1,6 +1,6 @@
-# 🛡️ WPGuard Frontend
+# 🛡️ Thyreion FrontEnd
 
-**WPGuard Frontend** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
+**Thyreion** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
 
 ---
 
@@ -12,14 +12,14 @@
 
 ## 🎯 Overview
 
-This is the frontend application for the WPGuard platform, providing:
+This is the frontend application for the Thyreion platform, providing:
 
 - **User Interface** for managing multiple WordPress sites
 - **Dashboard** with real-time monitoring and analytics
 - **Authentication** via Clerk (OAuth, magic links, email/password)
 - **Role-Based Access Control** (Admin, Premium, Pro, Lite)
 - **Subscription Management** with Stripe integration
-- **GraphQL Integration** with the WPGuard backend API
+- **GraphQL Integration** with the Thyreion backend API
 
 ### Related Repositories
 

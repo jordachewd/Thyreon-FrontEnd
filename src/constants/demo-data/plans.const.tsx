@@ -5,7 +5,7 @@ export const plans = [
     id: 0,
     price: 0,
     name: "lite" as PlanName,
-    desc: "Perfect for trying WP Care on one site. Includes basic automation to keep your site online and updated.",
+    desc: "Perfect for trying on one site. Includes basic automation to keep your site online and updated.",
     features: [
       {
         label: "1 website",

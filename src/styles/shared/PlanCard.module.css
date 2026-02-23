@@ -41,7 +41,7 @@
 }
 
 .subtitle {
-  @apply flex w-full !text-xs pl-0.5 min-h-12 opacity-80;
+  @apply flex w-full text-xs! pl-0.5 min-h-12 opacity-80;
 }
 
 .priceBox {
@@ -49,12 +49,12 @@
 }
 
 .price {
-  @apply flex !leading-none;
+  @apply flex leading-none!;
 }
 
 .planBadge {
   @apply flex bg-orange-600 text-white leading-none shadow-md uppercase;
-  @apply text-[8px] font-bold absolute top-3.5 -left-8 p-1.5 px-8 -rotate-45 tracking-widest;
+  @apply text2xs font-bold absolute top-3.5 -left-8 p-1.5 px-8 -rotate-45 tracking-widest;
 }
 
 .current .planBadge {

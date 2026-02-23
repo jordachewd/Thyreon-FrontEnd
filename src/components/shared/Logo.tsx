@@ -48,7 +48,7 @@ export default function Logo({
       {fullLogo ? (
         <div className="flex items-center gap-2">
           {symbolLogo}
-          {textLogo}
+          {textLogo} (Thyreion) 
         </div>
       ) : (
         <>
