@@ -1,6 +1,6 @@
-# 🛡️ Thyreion Frontend
+# 🛡️ Thyreion FrontEnd
 
-**Thyreion Frontend** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
+**Thyreion** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
 
 ---
 
