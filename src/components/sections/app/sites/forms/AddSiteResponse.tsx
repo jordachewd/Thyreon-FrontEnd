@@ -20,7 +20,7 @@ function AddSiteResponse({ apiKey, onResponse }: AddSiteResponseProps) {
 
       <Button variant="outlined">Download WP Guard Client</Button>
 
-      <Typography variant="body2" className="!my-4">
+      <Typography variant="body2" className="my-4!">
         If the plugin is already installed on your WordPress website, copy and
         paste the below API key into your plugin's settings page.
       </Typography>

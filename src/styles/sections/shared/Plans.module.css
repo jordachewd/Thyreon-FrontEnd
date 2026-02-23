@@ -26,7 +26,7 @@
 }
 
 .switched {
-  @apply !opacity-100 !text-vanilla-800;
+  @apply opacity-100! text-vanilla-800!;
 }
 
 .plans {

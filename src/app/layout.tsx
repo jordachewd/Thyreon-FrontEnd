@@ -18,9 +18,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "WPGuard | Maintenance & Monitoring",
+  title: "Thyreion | WordPress Maintenance Made Easy",
   description:
-    "Keep your WordPress website fast, secure, and up-to-date with WPGuard. " +
+    "Keep your WordPress website fast, secure, and up-to-date with Thyreion. " +
     "Automated checks, smart alerts, and effortless fixes—so your site runs smooth, always.",
 };
 

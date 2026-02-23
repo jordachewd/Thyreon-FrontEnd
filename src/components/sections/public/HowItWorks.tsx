@@ -11,7 +11,7 @@ export default function HowItWorks() {
           <PageHead
             alignTitle="left"
             title="How It Works"
-            subtitle="WP Guard is designed to be user-friendly and effective. Here's how you can get started with our service:"
+            subtitle="Thyreion is designed to be user-friendly and effective. Here's how you can get started with our service:"
           />
 
           <div className={css.steps}>
@@ -23,7 +23,7 @@ export default function HowItWorks() {
                 <Typography variant="h6">Sign Up & Install Plugin</Typography>
                 <Typography variant="body2">
                   Create an account on our website and install the{" "}
-                  <b>WP Guard Client</b> on your WordPress site.
+                  <b>Thyreion Client</b> on your WordPress site.
                 </Typography>
               </div>
             </div>
@@ -48,7 +48,7 @@ export default function HowItWorks() {
               <div className={css.details}>
                 <Typography variant="h6">Enjoy Peace of Mind</Typography>
                 <Typography variant="body2">
-                  Sit back and relax while WP Guard protects your site from
+                  Sit back and relax while <b>Thyreion</b> protects your site from
                   threats.
                 </Typography>
               </div>

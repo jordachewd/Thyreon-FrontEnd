@@ -1,9 +1,9 @@
 export const faqs = [
   {
     id: 0,
-    question: "What is WP Guard and how does it work?",
+    question: "What is Thyreion and how does it work?",
     answer:
-      "WP Guard is a WordPress maintenance platform that monitors your site 24/7, performs automated backups and updates," +
+      "Thyreion is a WordPress maintenance platform that monitors your site 24/7, performs automated backups and updates," +
       "and keeps it secure and optimized—without any manual work on your part.",
   },
   {
@@ -18,21 +18,21 @@ export const faqs = [
     question: "How do automatic updates work?",
     answer:
       "Our agent plugin safely updates your WordPress core, plugins, and themes. " +
-      " It takes a snapshot before updating, and can alert you or roll back if something breaks.",
+      "It takes a snapshot before updating, and can alert you or roll back if something breaks.",
   },
   {
     id: 3,
     question: "Is the Lite plan really free?",
     answer:
       "Yes. The Lite plan is free for one site, forever. " +
-      "It includes uptime monitoring and automatic updates so you can test WP Guard with no commitment.",
+      "It includes uptime monitoring and automatic updates so you can test Thyreion with no commitment.",
   },
   {
     id: 4,
     question: "Where are backups stored and how secure are they?",
     answer:
-      "Backups are encrypted and stored in a secure cloud location (AWS S3 or similar)." +
-      " You'll be able to download or restore them directly from your dashboard.",
+      "Backups are encrypted and stored in a secure cloud location (AWS S3 or similar). " +
+      "You'll be able to download or restore them directly from your dashboard.",
   },
   {
     id: 5,
@@ -43,14 +43,14 @@ export const faqs = [
   },
   {
     id: 6,
-    question: "Can I use WP Guard on client websites?",
+    question: "Can I use Thyreion on client websites?",
     answer:
       "Yes. Our Pro and Premium plans support multiple sites, making them ideal " +
       "for freelancers and agencies managing client WordPress installs.",
   },
   {
     id: 7,
-    question: "What if I deactivate the WP Guard plugin?",
+    question: "What if I deactivate the Thyreion plugin?",
     answer:
       "If you uninstall or deactivate the plugin, your site will no longer receive updates, " +
       "monitoring, or backups. You'll see it marked as “Inactive” in the dashboard.",
