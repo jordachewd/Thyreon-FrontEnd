@@ -1,9 +1,9 @@
 {
-  "name": "wpguard-frontent",
+  "name": "thyreon-frontend",
   "version": "1.0.0",
   "private": true,
   "author": "JWD",
-  "description": "Frontend for Thyreion WP",
+  "description": "Frontend for Thyreon, a monitoring and alerting system for WordPress websites.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

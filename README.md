@@ -1,25 +1,25 @@
-# 🛡️ Thyreion FrontEnd
+# 🛡️ Thyreon FrontEnd
 
-**Thyreion** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
+**Thyreon** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
 
 ---
 
 ## 🌐 Live Demo
 
-> **[wpguard.vercel.app](https://wpguard.vercel.app/)**
+> **[thyreon.vercel.app](https://thyreon.vercel.app)**
 
 ---
 
 ## 🎯 Overview
 
-This is the frontend application for the Thyreion platform, providing:
+This is the frontend application for the Thyreon platform, providing:
 
 - **User Interface** for managing multiple WordPress sites
 - **Dashboard** with real-time monitoring and analytics
 - **Authentication** via Clerk (OAuth, magic links, email/password)
 - **Role-Based Access Control** (Admin, Premium, Pro, Lite)
 - **Subscription Management** with Stripe integration
-- **GraphQL Integration** with the Thyreion backend API
+- **GraphQL Integration** with the Thyreon backend API
 
 ### Related Repositories
 
@@ -30,21 +30,21 @@ This is the frontend application for the Thyreion platform, providing:
 
 ## 📦 Tech Stack
 
-| Category           | Technology                                    |
-|--------------------|-----------------------------------------------|
-| **Framework**      | Next.js 16 (App Router)                       |
-| **Language**       | TypeScript 5.7+                               |
-| **Authentication** | Clerk (JWT sessions, RBAC)                    |
-| **GraphQL Client** | Apollo Client 4.0                             |
-| **UI Framework**   | Material-UI (MUI) 7.2                         |
-| **Styling**        | Tailwind CSS 4.1 + Emotion + Styled Components|
-| **Icons**          | Bootstrap Icons                               |
-| **State**          | Zustand + Apollo Cache                        |
-| **Real-time**      | Socket.IO Client                              |
-| **Forms**          | React Hook Form / Native                      |
+| Category           | Technology                                     |
+| ------------------ | ---------------------------------------------- |
+| **Framework**      | Next.js 16 (App Router)                        |
+| **Language**       | TypeScript 5.7+                                |
+| **Authentication** | Clerk (JWT sessions, RBAC)                     |
+| **GraphQL Client** | Apollo Client 4.0                              |
+| **UI Framework**   | Material-UI (MUI) 7.2                          |
+| **Styling**        | Tailwind CSS 4.1 + Emotion + Styled Components |
+| **Icons**          | Bootstrap Icons                                |
+| **State**          | Zustand + Apollo Cache                         |
+| **Real-time**      | Socket.IO Client                               |
+| **Forms**          | React Hook Form / Native                       |
 
 **[Backend:](https://github.com/jordachewd/WPGuard-BackEnd)** NestJS with GraphQL, PostgreSQL, and Prisma  
-**[WordPress Plugin:](https://github.com/jordachewd/WPGuard-Client)** PHP client plugin for site integration 
+**[WordPress Plugin:](https://github.com/jordachewd/WPGuard-Client)** PHP client plugin for site integration
 
 ---
 
@@ -62,6 +62,7 @@ This is the frontend application for the Thyreion platform, providing:
 ### Dashboard Features
 
 **Admin Panel:**
+
 - User management (view, create, update, delete)
 - Site management and monitoring
 - Transaction history and analytics
@@ -69,6 +70,7 @@ This is the frontend application for the Thyreion platform, providing:
 - Charts and visualizations (MUI X-Charts)
 
 **User Panel:**
+
 - Personal site overview
 - Site settings and configuration
 - Notifications and alerts
@@ -85,14 +87,6 @@ This is the frontend application for the Thyreion platform, providing:
 - ✅ **Form Validation** – Client-side validation with React Hook Form
 - ✅ **Error Handling** – Comprehensive error boundaries and user feedback
 - ✅ **SEO Optimized** – Meta tags, Open Graph, and structured data
-
----
-
-## 📝 License
-
-This project is licensed under the **GNU General Public License v3.0 or later**.
-
-See [LICENSE](LICENSE) for more information.
 
 ---
 
