@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-> **[thyreon.vercel.app](https://thyreon.vercel.app)**
+> **[thyreon.jwd-apps.com](https://thyreon.jwd-apps.com)**
 
 ---
 
@@ -47,77 +47,6 @@ This is the front-end application for the Thyreon platform, providing:
 | **Payments**       | Stripe.js                                    |
 | **Linting**        | ESLint 9 + typescript-eslint                 |
 | **Dead Code**      | Knip                                         |
-
----
-
-## Project Structure
-
-```
-src/
-  app/
-    (public)/          # Landing page, sign-in, sign-up
-    (app)/             # Authenticated user area (dashboard, sites, plans, account, ...)
-    (admin)/           # Admin area (admin panel, transactions)
-    401/ / 404/        # Error pages
-    layout.tsx         # Root layout (Clerk + MUI + Apollo providers)
-  components/
-    layout/            # Admin frame, sidebar, header, providers, wrappers
-    sections/          # Feature sections (admin, app, public, common)
-    shared/            # Reusable UI (Logo, PlanCard, CheckoutBtn, ToggleTheme, ...)
-  constants/
-    api/               # API URL and environment constants
-    graphql/           # All GraphQL queries and mutations (sites, users, transactions)
-    layout/            # Navigation config, Clerk appearance, sidebar slots
-    demo-data/         # Demo/seed data for development
-    sites/ / users/    # Field definitions and defaults
-    table/             # Data grid column definitions and toolbar config
-  context/
-    AdminAuthContext    # Role-based auth state (isAdmin, isPro, isPremium, isLite)
-    AdminUiContext      # Sidebar toggle and alert message state
-  lib/
-    actions/           # Server actions (checkout, user fetching)
-    api/               # Apollo Client, Clerk auth headers, GraphQL fetcher, POST utility
-    hooks/             # Custom hooks (sites, users, plans, sockets, transactions)
-    stores/            # Zustand stores (dialog state, page state for sites and users)
-    utils/             # Helpers (password gen, date formatting, avatar initials, ...)
-  styles/              # CSS modules (layout, sections, shared)
-  themes/              # MUI theme config (palette light/dark, components, base)
-  types/               # TypeScript type definitions (account, layout, plans, sites, users, ...)
-```
-
----
-
-## Routes
-
-### Public
-
-| Path       | Description                                            |
-| ---------- | ------------------------------------------------------ |
-| `/`        | Landing page (Hero, Features, HowItWorks, Plans, FAQs) |
-| `/sign-in` | Clerk sign-in                                          |
-| `/sign-up` | Clerk sign-up                                          |
-
-### App (authenticated)
-
-| Path             | Description                                                                                                |
-| ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| `/dashboard`     | User dashboard                                                                                             |
-| `/sites`         | Sites list with data table                                                                                 |
-| `/sites/[id]`    | Single site view with tabbed parallel routes (Info, Health, Reports, Backups, Security, Updates, Settings) |
-| `/account`       | Account overview (hero, billing, sites)                                                                    |
-| `/plans`         | Subscription plans                                                                                         |
-| `/notifications` | User notifications                                                                                         |
-| `/settings`      | App settings and theme toggle                                                                              |
-| `/faqs`          | Frequently asked questions                                                                                 |
-| `/users`         | User management (admin-visible)                                                                            |
-| `/users/[id]`    | Single user detail                                                                                         |
-
-### Admin
-
-| Path                  | Description                    |
-| --------------------- | ------------------------------ |
-| `/admin`              | Admin panel with tabbed layout |
-| `/admin/transactions` | All transactions table         |
 
 ---
 
