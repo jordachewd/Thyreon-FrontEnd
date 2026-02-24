@@ -8,7 +8,7 @@ export default function Hero() {
     <div className={css.section}>
       <div className={css.content}>
         <div className={css.left}>
-          <Typography variant="h2">WordPress Maintenance Made Easy</Typography>
+          <Typography variant="h2">Maintenance Made Easy</Typography>
 
           <Typography variant="h5">
             Keep your WordPress site secure and up-to-date with automated
@@ -28,7 +28,7 @@ export default function Hero() {
 
         <div className={css.right}>
           <Image
-            src="/images/wpguard-lp-hero.png"
+            src="/images/home-hero.png"
             alt="hero"
             width={700}
             height={700}

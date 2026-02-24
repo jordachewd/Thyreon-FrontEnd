@@ -89,7 +89,7 @@ export default function DeleteSiteDialog({
         <FormGroup>
           <FormControlLabel
             control={<Checkbox defaultChecked size="small" />}
-            label="Automatically uninstall WP Guard Client plugin from my site."
+            label="Automatically uninstall Thyreon WP Client plugin from my site."
             sx={{
               "& .MuiFormControlLabel-label": {
                 fontSize: "0.875rem;",

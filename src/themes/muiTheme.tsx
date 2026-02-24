@@ -8,7 +8,7 @@ import { muiPaletteLight } from "./muiPaletteLight";
 
 const muiTheme = createTheme({
   cssVariables: {
-    colorSchemeSelector: "data-wpguard-theme",
+    colorSchemeSelector: "data-thyreon-theme",
   },
   colorSchemes: {
     light: muiPaletteLight,

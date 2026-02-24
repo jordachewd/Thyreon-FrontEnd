@@ -52,7 +52,7 @@
 }
 
 /* Custom dark mode variant */
-@variant dark (&:is([data-wpguard-theme="dark"] *));
+@variant dark (&:is([data-thyreon-theme="dark"] *));
 
 body {
   scroll-behavior: smooth;
@@ -63,7 +63,7 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-[data-wpguard-theme="dark"] body {
+[data-thyreon-theme="dark"] body {
   background-color: theme(colors.midnight.800);
 }
 
