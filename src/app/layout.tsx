@@ -18,9 +18,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Thyreion | WordPress Maintenance Made Easy",
+  title: "Thyreon | WordPress Maintenance Made Easy",
   description:
-    "Keep your WordPress website fast, secure, and up-to-date with Thyreion. " +
+    "Keep your WordPress website fast, secure, and up-to-date with Thyreon. " +
     "Automated checks, smart alerts, and effortless fixes—so your site runs smooth, always.",
 };
 
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
         <body>
           <AppRouterCacheProvider>
-            <InitColorSchemeScript attribute="data-wpguard-theme" />
+            <InitColorSchemeScript attribute="data-thyreon-theme" />
             <WPGuardProvider>{children}</WPGuardProvider>
           </AppRouterCacheProvider>
         </body>

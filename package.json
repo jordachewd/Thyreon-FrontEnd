@@ -1,9 +1,9 @@
 {
-  "name": "wpguard-frontent",
+  "name": "thyreon-frontend",
   "version": "1.0.0",
   "private": true,
   "author": "JWD",
-  "description": "Frontend for Thyreion WP",
+  "description": "Frontend for Thyreon, a monitoring and alerting system for WordPress websites.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,7 +24,6 @@
     "@mui/x-charts": "^8.10.1",
     "@mui/x-data-grid": "^8.6.0",
     "@stripe/stripe-js": "^8.5.3",
-    "tailwindcss": "^4.1.11",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
@@ -32,12 +31,13 @@
     "@typescript-eslint/parser": "^8.37.0",
     "bootstrap-icons": "^1.11.3",
     "graphql": "^16.11.0",
-    "next": "16.0.10",
+    "next": "^16.1.6",
     "postcss": "^8.5.6",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "socket.io-client": "^4.8.1",
     "styled-components": "^6.1.14",
+    "tailwindcss": "^4.1.11",
     "zustand": "^5.0.7"
   },
   "devDependencies": {
@@ -45,7 +45,6 @@
     "@next/eslint-plugin-next": "^16.0.8",
     "@types/classnames": "^2.3.0",
     "@types/node": "^25.0.0",
-    "baseline-browser-mapping": "^2.8.32",
     "eslint": "^9.31.0",
     "globals": "^16.3.0",
     "knip": "^5.61.3",
