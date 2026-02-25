@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Thyreon](public/images/home-hero--640x465.png)
+![Thyreon](public/images/home-hero--480x480.png)
 
 _WordPress Maintenance Made Easy_
 
