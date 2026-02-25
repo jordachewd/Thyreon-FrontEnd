@@ -29,8 +29,8 @@ This is the front-end application for the Thyreon platform, providing:
 
 ### Related Repositories
 
-- **[Back-End API](https://github.com/jordachewd/WPGuard-BackEnd)** -- NestJS server with GraphQL, PostgreSQL, and Prisma
-- **[WordPress Plugin](https://github.com/jordachewd/WPGuard-Client)** -- Client plugin for WordPress sites
+- **[Thyreon BackEnd](https://github.com/jordachewd/Thyreon-BackEnd)** -- NestJS server with GraphQL, PostgreSQL, and Prisma
+- **[Thyreon WP-Client](https://github.com/jordachewd/Thyreon-WP-Client)** -- Client plugin for WordPress sites
 
 ---
 
