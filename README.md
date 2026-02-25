@@ -1,16 +1,22 @@
-# Thyreon Front-End
+# Thyreon
 
-**Thyreon** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
+<div align="center">
 
----
+![Thyreon](public/images/home-hero--480x480.png)
 
-## Live Demo
+_WordPress Maintenance Made Easy_
 
-> **[thyreon.jwd-apps.com](https://thyreon.jwd-apps.com)**
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://thyreon.jwd-apps.com)
+
+</div>
 
 ---
 
 ## Overview
+
+**Thyreon** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
+
+---
 
 This is the front-end application for the Thyreon platform, providing:
 
@@ -82,42 +88,6 @@ This is the front-end application for the Thyreon platform, providing:
 - **State Management** -- Zustand stores for dialog and page-level state; Apollo in-memory cache for server data
 - **Role-Based Access** -- `AdminAuthContext` provides role flags (`isAdmin`, `isPremium`, `isPro`, `isLite`) across the component tree
 - **Type Safety** -- Strict TypeScript config with `noUnusedLocals` and `noUnusedParameters` enabled
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 20+
-- npm or yarn
-
-### Environment Variables
-
-| Variable                             | Description               |
-| ------------------------------------ | ------------------------- |
-| `NEXT_PUBLIC_GRAPHQL_API_URL`        | Back-end GraphQL endpoint |
-| `NEXT_PUBLIC_API_URL`                | Back-end REST base URL    |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`  | Clerk publishable key     |
-| `CLERK_SECRET_KEY`                   | Clerk secret key          |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key    |
-
-### Install and Run
-
-```bash
-npm install
-npm run dev
-```
-
-### Available Scripts
-
-| Script          | Description              |
-| --------------- | ------------------------ |
-| `npm run dev`   | Start development server |
-| `npm run build` | Production build         |
-| `npm run start` | Start production server  |
-| `npm run lint`  | Run ESLint               |
-| `npm run knip`  | Detect unused code       |
 
 ---
 
