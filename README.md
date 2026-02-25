@@ -1,12 +1,18 @@
-# Thyreon Front-End
+# Thyreon
 
-**Thyreon** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
+<div align="center">
+
+![Thyreon](public/images/home-hero.png)
+
+_WordPress Maintenance Made Easy_
+
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://thyreon.jwd-apps.com)
+
+</div>
 
 ---
 
-## Live Demo
-
-> **[thyreon.jwd-apps.com](https://thyreon.jwd-apps.com)**
+**Thyreon** is a Next.js-based web application that provides a centralized dashboard for WordPress site management. Built for freelancers, agencies, and site owners, it offers an intuitive interface to monitor, maintain, and secure multiple WordPress installations.
 
 ---
 
