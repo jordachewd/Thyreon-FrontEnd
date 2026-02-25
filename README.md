@@ -27,11 +27,6 @@ This is the front-end application for the Thyreon platform, providing:
 - **Subscription Management** with Stripe integration
 - **GraphQL Integration** with the Thyreon back-end API
 
-### Related Repositories
-
-- **[Thyreon BackEnd](https://github.com/jordachewd/Thyreon-BackEnd)** -- NestJS server with GraphQL, PostgreSQL, and Prisma
-- **[Thyreon WP-Client](https://github.com/jordachewd/Thyreon-WP-Client)** -- Client plugin for WordPress sites
-
 ---
 
 ## Tech Stack
