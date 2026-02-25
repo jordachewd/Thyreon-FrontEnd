@@ -6,7 +6,7 @@
 
 _WordPress Maintenance Made Easy_
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://thyreon.jwd-apps.com)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://thyreon.jwd-apps.com){:target="_blank"}
 
 </div>
 
